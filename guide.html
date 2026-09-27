@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Игровой Гайд & База Знаний</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #030712;
+            color: #f3f4f6;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #0f172a;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Glowing accents */
+        .glow-amber {
+            box-shadow: 0 0 25px -5px rgba(245, 158, 11, 0.25);
+        }
+        .glow-indigo {
+            box-shadow: 0 0 25px -5px rgba(99, 102, 241, 0.25);
+        }
+        .glow-cyan {
+            box-shadow: 0 0 25px -5px rgba(6, 182, 212, 0.25);
+        }
+
+        /* Hide scrollbars for navigation tabs */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(168, 85, 247, 0.2));
+            border-color: #06b6d4;
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.25);
+        }
+
+        /* Rarity classes */
+        .rarity-common { color: #cacaca; border-color: #929090; }
+        .rarity-uncommon { color: #e0c69d; border-color: #be8f43; }
+        .rarity-rare { color: #b5e05c; border-color: #80a040; }
+        .rarity-epic { color: #45c4ff; border-color: #2c83ab; }
+        .rarity-legendary { color: #ffdd61; border-color: #b18d0a; }
+        .rarity-mythic { color: #a288f2; border-color: #715bb4; }
+        .rarity-artifact { color: #49a872; border-color: #337550; }
+        .rarity-ancient { color: #5166cd; border-color: #364694; }
+        .rarity-immortal { color: #e55e5f; border-color: rgb(173, 83, 19); }
+        .rarity-divine { color: #ffd75f; border-color: rgb(154, 118, 11); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-amber-500 selection:text-slate-950">
+
+    <header class="bg-slate-950/80 border-b border-slate-800/80 sticky top-0 z-30 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-amber-300 flex items-center justify-center shadow-lg shadow-amber-500/20 text-slate-950 font-black text-xl">
+                    <i class="fa-solid fa-gamepad"></i>
+                </div>
+                <div>
+                    <span class="font-extrabold text-xl tracking-tight bg-gradient-to-r from-white via-slate-200 to-amber-400 bg-clip-text text-transparent">
+                        Dungeon Rush - Information & Guides
+                    </span>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-3 text-xs">
+                <span class="hidden sm:inline-flex items-center px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-400">
+                    <i class="fa-solid fa-code-branch text-amber-400 mr-1.5"></i> Last Update: 27.09.2026
+                </span>
+                <button onclick="scrollToTop()" class="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition" title="Наверх">
+                    <i class="fa-solid fa-arrow-up"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+
+        <!-- Hero Banner with Credits -->
+        <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 p-6 sm:p-10 border border-slate-800 shadow-2xl glow-indigo">
+            <div class="relative z-10">
+                <div class="flex flex-wrap items-center gap-2 mb-3">
+                    <span class="px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 text-xs font-semibold">
+                        <i class="fa-solid fa-shield-halved mr-1"></i> НЕофициальный Справочник
+                    </span>
+                </div>
+                <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
+                    Информация, статистики и гайды по игре!
+                </h1>
+                <p class="mt-3 text-slate-300 max-w-3xl text-sm sm:text-base leading-relaxed">
+                    Полный справочник по подземельям, билдам, Мастерству, Войне Кланов и фарму гемов. Выбирайте категорию в интерактивном меню ниже.
+                </p>
+                <div class="mt-5 flex flex-wrap items-center gap-3 text-xs font-medium">
+                    <span class="inline-flex items-center px-3.5 py-1.5 rounded-xl bg-slate-900/80 text-slate-300 border border-slate-800 shadow-inner">
+                        <i class="fa-solid fa-table-list mr-2 text-amber-400"></i> Данные: <strong class="text-amber-400 ml-1">Elpi The Wiki</strong>
+                    </span>
+                    <span class="inline-flex items-center px-3.5 py-1.5 rounded-xl bg-slate-900/80 text-slate-300 border border-slate-800 shadow-inner">
+                        <i class="fa-solid fa-language mr-2 text-indigo-400"></i> Перевод: <strong class="text-indigo-400 ml-1">Tcan</strong>
+                    </span>
+                </div>
+            </div>
+            <!-- Decorative Background Graphics -->
+            <div class="absolute -right-16 -bottom-16 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -left-16 -top-16 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        </div>
+
+        <div id="navContainer" class="top-16 z-20 py-2 bg-slate-950/90 backdrop-blur-md border-y border-slate-800/80 transition-all duration-300 -mx-4 px-4 sm:mx-0 sm:px-0 sm:rounded-2xl">
+            <div class="max-w-7xl mx-auto flex items-center justify-center">
+                <!-- Grid / Scrollable Category Nav Bar -->
+                <nav class="flex flex-wrap items-center justify-center gap-2 py-1 px-1 w-full">
+
+                    <a href="#tables-section" class="flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-cyan-500/20 hover:text-cyan-300 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-cyan-500/40 transition flex items-center gap-2">
+                        <i class="fa-solid fa-table text-cyan-400"></i>
+                        <span>Таблицы</span>
+                    </a>
+                    <!--<a href="#mastery" class="flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-amber-500/20 hover:text-amber-300 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-amber-500/40 transition flex items-center gap-2">
+                        <i class="fa-solid fa-graduation-cap text-amber-400"></i>
+                        <span>Мастерство</span>
+                    </a>-->
+                    <a href="#stats" class="flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-amber-500/20 hover:text-amber-300 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-amber-500/40 transition flex items-center gap-2">
+                        <i class="fa-solid fa-chart-simple text-indigo-400"></i>
+                        <span>Статы и EXP</span>
+                    </a>
+                    <a href="#clanwars" class="flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-amber-500/20 hover:text-amber-300 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-amber-500/40 transition flex items-center gap-2">
+                        <i class="fa-solid fa-shield-cat text-red-400"></i>
+                        <span>Война Кланов</span>
+                    </a>
+                    <a href="#wings" class="flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-amber-500/20 hover:text-amber-300 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-amber-500/40 transition flex items-center gap-2">
+                        <i class="fa-solid fa-person-digging text-sky-400"></i>
+                        <span>Шахта & Крылья</span>
+                    </a>
+                    <a href="#lifehacks" class="flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-amber-500/20 hover:text-amber-300 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-amber-500/40 transition flex items-center gap-2">
+                        <i class="fa-solid fa-bolt text-amber-400"></i>
+                        <span>Лайфхак с Рекламой</span>
+                    </a>
+                </nav>
+            </div>
+        </div>
+
+        <!-- НОВЫЙ РАЗДЕЛ: ПОЛНЫЕ ТАБЛИЦЫ ИЗ GUIDE.HTML -->
+        <section id="tables-section" class="scroll-mt-36">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="p-3 rounded-2xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 shadow-lg shadow-cyan-500/5">
+                    <i class="fa-solid fa-table text-2xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-white">Таблицы</h2>
+                    <p class="text-xs text-slate-400">Полные таблицы Мастерство, Статов и Очков Клановой Войны</p>
+                </div>
+            </div>
+
+            <!-- Внутренняя навигация переключения таблиц -->
+            <div class="glass-panel p-4 rounded-2xl border border-slate-800 mb-6 flex flex-wrap gap-2 justify-between items-center">
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="switchGuideTab('mastery')" id="tab-mastery-btn" class="tab-btn active px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 flex items-center gap-2 border border-slate-800">
+                        <i class="fa-solid fa-wand-magic-sparkles text-cyan-400"></i>
+                        <span>Мастери (Mastery)</span>
+                    </button>
+                    <button onclick="switchGuideTab('stats')" id="tab-stats-btn" class="tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-slate-200 transition-all duration-200 flex items-center gap-2 border border-slate-800">
+                        <i class="fa-solid fa-chart-line text-purple-400"></i>
+                        <span>Статы (Regular and EXP stats)</span>
+                    </button>
+                    <button onclick="switchGuideTab('clan')" id="tab-clan-btn" class="tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-slate-200 transition-all duration-200 flex items-center gap-2 border border-slate-800">
+                        <i class="fa-solid fa-shield-halved text-amber-400"></i>
+                        <span>Клановая Война (Клановые очки)</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- CONTENT 1: MASTERY -->
+            <div id="guide-tab-mastery" class="guide-tab-content space-y-6">
+                <div class="glass-panel p-5 rounded-2xl border border-slate-800 shadow-xl relative overflow-hidden">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-wand-magic-sparkles text-cyan-400"></i>
+                                Mastery (Мастерство)
+                            </h3>
+                            <p class="text-xs text-slate-400 mt-1">Рекомендации по разблокировке и прокачке навыков мастерства.</p>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <div class="bg-cyan-950/60 border border-cyan-800/50 px-3 py-1 rounded-lg text-xs text-cyan-300">
+                                *EXP boost если ты чаще онлайн
+                            </div>
+                            <div class="bg-purple-950/60 border border-purple-800/50 px-3 py-1 rounded-lg text-xs text-purple-300">
+                                *Offline Time / Earning Rate если ты чаще оффлайн
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 flex flex-col sm:flex-row gap-3">
+                        <div class="relative flex-1">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                            <input type="text" id="full-mastery-search" oninput="filterFullMastery()" placeholder="Поиск по названию или описанию..." class="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl pl-9 pr-4 py-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-500">
+                        </div>
+                        <div class="flex items-center gap-2 text-xs">
+                            <span class="text-slate-400 whitespace-nowrap">Рекомендация:</span>
+                            <select id="full-mastery-filter" onchange="filterFullMastery()" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-500">
+                                <option value="all">Все</option>
+                                <option value="yes">Максить обязательно (Да)</option>
+                                <option value="no">Не максить (Нет)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-panel rounded-2xl shadow-xl overflow-hidden border border-slate-800">
+                    <div class="overflow-x-auto custom-scrollbar">
+                        <table class="w-full text-left text-xs">
+                            <thead>
+                                <tr class="uppercase text-[11px] tracking-wider text-slate-400 bg-slate-950/80 border-b border-slate-800">
+                                    <th class="p-4">Название</th>
+                                    <th class="p-4">Описание</th>
+                                    <th class="p-4 text-center">Цена Открытия</th>
+                                    <th class="p-4 text-center">Макс. Эффект</th>
+                                    <th class="p-4 text-center">За Улучшение</th>
+                                    <th class="p-4 text-center">Кол-во Уровней</th>
+                                    <th class="p-4 text-center">Гемов До Макс.</th>
+                                    <th class="p-4 text-center">Рекомендуется До Макс.?</th>
+                                    <th class="p-4 text-center">Порядок</th>
+                                    <th class="p-4">Рекомендуемый уровень</th>
+                                </tr>
+                            </thead>
+                            <tbody id="full-mastery-tbody" class="divide-y divide-slate-800/60 font-normal">
+                                <!-- Dynamic JS Insertion -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTENT 2: STATS -->
+            <div id="guide-tab-stats" class="guide-tab-content hidden space-y-6">
+                <div class="glass-panel p-5 rounded-2xl border border-slate-800 shadow-xl relative overflow-hidden">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-chart-line text-purple-400"></i>
+                                Информация о Статах
+                            </h3>
+                            <p class="text-xs text-slate-400 mt-1">Подробные сабстаты, максимальные капы и полезность для Меле/Рэндж билдов.</p>
+                        </div>
+                       <div class="flex flex-wrap items-center gap-2">
+                            <div class="bg-cyan-950/60 border border-cyan-800/50 px-3 py-1 rounded-lg text-xs text-cyan-300">
+                                *С учётом эпического питомца "Vital Root"
+                            </div>
+                            <div class="bg-purple-950/60 border border-purple-800/50 px-3 py-1 rounded-lg text-xs text-purple-300">
+                                **Ближний для ближнего, Дальний для Дальнего
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 flex flex-col sm:flex-row gap-3">
+                        <div class="relative flex-1">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                            <input type="text" id="full-stats-search" oninput="filterFullStats()" placeholder="Поиск по статам..." class="w-full bg-slate-900 border border-slate-700 rounded-xl pl-9 pr-4 py-2 text-xs text-slate-200 focus:outline-none focus:border-purple-500">
+                        </div>
+                        <div class="flex items-center gap-2 text-xs">
+                            <span class="text-slate-400 whitespace-nowrap">Категория:</span>
+                            <select id="full-stats-category-filter" onchange="filterFullStats()" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-purple-500">
+                                <option value="all">Все Статы</option>
+                                <option value="main">Основные Статы</option>
+                                <option value="exp">EXP Статы</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-panel rounded-2xl shadow-xl overflow-hidden border border-slate-800">
+                    <div class="overflow-x-auto custom-scrollbar">
+                        <table class="w-full text-left text-xs">
+                            <thead>
+                                <tr class="uppercase text-[11px] tracking-wider text-slate-400 bg-slate-950/80 border-b border-slate-800">
+                                    <th class="p-4">Сабстаты</th>
+                                    <th class="p-4 text-center">Макс %<br><span class="text-[9px] text-slate-500 uppercase">(Примерно)</span></th>
+                                    <th class="p-4 text-center">Настоящий Максимум<br><span class="text-[9px] text-slate-500 uppercase">(На всех элементах)</span></th>
+                                    <th class="p-4 text-center">Суммируется?<br><span class="text-[9px] text-slate-500 uppercase">(Эффект после 100%)</span></th>
+                                    <th class="p-4 text-center">Полезно?<br><span class="text-[9px] text-cyan-400 uppercase">(Ranged / Дальний)</span></th>
+                                    <th class="p-4 text-center">Полезно?<br><span class="text-[9px] text-rose-400 uppercase">(Melee / Ближний)</span></th>
+                                    <th class="p-4 text-center">Даёт Силу?</th>
+                                </tr>
+                            </thead>
+                            <tbody id="full-stats-tbody" class="divide-y divide-slate-800/60 font-normal">
+                                <!-- Dynamic JS Insertion -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTENT 3: CLAN WAR -->
+            <div id="guide-tab-clan" class="guide-tab-content hidden space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                    <!-- DAYS 1, 3, 5 -->
+                    <div class="glass-panel rounded-2xl p-5 border border-slate-800 flex flex-col justify-between space-y-4">
+                        <div>
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+                                <h3 class="text-base font-bold text-cyan-400 flex items-center gap-2">
+                                    <i class="fa-solid fa-calendar-days"></i> День 1, 3, 5
+                                </h3>
+                                <span class="text-xs bg-cyan-950 text-cyan-300 border border-cyan-800 px-2 py-0.5 rounded-md font-mono">Цикл A</span>
+                            </div>
+
+                            <!-- Task 1: Opening Boxes -->
+                            <div class="space-y-2 mb-4">
+                                <div class="text-xs font-semibold text-slate-300 uppercase">Открытие Ящиков (Очки за ящик)</div>
+                                <div class="grid grid-cols-5 gap-1 text-center text-[11px]">
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-common font-bold">Common</span>1</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-uncommon font-bold">Uncommon</span>1</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-rare font-bold">Rare</span>1</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-epic font-bold">Epic</span>2</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-legendary font-bold">Legendary</span>2</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-mythic font-bold">Mythic</span>2</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-artifact font-bold">Artifact</span>2</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-ancient font-bold">Ancient</span>3</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-immortal font-bold">Immortal</span>3</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-divine font-bold">Divine</span>3</div>
+                                </div>
+                            </div>
+
+                            <!-- Task 2: Summoning Pets -->
+                            <div class="space-y-2 mb-4">
+                                <div class="text-xs font-semibold text-slate-300 uppercase">Призыв Питомцев</div>
+                                <div class="grid grid-cols-3 gap-1 text-center text-[11px]">
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-common font-bold">Common</span>10</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-uncommon font-bold">Uncommon</span>10</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-rare font-bold">Rare</span>20</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-epic font-bold">Epic</span>20</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-legendary font-bold">Legendary</span>30</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-mythic font-bold">Mythic</span>30</div>
+                                </div>
+                            </div>
+
+                            <!-- Task 3: Leveling Up -->
+                            <div class="space-y-2">
+                                <div class="text-xs font-semibold text-slate-300 uppercase">Повышение Уровня</div>
+                                <div class="bg-slate-900 p-2.5 rounded-xl border border-slate-800 flex items-center justify-between text-xs">
+                                    <span class="text-slate-400">Формула:</span>
+                                    <span class="font-mono text-emerald-400 font-bold">Уровень * 100</span>
+                                </div>
+                            </div>
+                        </div>
+                            <a href=""><div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-yellow-400 font-semibold">
+                                    <span>Открыть калькулятор ящиков</span>
+                                    <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                                </div></a>
+                            <a href=""><div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-emerald-400 font-semibold">
+                                    <span>Открыть калькулятор компаньонов</span>
+                                    <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                                </div></a>
+                    </div>
+
+                    <!-- DAYS 2, 4 -->
+                    <div class="glass-panel rounded-2xl p-5 border border-slate-800 flex flex-col justify-between space-y-4">
+                        <div>
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+                                <h3 class="text-base font-bold text-purple-400 flex items-center gap-2">
+                                    <i class="fa-solid fa-calendar-days"></i> День 2, 4
+                                </h3>
+                                <span class="text-xs bg-purple-950 text-purple-300 border border-purple-800 px-2 py-0.5 rounded-md font-mono">Цикл B</span>
+                            </div>
+
+                            <!-- Task 1: Cloak Summoning -->
+                            <div class="space-y-2 mb-4">
+                                <div class="text-xs font-semibold text-slate-300 uppercase">Призыв Плащей</div>
+                                <div class="grid grid-cols-3 gap-1 text-center text-[11px]">
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-common font-bold">Common</span>100</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-uncommon font-bold">Uncommon</span>100</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-rare font-bold">Rare</span>200</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-epic font-bold">Epic</span>200</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-legendary font-bold">Legendary</span>300</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-mythic font-bold">Mythic</span>300</div>
+                                </div>
+                            </div>
+
+                            <!-- Task 2: Ore Mining -->
+                            <div class="space-y-2 mb-4">
+                                <div class="text-xs font-semibold text-slate-300 uppercase">Добыча Руды</div>
+                                <div class="grid grid-cols-4 gap-1 text-center text-[11px]">
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block text-slate-400 font-bold">Камень</span>10</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block text-slate-500 font-bold">Уголь</span>10</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block text-slate-300 font-bold">Железо</span>20</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block text-rose-400 font-bold">Рубин</span>20</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block text-emerald-400 font-bold">Эмеральд</span>20</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block text-amber-400 font-bold">Золото</span>30</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800 col-span-2"><span class="block text-cyan-400 font-bold">Алмаз</span>30</div>
+                                </div>
+                            </div>
+
+                            <!-- Task 3: Dungeon Keys -->
+                            <div class="space-y-2">
+                                <div class="text-xs font-semibold text-slate-300 uppercase">Ключи Подземелья</div>
+                                <div class="bg-slate-900 p-2.5 rounded-xl border border-slate-800 flex items-center justify-between text-xs">
+                                    <span class="text-slate-400">За ключ:</span>
+                                    <span class="font-mono text-yellow-400 font-bold">500 Очков</span>
+                                </div>
+                            </div>
+                        </div>
+                            <a href=""><div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-indigo-400 font-semibold">
+                                    <span>Открыть калькулятор плащей</span>
+                                    <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                                </div></a>
+                    </div>
+
+                    <!-- DAY 6: PVP -->
+                    <div class="glass-panel rounded-2xl p-5 border border-slate-800 flex flex-col justify-between space-y-4">
+                        <div>
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+                                <h3 class="text-base font-bold text-rose-400 flex items-center gap-2">
+                                    <i class="fa-solid fa-swords"></i> День 6
+                                </h3>
+                                <span class="text-xs bg-rose-950 text-rose-300 border border-rose-800 px-2 py-0.5 rounded-md font-mono">PVP Финал</span>
+                            </div>
+                            <div class="space-y-3">
+                            <div class="space-y-3 ">
+                                <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 space-y-2 text-xs">
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-slate-400 uppercase font-semibold">Награда:</span>
+                                        <span class="font-mono text-rose-400 font-bold">50 Очков / Бой</span>
+                                    </div>
+                                    <p class="text-slate-300 pt-1 border-t border-slate-800"><i class="fa-solid fa-clock text-amber-400 mr-1"></i> Сброс билета каждый час. Сброс ПВП каждые 45 побед</p>
+                                </div>
+                            </div>
+                            <div class="p-4 rounded-xl bg-gradient-to-br from-rose-950/30 to-amber-950/30 border border-rose-800/40 text-xs space-y-2">
+                                <span class="font-semibold text-rose-300 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-lightbulb"></i>
+                                    Совет по PVP дню:
+                                </span>
+                                <p class="text-slate-400 leading-relaxed">
+                                    Старайтесь заходить каждый час, чтобы не терять восстанавливающиеся билеты. Накапливайте максимальное количество побед!
+                                </p>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+            <hr class="border-y border-slate-800/80">
+        <!--<section id="mastery" class="scroll-mt-36">
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center space-x-3">
+                    <div class="p-3 rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/20 shadow-lg shadow-amber-500/5">
+                        <i class="fa-solid fa-graduation-cap text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-white">Мастерство (Mastery Guide)</h2>
+                        <p class="text-xs text-slate-400">Рекомендации прокачки, баффы и стоимость скиллов</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="lg:col-span-2 glass-panel p-6 rounded-3xl space-y-4 border border-slate-800">
+                    <h3 class="text-lg font-bold text-amber-400 flex items-center gap-2">
+                        <i class="fa-solid fa-lightbulb"></i> Совет по прокачке Мастерства
+                    </h3>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Выбирайте <strong class="text-amber-300">EXP Boost</strong> в первую очередь, если проводите много времени в игре активным способом (онлайн). Это ускоряет прокачку аккаунта и дает быструю отдачу по уровню.
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs">
+                        <div class="bg-slate-950/70 p-3 rounded-xl border border-slate-800">
+                            <span class="text-emerald-400 font-bold block mb-1">Онлайн Стиль</span>
+                            <p class="text-slate-400">Приоритет: EXP Boost -> Drop Rate -> Attack/Damage.</p>
+                        </div>
+                        <div class="bg-slate-950/70 p-3 rounded-xl border border-slate-800">
+                            <span class="text-sky-400 font-bold block mb-1">Оффлайн/АФК Стиль</span>
+                            <p class="text-slate-400">Приоритет: Offline Earning -> Offline Time -> Damage Cap.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>-->
+            <hr class="border-y border-slate-800/80">
+        <section id="stats" class="scroll-mt-36">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="p-3 rounded-2xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 shadow-lg shadow-indigo-500/5">
+                    <i class="fa-solid fa-chart-simple text-2xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-white">EXP-Статы & Celestial Ascent</h2>
+                    <p class="text-xs text-slate-400">Характеристики предметов, подземелье 80+ и настройки Авто-лута</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Celestial & Exceptional -->
+                <div class="glass-panel rounded-3xl p-6 border border-slate-800 space-y-4">
+                    <div class="flex items-center space-x-2 text-amber-400 font-bold">
+                        <i class="fa-solid fa-shield-halved text-lg"></i>
+                        <h3 class="text-lg">Celestial Ascent & Exceptional Предметы</h3>
+                    </div>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        <strong class="text-amber-300">EXP-статы</strong> — это уникальные бонусные характеристики, которые случайным образом генерируются на экипировке высшего ранга.
+                    </p>
+                    <ul class="space-y-3 text-xs text-slate-300">
+                        <li class="flex items-start bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
+                            <i class="fa-solid fa-angle-right text-amber-400 mt-0.5 mr-2"></i>
+                            <span>Подземелье <strong class="text-white">Celestial Ascent</strong> открывается при достижении <strong>80 уровня</strong>.</span>
+                        </li>
+                        <li class="flex items-start bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
+                            <i class="fa-solid fa-angle-right text-amber-400 mt-0.5 mr-2"></i>
+                            <span>Высокие этажи гарантируют выпадение <strong class="text-amber-300">Exceptional</strong> предметa с 1-2 сгенерированными EXP-статами.</span>
+                        </li>
+                        <li class="flex items-start bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
+                            <i class="fa-solid fa-angle-right text-amber-400 mt-0.5 mr-2"></i>
+                            <span>Уровень дропа рассчитывается случайно и <strong>не зависит от текущего шмота</strong>.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Auto-Loot Settings -->
+                <div class="glass-panel rounded-3xl p-6 border border-slate-800 space-y-4">
+                    <div class="flex items-center space-x-2 text-indigo-400 font-bold">
+                        <i class="fa-solid fa-filter text-lg"></i>
+                        <h3 class="text-lg">Настройки Фильтра Авто-ЛУТА</h3>
+                    </div>
+                    <p class="text-slate-300 text-sm">
+                        Настройки сбора шмота для Exceptional предметов в инвентаре:
+                    </p>
+                    <div class="space-y-3">
+                        <div class="bg-slate-950/80 border border-slate-800 p-4 rounded-2xl">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-400 text-xs font-mono font-bold">KEEP Mode</span>
+                                <i class="fa-solid fa-box-archive text-amber-400"></i>
+                            </div>
+                            <p class="text-xs text-slate-300">Сохраняет ВСЕ Exceptional шмотки без исключения, даже если статы не подходят под базовый фильтр.</p>
+                        </div>
+                        <div class="bg-slate-950/80 border border-slate-800 p-4 rounded-2xl">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="px-2.5 py-0.5 rounded bg-sky-500/20 text-sky-400 text-xs font-mono font-bold">ONLY Mode</span>
+                                <i class="fa-solid fa-filter-circle-xmark text-sky-400"></i>
+                            </div>
+                            <p class="text-xs text-slate-300">Оставляет только те Exceptional вещи, у которых бонусные статы совпали с вашим фильтром. Остальное распыляется.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+            <hr class="border-y border-slate-800/80">
+        <section id="clanwars" class="scroll-mt-36">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="p-3 rounded-2xl bg-red-500/10 text-red-400 border border-red-500/20 shadow-lg shadow-red-500/5">
+                    <i class="fa-solid fa-shield-cat text-2xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-white">Война Кланов (Clan War Guide)</h2>
+                    <p class="text-xs text-slate-400">Расписание заданий по дням и калькулятор клановых очков</p>
+                </div>
+            </div>
+            <div class="glass-panel rounded-3xl p-6 border border-slate-800 space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-slate-950/80 p-5 rounded-2xl border border-slate-800">
+                        <span class="text-xs font-bold text-amber-400 uppercase tracking-wider block mb-2">Дни 1, 3, 5</span>
+                        <h4 class="text-base font-bold text-white mb-2">Оффлайн & Прогресс</h4>
+                    </div>
+                    <div class="bg-slate-950/80 p-5 rounded-2xl border border-slate-800">
+                        <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider block mb-2">Дни 2, 4</span>
+                        <h4 class="text-base font-bold text-white mb-2">Зачистка Подземелий</h4>
+                    </div>
+                    <div class="bg-slate-950/80 p-5 rounded-2xl border border-slate-800">
+                        <span class="text-xs font-bold text-red-400 uppercase tracking-wider block mb-2">День 6 (Финал)</span>
+                        <h4 class="text-base font-bold text-white mb-2">PVP Турнир Кланов</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+            <hr class="border-y border-slate-800/80">
+        <section id="wings" class="scroll-mt-36">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="p-3 rounded-2xl bg-sky-500/10 text-sky-400 border border-sky-500/20 shadow-lg shadow-sky-500/5">
+                    <i class="fa-solid fa-feather text-2xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-white">Шахта & Быстрое Получение Крыльев</h2>
+                    <p class="text-xs text-slate-400">Правильная раскопка вниз, приоритизация руды и сборка крыльев</p>
+                </div>
+            </div>
+
+            <div class="glass-panel rounded-3xl p-6 border border-slate-800 space-y-6">
+                <!-- Rule Banner -->
+                <div class="bg-gradient-to-r from-sky-950/80 via-slate-900 to-slate-900 border border-sky-800/40 p-4 rounded-2xl flex items-center gap-4">
+                    <div class="p-3 bg-sky-500/20 text-sky-400 rounded-xl text-xl flex-shrink-0">
+                        <i class="fa-solid fa-angles-down"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-bold text-sky-300">Золотое Правило Шахты</h3>
+                        <p class="text-xs text-slate-300">Копайте строго вниз! Не тратьте буры, обычные и золотые кирки на сбор руд!</p>
+                    </div>
+                </div>
+
+                <!-- Interactive Strategy Tabs -->
+                <div>
+                    <div class="flex border-b border-slate-800 gap-2 mb-4">
+                        <button id="pveTabBtn" onclick="toggleMiningTab('pve')" class="px-4 py-2 text-xs font-bold border-b-2 border-sky-400 text-sky-400 transition">
+                            Быстрый Прогресс
+                        </button>
+                        <button id="pvpTabBtn" onclick="toggleMiningTab('pvp')" class="px-4 py-2 text-xs font-bold border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition">
+                            Билдостроение
+                        </button>
+                    </div>
+
+                    <div id="pveTabContent" class="space-y-3 text-xs text-slate-300">
+                        <div class="bg-slate-950/80 p-3.5 rounded-xl border border-slate-800 flex items-start gap-3">
+                            <div><strong class="text-amber-400"><u>Добывайте только:</u></strong> <span style="color:#5cc9ff">Алмазы</span>, <span style="color:#e9ff5c">Золото</span> и <span style="color:#5cffa3">Эмеральды</span>. Прочие мелкие руды пробивайте только если они мешают спуститься вниз. <span style="color:#5cffa3">Эмеральды</span> вам понадобятся для улучшения <span style="color:#e55e5f">Immortal</span> крыльев</div>
+                        </div>
+                        <div class="bg-slate-950/80 p-3.5 rounded-xl border border-slate-800 flex items-start gap-3">
+                            <div><strong class="text-red-400"><u>Игнорируйте:</u></strong> Абсолютно все ранние крылья, кроме <strong style="color:#e55e5f">Immortal</strong>.</div>
+                        </div>
+                        <div class="bg-slate-950/80 p-3.5 rounded-xl border border-slate-800 flex items-start gap-3">
+                            <div><strong class="text-sky-400 "><u>Реклама в Шахте:</u></strong> Смотрите доступные ролики для получения бесплатных буров и бонусов. (6 киров, 6 буров, и 60 кирок)</div>
+                        </div>
+                    </div>
+
+                    <div id="pvpTabContent" class="hidden space-y-3 text-xs text-slate-300">
+                        <div class="bg-slate-950/80 p-3.5 rounded-xl border border-slate-800 flex items-start gap-3">
+                            <div><strong class="text-indigo-400"><u>Сбор руд:</u></strong> Собирайте все ресурсы напути. Открывайте новые крылья и прокачивайте его, пока не соберёте достаточно руд на новые крылья.</div>
+                        </div>
+                        <div class="bg-slate-950/80 p-3.5 rounded-xl border border-slate-800 flex items-start gap-3">
+                            <div><strong class="text-emerald-400"><u>Реролл статов:</u></strong> Постоянно реролльте характеристики под специфику вашего класса (Melee/Ranged).</div>
+                        </div>
+                    </div>
+                </div>
+                    <!-- Image Gallery -->
+                    <div class="mt-2 p-4 bg-slate-950 rounded-2xl border border-slate-800">
+                        <div class="text-xs font-bold text-sky-400 mb-3">
+                            Схема идеального пути в шахте
+                        </div>
+
+                        <!-- Main Image -->
+                        <div class="w-200 h-200 aspect-image rounded-xl border border-slate-800 bg-slate-900/50 overflow-hidden flex items-center justify-center">
+                            <img 
+                                id="miningMainImage"
+                                src="images/mine.png"
+                                alt="Схема шахты"
+                                class=" object-contain transition-opacity duration-200"
+                            >
+                        </div>
+
+                        <!-- Thumbnails -->
+                        <div class="mt-3 flex gap-2 overflow-x-auto pb-1">
+
+                            <!-- Thumbnail 1 -->
+                            <button
+                                onclick="changeMiningImage('images/mine.png', this)"
+                                class="mining-thumbnail flex-shrink-0 w-20 h-14 rounded-lg overflow-hidden border-2 border-sky-400 opacity-100 transition hover:opacity-100"
+                            >
+                                <img 
+                                    src="images/mine.png"
+                                    alt="Схема 1"
+                                    class="w-full h-full object-cover"
+                                >
+                            </button>
+                        </div>
+                    </div>
+
+            </div>
+        </section>
+            <hr class="border-y border-slate-800/80">
+        <section id="lifehacks" class="scroll-mt-36">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="p-3 rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/20 shadow-lg shadow-amber-500/5">
+                    <i class="fa-solid fa-bolt text-2xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-white">Лайфхак: 5-Секундная Реклама</h2>
+                    <p class="text-xs text-slate-400">Настройка выдачи исключительно коротких роликoв</p>
+                </div>
+            </div>
+
+            <div class="glass-panel rounded-3xl p-6 border border-slate-800 space-y-6">
+                <p class="text-slate-300 text-xs sm:text-sm">
+                    Алгоритм действий для сброса рекламного идентификатора на Android устройствах:
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                    <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 font-bold flex items-center justify-center flex-shrink-0">1</span>
+                        <div>Откройте <strong>Настройки телефона</strong> -> Раздел <strong> Реклама</strong> -> Нажмите <strong>«Сбросить рекламный Идентификатор»</strong>.</div>
+                    </div>
+                    <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 font-bold flex items-center justify-center flex-shrink-0">2</span>
+                        <div>Запустите игру. Длиннуе рекламы (более 5-8 сек) сразу же <strong>перезаходите в игру</strong>.</div>
+                    </div>
+                    <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 font-bold flex items-center justify-center flex-shrink-0">3</span>
+                        <div>Когда выпадет ролик длительностью 5 секунд - кликните по рекламе для перехода <strong>10-15 раз подряд</strong>, тем самым переходя по ссылке.</div>
+                    </div>
+                    <div class="bg-emerald-500/10 p-4 rounded-2xl border border-emerald-500/30 flex items-start gap-3 text-emerald-300">
+                        <span class="w-6 h-6 rounded-full bg-emerald-500 text-slate-950 font-bold flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-check text-xs"></i></span>
+                        <div><strong>Готово!</strong> Алгоритм зафиксирует приоритет на короткие ролики и станет выдавать их значительно чаще.</div>
+                    </div>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-300 flex items-start space-x-3">
+                    <i class="fa-solid fa-circle-exclamation text-base mt-0.5"></i>
+                    <div>
+                        <strong>Примечание:</strong> Испорченный алгоритм может иногда возвращать длинные видео. В таком случае просто повторите процедуру клика на следующем коротком ролике.
+                    </div>
+                </div>
+                    <!-- Image Gallery -->
+                    <div class="mt-2 p-4 bg-slate-950 rounded-2xl border border-slate-800">
+                        <div class="text-xs font-bold text-sky-400 mb-3">
+                            Схема получения 5 секундной рекламы
+                        </div>
+
+                        <!-- Main Image -->
+                        <div class="w-200 h-200 aspect-image rounded-xl border border-slate-800 bg-slate-900/50 overflow-hidden flex items-center justify-center">
+                            <img 
+                                id="AdMainImage"
+                                src="images/AdBanner.png"
+                                alt="Схема шахты"
+                                class=" object-contain transition-opacity duration-200"
+                            >
+                        </div>
+
+                        <!-- Thumbnails -->
+                        <div class="mt-3 flex gap-2 overflow-x-auto pb-1">
+
+                            <!-- Thumbnail 1 -->
+                            <button
+                                onclick="changeAdImage('images/AdBanner.png', this)"
+                                class="ad-thumbnail flex-shrink-0 w-20 h-14 rounded-lg overflow-hidden border-2 border-sky-400 opacity-100 transition hover:opacity-100"
+                            >
+                                <img 
+                                    src="images/AdBanner.png"
+                                    alt="Схема 1"
+                                    class="w-full h-full object-cover"
+                                >
+                            </button>
+
+                            <button
+                                onclick="changeAdImage('images/adimg2.jpg', this)"
+                                class="ad-thumbnail flex-shrink-0 w-20 h-14 rounded-lg overflow-hidden border-2 border-sky-400 opacity-100 transition hover:opacity-100"
+                            >
+                                <img 
+                                    src="images/adimg2.jpg"
+                                    alt="Схема 1"
+                                    class="w-full h-full object-cover"
+                                >
+                            </button>
+
+                            <button
+                                onclick="changeAdImage('images/advideogif.gif', this)"
+                                class="ad-thumbnail flex-shrink-0 w-20 h-14 rounded-lg overflow-hidden border-2 border-sky-400 opacity-100 transition hover:opacity-100"
+                            >
+                                <img 
+                                    src="images/advideogif.gif"
+                                    alt="Схема 1"
+                                    class="w-full h-full object-cover"
+                                >
+                            </button>
+                        </div>
+                    </div>
+            </div>
+        </section>
+            <hr class="border-y border-slate-800/80">
+        <section id="gems" class="scroll-mt-36">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="p-3 rounded-2xl bg-purple-500/10 text-purple-400 border border-purple-500/20 shadow-lg shadow-purple-500/5">
+                    <i class="fa-solid fa-gem text-2xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-white">Фарм Гемов без Доната</h2>
+                    <p class="text-xs text-slate-400">Все бесплатные источники драгоценных камней</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="glass-panel p-5 rounded-3xl border border-slate-800 space-y-2">
+                    <div class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-lg mb-2">
+                        <i class="fa-solid fa-box-open"></i>
+                    </div>
+                    <h4 class="text-sm font-bold text-white">1. Пролетающие сундуки</h4>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Дают по <strong>6 гемов</strong> за просмотр рекламы. Качайте навык <em>Gem Chance</em> в Мастерстве для увелечение шанса на гемы вместо сундуков.
+                    </p>
+                </div>
+
+                <div class="glass-panel p-5 rounded-3xl border border-slate-800 space-y-2">
+                    <div class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-lg mb-2">
+                        <i class="fa-solid fa-angles-up"></i>
+                    </div>
+                    <h4 class="text-sm font-bold text-white">2. Прокачка Уровней</h4>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        После <strong>100 уровня</strong> персонажа, за каждый новый уровень вы получаете фиксированно <strong>120 гемов</strong>.
+                    </p>
+                </div>
+
+                <div class="glass-panel p-5 rounded-3xl border border-slate-800 space-y-2">
+                    <div class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-lg mb-2">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <h4 class="text-sm font-bold text-white">3. События & Турниры</h4>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        PVP Арена, Boss Rush, Time Warp Event и Battle Pass дают солидные пачки гемов за высокие места.
+                    </p>
+                </div>
+
+                <div class="glass-panel p-5 rounded-3xl border border-red-500/30 bg-red-950/10 space-y-2">
+                    <div class="w-10 h-10 rounded-xl bg-red-500/20 text-red-400 flex items-center justify-center font-bold text-lg mb-2">
+                        <i class="fa-solid fa-ban"></i>
+                    </div>
+                    <h4 class="text-sm font-bold text-red-400">Клановые Войны</h4>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Внимание! За участие в Войнах Кланов гемы <strong>НЕ начисляются</strong>.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="glass-panel border-t border-slate-800/80 py-8 mt-16">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 space-y-2">
+            <p class="text-[12px] text-slate-500">Неофициальный справочник по игре. Данный сайт не связан с разработчиками или издателем игры. Все права на игру, её название, изображения и другие материалы принадлежат LAVA LABS OYUN YAZILIM VE PAZARLAMA ANONİM ŞİRKETİ. Данный сайт создан исключительно в информационных целях.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Data and Integration -->
+    <script>
+        // Data derived directly from guide.html
+        const masteryData = [
+            { name: "Auto-Loot Speed", nameRu: "Скорость Авто-Лута", desc: "Количество ящиков, которые автоматически открываются", cost: "0", maxEffect: "15", perUpgrade: "1", levels: "15", gemsToMax: "7850", recommendedMax: "Да", order: "2", recLevel: "5 Затем Макс." },
+            { name: "EXP Boost Multiplier", nameRu: "Множитель Опыта", desc: "Множитель, который даёт усиление от рекламы", cost: "0", maxEffect: "x4", perUpgrade: "0.1", levels: "20", gemsToMax: "7150", recommendedMax: "Нет", order: "1*", recLevel: "Около 7" },
+            { name: "Offer Gem Chance", nameRu: "Шанс На Гемы", desc: "Шанс получить гемы вместо ящиков из летучих сундуков", cost: "30", maxEffect: "50%", perUpgrade: "0.30%", levels: "13", gemsToMax: "2030", recommendedMax: "Нет", order: "3", recLevel: "5" },
+            { name: "Summon Capacity", nameRu: "Вместимость Призыва", desc: "Увеличивает количество питомцев, которых можно призвать одновременно", cost: "60", maxEffect: "5", perUpgrade: "1", levels: "5", gemsToMax: "540", recommendedMax: "Да", order: "2", recLevel: "0 Затем Макс." },
+            { name: "Max Offline Time", nameRu: "Макс. Время Оффлайна", desc: "Увеличивает максимальное время, за которое можно получить оффлайн заработок", cost: "90", maxEffect: "x2", perUpgrade: "0.1", levels: "10", gemsToMax: "950", recommendedMax: "Нет", order: "1*", recLevel: "6" },
+            { name: "Max Pickaxes", nameRu: "Макс. Кирок", desc: "Увеличивает количество максимальных кирок", cost: "120", maxEffect: "15", perUpgrade: "1", levels: "15", gemsToMax: "2340", recommendedMax: "Нет", order: "4", recLevel: "0" },
+            { name: "Max Item Level", nameRu: "Макс. Уровень Предметов", desc: "Увеличивает максимальный уровень экипировки", cost: "150", maxEffect: "30", perUpgrade: "2 потом 4", levels: "10", gemsToMax: "2340", recommendedMax: "Да", order: "2", recLevel: "Макс." },
+            { name: "Extended EXP Boost", nameRu: "Продолжительность Множителя Опыта", desc: "Увеличивает время множителя опыта за просмотр рекламы", cost: "180", maxEffect: "1200", perUpgrade: "90", levels: "10", gemsToMax: "950", recommendedMax: "Нет", order: "1*", recLevel: "6" },
+            { name: "Offline Earning Rate", nameRu: "Скорость Оффлайн Заработка", desc: "Увеличивает скорость получения ресурсов во время оффлайна", cost: "210", maxEffect: "x2.5", perUpgrade: "0.05", levels: "25", gemsToMax: "6150", recommendedMax: "Нет", order: "1*", recLevel: "6" },
+            { name: "Movement Speed", nameRu: "Скорость Передвижения", desc: "Увеличивает скорость передвижения персонажа", cost: "240", maxEffect: "x2", perUpgrade: "0.05", levels: "20", gemsToMax: "6150", recommendedMax: "Да если ближний", order: "4", recLevel: "5 затем 10 или Макс." }
+        ];
+
+        const statsData = [
+            { name: "Crit Chance", nameRu: "Шанс Крита", maxApprox: "12", realMax: "96", stack: "Нет Данных", ranged: "Да", melee: "Да", givesPower: "Нет", category: "main" },
+            { name: "Crit Damage", nameRu: "Урон Крита", maxApprox: "100", realMax: "800", stack: "Да", ranged: "Да", melee: "Да", givesPower: "Нет", category: "main" },
+            { name: "Attack Speed", nameRu: "Скорость Атаки", maxApprox: "40", realMax: "320", stack: "Да", ranged: "Да", melee: "Нет", givesPower: "Нет", category: "main" },
+            { name: "Double Hit Chance", nameRu: "Шанс Двойного Удара", maxApprox: "40", realMax: "320", stack: "Нет", ranged: "Да", melee: "Да", givesPower: "Нет", category: "main" },
+            { name: "Ranged Damage**", nameRu: "Дальний Урон", maxApprox: "15", realMax: "105", stack: "Да", ranged: "Да", melee: "Нет", givesPower: "Да**", category: "main" },
+            { name: "Melee Damage**", nameRu: "Ближний Урон", maxApprox: "50", realMax: "350", stack: "Да", ranged: "Нет", melee: "Да", givesPower: "Да**", category: "main" },
+            { name: "Damage", nameRu: "Урон", maxApprox: "15", realMax: "120", stack: "Да", ranged: "Да", melee: "Да", givesPower: "Да", category: "main" },
+            { name: "Health", nameRu: "Здоровье", maxApprox: "15", realMax: "120", stack: "Да", ranged: "Да", melee: "Да", givesPower: "Да", category: "main" },
+            { name: "Lifesteal", nameRu: "Кража Жизни", maxApprox: "20", realMax: "160", stack: "Да", ranged: "Да", melee: "Нет", givesPower: "Нет", category: "main" },
+            { name: "Block Chance*", nameRu: "Шанс Блока", maxApprox: "5", realMax: "45*", stack: "Нет Данных", ranged: "Возможно", melee: "Да", givesPower: "Нет", category: "main" },
+            { name: "Health Regen", nameRu: "Регенерация", maxApprox: "6?", realMax: "48?", stack: "Нет Данных", ranged: "Нет", melee: "Да", givesPower: "Нет", category: "main" },
+            { name: "Companion Cooldown", nameRu: "Перезарядка Питомц.", maxApprox: "6?", realMax: "48?", stack: "Нет Данных", ranged: "Нет", melee: "Нет", givesPower: "Нет", category: "main" },
+            { name: "Companion Damage", nameRu: "Урон Питомцев", maxApprox: "30", realMax: "240", stack: "Да", ranged: "Нет", melee: "Нет", givesPower: "Нет", category: "main" },
+            { name: "Triple Hit Chance", nameRu: "Шанс Тройного Удара", maxApprox: "30", realMax: "180", stack: "Нет", ranged: "Да", melee: "Да", givesPower: "Нет", category: "exp" },
+            { name: "Melee Defense", nameRu: "Защита От Ближнего", maxApprox: "100", realMax: "600", stack: "Да", ranged: "Возможно", melee: "Возможно", givesPower: "Нет", category: "exp" },
+            { name: "Ranged Defense", nameRu: "Защита От Дальнего", maxApprox: "100", realMax: "600", stack: "Да", ranged: "Да", melee: "Да", givesPower: "Нет", category: "exp" },
+            { name: "Mega Crit Chance", nameRu: "Шанс Мега Крита", maxApprox: "10", realMax: "60", stack: "Нет Данных", ranged: "Да", melee: "Да", givesPower: "Нет", category: "exp" },
+            { name: "Thorns", nameRu: "Шипы", maxApprox: "15", realMax: "90", stack: "Нет Данных", ranged: "Нет", melee: "Нет", givesPower: "Нет", category: "exp" },
+            { name: "Critical Defense", nameRu: "Защита От Крита", maxApprox: "66", realMax: "396", stack: "Да", ranged: "Да", melee: "Да", givesPower: "Нет", category: "exp" },
+            { name: "Movement Speed", nameRu: "Скорость Передвиж.", maxApprox: "20", realMax: "120", stack: "Да", ranged: "Нет", melee: "Возможно", givesPower: "Нет", category: "exp" },
+            { name: "Knockback", nameRu: "Отдача", maxApprox: "15", realMax: "90", stack: "Нет Данных", ranged: "Нет", melee: "Нет", givesPower: "Нет", category: "exp" }
+        ];
+
+        function renderFullMastery(data) {
+            const tbody = document.getElementById('full-mastery-tbody');
+            if(!tbody) return;
+            tbody.innerHTML = '';
+
+            data.forEach((item) => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-800/40 transition';
+                const isRecYes = item.recommendedMax.startsWith('Да');
+                const badgeColor = isRecYes ? 'bg-emerald-950/80 text-emerald-400 border-emerald-800' : 'bg-slate-800 text-slate-400 border-slate-700';
+
+                tr.innerHTML = `
+                    <td class="p-4 font-bold text-white">
+                        <div>${item.name}</div>
+                        <div class="text-[11px] text-cyan-400 font-normal">${item.nameRu}</div>
+                    </td>
+                    <td class="p-4 text-xs text-slate-300 max-w-xs">${item.desc}</td>
+                    <td class="p-4 text-center font-mono text-slate-300">${item.cost}</td>
+                    <td class="p-4 text-center font-semibold text-cyan-300">${item.maxEffect}</td>
+                    <td class="p-4 text-center text-xs text-slate-400">${item.perUpgrade}</td>
+                    <td class="p-4 text-center font-mono">${item.levels}</td>
+                    <td class="p-4 text-center font-mono text-amber-400 font-medium">${item.gemsToMax}</td>
+                    <td class="p-4 text-center">
+                        <span class="inline-block px-2 py-0.5 rounded text-[10px] font-medium border ${badgeColor}">${item.recommendedMax}</span>
+                    </td>
+                    <td class="p-4 text-center font-bold text-purple-400">${item.order}</td>
+                    <td class="p-4 text-xs font-medium text-slate-200">${item.recLevel}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderFullStats(data) {
+            const tbody = document.getElementById('full-stats-tbody');
+            if(!tbody) return;
+            tbody.innerHTML = '';
+
+            let currentCategory = '';
+            data.forEach((item) => {
+                if (item.category !== currentCategory) {
+                    currentCategory = item.category;
+                    if (currentCategory === 'exp') {
+                        const headerTr = document.createElement('tr');
+                        headerTr.className = 'bg-yellow-950/40 border-y border-yellow-800/50';
+                        headerTr.innerHTML = `
+                            <td colspan="7" class="p-2.5 text-xs font-bold uppercase tracking-wider text-yellow-300 text-center">
+                                <i class="fa-solid fa-star text-yellow-400 mr-2"></i> EXP Статы
+                            </td>
+                        `;
+                        tbody.appendChild(headerTr);
+                    }
+                }
+
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-800/40 transition';
+
+                const formatCheck = (val) => {
+                    if (val === 'Да' || val === 'Да**') return `<span class="text-emerald-400 font-semibold"><i class="fa-solid fa-check mr-1"></i>${val}</span>`;
+                    if (val === 'Нет') return `<span class="text-slate-500"><i class="fa-solid fa-xmark mr-1"></i>Нет</span>`;
+                    if (val === 'Возможно') return `<span class="text-amber-400 font-medium"><i class="fa-solid fa-question mr-1"></i>Возможно</span>`;
+                    return `<span class="text-slate-400">${val}</span>`;
+                };
+
+                tr.innerHTML = `
+                    <td class="p-4 font-bold text-white">
+                        <div>${item.name}</div>
+                        <div class="text-[11px] text-purple-400 font-normal">${item.nameRu}</div>
+                    </td>
+                    <td class="p-4 text-center font-mono text-slate-300">${item.maxApprox}%</td>
+                    <td class="p-4 text-center font-mono text-cyan-300 font-semibold">${item.realMax}%</td>
+                    <td class="p-4 text-center text-xs">${formatCheck(item.stack)}</td>
+                    <td class="p-4 text-center text-xs">${formatCheck(item.ranged)}</td>
+                    <td class="p-4 text-center text-xs">${formatCheck(item.melee)}</td>
+                    <td class="p-4 text-center text-xs">${formatCheck(item.givesPower)}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function filterFullMastery() {
+            const query = document.getElementById('full-mastery-search').value.toLowerCase();
+            const filterVal = document.getElementById('full-mastery-filter').value;
+
+            const filtered = masteryData.filter(item => {
+                const matchesSearch = item.name.toLowerCase().includes(query) ||
+                                     item.nameRu.toLowerCase().includes(query) ||
+                                     item.desc.toLowerCase().includes(query);
+                
+                let matchesFilter = true;
+                if (filterVal === 'yes') matchesFilter = item.recommendedMax.startsWith('Да');
+                else if (filterVal === 'no') matchesFilter = item.recommendedMax.startsWith('Нет');
+
+                return matchesSearch && matchesFilter;
+            });
+
+            renderFullMastery(filtered);
+        }
+
+        function filterFullStats() {
+            const query = document.getElementById('full-stats-search').value.toLowerCase();
+            const catVal = document.getElementById('full-stats-category-filter').value;
+
+            const filtered = statsData.filter(item => {
+                const matchesSearch = item.name.toLowerCase().includes(query) ||
+                                     item.nameRu.toLowerCase().includes(query);
+                let matchesCat = true;
+                if (catVal === 'main') matchesCat = item.category === 'main';
+                if (catVal === 'exp') matchesCat = item.category === 'exp';
+
+                return matchesSearch && matchesCat;
+            });
+
+            renderFullStats(filtered);
+        }
+
+        function switchGuideTab(tabKey) {
+            document.querySelectorAll('.guide-tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+                btn.classList.add('text-slate-400');
+            });
+
+            document.getElementById(`guide-tab-${tabKey}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tab-${tabKey}-btn`);
+            if(activeBtn) {
+                activeBtn.classList.add('active');
+                activeBtn.classList.remove('text-slate-400');
+            }
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.onload = function() {
+            renderFullMastery(masteryData);
+            renderFullStats(statsData);
+        };
+        function toggleMiningTab(tab) {
+            const pveContent = document.getElementById('pveTabContent');
+            const pvpContent = document.getElementById('pvpTabContent');
+            const pveBtn = document.getElementById('pveTabBtn');
+            const pvpBtn = document.getElementById('pvpTabBtn');
+
+            if (tab === 'pve') {
+                pveContent.classList.remove('hidden');
+                pvpContent.classList.add('hidden');
+                pveBtn.className = "px-4 py-2 text-xs font-bold border-b-2 border-sky-400 text-sky-400 transition";
+                pvpBtn.className = "px-4 py-2 text-xs font-bold border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition";
+            } else {
+                pvpContent.classList.remove('hidden');
+                pveContent.classList.add('hidden');
+                pvpBtn.className = "px-4 py-2 text-xs font-bold border-b-2 border-sky-400 text-sky-400 transition";
+                pveBtn.className = "px-4 py-2 text-xs font-bold border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition";
+            }
+        }
+    </script>
+    <script>
+        function changeMiningImage(imageSrc, thumbnail) {
+            const mainImage = document.getElementById('miningMainImage');
+
+            // Плавное переключение
+            mainImage.style.opacity = '0';
+
+            setTimeout(() => {
+                mainImage.src = imageSrc;
+                mainImage.style.opacity = '1';
+            }, 150);
+
+            // Сбрасываем состояние всех миниатюр
+            document.querySelectorAll('.mining-thumbnail').forEach(item => {
+                item.classList.remove('border-sky-400', 'opacity-100');
+                item.classList.add('border-transparent', 'opacity-60');
+            });
+
+            // Выделяем выбранную
+            thumbnail.classList.remove('border-transparent', 'opacity-60');
+            thumbnail.classList.add('border-sky-400', 'opacity-100');
+        }
+        function changeAdImage(imageSrc, thumbnail) {
+            const mainImage = document.getElementById('AdMainImage');
+
+            // Плавное переключение
+            mainImage.style.opacity = '0';
+
+            setTimeout(() => {
+                mainImage.src = imageSrc;
+                mainImage.style.opacity = '1';
+            }, 150);
+
+            // Сбрасываем состояние всех миниатюр
+            document.querySelectorAll('.ad-thumbnail').forEach(item => {
+                item.classList.remove('border-sky-400', 'opacity-100');
+                item.classList.add('border-transparent', 'opacity-60');
+            });
+
+            // Выделяем выбранную
+            thumbnail.classList.remove('border-transparent', 'opacity-60');
+            thumbnail.classList.add('border-sky-400', 'opacity-100');
+        }
+        function changeGemImage(imageSrc, thumbnail) {
+            const mainImage = document.getElementById('GemMainImage');
+
+            // Плавное переключение
+            mainImage.style.opacity = '0';
+
+            setTimeout(() => {
+                mainImage.src = imageSrc;
+                mainImage.style.opacity = '1';
+            }, 150);
+
+            // Сбрасываем состояние всех миниатюр
+            document.querySelectorAll('.gem-thumbnail').forEach(item => {
+                item.classList.remove('border-sky-400', 'opacity-100');
+                item.classList.add('border-transparent', 'opacity-60');
+            });
+
+            // Выделяем выбранную
+            thumbnail.classList.remove('border-transparent', 'opacity-60');
+            thumbnail.classList.add('border-sky-400', 'opacity-100');
+        }
+    </script>
+</body>
+</html>
