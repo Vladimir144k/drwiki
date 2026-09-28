@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clan Cape Calculator | Калькулятор Клановых Очков</title>
+    <title>Cape Calculator | Калькулятор Плащей</title>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -142,7 +142,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
             
             <!-- Logo & Title -->
-            <div class="flex items-center space-x-3">
+            <a href="index.html"><div class="flex items-center space-x-3">
                 <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-amber-400 p-0.5 shadow-glow-indigo">
                     <div class="w-full h-full bg-[#12141D] rounded-[14px] flex items-center justify-center">
                         <i class="fa-solid fa-vest-patches text-amber-400 text-xl"></i>
@@ -151,24 +151,10 @@
                 <div>
                     <div class="flex items-center gap-2">
                         <h1 class="text-lg font-bold tracking-tight text-white">CAPE<span class="text-indigo-400">CALC</span></h1>
-                        <span class="bg-indigo-500/20 text-indigo-300 text-[10px] font-bold px-2 py-0.5 rounded-full border border-indigo-500/30">CLAN CAPES</span>
                     </div>
-                    <p class="text-xs text-gray-400 font-body">Калькулятор Призыва и Клановых Очков</p>
+                    <p class="text-xs text-gray-400 font-body">Калькулятор плащей</p>
                 </div>
-            </div>
-
-            <!-- Quick Info Badges -->
-            <div class="flex items-center gap-3 text-xs">
-                <div class="flex items-center gap-2 bg-[#1B1F2D] px-3.5 py-2 rounded-xl border border-white/5">
-                    <i class="fa-solid fa-crown text-amber-400 text-sm"></i>
-                    <span class="text-gray-300 font-medium">1 Призыв = <strong class="text-white">20 Корон</strong></span>
-                </div>
-                <div class="flex items-center gap-2 bg-[#1B1F2D] px-3.5 py-2 rounded-xl border border-white/5">
-                    <i class="fa-solid fa-shirt text-indigo-400 text-sm"></i>
-                    <span class="text-gray-300 font-medium">1 Призыв = <strong class="text-white">1 Плащ</strong></span>
-                </div>
-            </div>
-
+            </div></a>
         </div>
     </header>
 
@@ -195,7 +181,7 @@
                             Текущий Уровень
                         </label>
                         <div class="relative">
-                            <input type="number" id="inputCurrentLevel" value="24" min="1" max="100" oninput="recalculate()" class="pet-input w-full px-3 py-2.5 text-sm font-bold pl-9">
+                            <input type="number" id="inputCurrentLevel" value="24" min="1" max="50" oninput="recalculate()" class="pet-input w-full px-3 py-2.5 text-sm font-bold pl-9">
                             <i class="fa-solid fa-layer-group absolute left-3 top-3 text-gray-500 text-xs"></i>
                         </div>
                     </div>
@@ -433,9 +419,97 @@
             </div>
 
         </div>
+<!-- Tips / Advice Section -->
+<div class="lg:col-span-12">
+    <div class="pet-card p-5 mt-1">
+        <div class="flex items-center justify-between border-b border-white/5 pb-3 mb-4">
+            <h2 class="text-sm font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-lightbulb text-amber-400"></i>
+                СОВЕТЫ
+            </h2>
+            <span class="text-[11px] text-gray-500">
+                Полезная информация
+            </span>
+        </div>
 
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+
+            <!-- Tip 1 -->
+            <div class="bg-[#11131C] border border-white/5 rounded-xl p-4 hover:border-indigo-500/30 transition-all">
+                <div class="flex items-start gap-3">
+                    <div class="w-9 h-9 shrink-0 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center">
+                        <i class="fa-solid fa-calculator text-indigo-400"></i>
+                    </div>
+
+                    <div>
+                        <h3 class="text-sm font-bold text-gray-200 mb-1">
+                            Не забывай покушать
+                        </h3>
+                        <p class="text-xs text-gray-500 leading-relaxed font-body">
+                            Тут типа ультра полезные гайды, советы и фичи игры
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tip 2 -->
+            <div class="bg-[#11131C] border border-white/5 rounded-xl p-4 hover:border-amber-500/30 transition-all">
+                <div class="flex items-start gap-3">
+                    <div class="w-9 h-9 shrink-0 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
+                        <i class="fa-solid fa-crown text-amber-400"></i>
+                    </div>
+
+                    <div>
+                        <h3 class="text-sm font-bold text-gray-200 mb-1">
+                            Купите мне elite mempership пжлст
+                        </h3>
+                        <p class="text-xs text-gray-500 leading-relaxed font-body">
+                            Var Tcan мудрец
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tip 3 -->
+            <div class="bg-[#11131C] border border-white/5 rounded-xl p-4 hover:border-purple-500/30 transition-all">
+                <div class="flex items-start gap-3">
+                    <div class="w-9 h-9 shrink-0 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center">
+                        <i class="fa-solid fa-chart-simple text-purple-400"></i>
+                    </div>
+
+                    <div>
+                        <h3 class="text-sm font-bold text-gray-200 mb-1">
+                            Я хочу спать
+                        </h3>
+                        <p class="text-xs text-gray-500 leading-relaxed font-body">
+                            Mass madraso ban
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Important Notice -->
+        <div class="mt-4 p-3 rounded-xl bg-indigo-500/5 border border-indigo-500/10 flex items-start gap-3">
+            <i class="fa-solid fa-circle-info text-indigo-400 mt-0.5"></i>
+
+            <p class="text-[11px] text-gray-400 leading-relaxed font-body">
+                <span class="text-gray-200 font-semibold">Важно:</span>
+                калькулятор показывает расчётный результат на основе заданных
+                параметров и вероятностей выпадения. Реальный результат может
+                отличаться из-за случайности.
+            </p>
+        </div>
+    </div>
+</div>
     </main>
 
+    <footer class="glass-panel border-t border-slate-800/80 py-8 mt-16">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 space-y-2">
+            <p class="text-[12px] text-slate-500">Неофициальный справочник по игре. Данный сайт не связан с разработчиками или издателем игры. Все права на игру, её название, изображения и другие материалы принадлежат LAVA LABS OYUN YAZILIM VE PAZARLAMA ANONİM ŞİRKETİ. Данный сайт создан исключительно в информационных целях.</p>
+        </div>
+    </footer>
     <script>
         // Points mapping for each cape rarity
         const CAPE_POINTS = {
@@ -471,11 +545,18 @@
         }
 
         // Summons required to level up from `lvl` to `lvl + 1`
-        function getSummonsForLevel(lvl) {
-            const base = parseInt(document.getElementById('cfgBaseSummons').value) || 70;
-            const step = parseInt(document.getElementById('cfgStepSummons').value) || 2;
-            return base + (lvl - 24) * step;
-        }
+                /* function getSummonsForLevel(lvl) {
+                    const base = parseInt(document.getElementById('cfgBaseSummons').value) || 70;
+                    const step = parseInt(document.getElementById('cfgStepSummons').value) || 2;
+                    return base + (lvl - 24) * step;
+                }*/
+
+            function getSummonsForLevel(lvl) {
+                const base = 70;
+                const step = 2;
+
+                return Math.max(1, base + (lvl - 24) * step);
+            }
 
         function setMode(mode) {
             currentMode = mode;
@@ -519,13 +600,14 @@
             let doneSummons = parseInt(document.getElementById('inputDoneProgress').value) || 0;
             let totalReqSummons = parseInt(document.getElementById('inputTotalLevelReq').value) || 1;
 
-            if (curLvl < 1) curLvl = 1;
+            curLvl = Math.max(1, Math.min(50, curLvl));
             if (doneSummons < 0) doneSummons = 0;
             if (totalReqSummons < 1) totalReqSummons = 1;
             if (doneSummons > totalReqSummons) doneSummons = totalReqSummons;
 
             let remSummons = Math.max(0, totalReqSummons - doneSummons);
 
+            document.getElementById('inputCurrentLevel').value = curLvl;
             document.getElementById('lblProgressLvlNum').innerText = curLvl;
             document.getElementById('lblCurrentStartLvl').innerText = curLvl;
             document.getElementById('badgeRemainingCalc').innerText = `Осталось ${remSummons} призывов`;
@@ -573,22 +655,40 @@
                 }
             }
 
-            // Progression simulation loop
+            // Fast progression simulation
+
             let simLvl = curLvl;
             let simRem = remSummons;
-            let counts = { common: 0, uncommon: 0, rare: 0, epic: 0, legendary: 0, mythic: 0 };
 
-            for (let i = 0; i < totalSummons; i++) {
+            let counts = {
+                common: 0,
+                uncommon: 0,
+                rare: 0,
+                epic: 0,
+                legendary: 0,
+                mythic: 0
+            };
+
+            let remainingSummons = totalSummons;
+
+            while (remainingSummons > 0) {
+
+                const summonsAtThisLevel = Math.min(
+                    remainingSummons,
+                    Math.max(1, simRem)
+                );
+
                 const rates = getDropRatesForLevel(simLvl);
+                counts.common += summonsAtThisLevel * rates.common / 100;
+                counts.uncommon += summonsAtThisLevel * rates.uncommon / 100;
+                counts.rare += summonsAtThisLevel * rates.rare / 100;
+                counts.epic += summonsAtThisLevel * rates.epic / 100;
+                counts.legendary += summonsAtThisLevel * rates.legendary / 100;
+                counts.mythic += summonsAtThisLevel * rates.mythic / 100;
 
-                counts.common += rates.common / 100;
-                counts.uncommon += rates.uncommon / 100;
-                counts.rare += rates.rare / 100;
-                counts.epic += rates.epic / 100;
-                counts.legendary += rates.legendary / 100;
-                counts.mythic += rates.mythic / 100;
+                remainingSummons -= summonsAtThisLevel;
+                simRem -= summonsAtThisLevel;
 
-                simRem--;
                 if (simRem <= 0) {
                     simLvl++;
                     simRem = getSummonsForLevel(simLvl);
@@ -616,6 +716,7 @@
             document.getElementById('statCrownsCost').innerText = `${(totalSummons * 20).toLocaleString('ru-RU')} Корон затрачено`;
 
             // Progress bar
+            simLvl = Math.min(50, simLvl);
             const reqCurrentDisplay = simLvl === curLvl ? totalReqSummons : getSummonsForLevel(simLvl);
             const doneInLevelDisplay = simLvl === curLvl ? doneSummons : (reqCurrentDisplay - simRem);
             const pct = Math.min(100, Math.round((doneInLevelDisplay / reqCurrentDisplay) * 100));
@@ -643,7 +744,12 @@
         }
 
         function updateChart(counts) {
-            const ctx = document.getElementById('pointsChart').getContext('2d');
+            const canvas = document.getElementById('pointsChart');
+
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+
             const data = [
                 Math.round(counts.common * CAPE_POINTS.common),
                 Math.round(counts.uncommon * CAPE_POINTS.uncommon),
@@ -711,6 +817,7 @@
                     else pts += CAPE_POINTS.mythic;
 
                     simRem--;
+
                     if (simRem <= 0) {
                         simLvl++;
                         simRem = getSummonsForLevel(simLvl);
