@@ -15,13 +15,19 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
-function handleLevelInput() {
-    const input = document.getElementById("inputCurrentLevel");
-    if (input.value === "") return;
-    recalculate();
-}
-</script>
-<script>
+    function handleLevelInput() {
+        const input = document.getElementById("inputCurrentLevel");
+        if (input.value === "") return;
+        
+        let curLvl = parseInt(input.value) || 1;
+        curLvl = Math.max(1, Math.min(50, curLvl));
+        
+        // Автоматически обновляем "Всего для нового уровня" при смене текущего уровня
+        document.getElementById('inputTotalLevelReq').value = getSummonsForLevel(curLvl);
+        recalculate();
+    }
+    </script>
+    <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
@@ -214,7 +220,7 @@ function handleLevelInput() {
                             </div>
                             <div>
                                 <div class="relative">
-                                    <input type="number" id="inputTotalLevelReq" value="71" min="1" oninput="recalculate()" class="pet-input w-full px-3 py-2 text-xs font-bold pl-8" placeholder="Всего надо">
+                                    <input type="number" id="inputTotalLevelReq" value="71" min="1" readonly class="pet-input w-full px-3 py-2 text-xs font-bold pl-8 opacity-75 cursor-not-allowed bg-[#07080C]" placeholder="Всего надо">
                                     <i class="fa-solid fa-flag-checkered absolute left-2.5 top-2.5 text-indigo-400 text-xs"></i>
                                 </div>
                                 <span class="text-[12px] text-gray-500 mt-1 block">Всего для нового уровня</span>
@@ -589,19 +595,21 @@ function handleLevelInput() {
             return DROP_RATES[Math.min(50, Math.max(1, lvl))] || DROP_RATES[50];
         }
 
-        // Required summons to level up.
-        // For the CURRENT level the requirement is entered manually by the user
-        // in "Всего для нового уровня". After moving to the next level,
-        // the normal CalculatorGoyda progression is used for subsequent levels.
+        // Required summons to level up calculated automatically:
+        // Level 1: 2 summons
+        // Level 2..33: +3 per lvl (+3 * (lvl - 1))
+        // Level 34+: +34 per lvl from lvl 33 requirement
         function getSummonsForLevel(lvl) {
-            const currentInputLevel = parseInt(document.getElementById('inputCurrentLevel')?.value) || 1;
-            const manualRequirement = parseInt(document.getElementById('inputTotalLevelReq')?.value) || 0;
-
-            if (lvl === currentInputLevel && manualRequirement > 0) {
-                return manualRequirement;
+            let lvlNum = Math.max(1, lvl);
+            let req = 2; // Level 1
+            for (let i = 2; i <= lvlNum; i++) {
+                if (i <= 33) {
+                    req += 3;
+                } else {
+                    req += 34;
+                }
             }
-
-            return Math.max(1, 50 + (lvl - 1) * 5);
+            return req;
         }
 
         function setMode(mode) {
@@ -643,13 +651,12 @@ function handleLevelInput() {
 
         function recalculate() {
             let curLvl = parseInt(document.getElementById('inputCurrentLevel').value) || 1;
-            let doneSummons = parseInt(document.getElementById('inputDoneProgress').value) || 0;
             curLvl = Math.max(1, Math.min(50, curLvl));
 
-            // "Всего для нового уровня" is a MANUAL input.
-            // Never overwrite it during recalculation.
-            let totalReqSummons = parseInt(document.getElementById('inputTotalLevelReq').value) || 0;
-            totalReqSummons = Math.max(1, totalReqSummons);
+            let totalReqSummons = getSummonsForLevel(curLvl);
+            document.getElementById('inputTotalLevelReq').value = totalReqSummons;
+
+            let doneSummons = parseInt(document.getElementById('inputDoneProgress').value) || 0;
             doneSummons = Math.max(0, Math.min(doneSummons, totalReqSummons));
 
             const remSummons = totalReqSummons - doneSummons;
@@ -690,9 +697,6 @@ function handleLevelInput() {
                 }
             }
 
-            // Step-by-step level calculation, identical in principle to CalculatorGoyda:
-            // each summon adds one unit of level progress; when the requirement is met,
-            // the level increases and leftover progress carries over.
             let simLvl = curLvl;
             let currentLevelProgress = doneSummons;
 
@@ -807,7 +811,7 @@ function handleLevelInput() {
         function runMonteCarloSimulation() {
             let curLvl = parseInt(document.getElementById('inputCurrentLevel').value) || 1;
             let doneSummons = parseInt(document.getElementById('inputDoneProgress').value) || 0;
-            let totalReqSummons = parseInt(document.getElementById('inputTotalLevelReq').value) || 1;
+            let totalReqSummons = getSummonsForLevel(curLvl);
             let remSummons = Math.max(0, totalReqSummons - doneSummons);
 
             let crowns = parseInt(document.getElementById('inputSpentCrowns').value) || 0;
