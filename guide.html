@@ -63,7 +63,7 @@
             scrollbar-width: none;
         }
 
-        .tab-btn.active {
+        .tab-btn.active, .nav-tab-btn.active {
             background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(168, 85, 247, 0.2));
             border-color: #06b6d4;
             color: #ffffff;
@@ -146,40 +146,35 @@
                 <!-- Grid / Scrollable Category Nav Bar -->
                 <nav class="flex flex-wrap items-center justify-center gap-2 py-1 px-1 w-full">
 
-                    <a href="#tables-section" class="flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-cyan-500/20 hover:text-cyan-300 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-cyan-500/40 transition flex items-center gap-2">
+                    <button onclick="showMainSection('tables-section', this)" class="nav-tab-btn active flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-cyan-500/40 transition flex items-center gap-2">
                         <i class="fa-solid fa-table text-cyan-400"></i>
                         <span>Таблицы</span>
-                    </a>
-                    <a href="#drop-chances" class="flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-cyan-500/20 hover:text-cyan-300 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-cyan-500/40 transition flex items-center gap-2">
+                    </button>
+                    <button onclick="showMainSection('drop-chances', this)" class="nav-tab-btn flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-cyan-500/40 transition flex items-center gap-2">
                         <i class="fa-solid fa-percent text-green-400"></i>
                         <span>Дропы</span>
-                    </a>
-                    <!--<a href="#mastery" class="flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-amber-500/20 hover:text-amber-300 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-amber-500/40 transition flex items-center gap-2">
-                        <i class="fa-solid fa-graduation-cap text-amber-400"></i>
-                        <span>Мастерство</span>
-                    </a>-->
-                    <a href="#stats" class="flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-amber-500/20 hover:text-amber-300 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-amber-500/40 transition flex items-center gap-2">
+                    </button>
+                    <button onclick="showMainSection('stats', this)" class="nav-tab-btn flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-amber-500/40 transition flex items-center gap-2">
                         <i class="fa-solid fa-chart-simple text-indigo-400"></i>
                         <span>Статы и EXP</span>
-                    </a>
-                    <!--<a href="#clanwars" class="flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-amber-500/20 hover:text-amber-300 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-amber-500/40 transition flex items-center gap-2">
-                        <i class="fa-solid fa-shield-cat text-red-400"></i>
-                        <span>Война Кланов</span>
-                    </a>-->
-                    <a href="#wings" class="flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-amber-500/20 hover:text-amber-300 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-amber-500/40 transition flex items-center gap-2">
+                    </button>
+                    <button onclick="showMainSection('wings', this)" class="nav-tab-btn flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-amber-500/40 transition flex items-center gap-2">
                         <i class="fa-solid fa-person-digging text-sky-400"></i>
                         <span>Шахта & Крылья</span>
-                    </a>
-                    <a href="#lifehacks" class="flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-amber-500/20 hover:text-amber-300 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-amber-500/40 transition flex items-center gap-2">
+                    </button>
+                    <button onclick="showMainSection('lifehacks', this)" class="nav-tab-btn flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-amber-500/40 transition flex items-center gap-2">
                         <i class="fa-solid fa-bolt text-amber-400"></i>
                         <span>Лайфхак с Рекламой</span>
-                    </a>
+                    </button>
+                    <button onclick="showMainSection('gems', this)" class="nav-tab-btn flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-amber-500/40 transition flex items-center gap-2">
+                        <i class="fa-solid fa-gem text-purple-400"></i>
+                        <span>Фарм Гемов</span>
+                    </button>
                 </nav>
             </div>
         </div>
 
-        <!-- НОВЫЙ РАЗДЕЛ: ПОЛНЫЕ ТАБЛИЦЫ ИЗ GUIDE.HTML -->
-        <section id="tables-section" class="scroll-mt-36">
+        <section id="tables-section" class="main-section scroll-mt-36">
             <div class="flex items-center space-x-3 mb-6">
                 <div class="p-3 rounded-2xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 shadow-lg shadow-cyan-500/5">
                     <i class="fa-solid fa-table text-2xl"></i>
@@ -479,10 +474,9 @@
                 </div>
             </div>
         </section>
-            <hr class="border-y border-slate-800/80">
         
-<!-- DROP CHANCES SECTION -->
-        <section id="drop-chances" class="scroll-mt-36 space-y-6">
+        <!-- DROP CHANCES SECTION -->
+        <section id="drop-chances" class="main-section hidden scroll-mt-36 space-y-6">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-2">
                 <div class="flex items-center space-x-3">
                     <div class="p-3 rounded-2xl bg-green-500/10 text-green-400 border border-green-500/20 shadow-lg shadow-green-500/5">
@@ -490,7 +484,7 @@
                     </div>
                     <div>
                         <h2 class="text-2xl font-bold text-white">Шансы Выпадения</h2>
-                        <p class="text-xs text-slate-400">Вероятности получения. ВНИМАНИЯ, ДАННЫЕ В ТАБЛИЦАХ МОГУТ БЫТЬ ОШИБОЧНЫМИ!!!!!!!!!!!!</p>
+                        <p class="text-xs text-slate-400">Вероятности получения </p>
                     </div>
                 </div>
 
@@ -526,44 +520,7 @@
             </div>
         </section>
 
-
-        <!--<section id="mastery" class="scroll-mt-36">
-            <div class="flex items-center justify-between mb-6">
-                <div class="flex items-center space-x-3">
-                    <div class="p-3 rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/20 shadow-lg shadow-amber-500/5">
-                        <i class="fa-solid fa-graduation-cap text-2xl"></i>
-                    </div>
-                    <div>
-                        <h2 class="text-2xl font-bold text-white">Мастерство (Mastery Guide)</h2>
-                        <p class="text-xs text-slate-400">Рекомендации прокачки, баффы и стоимость скиллов</p>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="flex items-center space-x-3 mb-6">
-                <div class="lg:col-span-2 glass-panel p-6 rounded-3xl space-y-4 border border-slate-800">
-                    <h3 class="text-lg font-bold text-amber-400 flex items-center gap-2">
-                        <i class="fa-solid fa-lightbulb"></i> Совет по прокачке Мастерства
-                    </h3>
-                    <p class="text-slate-300 text-sm leading-relaxed">
-                        Выбирайте <strong class="text-amber-300">EXP Boost</strong> в первую очередь, если проводите много времени в игре активным способом (онлайн). Это ускоряет прокачку аккаунта и дает быструю отдачу по уровню.
-                    </p>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs">
-                        <div class="bg-slate-950/70 p-3 rounded-xl border border-slate-800">
-                            <span class="text-emerald-400 font-bold block mb-1">Онлайн Стиль</span>
-                            <p class="text-slate-400">Приоритет: EXP Boost -> Drop Rate -> Attack/Damage.</p>
-                        </div>
-                        <div class="bg-slate-950/70 p-3 rounded-xl border border-slate-800">
-                            <span class="text-sky-400 font-bold block mb-1">Оффлайн/АФК Стиль</span>
-                            <p class="text-slate-400">Приоритет: Offline Earning -> Offline Time -> Damage Cap.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>-->
-            <hr class="border-y border-slate-800/80">
-        <section id="stats" class="scroll-mt-36">
+        <section id="stats" class="main-section hidden scroll-mt-36">
             <div class="flex items-center space-x-3 mb-6">
                 <div class="p-3 rounded-2xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 shadow-lg shadow-indigo-500/5">
                     <i class="fa-solid fa-chart-simple text-2xl"></i>
@@ -628,35 +585,8 @@
                 </div>
             </div>
         </section>
-        <!--<section id="clanwars" class="scroll-mt-36">
-            <div class="flex items-center space-x-3 mb-6">
-                <div class="p-3 rounded-2xl bg-red-500/10 text-red-400 border border-red-500/20 shadow-lg shadow-red-500/5">
-                    <i class="fa-solid fa-shield-cat text-2xl"></i>
-                </div>
-                <div>
-                    <h2 class="text-2xl font-bold text-white">Война Кланов (Clan War Guide)</h2>
-                    <p class="text-xs text-slate-400">Расписание заданий по дням и калькулятор клановых очков</p>
-                </div>
-            </div>
-            <div class="glass-panel rounded-3xl p-6 border border-slate-800 space-y-6">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="bg-slate-950/80 p-5 rounded-2xl border border-slate-800">
-                        <span class="text-xs font-bold text-amber-400 uppercase tracking-wider block mb-2">Дни 1, 3, 5</span>
-                        <h4 class="text-base font-bold text-white mb-2">Оффлайн & Прогресс</h4>
-                    </div>
-                    <div class="bg-slate-950/80 p-5 rounded-2xl border border-slate-800">
-                        <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider block mb-2">Дни 2, 4</span>
-                        <h4 class="text-base font-bold text-white mb-2">Зачистка Подземелий</h4>
-                    </div>
-                    <div class="bg-slate-950/80 p-5 rounded-2xl border border-slate-800">
-                        <span class="text-xs font-bold text-red-400 uppercase tracking-wider block mb-2">День 6 (Финал)</span>
-                        <h4 class="text-base font-bold text-white mb-2">PVP Турнир Кланов</h4>
-                    </div>
-                </div>
-            </div>
-        </section>-->
-            <hr class="border-y border-slate-800/80">
-        <section id="wings" class="scroll-mt-36">
+
+        <section id="wings" class="main-section hidden scroll-mt-36">
             <div class="flex items-center space-x-3 mb-6">
                 <div class="p-3 rounded-2xl bg-sky-500/10 text-sky-400 border border-sky-500/20 shadow-lg shadow-sky-500/5">
                     <i class="fa-solid fa-feather text-2xl"></i>
@@ -711,8 +641,9 @@
                         </div>
                     </div>
                 </div>
-                    <!-- Image Gallery -->
-                    <div class="mt-2 p-4 bg-slate-950 rounded-2xl border border-slate-800">
+                    
+                <!-- Image Gallery -->
+                <div class="mt-2 p-4 bg-slate-950 rounded-2xl border border-slate-800">
                         <div class="text-xs font-bold text-sky-400 mb-3">
                             Схема идеального пути в шахте
                         </div>
@@ -742,12 +673,92 @@
                                 >
                             </button>
                         </div>
+                </div>
+                
+                <!-- Tips -->
+                <div class="mt-2 p-4 bg-slate-950 rounded-2xl border border-slate-800">
+                    <div class="pet-card p-5 mt-1">
+                        <div class="flex items-center justify-between border-b border-white/5 pb-3 mb-4">
+                            <h2 class="text-sm font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-lightbulb text-amber-400"></i>
+                                Полезная Информация
+                            </h2>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+
+                            <!-- Tip 1 -->
+                            <div class="bg-indigo-500/5 border border-white/5 rounded-xl p-4 hover:border-indigo-500/30 transition-all">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-9 h-9 shrink-0 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center">
+                                        <i class="fa-solid fa-clock-rotate-left text-indigo-400"></i>
+                                    </div>
+
+                                    <div>
+                                        <h3 class="text-sm font-bold text-gray-200 mb-1">
+                                            Обновление кирок
+                                        </h3>
+                                        <p class="text-xs text-gray-500 leading-relaxed font-body">
+                                            Обычные кирки обновляются каждые 5 минут. Вам нужно 2 часа и 30 минут чтобы получить 30 кирок.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Tip 2 -->
+                            <div class="bg-indigo-500/5 border border-white/5 rounded-xl p-4 hover:border-amber-500/30 transition-all">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-9 h-9 shrink-0 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
+                                        <i class="fa-solid fa-crown text-amber-400"></i>
+                                    </div>
+
+                                    <div>
+                                        <h3 class="text-sm font-bold text-gray-200 mb-1">
+                                            Золотые кирки и буры
+                                        </h3>
+                                        <p class="text-xs text-gray-500 leading-relaxed font-body">
+                                            Золотые кирки и буры можно получить с Battle Pass, Clan war battle rewards, Time Warp Event
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Tip 3 -->
+                            <div class="bg-indigo-500/5 border border-white/5 rounded-xl p-4 hover:border-purple-500/30 transition-all">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-9 h-9 shrink-0 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center">
+                                        <i class="fa-solid fa-chart-simple text-purple-400"></i>
+                                    </div>
+
+                                    <div>
+                                        <h3 class="text-sm font-bold text-gray-200 mb-1">
+                                            Я хз чё писать
+                                        </h3>
+                                        <p class="text-xs text-gray-500 leading-relaxed font-body">
+                                            Скачать сбербанк
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Important Notice -->
+                        <div class="mt-4 p-3 rounded-xl bg-indigo-500/5 border border-indigo-500/10 flex items-start gap-3">
+                            <i class="fa-solid fa-circle-info text-indigo-400 mt-0.5"></i>
+
+                            <p class="text-[11px] text-gray-400 leading-relaxed font-body">
+                                <span class="text-gray-200 font-semibold">Важно:</span>
+                                Тут типа оч важное что-то. Привет.
+                            </p>
+                        </div>
                     </div>
+                </div>
 
             </div>
         </section>
-            <hr class="border-y border-slate-800/80">
-        <section id="lifehacks" class="scroll-mt-36">
+
+        <section id="lifehacks" class="main-section hidden scroll-mt-36">
             <div class="flex items-center space-x-3 mb-6">
                 <div class="p-3 rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/20 shadow-lg shadow-amber-500/5">
                     <i class="fa-solid fa-bolt text-2xl"></i>
@@ -844,8 +855,8 @@
                     </div>
             </div>
         </section>
-            <hr class="border-y border-slate-800/80">
-        <section id="gems" class="scroll-mt-36">
+
+        <section id="gems" class="main-section hidden scroll-mt-36">
             <div class="flex items-center space-x-3 mb-6">
                 <div class="p-3 rounded-2xl bg-purple-500/10 text-purple-400 border border-purple-500/20 shadow-lg shadow-purple-500/5">
                     <i class="fa-solid fa-gem text-2xl"></i>
@@ -909,6 +920,29 @@
 
     <!-- JavaScript Data and Integration -->
     <script>
+        // Функция переключения основных разделов сайта
+        function showMainSection(sectionId, btn) {
+            // Скрываем все разделы
+            document.querySelectorAll('.main-section').forEach(sec => sec.classList.add('hidden'));
+
+            // Убираем активный класс у кнопок навигации
+            document.querySelectorAll('.nav-tab-btn').forEach(b => b.classList.remove('active'));
+
+            // Показываем нужный раздел
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.remove('hidden');
+                
+                // Прокручиваем к разделу
+                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            // Активируем нажатую кнопку
+            if (btn) {
+                btn.classList.add('active');
+            }
+        }
+
         // Data derived directly from guide.html
         const masteryData = [
             { name: "Auto-Loot Speed", nameRu: "Скорость Авто-Лута", desc: "Количество ящиков, которые автоматически открываются", cost: "0", maxEffect: "15", perUpgrade: "1", levels: "15", gemsToMax: "7850", recommendedMax: "Да", order: "2", recLevel: "5 Затем Макс." },
@@ -1085,6 +1119,7 @@
             renderFullMastery(masteryData);
             renderFullStats(statsData);
         };
+
         function toggleMiningTab(tab) {
             const pveContent = document.getElementById('pveTabContent');
             const pvpContent = document.getElementById('pvpTabContent');
@@ -1103,68 +1138,35 @@
                 pveBtn.className = "px-4 py-2 text-xs font-bold border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition";
             }
         }
-    </script>
-    <script>
+
         function changeMiningImage(imageSrc, thumbnail) {
             const mainImage = document.getElementById('miningMainImage');
-
-            // Плавное переключение
             mainImage.style.opacity = '0';
-
             setTimeout(() => {
                 mainImage.src = imageSrc;
                 mainImage.style.opacity = '1';
             }, 150);
 
-            // Сбрасываем состояние всех миниатюр
             document.querySelectorAll('.mining-thumbnail').forEach(item => {
                 item.classList.remove('border-sky-400', 'opacity-100');
                 item.classList.add('border-transparent', 'opacity-60');
             });
-
-            // Выделяем выбранную
             thumbnail.classList.remove('border-transparent', 'opacity-60');
             thumbnail.classList.add('border-sky-400', 'opacity-100');
         }
+
         function changeAdImage(imageSrc, thumbnail) {
             const mainImage = document.getElementById('AdMainImage');
-
-            // Плавное переключение
             mainImage.style.opacity = '0';
-
             setTimeout(() => {
                 mainImage.src = imageSrc;
                 mainImage.style.opacity = '1';
             }, 150);
 
-            // Сбрасываем состояние всех миниатюр
             document.querySelectorAll('.ad-thumbnail').forEach(item => {
                 item.classList.remove('border-sky-400', 'opacity-100');
                 item.classList.add('border-transparent', 'opacity-60');
             });
-
-            // Выделяем выбранную
-            thumbnail.classList.remove('border-transparent', 'opacity-60');
-            thumbnail.classList.add('border-sky-400', 'opacity-100');
-        }
-        function changeGemImage(imageSrc, thumbnail) {
-            const mainImage = document.getElementById('GemMainImage');
-
-            // Плавное переключение
-            mainImage.style.opacity = '0';
-
-            setTimeout(() => {
-                mainImage.src = imageSrc;
-                mainImage.style.opacity = '1';
-            }, 150);
-
-            // Сбрасываем состояние всех миниатюр
-            document.querySelectorAll('.gem-thumbnail').forEach(item => {
-                item.classList.remove('border-sky-400', 'opacity-100');
-                item.classList.add('border-transparent', 'opacity-60');
-            });
-
-            // Выделяем выбранную
             thumbnail.classList.remove('border-transparent', 'opacity-60');
             thumbnail.classList.add('border-sky-400', 'opacity-100');
         }
@@ -1663,5 +1665,6 @@
                     renderDropTable('pets');
                 });
     </script>
+    
 </body>
 </html>
