@@ -246,84 +246,8 @@
         </section>
 
         <!-- Detailed Probabilities Table Modal/Accordion -->
-        <section class="bg-gray-900/70 rounded-2xl border border-gray-800 overflow-hidden">
-            <button id="toggleTableBtn" class="w-full p-4 text-left font-display font-bold text-gray-200 flex items-center justify-between hover:bg-gray-800/50 transition">
-                <span class="flex items-center gap-2">
-                    <i class="fa-solid fa-table-list text-blue-400"></i> Просмотр шансов выпадения для всех уровней (1 - 100)
-                </span>
-                <i id="tableChevron" class="fa-solid fa-chevron-down text-gray-400 transition-transform"></i>
-            </button>
-            <div id="tableContainer" class="hidden border-t border-gray-800 max-h-96 overflow-y-auto">
-                <table class="w-full text-xs text-left text-gray-300">
-                    <thead class="text-[11px] uppercase bg-gray-800/90 text-gray-400 sticky top-0">
-                        <tr>
-                            <th class="px-4 py-2.5">Уровень</th>
-                            <th class="px-4 py-2.5 text-petCommon">Common</th>
-                            <th class="px-4 py-2.5 text-petUncommon">Uncommon</th>
-                            <th class="px-4 py-2.5 text-petRare">Rare</th>
-                            <th class="px-4 py-2.5 text-petEpic">Epic</th>
-                            <th class="px-4 py-2.5 text-petLegendary">Legendary</th>
-                            <th class="px-4 py-2.5 text-petMythic">Mythic</th>
-                        </tr>
-                    </thead>
-                    <tbody id="dropTableBody" class="divide-y divide-gray-800 font-mono">
-                        <!-- Populated by JS -->
-                    </tbody>
-                </table>
-            </div>
-        </section>
 
         <!-- Math Explanation Accordion -->
-        <section class="bg-gray-900/70 rounded-2xl border border-gray-800 p-6 space-y-4">
-            <h3 class="text-lg font-bold font-display text-white flex items-center gap-2">
-                <i class="fa-solid fa-square-root-variable text-indigo-400"></i> Как работает математика калькулятора?
-            </h3>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-gray-300 leading-relaxed">
-                <div class="bg-gray-800/40 p-4 rounded-xl border border-gray-700/40 space-y-2">
-                    <h4 class="font-semibold text-blue-400 text-sm flex items-center gap-1.5">
-                        <i class="fa-solid fa-arrow-trend-up"></i> 1. Прогрессия опыта и уровней
-                    </h4>
-                    <p>
-                        Для повышения уровня требуется призывать питомцев. Для перехода с уровня <code class="text-amber-300">L</code> на <code class="text-amber-300">L+1</code> требуется количество питомцев по формуле:
-                    </p>
-                    <div class="bg-gray-900 p-2 rounded text-center font-mono text-emerald-400 font-bold">
-                        N(L) = 50 + (L - 1) * 5
-                    </div>
-                    <p class="text-gray-400">
-                        <em>Пример:</em> На уровне 97 требуется <code class="text-gray-200">50 + 96 * 5 = 530</code> питомцев. На 98 уровне — <code class="text-gray-200">535</code> питомцев.
-                    </p>
-                </div>
-
-                <div class="bg-gray-800/40 p-4 rounded-xl border border-gray-700/40 space-y-2">
-                    <h4 class="font-semibold text-indigo-400 text-sm flex items-center gap-1.5">
-                        <i class="fa-solid fa-chart-pie"></i> 2. Динамический расчет очков
-                    </h4>
-                    <p>
-                        Калькулятор симулирует каждый призыв по шагам. Если во время серии призывов уровень повышается, последующие призывы рассчитываются уже по вероятностям **нового уровня**.
-                    </p>
-                    <p>
-                        Очки за одного питомца рассчитываются как математическое ожидание:
-                    </p>
-                    <div class="bg-gray-900 p-2 rounded text-center font-mono text-xs text-indigo-300">
-                        E[Очки] = Σ (Шанс_Тира% × Очки_Тира)
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tier Points Table -->
-            <div class="pt-2">
-                <div class="text-xs font-semibold text-gray-400 mb-2">Начисление очков по редким типам (Тирам):</div>
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 text-center text-xs">
-                    <div class="bg-gray-800 p-2 rounded-lg border-t-2 border-petCommon"><span class="text-petCommon font-bold">Common</span>: 10 очков</div>
-                    <div class="bg-gray-800 p-2 rounded-lg border-t-2 border-petUncommon"><span class="text-petUncommon font-bold">Uncommon</span>: 10 очков</div>
-                    <div class="bg-gray-800 p-2 rounded-lg border-t-2 border-petRare"><span class="text-petRare font-bold">Rare</span>: 20 очков</div>
-                    <div class="bg-gray-800 p-2 rounded-lg border-t-2 border-petEpic"><span class="text-petEpic font-bold">Epic</span>: 20 очков</div>
-                    <div class="bg-gray-800 p-2 rounded-lg border-t-2 border-petLegendary"><span class="text-petLegendary font-bold">Legendary</span>: 30 очков</div>
-                    <div class="bg-gray-800 p-2 rounded-lg border-t-2 border-petMythic"><span class="text-petMythic font-bold">Mythic</span>: 30 очков</div>
-                </div>
-            </div>
-        </section>
 
     </main>
     
