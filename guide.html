@@ -490,13 +490,13 @@
                         <i class="fa-solid fa-paw"></i> Компаньоны
                     </button>
                     <button type="button" data-tab="capes" class="drop-tab-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-2">
-                        <i class="fa-solid fa-user-ninja"></i> Плащи
+                        <i class="fa-solid fa-vest-patches"></i> Плащи
                     </button>
                     <button type="button" data-tab="gear" class="drop-tab-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-2">
                         <i class="fa-solid fa-shield-halved"></i> Экипировка
                     </button>
                     <button type="button" data-tab="relics" class="drop-tab-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-2">
-                        <i class="fa-solid fa-gem"></i> Реликвии
+                        <i class="fa-solid fa-vial"></i> Реликвии
                     </button>
                 </div>
             </div>
@@ -846,14 +846,14 @@
         // Data derived directly from guide.html
         const masteryData = [
             { name: "Auto-Loot Speed", nameRu: "Скорость Авто-Лута", desc: "Количество ящиков, которые автоматически открываются", cost: "0", maxEffect: "15", perUpgrade: "1", levels: "15", gemsToMax: "7850", recommendedMax: "Да", order: "2", recLevel: "5 Затем Макс." },
-            { name: "EXP Boost Multiplier", nameRu: "Множитель Опыта", desc: "Множитель, который даёт усиление от рекламы", cost: "0", maxEffect: "x4", perUpgrade: "0.1", levels: "20", gemsToMax: "7150", recommendedMax: "Нет", order: "1*", recLevel: "Около 7" },
+            { name: "EXP Boost Multiplier", nameRu: "Множитель Опыта", desc: "Множитель, который даёт усиление от рекламы", cost: "0", maxEffect: "x4", perUpgrade: "0.1", levels: "20", gemsToMax: "7150", recommendedMax: "Да*", order: "1*", recLevel: "Около 7" },
             { name: "Offer Gem Chance", nameRu: "Шанс На Гемы", desc: "Шанс получить гемы вместо ящиков из летучих сундуков", cost: "30", maxEffect: "50%", perUpgrade: "0.30%", levels: "13", gemsToMax: "2030", recommendedMax: "Нет", order: "3", recLevel: "5" },
             { name: "Summon Capacity", nameRu: "Вместимость Призыва", desc: "Увеличивает количество питомцев, которых можно призвать одновременно", cost: "60", maxEffect: "5", perUpgrade: "1", levels: "5", gemsToMax: "540", recommendedMax: "Да", order: "2", recLevel: "0 Затем Макс." },
-            { name: "Max Offline Time", nameRu: "Макс. Время Оффлайна", desc: "Увеличивает максимальное время, за которое можно получить оффлайн заработок", cost: "90", maxEffect: "x2", perUpgrade: "0.1", levels: "10", gemsToMax: "950", recommendedMax: "Нет", order: "1*", recLevel: "6" },
+            { name: "Max Offline Time", nameRu: "Макс. Время Оффлайна", desc: "Увеличивает максимальное время, за которое можно получить оффлайн заработок", cost: "90", maxEffect: "x2", perUpgrade: "0.1", levels: "10", gemsToMax: "950", recommendedMax: "Да", order: "1*", recLevel: "6" },
             { name: "Max Pickaxes", nameRu: "Макс. Кирок", desc: "Увеличивает количество максимальных кирок", cost: "120", maxEffect: "15", perUpgrade: "1", levels: "15", gemsToMax: "2340", recommendedMax: "Нет", order: "4", recLevel: "0" },
-            { name: "Max Item Level", nameRu: "Макс. Уровень Предметов", desc: "Увеличивает максимальный уровень экипировки", cost: "150", maxEffect: "30", perUpgrade: "2 потом 4", levels: "10", gemsToMax: "2340", recommendedMax: "Да", order: "2", recLevel: "Макс." },
+            { name: "Max Item Level", nameRu: "Макс. Уровень Предметов", desc: "Увеличивает максимальный уровень экипировки", cost: "150", maxEffect: "30", perUpgrade: "2, потом 4 на 11 уровне", levels: "10", gemsToMax: "2340", recommendedMax: "Да", order: "2", recLevel: "Макс." },
             { name: "Extended EXP Boost", nameRu: "Продолжительность Множителя Опыта", desc: "Увеличивает время множителя опыта за просмотр рекламы", cost: "180", maxEffect: "1200", perUpgrade: "90", levels: "10", gemsToMax: "950", recommendedMax: "Нет", order: "1*", recLevel: "6" },
-            { name: "Offline Earning Rate", nameRu: "Скорость Оффлайн Заработка", desc: "Увеличивает скорость получения ресурсов во время оффлайна", cost: "210", maxEffect: "x2.5", perUpgrade: "0.05", levels: "25", gemsToMax: "6150", recommendedMax: "Нет", order: "1*", recLevel: "6" },
+            { name: "Offline Earning Rate", nameRu: "Скорость Оффлайн Заработка", desc: "Увеличивает скорость получения ресурсов во время оффлайна", cost: "210", maxEffect: "x2.5", perUpgrade: "0.05, потом .1% на 8 уровне", levels: "25", gemsToMax: "6150", recommendedMax: "Да", order: "1*", recLevel: "6" },
             { name: "Movement Speed", nameRu: "Скорость Передвижения", desc: "Увеличивает скорость передвижения персонажа", cost: "240", maxEffect: "x2", perUpgrade: "0.05", levels: "20", gemsToMax: "6150", recommendedMax: "Да если ближний", order: "4", recLevel: "5 затем 10 или Макс." }
         ];
 
@@ -1439,39 +1439,59 @@
                             200: [0, 0, 0, 0, 0, 0, 0, 34, 56, 10]
                         }
                     },
-                    relics: { //NEED TO
+                    relics: { //CHECKED
                         columns: ['Lvl 1', 'Lvl 2', 'Lvl 3', 'Lvl 4', 'Lvl 5', 'Lvl 6'],
                         rates: { 
                             1: [100, 0, 0, 0, 0, 0],
                             2: [99.5, 0.5, 0, 0, 0, 0],
-                            3: [99, 1, 0, 0, 0, 0],
-                            4: [98, 1.9, 0.1, 0, 0, 0],
-                            5: [96.85, 3, 0.15, 0, 0, 0],
-                            6: [95.1, 4.7, 0.2, 0, 0, 0],
-                            7: [92.6, 7, 0.4, 0, 0, 0],
-                            8: [89.2, 10, 0.8, 0, 0, 0],
-                            9: [84.5, 14, 1.5, 0, 0, 0],
-                            10: [78, 19, 3, 0, 0, 0],
-                            11: [70.28, 25, 4.7, 0.02, 0, 0],
-                            12: [60.95, 32, 7, 0.05, 0, 0],
-                            13: [50.21, 40, 9.7, 0.09, 0, 0],
-                            14: [39.06, 47, 13.72, 0.22, 0, 0],
-                            15: [30.21, 52, 17.2, 0.59, 0, 0],
-                            16: [23.06, 54, 21.05, 1.89, 0, 0],
-                            17: [17.06, 55, 24.8, 3.14, 0, 0],
-                            18: [16.5, 51.71, 26.6, 5.19, 0, 0],
-                            19: [16.5, 45.96, 28.5, 9.04, 0, 0],
-                            20: [16.5, 39.5, 30.28, 13.72, 0, 0],
-                            21: [16.5, 33.5, 32, 18, 0, 0],
-                            22: [16.5, 27.5, 33.5, 22.5, 0, 0],
-                            23: [16.5, 22.5, 34.5, 26.5, 0, 0],
-                            24: [16.5, 16.5, 35, 32, 0, 0],
-                            25: [16.5, 16.5, 30.5, 36.5, 0, 0],
-                            26: [16.5, 16.5, 25.5, 41.5, 0, 0],
-                            27: [16.5, 16.5, 19.8, 47.21, 0, 0],
-                            28: [16.5, 16.5, 16.5, 27.46, 23.04, 0],
-                            29: [16.5, 16.5, 16.5, 18.5, 32, 0],
-                            30: [16.5, 16.5, 16.5, 16.5, 34, 0]
+                            3: [99.64, 0.36, 0, 0, 0, 0],
+                            4: [98.05, 0.95, 0, 0, 0, 0],
+                            5: [96.69, 1.3, 0, 0, 0, 0],
+                            6: [98.19, 1.81, 0, 0, 0, 0],
+                            7: [97.5, 2.5, 0, 0, 0, 0],
+                            8: [96.55, 3.45, 0, 0, 0, 0],
+                            9: [95, 5, 0, 0, 0, 0],
+                            10: [92.9, 7, 0.1, 0, 0, 0],
+                            11: [90.02, 9.8, 0.18, 0, 0, 0],
+                            12: [85.96, 13.72, 0.32, 0, 0, 0],
+                            13: [80.21, 19.21, 0.58, 0, 0, 0],
+                            14: [72.06, 26.89, 1.05, 0, 0, 0],
+                            15: [60.46, 37.65, 1.89, 0, 0, 0],
+                            16: [43.89, 52.71, 3.4, 0, 0, 0],
+                            17: [35.11, 59.89, 5, 0, 0, 0],
+                            18: [29.09, 64.81, 7, 0.1, 0, 0],
+                            19: [22.47, 67.55, 9.8, 0.18, 0, 0],
+                            20: [17.98, 67.89, 13.72, 0.32, 0, 0],
+                            21: [16.5, 63.71, 19.21, 0.58, 0, 0],
+                            22: [16.5, 55.56, 26.89, 1.05, 0, 0],
+                            23: [16.5, 43.96, 37.65, 1.89, 0, 0],
+                            24: [16.5, 27.39, 52.71, 3.4, 0, 0],
+                            25: [16.5, 16.5, 62, 5, 0, 0],
+                            26: [16.5, 16.5, 59.9, 7, 0.1, 0],
+                            27: [16.5, 16.5, 57.02, 9.8, 0.18, 0],
+                            28: [16.5, 16.5, 52.96, 13.72, 0.32, 0],
+                            29: [16.5, 16.5, 47.21, 19.21, 0.58, 0],
+                            30: [16.5, 16.5, 39.06, 26.89, 1.05, 0],
+                            31: [16.5, 16.5, 27.46, 37.65, 1.89, 0],
+                            32: [16.5, 16.5, 16.5, 47.1, 3.4, 0],
+                            33: [16.5, 16.5, 16.5, 45.5, 5, 0],
+                            34: [16.5, 16.5, 16.5, 43.4, 7, 0.1],
+                            35: [16.5, 16.5, 16.5, 40.52, 9.8, 0.18],
+                            36: [16.5, 16.5, 16.5, 36.56, 13.72, 0.32],
+                            37: [16.5, 16.5, 16.5, 30.71, 19.21, 0.58],
+                            38: [16.5, 16.5, 16.5, 22.56, 26.89, 1.05],
+                            39: [16.5, 16.5, 16.5, 16.5, 32.11, 1.89],
+                            40: [16.5, 16.5, 16.5, 16.5, 30.6, 3.4],
+                            41: [16.5, 16.5, 16.5, 16.5, 29, 5],
+                            42: [16.5, 16.5, 16.5, 16.5, 28.3, 5.7],
+                            43: [16.5, 16.5, 16.5, 16.5, 27.5, 6.5],
+                            44: [16.5, 16.5, 16.5, 16.5, 26.59, 7.41],
+                            45: [16.5, 16.5, 16.5, 16.5, 25.56, 8.44],
+                            46: [16.5, 16.5, 16.5, 16.5, 24.37, 9.63],
+                            47: [16.5, 16.5, 16.5, 16.5, 23.03, 10.97],
+                            48: [16.5, 16.5, 16.5, 16.5, 21.49, 12.51],
+                            49: [16.5, 16.5, 16.5, 16.5, 19.74, 16.5],
+                            50: [16.5, 16.5, 16.5, 16.5, 16.5, 16.5]
                         }
                     }
                 };
