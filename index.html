@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dungeon Rush & Calculators</title>
+    <title>Dungeon Rush & Calculators — Wiki</title>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -110,35 +110,12 @@
             transform: translateY(-1px);
         }
 
-        .nav-link {
-            transition: all 0.2s;
-            border-radius: 0.75rem;
+        .category-divider {
+            display: flex;
+            --items-center: center;
+            margin-top: 2rem;
+            margin-bottom: 1.25rem;
         }
-
-        .nav-link.active {
-            background-color: rgba(99, 102, 241, 0.15);
-            color: #818CF8;
-            border: 1px solid rgba(99, 102, 241, 0.3);
-        }
-
-        .badge-rarity {
-            font-size: 0.7rem;
-            font-weight: 700;
-            padding: 0.25rem 0.6rem;
-            border-radius: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .rarity-common { background: rgba(161, 161, 170, 0.15); color: #A1A1AA; border: 1px solid rgba(161, 161, 170, 0.3); }
-        .rarity-uncommon { background: rgba(34, 197, 94, 0.15); color: #22C55E; border: 1px solid rgba(34, 197, 94, 0.3); }
-        .rarity-rare { background: rgba(59, 130, 246, 0.15); color: #3B82F6; border: 1px solid rgba(59, 130, 246, 0.3); }
-        .rarity-epic { background: rgba(168, 85, 247, 0.15); color: #A855F7; border: 1px solid rgba(168, 85, 247, 0.3); }
-        .rarity-legendary { background: rgba(245, 158, 11, 0.15); color: #F59E0B; border: 1px solid rgba(245, 158, 11, 0.3); }
-        .rarity-mythic { background: rgba(239, 68, 68, 0.15); color: #EF4444; border: 1px solid rgba(239, 68, 68, 0.3); }
-
-        .stat-glow-gold { text-shadow: 0 0 12px rgba(255, 199, 0, 0.4); }
-        .stat-glow-indigo { text-shadow: 0 0 12px rgba(99, 102, 241, 0.4); }
 
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #0E1017; }
@@ -162,166 +139,284 @@
                     <div class="flex items-center gap-2">
                         <h1 class="text-lg font-bold tracking-tight text-white">Dungeon <span class="text-indigo-400">Rush</span></h1>
                     </div>
-                    <p class="text-xs text-gray-400 font-body">Единый Калькулятор</p>
+                    <p class="text-xs text-gray-400 font-body">Единый портал знаний</p>
                 </div>
             </div>
-
+            <div class="flex items-center space-x-3 text-xs">
+                <span class="hidden sm:inline-flex items-center px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-400">
+                    <i class="fa-solid fa-code-branch text-amber-400 mr-1.5"></i> Последнее обновление: 30.09.2026
+                </span>
+            </div>
         </div>
+    </header>
     </header>
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
 
         <!-- SECTION: HUB / DASHBOARD -->
-        <div id="sectionHub" class="space-y-6">
+        <div id="sectionHub" class="space-y-8">
             <!-- Hero Banner -->
             <div class="pet-card p-6 sm:p-8 bg-gradient-to-r from-indigo-900/40 via-[#161924] to-purple-900/30 border-indigo-500/20 relative overflow-hidden">
                 <div class="max-w-2xl relative z-10 space-y-3">
-                    <h2 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">Калькуляторы питомцев и плащей</h2>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">Dungeon Rush Wiki & Calculators</h2>
                     <p class="text-sm text-gray-300 font-body leading-relaxed">
-                    Дикси привет
+                        Добро пожаловать в неофициальную базу знаний. Рассчитывайте прокачку, изучайте гайды и анализируйте игровые механики.
                     </p>
-
                 </div>
-                <i class="fa-solid fa-chart-pie absolute -right-6 -bottom-6 text-white/5 text-[220px] pointer-events-none"></i>
+                <i class="fa-solid fa-book-bookmark absolute -right-6 -bottom-6 text-white/5 text-[220px] pointer-events-none"></i>
+                    <div class="mt-5 flex flex-wrap items-center gap-3 text-xs font-medium">
+                        <span class="inline-flex items-center px-3.5 py-1.5 rounded-xl bg-slate-900/80 text-slate-300 border border-slate-800 shadow-inner">
+                            <i class="fa-solid fa-table-list mr-2 text-amber-400"></i> Данные: <strong class="text-amber-400 ml-1">Elpi The Wiki</strong>
+                        </span>
+                        <span class="inline-flex items-center px-3.5 py-1.5 rounded-xl bg-slate-900/80 text-slate-300 border border-slate-800 shadow-inner">
+                            <i class="fa-solid fa-language mr-2 text-indigo-400"></i> Перевод/Разработка: <strong class="text-indigo-400 ml-1">Tcan</strong>
+                        </span>
+                        <span class="inline-flex items-center px-3.5 py-1.5 rounded-xl bg-slate-900/80 text-slate-300 border border-slate-800 shadow-inner">
+                            <i class="fa-solid fa-gear mr-2 text-emerald-400"></i> Тестеры: <strong class="text-emerald-400 ml-1">Varyag, Dikci, Callin</strong>
+                        </span>
+                    </div>
             </div>
 
-            <!-- Fast Jump Cards Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <!-- CATEGORY 1: CALCULATORS -->
+            <section>
+                <div class="flex items-center gap-3 my-4">
+                    <div class="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 text-sm">
+                        <i class="fa-solid fa-calculator"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white tracking-wide">Калькуляторы</h3>
+                    <div class="h-[1px] flex-1 bg-gradient-to-r from-white/10 to-transparent"></div>
+                </div>
 
-                <!-- Card 1: Capes -->
-                <a href="capes.html" class="pet-card p-5 space-y-4 cursor-pointer group block">
-                    <div class="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 text-xl group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-vest-patches"></i>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    <!-- Capes -->
+                    <a href="capes.html" class="pet-card p-5 space-y-4 cursor-pointer group block">
+                        <div class="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 text-xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-vest-patches"></i>
+                        </div>
+                        <div class="space-y-1">
+                            <h4 class="text-base font-bold text-white group-hover:text-indigo-400 transition-colors">
+                                Плащи
+                            </h4>
+                            <p class="text-xs text-gray-400 font-body">
+                                Расчёт клановых очков, затрат корон, уровней призыва и вероятностей редких плащей.
+                            </p>
+                        </div>
+                        <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-indigo-400 font-semibold">
+                            <span>Открыть калькулятор</span>
+                            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </a>
+
+                    <!-- Pets -->
+                    <a href="pets.html" class="pet-card p-5 space-y-4 cursor-pointer group block">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-paw"></i>
+                        </div>
+                        <div class="space-y-1">
+                            <h4 class="text-base font-bold text-white group-hover:text-emerald-400 transition-colors">
+                                Компаньоны
+                            </h4>
+                            <p class="text-xs text-gray-400 font-body">
+                                Расчёт клановых очков, затрат костей, уровень призыва и вероятность выпадений.
+                            </p>
+                        </div>
+                        <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-emerald-400 font-semibold">
+                            <span>Открыть калькулятор</span>
+                            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </a>
+
+                    <!-- Boxes -->
+                    <a href="boxes.html" class="pet-card p-5 space-y-4 cursor-pointer group block">
+                        <div class="w-12 h-12 rounded-xl bg-yellow-500/10 border border-yellow-500/20 flex items-center justify-center text-yellow-400 text-xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-box"></i>
+                        </div>
+                        <div class="space-y-1">
+                            <h4 class="text-base font-bold text-white group-hover:text-yellow-400 transition-colors">
+                                Коробки
+                            </h4>
+                            <p class="text-xs text-gray-400 font-body">
+                                Расчёт клановых очков, затрат коробок, примерные дропы.
+                            </p>
+                        </div>
+                        <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-yellow-200 font-semibold">
+                            <span>Открыть калькулятор</span>
+                            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </a>
+
+                    <!-- Relics
+                    <a href="relics.html" class="pet-card p-5 space-y-4 cursor-pointer group block">
+                        <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 text-xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-vial text-red-500 text-xl"></i>
+                        </div>
+                        <div class="space-y-1">
+                            <h4 class="text-base font-bold text-white group-hover:text-red-400 transition-colors">
+                                Реликвии
+                            </h4>
+                            <p class="text-xs text-gray-400 font-body">
+                                Расчёт кровавых колб, реликвий, уровни.
+                            </p>
+                        </div>
+                        <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-red-200 font-semibold">
+                            <span>Открыть калькулятор</span>
+                            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </a> -->
+                </div>
+            </section>
+
+            <!-- CATEGORY 2: GUIDES & KNOWLEDGE BASE -->
+            <section>
+                <div class="flex items-center gap-3 my-4">
+                    <div class="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 text-sm">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white tracking-wide">Гайды и База знаний</h3>
+                    <div class="h-[1px] flex-1 bg-gradient-to-r from-white/10 to-transparent"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    <!-- Guides Card -->
+                    <a href="guide.html" class="pet-card p-5 space-y-4 cursor-pointer group block">
+                        <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 text-xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-circle-info"></i>
+                        </div>
+                        <div class="space-y-1">
+                            <h4 class="text-base font-bold text-white group-hover:text-cyan-400 transition-colors">
+                                Базовые Гайды
+                            </h4>
+                            <p class="text-xs text-gray-400 font-body">
+                                Таблицы, советы по прокачке, сборки и лайфхаки для новичков и опытных игроков.
+                            </p>
+                        </div>
+                        <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-cyan-200 font-semibold">
+                            <span>Открыть гайды</span>
+                            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </a>
+
+                    <!-- Mechanics Card -->
+
+                    <!-- Codes -->
+                    <a href="https://youtu.be/dQw4w9WgXcQ"><div class="pet-card p-5 space-y-4 cursor-pointer group block">
+                        <div class="w-12 h-12 rounded-xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center text-pink-400 text-xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-gift"></i>
+                        </div>
+                        <div class="space-y-1">
+                            <h4 class="text-base font-bold text-white group-hover:text-pink-400 transition-colors">
+                                Коды
+                            </h4>
+                            <p class="text-xs text-gray-400 font-body">
+                                Получите немалые награды за ввод кодов!.
+                            </p>
+                        </div>
+                        <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-pink-300 font-semibold">
+                            <span>Просмотреть список кодов</span>
+                            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+                  </a>
+                </div>                
+            </section>
+
+            <!-- CATEGORY 3: COMING SOON / IN DEVELOPMENT -->
+            <section>
+                <div class="flex items-center gap-3 my-4">
+                    <div class="w-8 h-8 rounded-lg bg-slate-500/10 border border-slate-500/20 flex items-center justify-center text-slate-400 text-sm">
+                        <i class="fa-solid fa-flask"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white tracking-wide">В разработке</h3>
+                    <div class="h-[1px] flex-1 bg-gradient-to-r from-white/10 to-transparent"></div>
+                </div>
+
+                
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <div class="pet-card p-5 space-y-4 opacity-75">
+                        <div class="w-12 h-12 rounded-xl bg-slate-500/10 border border-slate-500/20 flex items-center justify-center text-slate-400 text-xl">
+                            <i class="fa-solid fa-screwdriver-wrench"></i>
+                        </div>
+                        <div class="space-y-1">
+                            <h4 class="text-base font-bold text-white">
+                                Новые разделы
+                            </h4>
+                            <p class="text-xs text-gray-400 font-body">
+                                Раздел находится в стадии наполнения информацией и тестирования.
+                            </p>
+                        </div>
+                        <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-slate-400 font-semibold">
+                            <span>Скоро</span>
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
                     </div>
 
-                    <div class="space-y-1">
-                        <h3 class="text-base font-bold text-white group-hover:text-indigo-400 transition-colors">
-                            Плащи
-                        </h3>
-                        <p class="text-xs text-gray-400 font-body">
-                            Расчёт клановых очков, затрат корон, уровней призыва и вероятностей редких плащей.
-                        </p>
+                    <!-- Events & Dungeons !COLOR amber-->
+                    <div class="pet-card p-5 space-y-4 group block">
+                        <div class="w-12 h-12 rounded-xl bg-slate-500/10 border border-slate-500/20 flex items-center justify-center text-slate-400 text-xl">
+                            <i class="fa-solid fa-dragon"></i>
+                        </div>
+                        <div class="space-y-1">
+                            <h4 class="text-base font-bold text-white ">
+                                Эвенты и Подземелья
+                            </h4>
+                            <p class="text-xs text-gray-400 font-body">
+                                Подробная информация про эвенты и подземелье. СТратегии и гайды.
+                            </p>
+                        </div>
+                        <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-slate-400 font-semibold">
+                            <span>Скоро</span>
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
                     </div>
 
-                    <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-indigo-400 font-semibold">
-                        <span>Открыть калькулятор</span>
-                        <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    <!-- Relics !COLOR red-->
+                    <div class="pet-card p-5 space-y-4 group block">
+                        <div class="w-12 h-12 rounded-xl bg-slate-500/10 border border-slate-500/20 flex items-center justify-center text-slate-400 text-xl ">
+                            <i class="fa-solid fa-vial text-slate-500 text-xl"></i>
+                        </div>
+                        <div class="space-y-1">
+                            <h4 class="text-base font-bold text-white">
+                                Реликвии
+                            </h4>
+                            <p class="text-xs text-gray-400 font-body">
+                                Расчёт кровавых колб, реликвий, уровни.
+                            </p>
+                        </div>
+                        <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-slate-400 font-semibold">
+                            <span>Скоро</span>
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
                     </div>
-                </a>
-
-
-                <!-- Card 2: Pets -->
-                <a href="pets.html" class="pet-card p-5 space-y-4 cursor-pointer group block">
-                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-xl group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-paw"></i>
+                    
+                    <!-- Game mechanics !COLOR Purple-->
+                    <div class="pet-card p-5 space-y-4 group block">
+                        <div class="w-12 h-12 rounded-xl bg-slate-500/10 border border-slate-500/20 flex items-center justify-center text-slate-400 text-xl">
+                            <i class="fa-solid fa-gears"></i>
+                        </div>
+                        <div class="space-y-1">
+                            <h4 class="text-base font-bold text-white">
+                                Игровые механики
+                            </h4>
+                            <p class="text-xs text-gray-400 font-body">
+                                Подробные формулы урона, вероятности шанс/крит, расписание ивентов и клановые активности.
+                            </p>
+                        </div>
+                        <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-slate-400 font-semibold">
+                            <span>Скоро</span>
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
                     </div>
+                </div>
+            </section>
 
-                    <div class="space-y-1">
-                        <h3 class="text-base font-bold text-white group-hover:text-emerald-400 transition-colors">
-                            Компаньоны
-                        </h3>
-                        <p class="text-xs text-gray-400 font-body">
-                            Расчёт клановых очков, затрат костей, уровень призыва и вероятность выпадений.
-                        </p>
-                    </div>
-
-                    <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-emerald-400 font-semibold">
-                        <span>Открыть калькулятор</span>
-                        <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
-                    </div>
-                </a>
-
-                <!-- Card 3: Boxes -->
-                <a href="boxes.html" class="pet-card p-5 space-y-4 cursor-pointer group block">
-                    <div class="w-12 h-12 rounded-xl bg-yellow-500/10 border border-yellow-500/20 flex items-center justify-center text-yellow-400 text-xl group-hover:scale-110 transition-transform">
-                        <i class="fa-duotone fa-solid fa-box"></i>
-                    </div>
-
-                    <div class="space-y-1">
-                        <h3 class="text-base font-bold text-white group-hover:text-yellow-400 transition-colors">
-                            Коробки
-                        </h3>
-                        <p class="text-xs text-gray-400 font-body">
-                            Расчёт клановых очков, затрат коробок, примерные дропы.
-                        </p>
-                    </div>
-
-                    <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-yellow-200 font-semibold">
-                        <span>Открыть калькулятор</span>
-                        <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
-                    </div>
-                </a>
-
-                <!-- Card 3: Relics -->
-                <a href="relics.html" class="pet-card p-5 space-y-4 cursor-pointer group block">
-                    <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 text-xl group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-vial text-red-500 text-xl"></i>
-                    </div>
-
-                    <div class="space-y-1">
-                        <h3 class="text-base font-bold text-white group-hover:text-red-400 transition-colors">
-                            Реликвии
-                        </h3>
-                        <p class="text-xs text-gray-400 font-body">
-                            Расчёт кровавых колб, реликвий, уровни.
-                        </p>
-                    </div>
-
-                    <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-red-200 font-semibold">
-                        <span>Открыть калькулятор</span>
-                        <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
-                    </div>
-                </a>
-
-                <!-- Card 4: Guides -->
-                <a href="guide.html" class="pet-card p-5 space-y-4 cursor-pointer group block">
-                    <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 text-xl group-hover:scale-110 transition-transform">
-                        <i class="fa-duotone fa-solid fa-circle-info"></i>
-                    </div>
-
-                    <div class="space-y-1">
-                        <h3 class="text-base font-bold text-white group-hover:text-cyan-400 transition-colors">
-                            Гайды
-                        </h3>
-                        <p class="text-xs text-gray-400 font-body">
-                            Таблицы, Гайды, Советы и Лайфхаки.
-                        </p>
-                    </div>
-
-                    <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-cyan-200 font-semibold">
-                        <span>Открыть гайды</span>
-                        <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
-                    </div>
-                </a>
-
-                <!-- Card 4: SOMETHING -->
-                <a href="index.html" class="pet-card p-5 space-y-4 cursor-pointer group block">
-                    <div class="w-12 h-12 rounded-xl bg-white-500/10 border border-white-500/20 flex items-center justify-center text-white-400 text-xl group-hover:scale-110 transition-transform">
-                        <i class="fa-duotone fa-solid fa-question"></i>
-                    </div>
-
-                    <div class="space-y-1">
-                        <h3 class="text-base font-bold text-white group-hover:text-white-400 transition-colors">
-                            TBA
-                        </h3>
-                        <p class="text-xs text-gray-400 font-body">
-                            TBA.
-                        </p>
-                    </div>
-
-                    <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-white-200 font-semibold">
-                        <span>TBA</span>
-                        <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
-                    </div>
-                </a>
-
-            </div>
         </div>
     </main>
 
     <footer class="glass-panel border-t border-slate-800/80 py-8 mt-16">
         <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 space-y-2">
-            <p class="text-[12px] text-slate-500">Неофициальный справочник по игре. Данный сайт не связан с разработчиками или издателем игры. Все права на игру, её название, изображения и другие материалы принадлежат LAVA LABS OYUN YAZILIM VE PAZARLAMA ANONİM ŞİRKETİ. Данный сайт создан исключительно в информационных целях.</p>
+            <p class="text-[12px] text-slate-500">Неофициальный справочник по игре. Данный сайт не связан с разработчиками или издателем игры. Все права на игру, её название, изображения и другие материалы принадлежат LAVA LABS OYUN YAZILIM VE PAZARLAMA ANONİM ШİRKETİ. Данный сайт создан исключительно в информационных целях.</p>
+            <p>Баракуда гей</p>
         </div>
     </footer>
 
