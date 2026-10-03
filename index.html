@@ -54,6 +54,10 @@
     </script>
 
     <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             background-color: #0E1017;
             color: #F3F4F6;
@@ -110,20 +114,20 @@
             transform: translateY(-1px);
         }
 
-        .category-divider {
-            display: flex;
-            --items-center: center;
-            margin-top: 2rem;
-            margin-bottom: 1.25rem;
-        }
-
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #0E1017; }
         ::-webkit-scrollbar-thumb { background: #1F2433; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #2D344B; }
     </style>
 </head>
-<body class="min-h-screen">
+<body class="min-h-screen relative">
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" onclick="scrollToTop()" title="Наверх" 
+            class="fixed top-20 right-6 z-50 p-3 bg-indigo-600/80 hover:bg-indigo-500 text-white rounded-xl shadow-lg border border-indigo-400/30 backdrop-blur-md transition-all duration-300 transform hover:scale-105 opacity-0 pointer-events-none flex items-center justify-center gap-2 text-xs font-semibold">
+        <i class="fa-solid fa-arrow-up"></i>
+        <span class="hidden md:inline">Наверх</span>
+    </button>
 
     <header class="border-b border-white/5 bg-[#12141D]/90 sticky top-0 z-50 backdrop-blur-xl">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-4">
@@ -163,21 +167,33 @@
                     </p>
                 </div>
                 <i class="fa-solid fa-book-bookmark absolute -right-6 -bottom-6 text-white/5 text-[220px] pointer-events-none"></i>
-                    <div class="mt-5 flex flex-wrap items-center gap-3 text-xs font-medium">
-                        <span class="inline-flex items-center px-3.5 py-1.5 rounded-xl bg-slate-900/80 text-slate-300 border border-slate-800 shadow-inner">
-                            <i class="fa-solid fa-table-list mr-2 text-amber-400"></i> Данные: <strong class="text-amber-400 ml-1">Elpi The Wiki</strong>
-                        </span>
-                        <span class="inline-flex items-center px-3.5 py-1.5 rounded-xl bg-slate-900/80 text-slate-300 border border-slate-800 shadow-inner">
-                            <i class="fa-solid fa-language mr-2 text-indigo-400"></i> Перевод/Разработка: <strong class="text-indigo-400 ml-1">Tcan</strong>
-                        </span>
-                        <span class="inline-flex items-center px-3.5 py-1.5 rounded-xl bg-slate-900/80 text-slate-300 border border-slate-800 shadow-inner">
-                            <i class="fa-solid fa-gear mr-2 text-emerald-400"></i> Тестеры: <strong class="text-emerald-400 ml-1">Varyag, Dikci, Callin, Guppy</strong>
-                        </span>
-                    </div>
+                <div class="mt-5 flex flex-wrap items-center gap-3 text-xs font-medium">
+                    <span class="inline-flex items-center px-3.5 py-1.5 rounded-xl bg-slate-900/80 text-slate-300 border border-slate-800 shadow-inner">
+                        <i class="fa-solid fa-table-list mr-2 text-amber-400"></i> Данные: <strong class="text-amber-400 ml-1">Elpi The Wiki</strong>
+                    </span>
+                    <span class="inline-flex items-center px-3.5 py-1.5 rounded-xl bg-slate-900/80 text-slate-300 border border-slate-800 shadow-inner">
+                        <i class="fa-solid fa-language mr-2 text-indigo-400"></i> Перевод/Разработка: <strong class="text-indigo-400 ml-1">Tcan</strong>
+                    </span>
+                    <span class="inline-flex items-center px-3.5 py-1.5 rounded-xl bg-slate-900/80 text-slate-300 border border-slate-800 shadow-inner">
+                        <i class="fa-solid fa-gear mr-2 text-emerald-400"></i> Тестеры: <strong class="text-emerald-400 ml-1">Varyag, Dikci, Callin, Guppy</strong>
+                    </span>
+                </div>
+            </div>
+
+            <!-- SEARCH BAR -->
+            <div class="relative max-w-2xl mx-auto my-6">
+                <div class="relative flex items-center">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 text-gray-400 text-sm"></i>
+                    <input type="text" id="siteSearch" oninput="filterCards()" placeholder="Поиск по названиям, описанию и ключевым словам..." 
+                           class="w-full pl-11 pr-10 py-3 bg-[#161924] border border-white/10 rounded-xl text-sm text-white placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all shadow-inner">
+                    <button id="clearSearch" onclick="clearSearchInput()" class="hidden absolute right-3 text-gray-400 hover:text-white text-xs p-1">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
             </div>
 
             <!-- CATEGORY 1: CALCULATORS -->
-            <section>
+            <section class="searchable-section">
                 <div class="flex items-center gap-3 my-4">
                     <div class="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 text-sm">
                         <i class="fa-solid fa-calculator"></i>
@@ -188,7 +204,7 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                     <!-- Capes -->
-                    <a href="capes.html" class="pet-card p-5 space-y-4 cursor-pointer group block">
+                    <a href="capes.html" data-keywords="корона короны плащ плащи клан клановые очки калькулятор призыв" class="pet-card searchable-card p-5 space-y-4 cursor-pointer group block">
                         <div class="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 text-xl group-hover:scale-110 transition-transform">
                             <i class="fa-solid fa-crown"></i>
                         </div>
@@ -205,8 +221,9 @@
                             <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                         </div>
                     </a>
+
                     <!-- Pets -->
-                    <a href="pets.html" class="pet-card p-5 space-y-4 cursor-pointer group block">
+                    <a href="pets.html" data-keywords="кости кость петомцы питомцы компаньоны клан клановые очки калькулятор призыв дроп" class="pet-card searchable-card p-5 space-y-4 cursor-pointer group block">
                         <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-xl group-hover:scale-110 transition-transform">
                             <i class="fa-solid fa-bone"></i>
                         </div>
@@ -225,7 +242,7 @@
                     </a>
 
                     <!-- Boxes -->
-                    <a href="boxes.html" class="pet-card p-5 space-y-4 cursor-pointer group block">
+                    <a href="boxes.html" data-keywords="коробка коробки сундук сундуки клан клановые очки калькулятор сундучки дроп" class="pet-card searchable-card p-5 space-y-4 cursor-pointer group block">
                         <div class="w-12 h-12 rounded-xl bg-yellow-500/10 border border-yellow-500/20 flex items-center justify-center text-yellow-400 text-xl group-hover:scale-110 transition-transform">
                             <i class="fa-solid fa-box"></i>
                         </div>
@@ -246,7 +263,7 @@
             </section>
 
             <!-- CATEGORY 2: GUIDES & KNOWLEDGE BASE -->
-            <section>
+            <section class="searchable-section">
                 <div class="flex items-center gap-3 my-4">
                     <div class="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 text-sm">
                         <i class="fa-solid fa-book-open"></i>
@@ -257,7 +274,7 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                     <!-- Guides Card -->
-                    <a href="guide.html" class="pet-card p-5 space-y-4 cursor-pointer group block">
+                    <a href="guide.html" data-keywords="статистика таблицы дропы шансы гайд прокачка сборки гайды новичкам" class="pet-card searchable-card p-5 space-y-4 cursor-pointer group block">
                         <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 text-xl group-hover:scale-110 transition-transform">
                             <i class="fa-solid fa-chart-pie"></i>
                         </div>
@@ -276,7 +293,7 @@
                     </a>
 
                     <!-- Friends & Co-Op -->
-                    <a href="сoop.html" class="pet-card p-5 space-y-4 cursor-pointer group block">
+                    <a href="сoop.html" data-keywords="друзья кооп кооператив группа команда пати мультиплеер" class="pet-card searchable-card p-5 space-y-4 cursor-pointer group block">
                         <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-xl group-hover:scale-110 transition-transform">
                             <i class="fa-solid fa-users"></i>
                         </div>
@@ -295,7 +312,7 @@
                     </a>
 
                     <!-- Mine & Wings -->
-                    <a href="mine.html"><div class="pet-card p-5 space-y-4 group block">
+                    <a href="mine.html" data-keywords="шахта крылья руда ресурсы копание крылышки кирки" class="pet-card searchable-card p-5 space-y-4 group block">
                         <div class="w-12 h-12 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-400 text-xl group-hover:scale-110 transition-transform">
                             <i class="fa-solid fa-feather-pointed"></i>
                         </div>
@@ -311,11 +328,10 @@
                             <span>Покопаться в шахте</span>
                             <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                         </div>
-                    </div>
                     </a>
                     
-                    <!-- Dungeons & Evenets-->
-                    <a href="events.html"><div class="pet-card p-5 space-y-4 group block">
+                    <!-- Dungeons & Events -->
+                    <a href="events.html" data-keywords="ивенты эвенты подземелья данж боссы события данжи" class="pet-card searchable-card p-5 space-y-4 group block">
                         <div class="w-12 h-12 rounded-xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center text-teal-400 text-xl group-hover:scale-110 transition-transform">
                             <i class="fa-solid fa-dragon"></i>
                         </div>
@@ -331,11 +347,10 @@
                             <span>Спуститься в подземелье</span>
                             <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                         </div>
-                    </div>
                     </a>
 
                     <!-- Codes -->
-                    <a href="https://youtu.be/dQw4w9WgXcQ"><div class="pet-card p-5 space-y-4 cursor-pointer group block">
+                    <a href="https://youtu.be/dQw4w9WgXcQ" data-keywords="коды промокоды промо халява подарки бонусы" class="pet-card searchable-card p-5 space-y-4 cursor-pointer group block">
                         <div class="w-12 h-12 rounded-xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center text-pink-400 text-xl group-hover:scale-110 transition-transform">
                             <i class="fa-solid fa-gift"></i>
                         </div>
@@ -351,13 +366,12 @@
                             <span>Просмотреть список кодов</span>
                             <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                         </div>
-                    </div>
-                  </a>
+                    </a>
                 </div>                
             </section>
 
             <!-- CATEGORY 3: COMING SOON / IN DEVELOPMENT -->
-<section>
+            <section class="searchable-section">
                 <div class="flex items-center gap-3 my-4">
                     <div class="w-8 h-8 rounded-lg bg-slate-500/10 border border-slate-500/20 flex items-center justify-center text-slate-400 text-sm">
                         <i class="fa-solid fa-flask"></i>
@@ -368,7 +382,7 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                     <!-- Stats Calculator -->
-                    <div class="pet-card p-5 space-y-4 opacity-85 group block">
+                    <div class="pet-card searchable-card p-5 space-y-4 opacity-85 group block" data-keywords="статы характеристики шмот эквип бонусы атрибуты">
                         <div class="w-12 h-12 rounded-xl bg-slate-500/10 border border-slate-500/20 flex items-center justify-center text-slate-400 text-xl">
                             <i class="fa-solid fa-chart-simple"></i>
                         </div>
@@ -387,7 +401,7 @@
                     </div>
 
                     <!-- Damage Calculator -->
-                    <div class="pet-card p-5 space-y-4 opacity-85 group block">
+                    <div class="pet-card searchable-card p-5 space-y-4 opacity-85 group block" data-keywords="урон дамаг крит атака дпс dps навыки">
                         <div class="w-12 h-12 rounded-xl bg-slate-500/10 border border-slate-500/20 flex items-center justify-center text-slate-400 text-xl">
                             <i class="fa-solid fa-hand-fist"></i>
                         </div>
@@ -406,7 +420,7 @@
                     </div>
 
                     <!-- Capes & Crowns -->
-                    <div class="pet-card p-5 space-y-4 opacity-85 group block">
+                    <div class="pet-card searchable-card p-5 space-y-4 opacity-85 group block" data-keywords="плащи плащ корона короны плащи свойства">
                         <div class="w-12 h-12 rounded-xl bg-slate-500/10 border border-slate-500/20 flex items-center justify-center text-slate-400 text-xl">
                             <i class="fa-solid fa-vest-patches"></i>
                         </div>
@@ -425,7 +439,7 @@
                     </div>
 
                     <!-- Pets & Bones -->
-                    <div class="pet-card p-5 space-y-4 opacity-85 group block">
+                    <div class="pet-card searchable-card p-5 space-y-4 opacity-85 group block" data-keywords="питомцы петомцы кости кость скиллы навыки эволюция компаньоны">
                         <div class="w-12 h-12 rounded-xl bg-slate-500/10 border border-slate-500/20 flex items-center justify-center text-slate-400 text-xl">
                             <i class="fa-solid fa-paw"></i>
                         </div>
@@ -444,7 +458,7 @@
                     </div>
 
                     <!-- Shop & Offers -->
-                    <div class="pet-card p-5 space-y-4 opacity-85 group block">
+                    <div class="pet-card searchable-card p-5 space-y-4 opacity-85 group block" data-keywords="магазин шоп гемы кристаллы цены предложения паки подписка">
                         <div class="w-12 h-12 rounded-xl bg-slate-500/10 border border-slate-500/20 flex items-center justify-center text-slate-400 text-xl">
                             <i class="fa-solid fa-store"></i>
                         </div>
@@ -463,7 +477,7 @@
                     </div>
 
                     <!-- Auto-loot & Filters -->
-                    <div class="pet-card p-5 space-y-4 opacity-85 group block">
+                    <div class="pet-card searchable-card p-5 space-y-4 opacity-85 group block" data-keywords="автолут фильтры сбор лут автосбор предметы">
                         <div class="w-12 h-12 rounded-xl bg-slate-500/10 border border-slate-500/20 flex items-center justify-center text-slate-400 text-xl">
                             <i class="fa-solid fa-filter"></i>
                         </div>
@@ -482,7 +496,7 @@
                     </div>
 
                     <!-- Clans & Top -->
-                    <div class="pet-card p-5 space-y-4 opacity-85 group block">
+                    <div class="pet-card searchable-card p-5 space-y-4 opacity-85 group block" data-keywords="клан кланы топ рейтинг гильдии клановые очки">
                         <div class="w-12 h-12 rounded-xl bg-slate-500/10 border border-slate-500/20 flex items-center justify-center text-slate-400 text-xl">
                             <i class="fa-solid fa-shield-halved"></i>
                         </div>
@@ -501,7 +515,7 @@
                     </div>
 
                     <!-- Relics -->
-                    <div class="pet-card p-5 space-y-4 opacity-85 group block">
+                    <div class="pet-card searchable-card p-5 space-y-4 opacity-85 group block" data-keywords="реликвии колбы кровь артефакты релики">
                         <div class="w-12 h-12 rounded-xl bg-slate-500/10 border border-slate-500/20 flex items-center justify-center text-slate-400 text-xl">
                             <i class="fa-solid fa-vial"></i>
                         </div>
@@ -520,7 +534,7 @@
                     </div>
 
                     <!-- Game Mechanics -->
-                    <div class="pet-card p-5 space-y-4 opacity-85 group block">
+                    <div class="pet-card searchable-card p-5 space-y-4 opacity-85 group block" data-keywords="механики формулы шанс крит ивенты расписание клановые активности">
                         <div class="w-12 h-12 rounded-xl bg-slate-500/10 border border-slate-500/20 flex items-center justify-center text-slate-400 text-xl">
                             <i class="fa-solid fa-gears"></i>
                         </div>
@@ -547,6 +561,75 @@
             <p class="text-[12px] text-slate-500">Неофициальный справочник по игре. Данный сайт не связан с разработчиками или издателем игры. Все права на игру, её название, изображения и другие материалы принадлежат LAVA LABS OYUN YAZILIM VE PAZARLAMA ANONİM ШİRKETİ. Данный сайт создан исключительно в информационных целях.</p>
         </div>
     </footer>
+
+    <!-- JavaScript для Back to Top и Поисковика -->
+    <script>
+        // --- Back to Top Logic ---
+        const backToTopBtn = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 200) {
+                backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                backToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+            } else {
+                backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+                backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // --- Search Logic with Keywords ---
+        function filterCards() {
+            const query = document.getElementById('siteSearch').value.toLowerCase().trim();
+            const clearBtn = document.getElementById('clearSearch');
+            const cards = document.querySelectorAll('.searchable-card');
+            const sections = document.querySelectorAll('.searchable-section');
+
+            if (query.length > 0) {
+                clearBtn.classList.remove('hidden');
+            } else {
+                clearBtn.classList.add('hidden');
+            }
+
+            cards.forEach(card => {
+                // Считываем visible текст карточки + теги из атрибута data-keywords
+                const visibleText = card.textContent.toLowerCase();
+                const keywords = (card.getAttribute('data-keywords') || '').toLowerCase();
+                
+                const fullTextToSearch = visibleText + ' ' + keywords;
+
+                // Проверяем наличие ключевого слова в объединенном тексте
+                if (fullTextToSearch.includes(query)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Скрываем пустые категории/секции
+            sections.forEach(section => {
+                const visibleCards = section.querySelectorAll('.searchable-card:not([style*="display: none"])');
+                if (visibleCards.length === 0 && query !== '') {
+                    section.style.display = 'none';
+                } else {
+                    section.style.display = '';
+                }
+            });
+        }
+
+        function clearSearchInput() {
+            const searchInput = document.getElementById('siteSearch');
+            searchInput.value = '';
+            filterCards();
+            searchInput.focus();
+        }
+    </script>
 
 </body>
 </html>
