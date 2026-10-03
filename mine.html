@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гайд по Шахте и Крыльям | Dungeon Rush</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #030712;
+            color: #f3f4f6;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #0f172a;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Glowing accents */
+        .glow-amber {
+            box-shadow: 0 0 25px -5px rgba(245, 158, 11, 0.25);
+        }
+
+        /* Nav Tab Styles */
+        .nav-tab-btn.active {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(239, 68, 68, 0.2));
+            border-color: #f59e0b;
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.25);
+        }
+
+        /* Wing Tier Classes */
+        .tier-0 { color: #cacaca; } /* Common */
+        .tier-1 { color: #e0c69d; } /* Uncommon */
+        .tier-2 { color: #b5e05c; } /* Rare */
+        .tier-3 { color: #45c4ff; } /* Epic */
+        .tier-4 { color: #ffdd61; } /* Legendary */
+        .tier-5 { color: #a288f2; } /* Mythic */
+        .tier-6 { color: #49a872; } /* Artifact */
+        .tier-7 { color: #5166cd; } /* Ancient */
+        .tier-8 { color: #e55e5f; } /* Immortal */
+        .tier-9 { color: #ffd75f; } /* Divine */
+
+        /* Wings Gallery Horizontal Slider Styles */
+        .gallery-viewport {
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+        }
+
+        .gallery-track {
+            display: flex;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 100%;
+        }
+
+        .wing-item {
+            min-width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.3;
+            transform: scale(0.85);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .wing-item.active {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-amber-500 selection:text-slate-950">
+
+    <!-- Header Navigation -->
+    <header class="bg-slate-950/80 border-b border-slate-800/80 sticky top-0 z-30 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="index.html">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-rose-500 flex items-center justify-center shadow-lg shadow-amber-500/20 text-slate-950 font-black text-xl">
+                        <i class="fa-solid fa-person-digging"></i>
+                    </div>
+                    <div>
+                        <span class="font-extrabold text-xl tracking-tight bg-gradient-to-r from-white via-slate-200 to-amber-400 bg-clip-text text-transparent">
+                            Dungeon Rush - Шахта и Крылья
+                        </span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+
+        <!-- Hero Banner -->
+        <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-amber-950/40 to-slate-900 p-6 sm:p-10 border border-slate-800 shadow-2xl glow-amber">
+            <div class="relative z-10">
+                <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
+                    Гайд по Шахте и Эффективному Получению Крыльев
+                </h1>
+                <p class="mt-3 text-slate-300 max-w-3xl text-sm sm:text-base leading-relaxed">
+                    Стратегии раскопок, секреты быстрого развития, механики шахты, Механики и характеристик крыльев.
+                </p>
+            </div>
+            <div class="absolute -right-16 -bottom-16 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -left-16 -top-16 w-80 h-80 bg-rose-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        </div>
+
+        <!-- Sticky Section Navigation -->
+        <div id="navContainer" class="top-16 z-20 py-2 bg-slate-950/90 backdrop-blur-md border-y border-slate-800/80 transition-all duration-300 -mx-4 px-4 sm:mx-0 sm:px-0 sm:rounded-2xl">
+            <div class="max-w-7xl mx-auto flex items-center justify-center">
+                <nav class="flex flex-wrap items-center justify-center gap-2 py-1 px-1 w-full">
+                    <button onclick="showMainSection('strategies-section', this)" class="nav-tab-btn active flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-amber-500/40 transition flex items-center gap-2">
+                        <i class="fa-solid fa-compass text-amber-400"></i>
+                        <span>Стратегии Раскопок</span>
+                    </button>
+                    <button onclick="showMainSection('tips-section', this)" class="nav-tab-btn flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-amber-500/40 transition flex items-center gap-2">
+                        <i class="fa-solid fa-feather text-yellow-400"></i>
+                        <span>Крылья</span>
+                    </button>
+                </nav>
+            </div>
+        </div>
+
+        <!-- SECTION 1: STRATEGIES -->
+        <section id="strategies-section" class="main-section scroll-mt-36 space-y-6">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="p-3 rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/20 shadow-lg shadow-amber-500/5">
+                    <i class="fa-solid fa-layer-group text-2xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-white">Как быстрее получить сильные крылья?</h2>
+                    <p class="text-xs text-yellow-400">Золотое правило: <strong>Копайте вниз.</strong> Не зацикливайтесь на лишних рудах и рероллах ранних крыльев.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Strategy 1: PvE / Speedrun -->
+                <div class="glass-panel rounded-3xl p-6 border border-slate-800 space-y-4 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3 border-b border-slate-800/80 pb-3">
+                            <span class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-lg">1</span>
+                            <div>
+                                <h3 class="font-bold text-white text-base">Быстрый Прогресс (Не для PvP)</h3>
+                                <p class="text-xs text-slate-400">Если ваша цель — быстро дойти до максимума</p>
+                            </div>
+                        </div>
+
+                        <ul class="space-y-3 text-xs text-slate-300">
+                            <li class="flex items-start bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 gap-2">
+                                <i class="fa-solid fa-angles-down text-cyan-400 mt-0.5 shrink-0"></i>
+                                <span>Копаем строго вниз, расходуя преимущественно <strong>буры</strong>.</span>
+                            </li>
+                            <li class="flex items-start bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 gap-2">
+                                <i class="fa-solid fa-gem text-emerald-400 mt-0.5 shrink-0"></i>
+                                <span>Добываем только <strong>Алмазы, Золото и Изумруды</strong>. На прочие простые руды время не тратим.</span>
+                            </li>
+                            <li class="flex items-start bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 gap-2">
+                                <i class="fa-solid fa-ban text-rose-400 mt-0.5 shrink-0"></i>
+                                <span>Пропускаем все промежуточные крылья вплоть до тира <strong>Immortal</strong>.</span>
+                            </li>
+                            <li class="flex items-start bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 gap-2">
+                                <i class="fa-solid fa-circle-up text-indigo-400 mt-0.5 shrink-0"></i>
+                                <span>Добывая алмазы, качаем имеющиеся <strong>Immortal крылья</strong> (это необходимо для подъема по уровням подземелья).</span>
+                            </li>
+                            <li class="flex items-start bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 gap-2">
+                                <i class="fa-solid fa-rectangle-ad text-amber-400 mt-0.5 shrink-0"></i>
+                                <span>Обязательно <strong>просматриваем всю рекламу</strong> в шахте для получения бонусных ресурсов и бустов.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Strategy 2: PvP / Builders -->
+                <div class="glass-panel rounded-3xl p-6 border border-slate-800 space-y-4 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3 border-b border-slate-800/80 pb-3">
+                            <span class="w-10 h-10 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold text-lg">2</span>
+                            <div>
+                                <h3 class="font-bold text-white text-base">PvP Игроки и Сборщики Билдов</h3>
+                                <p class="text-xs text-slate-400">Если вам важная текущая боевая эффективность</p>
+                            </div>
+                        </div>
+
+                        <ul class="space-y-3 text-xs text-slate-300">
+                            <li class="flex items-start bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 gap-2">
+                                <i class="fa-solid fa-angles-down text-rose-400 mt-0.5 shrink-0"></i>
+                                <span>Движемся вниз, но при этом попутно <strong>собираем больше руды</strong> для крафта и улучшения.</span>
+                            </li>
+                            <li class="flex items-start bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 gap-2">
+                                <i class="fa-solid fa-cart-shopping text-amber-400 mt-0.5 shrink-0"></i>
+                                <span>Покупаем крылья <strong>через раз</strong>, чтобы балансировать между экономией и уроном.</span>
+                            </li>
+                            <li class="flex items-start bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 gap-2">
+                                <i class="fa-solid fa-hammer text-purple-400 mt-0.5 shrink-0"></i>
+                                <span>Прокачиваем текущие крылья до тех пор, пока не соберем достаточный запас ресурсов на следующий тир.</span>
+                            </li>
+                            <li class="flex items-start bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 gap-2">
+                                <i class="fa-solid fa-rotate text-emerald-400 mt-0.5 shrink-0"></i>
+                                <span>Делаем <strong>реролл</strong> характеристики только тогда, когда нужны конкретные статы под ваш билд.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+                <div class="glass-panel p-6 rounded-3xl border border-slate-800 space-y-4">
+                    <div class="pet-card p-5 mt-1 space-y-4">
+                        <div class="flex items-center justify-between border-b border-white/5 pb-3 mb-4">
+                            <h2 class="text-sm font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-lightbulb text-amber-400"></i>
+                                Полезная Информация
+                            </h2>
+                        </div>
+
+                        <div class="bg-slate-950/80 p-4 rounded-2xl border-slate-800 grid grid-cols-1 md:grid-cols-3 gap-3">
+
+                            <!-- Tip 1 -->
+                            <div class="bg-indigo-500/5 border border-white/5 rounded-xl p-4 hover:border-indigo-500/30 transition-all">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-9 h-9 shrink-0 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center">
+                                        <i class="fa-solid fa-clock-rotate-left text-indigo-400"></i>
+                                    </div>
+
+                                    <div>
+                                        <h3 class="text-sm font-bold text-gray-200 mb-1">
+                                            Обновление кирок
+                                        </h3>
+                                        <p class="text-xs text-gray-500 leading-relaxed font-body">
+                                            Обычные кирки обновляются каждые 5 минут. Вам нужно 2 часа и 30 минут чтобы получить 30 кирок.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Tip 2 -->
+                            <div class="bg-indigo-500/5 border border-white/5 rounded-xl p-4 hover:border-amber-500/30 transition-all">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-9 h-9 shrink-0 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
+                                        <i class="fa-solid fa-crown text-amber-400"></i>
+                                    </div>
+
+                                    <div>
+                                        <h3 class="text-sm font-bold text-gray-200 mb-1">
+                                            Золотые кирки и буры
+                                        </h3>
+                                        <p class="text-xs text-gray-500 leading-relaxed font-body">
+                                            Золотые кирки и буры можно получить с Battle Pass, Clan war battle rewards, Time Warp Event а так же в магазине за 45 гемов.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Tip 3 -->
+                            <div class="bg-indigo-500/5 border border-white/5 rounded-xl p-4 hover:border-purple-500/30 transition-all">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-9 h-9 shrink-0 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center">
+                                        <i class="fa-solid fa-chart-simple text-purple-400"></i>
+                                    </div>
+
+                                    <div>
+                                        <h3 class="text-sm font-bold text-gray-200 mb-1">
+                                            Мастерство
+                                        </h3>
+                                        <p class="text-xs text-gray-500 leading-relaxed font-body">
+                                            Мастерство "Max Pickaxes" - Увеличивает количество максимальных кирок. На максимальном уровне (15) вы будете уметь 45 кирок.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Important Notice -->
+
+                <div class="bg-slate-950/80 p-4 rounded-2xl border border-slate-800/80 text-xs sm:text-sm text-slate-300 leading-relaxed flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                    <div class="p-3 rounded-xl bg-amber-500/10 text-amber-400 shrink-0">
+                        <i class="fa-solid fa-bullseye text-2xl"></i>
+                    </div>
+                    <div>
+                        <strong class="text-white">Приоритет руды во время спусков:</strong> Когда вы копаете вниз, всегда старайтесь забирать наиболлее ценную руду по пути, если есть такая возможность.
+                        <p class="text-slate-400 mt-1"><em>Пример: Если вы видите Золото или Алмаз в пределах досягаемости, выкапывайте его первее обычных блоков земли и камня.</em></p>
+                    </div>
+                </div>
+
+                    </div>
+                    
+                </div>
+        </section>
+
+        <!-- SECTION 2: DIGGING TIPS & GALLERY -->
+        <section id="tips-section" class="main-section hidden scroll-mt-36 space-y-6">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="p-3 rounded-2xl bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 shadow-lg shadow-yellow-500/5">
+                    <i class="fa-solid fa-feather text-2xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-white">Крылья</h2>
+                    <p class="text-xs text-slate-400">Виды крыльев, цена открытие и улучшения</p>
+                </div>
+            </div>
+
+            <!-- ИГРОВАЯ ГАЛЕРЕЯ КРЫЛЬЕВ (СЛАЙДЕР СЛЕВА НАПРАВО) -->
+            <div class="glass-panel rounded-3xl p-6 border border-slate-800 shadow-2xl relative overflow-hidden bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950">
+                <div class="text-center mb-2">
+                    <h3 id="currentWingTitle" class="text-2xl font-extrabold tracking-wide text-white">Wings</h3>
+                    <p id="currentWingTier" class="text-xs font-bold uppercase tracking-widest tier-0">Fledgling (Common)</p>
+                </div>
+
+                <!-- Блок галереи -->
+                <div class="relative h-56 flex items-center justify-center my-2">
+                    <!-- Задняя подсветка -->
+                    <div class="absolute w-56 h-56 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                    <!-- Левая стрелка -->
+                    <button onclick="prevWing()" class="absolute left-2 sm:left-6 z-30 p-2.5 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/20 text-white transition active:scale-90 focus:outline-none">
+                        <i class="fa-solid fa-caret-left text-2xl sm:text-3xl"></i>
+                    </button>
+
+                    <!-- Контейнер и Трек Слайдера -->
+                    <div class="gallery-viewport h-full max-w-lg mx-auto flex items-center">
+                        <div id="galleryTrack" class="gallery-track">
+                            
+                            <!-- Wing 0: Common -->
+                            <div class="wing-item active" data-index="0" data-name="Fledgling" data-tier="Common" data-tier-class="tier-0">
+                                <img src="images/commonwings.png" alt="Fledgling Wings" class="w-44 h-44 object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)]" onerror="this.onerror=null; this.src='https://via.placeholder.com/180/0f172a/f59e0b?text=Fledgling';">
+                            </div>
+
+                            <!-- Wing 1: Uncommon -->
+                            <div class="wing-item" data-index="1" data-name="Hawk" data-tier="Uncommon" data-tier-class="tier-1">
+                                <img src="images/uncommonwings.png" alt="Hawk Wings" class="w-44 h-44 object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)]" onerror="this.onerror=null; this.src='https://via.placeholder.com/180/0f172a/e0c69d?text=Hawk';">
+                            </div>
+
+                            <!-- Wing 2: Rare -->
+                            <div class="wing-item" data-index="2" data-name="Dove" data-tier="Rare" data-tier-class="tier-2">
+                                <img src="images/rarewings.png" alt="Dove Wings" class="w-44 h-44 object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)]" onerror="this.onerror=null; this.src='https://via.placeholder.com/180/0f172a/b5e05c?text=Dove';">
+                            </div>
+
+                            <!-- Wing 3: Epic -->
+                            <div class="wing-item" data-index="3" data-name="Blaze" data-tier="Epic" data-tier-class="tier-3">
+                                <img src="images/epicwings.png" alt="Blaze Wings" class="w-44 h-44 object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)]" onerror="this.onerror=null; this.src='https://via.placeholder.com/180/0f172a/45c4ff?text=Blaze';">
+                            </div>
+
+                            <!-- Wing 4: Legendary -->
+                            <div class="wing-item" data-index="4" data-name="Wyrmling" data-tier="Legendary" data-tier-class="tier-4">
+                                <img src="images/legendwings.png" alt="Wyrmling Wings" class="w-44 h-44 object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)]" onerror="this.onerror=null; this.src='https://via.placeholder.com/180/0f172a/ffdd61?text=Wyrmling';">
+                            </div>
+
+                            <!-- Wing 5: Mythic -->
+                            <div class="wing-item" data-index="5" data-name="Onyx" data-tier="Mythic" data-tier-class="tier-5">
+                                <img src="images/mythicwings.png" alt="Onyx Wings" class="w-44 h-44 object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)]" onerror="this.onerror=null; this.src='https://via.placeholder.com/180/0f172a/a288f2?text=Onyx';">
+                            </div>
+
+                            <!-- Wing 6: Artifact -->
+                            <div class="wing-item" data-index="6" data-name="Green Dragon" data-tier="Artifact" data-tier-class="tier-6">
+                                <img src="images/artifactwings.png" alt="Green Dragon Wings" class="w-44 h-44 object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)]" onerror="this.onerror=null; this.src='https://via.placeholder.com/180/0f172a/49a872?text=Green+Dragon';">
+                            </div>
+
+                            <!-- Wing 7: Ancient -->
+                            <div class="wing-item" data-index="7" data-name="Flend" data-tier="Ancient" data-tier-class="tier-7">
+                                <img src="images/ancientwings.png" alt="Flend Wings" class="w-44 h-44 object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)]" onerror="this.onerror=null; this.src='https://via.placeholder.com/180/0f172a/5166cd?text=Flend';">
+                            </div>
+
+                            <!-- Wing 8: Immortal -->
+                            <div class="wing-item" data-index="8" data-name="Celestial" data-tier="Immortal" data-tier-class="tier-8">
+                                <img src="images/immortalwings.png" alt="Celestial Wings" class="w-44 h-44 object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)]" onerror="this.onerror=null; this.src='https://via.placeholder.com/180/0f172a/e55e5f?text=Celestial';">
+                            </div>
+
+                            <!-- Wing 9: Divine -->
+                            <div class="wing-item" data-index="9" data-name="Eternal" data-tier="Divine" data-tier-class="tier-9">
+                                <img src="images/divinewings.png" alt="Eternal Wings" class="w-44 h-44 object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)]" onerror="this.onerror=null; this.src='https://via.placeholder.com/180/0f172a/ffd75f?text=Eternal';">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Правая стрелка -->
+                    <button onclick="nextWing()" class="absolute right-2 sm:right-6 z-30 p-2.5 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/20 text-white transition active:scale-90 focus:outline-none">
+                        <i class="fa-solid fa-caret-right text-2xl sm:text-3xl"></i>
+                    </button>
+                </div>
+
+                <!-- Кнопка "Equip" -->
+                <div class="flex justify-center mt-4">
+                    <button id="equipBtn" onclick="equipWing()" class="px-10 py-3 rounded-2xl bg-sky-500 hover:bg-sky-400 active:bg-sky-600 text-white font-extrabold text-base tracking-wide border-b-4 border-sky-700 shadow-lg shadow-sky-500/30 transition-all active:translate-y-1">
+                        Equip
+                    </button>
+                </div>
+
+                <!-- ВСТРОЕННЫЙ БЛОК СТАТИСТИКИ КРЫЛА (ПО УМОЛЧАНИЮ СКРЫТ) -->
+                <div id="wingStatsContainer" class="hidden mt-6 max-w-sm mx-auto space-y-3 transition-all duration-300">
+                    <!-- Верхняя часть: Health и Damage (белым шрифтом) -->
+                    <div class="bg-slate-950/80 rounded-2xl p-4 border border-slate-800/80 space-y-2">
+                        <div class="flex justify-between items-center text-sm font-bold text-white">
+                            <span class="flex items-center gap-2"><i class="fa-solid fa-heart text-rose-500"></i> Health</span>
+                            <span id="statHealth">95</span>
+                        </div>
+                        <div class="flex justify-between items-center text-sm font-bold text-white">
+                            <span class="flex items-center gap-2"><i class="fa-solid fa-burst text-amber-500"></i> Damage</span>
+                            <span id="statDamage">28</span>
+                        </div>
+                    </div>
+
+                    <!-- Нижняя часть: Вторичные статы (серым, меньшим шрифтом) -->
+                    <div class="bg-slate-950/40 rounded-2xl p-4 border border-slate-800/40 space-y-2 text-xs text-slate-400 font-medium">
+                        <div class="flex justify-between items-center">
+                            <span>Attack speed</span>
+                            <span id="statAttackSpeed" class="text-slate-300 font-semibold">+1.2%</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span>Damage</span>
+                            <span id="statSecDamage" class="text-slate-300 font-semibold">+15</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span>Double Hit Chance</span>
+                            <span id="statDoubleHit" class="text-slate-300 font-semibold">0.5%</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span>Critical Damage</span>
+                            <span id="statCritDamage" class="text-slate-300 font-semibold">+5.0%</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span>Ranged Damage</span>
+                            <span id="statRangedDamage" class="text-slate-300 font-semibold">+8</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- TABLE OF WINGS -->
+            <div class="glass-panel rounded-2xl shadow-xl overflow-hidden border border-slate-800">
+                <div class="p-4 bg-slate-950/80 border-b border-slate-800 font-bold text-sm text-white flex items-center gap-2">
+                    <i class="fa-solid fa-feather text-amber-400"></i> Все 10 Видов Крыльев и Требования
+                </div>
+                <div class="overflow-x-auto custom-scrollbar">
+                    <table class="w-full text-left text-xs">
+                        <thead>
+                            <tr class="uppercase text-[11px] tracking-wider text-slate-400 bg-slate-950/40 border-b border-slate-800">
+                                <th class="p-3.5 text-center">#</th>
+                                <th class="p-3.5">Редкость (Tier)</th>
+                                <th class="p-3.5">Название</th>
+                                <th class="p-3.5"><i class="fa-solid fa-key text-amber-400 mr-1"></i>Цена Открытия</th>
+                                <th class="p-3.5"><i class="fa-solid fa-wrench text-cyan-400 mr-1"></i>Ресурс для Улучшения</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800/60 font-medium">
+                            <tr class="hover:bg-slate-800/40 transition">
+                                <td class="p-3 text-center text-slate-500 font-mono">1</td>
+                                <td class="p-3 font-bold tier-0">Common</td>
+                                <td class="p-3 font-semibold tier-0">Fledgling</td>
+                                <td class="p-3 text-slate-300">5 <span class="text-slate-300">Камня</span></td>
+                                <td class="p-3 text-slate-300">Камень</td>
+                            </tr>
+                            <tr class="hover:bg-slate-800/40 transition">
+                                <td class="p-3 text-center text-slate-500 font-mono">2</td>
+                                <td class="p-3 font-bold tier-1">Uncommon</td>
+                                <td class="p-3 font-semibold tier-1">Hawk</td>
+                                <td class="p-3 text-slate-300">100 <span class="text-slate-300">Камня</span></td>
+                                <td class="p-3 text-slate-300">Камень</td>
+                            </tr>
+                            <tr class="hover:bg-slate-800/40 transition">
+                                <td class="p-3 text-center text-slate-500 font-mono">3</td>
+                                <td class="p-3 font-bold tier-2">Rare</td>
+                                <td class="p-3 font-semibold tier-2">Dove</td>
+                                <td class="p-3 text-slate-300">30 <span class="text-black-300">Угля</span></td>
+                                <td class="p-3 text-slate-300">Камень</td>
+                            </tr>
+                            <tr class="hover:bg-slate-800/40 transition">
+                                <td class="p-3 text-center text-slate-500 font-mono">4</td>
+                                <td class="p-3 font-bold tier-3">Epic</td>
+                                <td class="p-3 font-semibold tier-3">Blaze</td>
+                                <td class="p-3 text-slate-300">100 <span class="text-black-300">Угля</span></td>
+                                <td class="p-3 text-slate-300">Камень</td>
+                            </tr>
+                            <tr class="hover:bg-slate-800/40 transition">
+                                <td class="p-3 text-center text-slate-500 font-mono">5</td>
+                                <td class="p-3 font-bold tier-4">Legendary</td>
+                                <td class="p-3 font-semibold tier-4">Wyrmling</td>
+                                <td class="p-3 text-slate-300">30 <span class="text-gray-300">Железо</span></td>
+                                <td class="p-3 text-black-300">Уголь</td>
+                            </tr>
+                            <tr class="hover:bg-slate-800/40 transition">
+                                <td class="p-3 text-center text-slate-500 font-mono">6</td>
+                                <td class="p-3 font-bold tier-5">Mythic</td>
+                                <td class="p-3 font-semibold tier-5">Onyx</td>
+                                <td class="p-3 text-slate-300">100 <span class="text-gray-300">Железо</span></td>
+                                <td class="p-3 text-black-300">Уголь</td>
+                            </tr>
+                            <tr class="hover:bg-slate-800/40 transition">
+                                <td class="p-3 text-center text-slate-500 font-mono">7</td>
+                                <td class="p-3 font-bold tier-6">Artifact</td>
+                                <td class="p-3 font-semibold tier-6">Green Dragon</td>
+                                <td class="p-3 text-slate-300">100 <span class="text-red-300">Рубинов</span></td>
+                                <td class="p-3 text-gray-300">Железо</td>
+                            </tr>
+                            <tr class="hover:bg-slate-800/40 transition">
+                                <td class="p-3 text-center text-slate-500 font-mono">8</td>
+                                <td class="p-3 font-bold tier-7">Ancient</td>
+                                <td class="p-3 font-semibold tier-7">Flend</td>
+                                <td class="p-3 text-slate-300">100 <span class="text-green-300">Эмеральдов</span></td>
+                                <td class="p-3 text-red-300">Рубины</td>
+                            </tr>
+                            <tr class="hover:bg-slate-800/40 transition">
+                                <td class="p-3 text-center text-slate-500 font-mono">9</td>
+                                <td class="p-3 font-bold tier-8">Immortal</td>
+                                <td class="p-3 font-semibold tier-8">Celestial</td>
+                                <td class="p-3 text-slate-300">100 <span class="text-yellow-300">Золото</span></td>
+                                <td class="p-3 text-green-300">Эмеральды</td>
+                            </tr>
+                            <tr class="hover:bg-slate-800/40 transition">
+                                <td class="p-3 text-center text-slate-500 font-mono">10</td>
+                                <td class="p-3 font-bold tier-9">Divine</td>
+                                <td class="p-3 font-semibold tier-9">Eternal</td>
+                                <td class="p-3 text-slate-300">1000 <span class="text-blue-300">Алмазов</span></td>
+                                <td class="p-3 text-yellow-300">Золото</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-panel border-t border-slate-800/80 py-8 mt-16">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 space-y-2">
+            <p class="text-[12px] text-slate-500">Неофициальный справочник по игре. Данный сайт не связан с разработчиками или издателем игры. Все права на игру, её название, изображения и другие материалы принадлежат LAVA LABS OYUN YAZILIM VE PAZARLAMA ANONİM ШİRKETİ. Данный сайт создан исключительно в информационных целях.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Navigation, Slider & Stats Logic -->
+    <script>
+        function showMainSection(sectionId, btn) {
+            document.querySelectorAll('.main-section').forEach(sec => sec.classList.add('hidden'));
+            document.querySelectorAll('.nav-tab-btn').forEach(b => b.classList.remove('active'));
+
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.remove('hidden');
+                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            if (btn) {
+                btn.classList.add('active');
+            }
+        }
+
+        /* --- База данных характеристик крыльев --- */
+        const wingsData = [
+            {
+                name: "Fledgling",
+                tier: "Common",
+                tierClass: "tier-0",
+                health: "TBA",
+                damage: "TBA",
+                attackSpeed: "TBA",
+                secDamage: "+TBA",
+                doubleHitChance: "TBA",
+                critDamage: "TBA",
+                rangedDamage: "+TBA"
+            },
+            {
+                name: "Hawk",
+                tier: "Uncommon",
+                tierClass: "tier-1",
+                health: "TBA",
+                damage: "TBA",
+                attackSpeed: "TBA",
+                secDamage: "+TBA",
+                doubleHitChance: "TBA",
+                critDamage: "TBA",
+                rangedDamage: "+TBA"
+            },
+            {
+                name: "Dove",
+                tier: "Rare",
+                tierClass: "tier-2",
+                health: "TBA",
+                damage: "TBA",
+                attackSpeed: "TBA",
+                secDamage: "+TBA",
+                doubleHitChance: "TBA",
+                critDamage: "TBA",
+                rangedDamage: "+TBA"
+            },
+            {
+                name: "Blaze",
+                tier: "Epic",
+                tierClass: "tier-3",
+                health: "TBA",
+                damage: "TBA",
+                attackSpeed: "TBA",
+                secDamage: "+TBA",
+                doubleHitChance: "TBA",
+                critDamage: "TBA",
+                rangedDamage: "+TBA"
+            },
+            {
+                name: "Wyrmling",
+                tier: "Legendary",
+                tierClass: "tier-4",
+                health: "TBA",
+                damage: "TBA",
+                attackSpeed: "TBA",
+                secDamage: "+TBA",
+                doubleHitChance: "TBA",
+                critDamage: "TBA",
+                rangedDamage: "+TBA"
+            },
+            {
+                name: "Onyx",
+                tier: "Mythic",
+                tierClass: "tier-5",
+                health: "TBA",
+                damage: "TBA",
+                attackSpeed: "TBA",
+                secDamage: "+TBA",
+                doubleHitChance: "TBA",
+                critDamage: "TBA",
+                rangedDamage: "+TBA"
+            },
+            {
+                name: "Green Dragon",
+                tier: "Artifact",
+                tierClass: "tier-6",
+                health: "TBA",
+                damage: "TBA",
+                attackSpeed: "TBA",
+                secDamage: "+TBA",
+                doubleHitChance: "TBA",
+                critDamage: "TBA",
+                rangedDamage: "+TBA"
+            },
+            {
+                name: "Flend",
+                tier: "Ancient",
+                tierClass: "tier-7",
+                health: "TBA",
+                damage: "TBA",
+                attackSpeed: "TBA",
+                secDamage: "+TBA",
+                doubleHitChance: "TBA",
+                critDamage: "TBA",
+                rangedDamage: "+TBA"
+            },
+            {
+                name: "Celestial",
+                tier: "Immortal",
+                tierClass: "tier-8",
+                health: "TBA",
+                damage: "TBA",
+                attackSpeed: "TBA",
+                secDamage: "+TBA",
+                doubleHitChance: "TBA",
+                critDamage: "TBA",
+                rangedDamage: "+TBA"
+            },
+            {
+                name: "Eternal",
+                tier: "Divine",
+                tierClass: "tier-9",
+                health: "TBA",
+                damage: "TBA",
+                attackSpeed: "TBA",
+                secDamage: "+TBA",
+                doubleHitChance: "TBA",
+                critDamage: "TBA",
+                rangedDamage: "+TBA"
+            }
+        ];
+
+        /* --- Плавный горизонтальный слайдер Крыльев --- */
+        let currentWingIndex = 0;
+        const wingItems = document.querySelectorAll('.wing-item');
+        const galleryTrack = document.getElementById('galleryTrack');
+        const totalWings = wingItems.length;
+
+        function updateGallery() {
+            galleryTrack.style.transform = `translateX(-${currentWingIndex * 100}%)`;
+
+            wingItems.forEach((item, index) => {
+                if (index === currentWingIndex) {
+                    item.classList.add('active');
+
+                    const wingName = item.getAttribute('data-name');
+                    const wingTier = item.getAttribute('data-tier');
+                    const tierClass = item.getAttribute('data-tier-class');
+
+                    const titleEl = document.getElementById('currentWingTitle');
+                    const tierEl = document.getElementById('currentWingTier');
+
+                    titleEl.textContent = wingName;
+                    tierEl.textContent = `${wingTier}`;
+                    tierEl.className = `text-xs font-bold uppercase tracking-widest ${tierClass}`;
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+
+            // Прячем статистику при смене крыла
+            const container = document.getElementById('wingStatsContainer');
+            if (container) {
+                container.classList.add('hidden');
+            }
+        }
+
+        function nextWing() {
+            currentWingIndex = (currentWingIndex + 1) % totalWings;
+            updateGallery();
+        }
+
+        function prevWing() {
+            currentWingIndex = (currentWingIndex - 1 + totalWings) % totalWings;
+            updateGallery();
+        }
+
+        /* --- Нажатие на кнопку Equip: отображаем характеристики выбранного крыла --- */
+        function equipWing() {
+            const data = wingsData[currentWingIndex];
+
+            // Заполняем верхние данные
+            document.getElementById('statHealth').textContent = data.health;
+            document.getElementById('statDamage').textContent = data.damage;
+
+            // Заполняем нижние данные
+            document.getElementById('statAttackSpeed').textContent = data.attackSpeed;
+            document.getElementById('statSecDamage').textContent = data.secDamage;
+            document.getElementById('statDoubleHit').textContent = data.doubleHitChance;
+            document.getElementById('statCritDamage').textContent = data.critDamage;
+            document.getElementById('statRangedDamage').textContent = data.rangedDamage;
+
+            // Показываем контейнер статистики
+            const container = document.getElementById('wingStatsContainer');
+            container.classList.remove('hidden');
+            container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateGallery();
+        });
+    </script>
+</body>
+</html>
