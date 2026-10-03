@@ -190,11 +190,11 @@
                     <!-- Capes -->
                     <a href="capes.html" class="pet-card p-5 space-y-4 cursor-pointer group block">
                         <div class="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 text-xl group-hover:scale-110 transition-transform">
-                            <i class="fa-solid fa-vest-patches"></i>
+                            <i class="fa-solid fa-crown"></i>
                         </div>
                         <div class="space-y-1">
                             <h4 class="text-base font-bold text-white group-hover:text-indigo-400 transition-colors">
-                                Плащи
+                                Калькулятор корон
                             </h4>
                             <p class="text-xs text-gray-400 font-body">
                                 Расчёт клановых очков, затрат корон, уровней призыва и вероятностей редких плащей.
@@ -205,15 +205,14 @@
                             <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                         </div>
                     </a>
-
                     <!-- Pets -->
                     <a href="pets.html" class="pet-card p-5 space-y-4 cursor-pointer group block">
                         <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-xl group-hover:scale-110 transition-transform">
-                            <i class="fa-solid fa-paw"></i>
+                            <i class="fa-solid fa-bone"></i>
                         </div>
                         <div class="space-y-1">
                             <h4 class="text-base font-bold text-white group-hover:text-emerald-400 transition-colors">
-                                Компаньоны
+                                Калькулятор костей
                             </h4>
                             <p class="text-xs text-gray-400 font-body">
                                 Расчёт клановых очков, затрат костей, уровень призыва и вероятность выпадений.
@@ -232,7 +231,7 @@
                         </div>
                         <div class="space-y-1">
                             <h4 class="text-base font-bold text-white group-hover:text-yellow-400 transition-colors">
-                                Коробки
+                                Калькулятор коробок
                             </h4>
                             <p class="text-xs text-gray-400 font-body">
                                 Расчёт клановых очков, затрат коробок, примерные дропы.
@@ -358,7 +357,7 @@
             </section>
 
             <!-- CATEGORY 3: COMING SOON / IN DEVELOPMENT -->
-            <section>
+<section>
                 <div class="flex items-center gap-3 my-4">
                     <div class="w-8 h-8 rounded-lg bg-slate-500/10 border border-slate-500/20 flex items-center justify-center text-slate-400 text-sm">
                         <i class="fa-solid fa-flask"></i>
@@ -367,29 +366,144 @@
                     <div class="h-[1px] flex-1 bg-gradient-to-r from-white/10 to-transparent"></div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                    <div class="pet-card p-5 space-y-4 opacity-75">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    <!-- Stats Calculator -->
+                    <div class="pet-card p-5 space-y-4 opacity-85 group block">
                         <div class="w-12 h-12 rounded-xl bg-slate-500/10 border border-slate-500/20 flex items-center justify-center text-slate-400 text-xl">
-                            <i class="fa-solid fa-screwdriver-wrench"></i>
+                            <i class="fa-solid fa-chart-simple"></i>
                         </div>
                         <div class="space-y-1">
                             <h4 class="text-base font-bold text-white">
-                                Новые разделы
+                                Калькулятор статов
                             </h4>
                             <p class="text-xs text-gray-400 font-body">
-                                Раздел находится в стадии наполнения информацией и тестирования.
+                                Расчёт характеристик персонажа, бонусов снаряжения и итоговых показателей.
                             </p>
                         </div>
                         <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-slate-400 font-semibold">
-                            <span>Скоро</span>
+                            <span>В разработке</span>
                             <i class="fa-solid fa-clock"></i>
                         </div>
                     </div>
 
-                    <!-- Relics !COLOR red-->
-                    <div class="pet-card p-5 space-y-4 group block">
+                    <!-- Damage Calculator -->
+                    <div class="pet-card p-5 space-y-4 opacity-85 group block">
                         <div class="w-12 h-12 rounded-xl bg-slate-500/10 border border-slate-500/20 flex items-center justify-center text-slate-400 text-xl">
-                            <i class="fa-solid fa-vial text-slate-500 text-xl"></i>
+                            <i class="fa-solid fa-hand-fist"></i>
+                        </div>
+                        <div class="space-y-1">
+                            <h4 class="text-base font-bold text-white">
+                                Калькулятор урона
+                            </h4>
+                            <p class="text-xs text-gray-400 font-body">
+                                Расчёт наносимого урона, критических ударов и эффективности навыков.
+                            </p>
+                        </div>
+                        <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-slate-400 font-semibold">
+                            <span>В разработке</span>
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+                    </div>
+
+                    <!-- Capes & Crowns -->
+                    <div class="pet-card p-5 space-y-4 opacity-85 group block">
+                        <div class="w-12 h-12 rounded-xl bg-slate-500/10 border border-slate-500/20 flex items-center justify-center text-slate-400 text-xl">
+                            <i class="fa-solid fa-vest-patches"></i>
+                        </div>
+                        <div class="space-y-1">
+                            <h4 class="text-base font-bold text-white">
+                                Плащи и короны
+                            </h4>
+                            <p class="text-xs text-gray-400 font-body">
+                                База данных плащей, их свойства, типы и стоимость улучшения.
+                            </p>
+                        </div>
+                        <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-slate-400 font-semibold">
+                            <span>В разработке</span>
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+                    </div>
+
+                    <!-- Pets & Bones -->
+                    <div class="pet-card p-5 space-y-4 opacity-85 group block">
+                        <div class="w-12 h-12 rounded-xl bg-slate-500/10 border border-slate-500/20 flex items-center justify-center text-slate-400 text-xl">
+                            <i class="fa-solid fa-paw"></i>
+                        </div>
+                        <div class="space-y-1">
+                            <h4 class="text-base font-bold text-white">
+                                Питомцы и кости
+                            </h4>
+                            <p class="text-xs text-gray-400 font-body">
+                                Информация о питомцах, их навыках, эволюции и стоимости прокачки костями.
+                            </p>
+                        </div>
+                        <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-slate-400 font-semibold">
+                            <span>В разработке</span>
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+                    </div>
+
+                    <!-- Shop & Offers -->
+                    <div class="pet-card p-5 space-y-4 opacity-85 group block">
+                        <div class="w-12 h-12 rounded-xl bg-slate-500/10 border border-slate-500/20 flex items-center justify-center text-slate-400 text-xl">
+                            <i class="fa-solid fa-store"></i>
+                        </div>
+                        <div class="space-y-1">
+                            <h4 class="text-base font-bold text-white">
+                                Магазин и предложения
+                            </h4>
+                            <p class="text-xs text-gray-400 font-body">
+                                Информация о магазине и предложениях. Цены, наборы, Membership, товары за гемы.
+                            </p>
+                        </div>
+                        <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-slate-400 font-semibold">
+                            <span>В разработке</span>
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+                    </div>
+
+                    <!-- Auto-loot & Filters -->
+                    <div class="pet-card p-5 space-y-4 opacity-85 group block">
+                        <div class="w-12 h-12 rounded-xl bg-slate-500/10 border border-slate-500/20 flex items-center justify-center text-slate-400 text-xl">
+                            <i class="fa-solid fa-filter"></i>
+                        </div>
+                        <div class="space-y-1">
+                            <h4 class="text-base font-bold text-white">
+                                Авто-лут и Фильтры
+                            </h4>
+                            <p class="text-xs text-gray-400 font-body">
+                                Настройка фильтров предметов и система автоматического сбора лута.
+                            </p>
+                        </div>
+                        <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-slate-400 font-semibold">
+                            <span>В разработке</span>
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+                    </div>
+
+                    <!-- Clans & Top -->
+                    <div class="pet-card p-5 space-y-4 opacity-85 group block">
+                        <div class="w-12 h-12 rounded-xl bg-slate-500/10 border border-slate-500/20 flex items-center justify-center text-slate-400 text-xl">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <div class="space-y-1">
+                            <h4 class="text-base font-bold text-white">
+                                Кланы и топ
+                            </h4>
+                            <p class="text-xs text-gray-400 font-body">
+                                Информация о клановой системе, рейтингах лучших игроков и кланов.
+                            </p>
+                        </div>
+                        <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-slate-400 font-semibold">
+                            <span>В разработке</span>
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+                    </div>
+
+                    <!-- Relics -->
+                    <div class="pet-card p-5 space-y-4 opacity-85 group block">
+                        <div class="w-12 h-12 rounded-xl bg-slate-500/10 border border-slate-500/20 flex items-center justify-center text-slate-400 text-xl">
+                            <i class="fa-solid fa-vial"></i>
                         </div>
                         <div class="space-y-1">
                             <h4 class="text-base font-bold text-white">
@@ -400,13 +514,13 @@
                             </p>
                         </div>
                         <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-slate-400 font-semibold">
-                            <span>Скоро</span>
+                            <span>В разработке</span>
                             <i class="fa-solid fa-clock"></i>
                         </div>
                     </div>
 
-                    <!-- Game mechanics !COLOR Purple-->
-                    <div class="pet-card p-5 space-y-4 group block">
+                    <!-- Game Mechanics -->
+                    <div class="pet-card p-5 space-y-4 opacity-85 group block">
                         <div class="w-12 h-12 rounded-xl bg-slate-500/10 border border-slate-500/20 flex items-center justify-center text-slate-400 text-xl">
                             <i class="fa-solid fa-gears"></i>
                         </div>
@@ -419,13 +533,12 @@
                             </p>
                         </div>
                         <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-slate-400 font-semibold">
-                            <span>Скоро</span>
+                            <span>В разработке</span>
                             <i class="fa-solid fa-clock"></i>
                         </div>
                     </div>
                 </div>
             </section>
-
         </div>
     </main>
 
