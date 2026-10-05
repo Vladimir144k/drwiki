@@ -199,15 +199,20 @@
                     <i class="fa-solid fa-images text-cyan-400"></i> Скриншоты: Взаимодействие с Друзьями
                 </h3>
                 
-                <div class="relative w-full max-w-4xl mx-auto h-[22rem] sm:h-[26rem] rounded-2xl overflow-hidden border border-slate-800 bg-slate-950/80 flex items-center justify-center">
+                <div class="relative w-full max-w-4xl mx-auto h-[22rem] sm:h-[26rem] rounded-2xl overflow-hidden border border-slate-800 bg-slate-950/80 flex items-center justify-center group cursor-pointer" onclick="openModalFromImage('friendsMainImage', 'friendsCaption')">
                     <img 
                         id="friendsMainImage" 
                         src="images/friendsmain.png" 
                         alt="Скриншот Друзей" 
-                        class="w-full h-full object-contain transition-opacity duration-300"
+                        class="w-full h-full object-contain transition-all duration-300 group-hover:scale-105"
                         onerror="this.src='images/noimg.png'"
                     >
-                    <div id="friendsCaption" class="absolute bottom-0 left-0 right-0 bg-slate-950/90 backdrop-blur-md p-3 text-center text-xs font-semibold text-slate-200 border-t border-slate-800">
+                    <div class="absolute inset-0 bg-slate-950/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                        <span class="bg-slate-900/90 border border-cyan-500/40 text-cyan-400 px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 shadow-lg backdrop-blur-md">
+                            <i class="fa-solid fa-magnifying-glass-plus"></i> Нажмите для увеличения
+                        </span>
+                    </div>
+                    <div id="friendsCaption" class="absolute bottom-0 left-0 right-0 bg-slate-950/90 backdrop-blur-md p-3 text-center text-xs font-semibold text-slate-200 border-t border-slate-800 z-10">
                         Как добавить в друзья
                     </div>
                 </div>
@@ -303,15 +308,20 @@
                     <i class="fa-solid fa-images text-purple-400"></i> Скриншоты: Режим CO-OP
                 </h3>
                 
-                <div class="relative w-full max-w-4xl mx-auto h-[22rem] sm:h-[26rem] rounded-2xl overflow-hidden border border-slate-800 bg-slate-950/80 flex items-center justify-center">
+                <div class="relative w-full max-w-4xl mx-auto h-[22rem] sm:h-[26rem] rounded-2xl overflow-hidden border border-slate-800 bg-slate-950/80 flex items-center justify-center group cursor-pointer" onclick="openModalFromImage('coopMainImage', 'coopCaption')">
                     <img 
                         id="coopMainImage" 
                         src="images/coopmain.png" 
                         alt="Скриншот CO-OP" 
-                        class="w-full h-full object-contain transition-opacity duration-300"
+                        class="w-full h-full object-contain transition-all duration-300 group-hover:scale-105"
                         onerror="this.src='images/noimg.png'"
                     >
-                    <div id="coopCaption" class="absolute bottom-0 left-0 right-0 bg-slate-950/90 backdrop-blur-md p-3 text-center text-xs font-semibold text-slate-200 border-t border-slate-800">
+                    <div class="absolute inset-0 bg-slate-950/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                        <span class="bg-slate-900/90 border border-purple-500/40 text-purple-400 px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 shadow-lg backdrop-blur-md">
+                            <i class="fa-solid fa-magnifying-glass-plus"></i> Нажмите для увеличения
+                        </span>
+                    </div>
+                    <div id="coopCaption" class="absolute bottom-0 left-0 right-0 bg-slate-950/90 backdrop-blur-md p-3 text-center text-xs font-semibold text-slate-200 border-t border-slate-800 z-10">
                         Как поиграть в co-op режим
                     </div>
                 </div>
@@ -589,6 +599,148 @@
             btn.classList.remove('border-transparent', 'opacity-60');
             btn.classList.add('border-cyan-400', 'opacity-100');
         }
+    </script>
+    <!-- Modal Lightbox with Zoom -->
+    <div id="imageModal" class="fixed inset-0 z-50 hidden bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-4 select-none">
+        <!-- Close Button -->
+        <button onclick="closeModal()" class="absolute top-4 right-4 z-10 w-11 h-11 rounded-full bg-slate-900/80 border border-slate-700/60 text-slate-300 hover:text-white hover:bg-slate-800 transition flex items-center justify-center text-xl shadow-lg">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <!-- Controls Bar -->
+        <div class="absolute top-4 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2 bg-slate-900/80 border border-slate-700/60 px-4 py-2 rounded-full shadow-lg text-xs text-slate-300">
+            <button onclick="zoomOut()" class="p-1.5 hover:text-cyan-400 transition" title="Уменьшить"><i class="fa-solid fa-magnifying-glass-minus text-base"></i></button>
+            <span id="zoomLevel" class="font-mono w-12 text-center text-slate-200 font-bold">100%</span>
+            <button onclick="zoomIn()" class="p-1.5 hover:text-cyan-400 transition" title="Увеличить"><i class="fa-solid fa-magnifying-glass-plus text-base"></i></button>
+            <div class="w-px h-4 bg-slate-700 mx-1"></div>
+            <button onclick="resetZoom()" class="p-1.5 hover:text-cyan-400 transition" title="Сбросить"><i class="fa-solid fa-rotate-right text-base"></i></button>
+        </div>
+
+        <!-- Image Container -->
+        <div id="modalViewport" class="relative w-full h-full max-w-6xl max-h-[82vh] flex items-center justify-center overflow-hidden cursor-grab active:cursor-grabbing">
+            <img id="modalImage" src="" alt="Enlarged View" class="max-w-full max-h-full object-contain transition-transform duration-150 ease-out rounded-lg shadow-2xl">
+        </div>
+
+        <!-- Caption Footer -->
+        <div id="modalCaption" class="mt-4 text-center text-sm font-semibold text-slate-200 bg-slate-900/80 border border-slate-800 px-6 py-2.5 rounded-2xl max-w-2xl"></div>
+    </div>
+    <script>
+    // --- MODAL & ZOOM CONTROLLER ---
+    let currentScale = 1;
+    let isDragging = false;
+    let startX = 0, startY = 0;
+    let translateX = 0, translateY = 0;
+
+    function openModalFromImage(imageId, captionId) {
+        const img = document.getElementById(imageId);
+        const caption = document.getElementById(captionId);
+        if (img && img.src) {
+            openModal(img.src, caption ? caption.innerText : '');
+        }
+    }
+
+    function openModal(src, captionText) {
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const modalCaption = document.getElementById('modalCaption');
+
+        modalImg.src = src;
+        modalCaption.innerText = captionText || '';
+        
+        resetZoom();
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden'; // Запрет прокрутки страницы под модалом
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('imageModal');
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+    }
+
+    function updateTransform() {
+        const modalImg = document.getElementById('modalImage');
+        const zoomText = document.getElementById('zoomLevel');
+        
+        modalImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
+        zoomText.innerText = `${Math.round(currentScale * 100)}%`;
+    }
+
+    function zoomIn() {
+        currentScale = Math.min(currentScale + 0.25, 4);
+        updateTransform();
+    }
+
+    function zoomOut() {
+        currentScale = Math.max(currentScale - 0.25, 0.5);
+        if (currentScale <= 1) {
+            translateX = 0;
+            translateY = 0;
+        }
+        updateTransform();
+    }
+
+    function resetZoom() {
+        currentScale = 1;
+        translateX = 0;
+        translateY = 0;
+        updateTransform();
+    }
+
+    // Клик по фону модалки для закрытия
+    document.getElementById('imageModal')?.addEventListener('click', (e) => {
+        if (e.target.id === 'imageModal' || e.target.id === 'modalViewport') {
+            closeModal();
+        }
+    });
+
+    // Масштабирование колесиком мыши
+    document.getElementById('modalViewport')?.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        if (e.deltaY < 0) {
+            zoomIn();
+        } else {
+            zoomOut();
+        }
+    }, { passive: false });
+
+    // Закрытие по нажатию клавиши ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModal();
+    });
+
+    // Клик по самому изображению в модале для быстрого приближения/сброса
+    document.getElementById('modalImage')?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (currentScale === 1) {
+            currentScale = 2;
+        } else {
+            resetZoom();
+        }
+        updateTransform();
+    });
+
+    // Перетаскивание изображения мышью (Drag & Pan)
+    const viewport = document.getElementById('modalViewport');
+    viewport?.addEventListener('mousedown', (e) => {
+        if (currentScale > 1) {
+            isDragging = true;
+            startX = e.clientX - translateX;
+            startY = e.clientY - translateY;
+        }
+    });
+
+    window.addEventListener('mousemove', (e) => {
+        if (isDragging && currentScale > 1) {
+            translateX = e.clientX - startX;
+            translateY = e.clientY - startY;
+            updateTransform();
+        }
+    });
+
+    window.addEventListener('mouseup', () => {
+        isDragging = false;
+    });
     </script>
 </body>
 </html>
