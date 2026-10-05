@@ -101,9 +101,6 @@
             </a>
 
             <div class="flex items-center space-x-3 text-xs">
-                <span class="hidden sm:inline-flex items-center px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-400">
-                    <i class="fa-solid fa-code-branch text-amber-400 mr-1.5"></i> Последнее обновление: 01.10.2026
-                </span>
                 <button onclick="scrollToTop()" class="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition" title="Наверх">
                     <i class="fa-solid fa-arrow-up"></i>
                 </button>
@@ -116,25 +113,12 @@
         <!-- Hero Banner with Credits -->
         <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 p-6 sm:p-10 border border-slate-800 shadow-2xl glow-indigo">
             <div class="relative z-10">
-                <div class="flex flex-wrap items-center gap-2 mb-3">
-                    <span class="px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 text-xs font-semibold">
-                        <i class="fa-solid fa-shield-halved mr-1"></i> НЕофициальный Справочник
-                    </span>
-                </div>
                 <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
                     Информация, статистики и гайды по игре!
                 </h1>
                 <p class="mt-3 text-slate-300 max-w-3xl text-sm sm:text-base leading-relaxed">
-                    Полный справочник по подземельям, билдам, Мастерству, Войне Кланов и фарму гемов. Выбирайте категорию в интерактивном меню ниже.
+                    Полный справочник по мастерству, обычным и EXP статам, клановой войне и шансы дропов. Выбирайте категорию в интерактивном меню ниже.
                 </p>
-                <div class="mt-5 flex flex-wrap items-center gap-3 text-xs font-medium">
-                    <span class="inline-flex items-center px-3.5 py-1.5 rounded-xl bg-slate-900/80 text-slate-300 border border-slate-800 shadow-inner">
-                        <i class="fa-solid fa-table-list mr-2 text-amber-400"></i> Данные: <strong class="text-amber-400 ml-1">Elpi The Wiki</strong>
-                    </span>
-                    <span class="inline-flex items-center px-3.5 py-1.5 rounded-xl bg-slate-900/80 text-slate-300 border border-slate-800 shadow-inner">
-                        <i class="fa-solid fa-language mr-2 text-indigo-400"></i> Перевод: <strong class="text-indigo-400 ml-1">Tcan</strong>
-                    </span>
-                </div>
             </div>
             <!-- Decorative Background Graphics -->
             <div class="absolute -right-16 -bottom-16 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -316,155 +300,260 @@
                 </div>
             </div>
 
-            <!-- CONTENT 3: CLAN WAR -->
-            <div id="guide-tab-clan" class="guide-tab-content hidden space-y-6">
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- CONTENT 3: CLAN WAR -->
+<div id="guide-tab-clan" class="guide-tab-content hidden space-y-6">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-                    <!-- DAYS 1, 3, 5 -->
-                    <div class="glass-panel rounded-2xl p-5 border border-slate-800 flex flex-col justify-between space-y-4">
-                        <div>
-                            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
-                                <h3 class="text-base font-bold text-cyan-400 flex items-center gap-2">
-                                    <i class="fa-solid fa-calendar-days"></i> День 1, 3, 5
-                                </h3>
-                                <span class="text-xs bg-cyan-950 text-cyan-300 border border-cyan-800 px-2 py-0.5 rounded-md font-mono">Цикл A</span>
-                            </div>
+        <!-- DAYS 1, 3, 5 -->
+        <div class="glass-panel rounded-2xl p-5 border border-slate-800 flex flex-col justify-between space-y-4">
+            <div>
+                <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+                    <h3 class="text-base font-bold text-cyan-400 flex items-center gap-2">
+                        <i class="fa-solid fa-calendar-days"></i> День 1, 3, 5
+                    </h3>
+                    <span class="text-xs bg-cyan-950 text-cyan-300 border border-cyan-800 px-2 py-0.5 rounded-md font-mono">Цикл A</span>
+                </div>
 
-                            <!-- Task 1: Opening Boxes -->
-                            <div class="space-y-2 mb-4">
-                                <div class="text-xs font-semibold text-slate-300 uppercase">Открытие Ящиков (Очки за ящик)</div>
-                                <div class="grid grid-cols-5 gap-1 text-center text-[11px]">
-                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-common font-bold">Common</span>1</div>
-                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-uncommon font-bold">Uncommon</span>1</div>
-                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-rare font-bold">Rare</span>1</div>
-                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-epic font-bold">Epic</span>2</div>
-                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-legendary font-bold">Legendary</span>2</div>
-                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-mythic font-bold">Mythic</span>2</div>
-                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-artifact font-bold">Artifact</span>2</div>
-                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-ancient font-bold">Ancient</span>3</div>
-                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-immortal font-bold">Immortal</span>3</div>
-                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-divine font-bold">Divine</span>3</div>
-                                </div>
-                            </div>
-
-                            <!-- Task 2: Summoning Pets -->
-                            <div class="space-y-2 mb-4">
-                                <div class="text-xs font-semibold text-slate-300 uppercase">Призыв Питомцев</div>
-                                <div class="grid grid-cols-3 gap-1 text-center text-[11px]">
-                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-common font-bold">Common</span>10</div>
-                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-uncommon font-bold">Uncommon</span>10</div>
-                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-rare font-bold">Rare</span>20</div>
-                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-epic font-bold">Epic</span>20</div>
-                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-legendary font-bold">Legendary</span>30</div>
-                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-mythic font-bold">Mythic</span>30</div>
-                                </div>
-                            </div>
-
-                            <!-- Task 3: Leveling Up -->
-                            <div class="space-y-2">
-                                <div class="text-xs font-semibold text-slate-300 uppercase">Повышение Уровня</div>
-                                <div class="bg-slate-900 p-2.5 rounded-xl border border-slate-800 flex items-center justify-between text-xs">
-                                    <span class="text-slate-400">Формула:</span>
-                                    <span class="font-mono text-emerald-400 font-bold">Уровень * 100</span>
-                                </div>
-                            </div>
-                        </div>
-                            <a href=""><div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-yellow-400 font-semibold">
-                                    <span>Открыть калькулятор ящиков</span>
-                                    <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
-                                </div></a>
-                            <a href=""><div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-emerald-400 font-semibold">
-                                    <span>Открыть калькулятор компаньонов</span>
-                                    <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
-                                </div></a>
+                <!-- Task 1: Opening Boxes -->
+                <div class="space-y-2 mb-4">
+                    <div class="text-xs font-semibold text-slate-300 uppercase">Открытие Ящиков (Очки за ящик)</div>
+                    <div class="grid grid-cols-5 gap-1 text-center text-[11px]">
+                        <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-common font-bold">Common</span>1</div>
+                        <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-uncommon font-bold">Uncommon</span>1</div>
+                        <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-rare font-bold">Rare</span>1</div>
+                        <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-epic font-bold">Epic</span>2</div>
+                        <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-legendary font-bold">Legendary</span>2</div>
+                        <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-mythic font-bold">Mythic</span>2</div>
+                        <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-artifact font-bold">Artifact</span>2</div>
+                        <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-ancient font-bold">Ancient</span>3</div>
+                        <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-immortal font-bold">Immortal</span>3</div>
+                        <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-divine font-bold">Divine</span>3</div>
                     </div>
+                </div>
 
-                    <!-- DAYS 2, 4 -->
-                    <div class="glass-panel rounded-2xl p-5 border border-slate-800 flex flex-col justify-between space-y-4">
-                        <div>
-                            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
-                                <h3 class="text-base font-bold text-purple-400 flex items-center gap-2">
-                                    <i class="fa-solid fa-calendar-days"></i> День 2, 4
-                                </h3>
-                                <span class="text-xs bg-purple-950 text-purple-300 border border-purple-800 px-2 py-0.5 rounded-md font-mono">Цикл B</span>
-                            </div>
-
-                            <!-- Task 1: Cloak Summoning -->
-                            <div class="space-y-2 mb-4">
-                                <div class="text-xs font-semibold text-slate-300 uppercase">Призыв Плащей</div>
-                                <div class="grid grid-cols-3 gap-1 text-center text-[11px]">
-                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-common font-bold">Common</span>100</div>
-                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-uncommon font-bold">Uncommon</span>100</div>
-                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-rare font-bold">Rare</span>200</div>
-                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-epic font-bold">Epic</span>200</div>
-                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-legendary font-bold">Legendary</span>300</div>
-                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-mythic font-bold">Mythic</span>300</div>
-                                </div>
-                            </div>
-
-                            <!-- Task 2: Ore Mining -->
-                            <div class="space-y-2 mb-4">
-                                <div class="text-xs font-semibold text-slate-300 uppercase">Добыча Руды</div>
-                                <div class="grid grid-cols-4 gap-1 text-center text-[11px]">
-                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block text-slate-400 font-bold">Камень</span>10</div>
-                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block text-slate-500 font-bold">Уголь</span>10</div>
-                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block text-slate-300 font-bold">Железо</span>20</div>
-                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block text-rose-400 font-bold">Рубин</span>20</div>
-                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block text-emerald-400 font-bold">Эмеральд</span>20</div>
-                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block text-amber-400 font-bold">Золото</span>30</div>
-                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800 col-span-2"><span class="block text-cyan-400 font-bold">Алмаз</span>30</div>
-                                </div>
-                            </div>
-
-                            <!-- Task 3: Dungeon Keys -->
-                            <div class="space-y-2">
-                                <div class="text-xs font-semibold text-slate-300 uppercase">Ключи Подземелья</div>
-                                <div class="bg-slate-900 p-2.5 rounded-xl border border-slate-800 flex items-center justify-between text-xs">
-                                    <span class="text-slate-400">За ключ:</span>
-                                    <span class="font-mono text-yellow-400 font-bold">500 Очков</span>
-                                </div>
-                            </div>
-                        </div>
-                            <a href=""><div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-indigo-400 font-semibold">
-                                    <span>Открыть калькулятор плащей</span>
-                                    <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
-                                </div></a>
+                <!-- Task 2: Summoning Pets -->
+                <div class="space-y-2 mb-4">
+                    <div class="text-xs font-semibold text-slate-300 uppercase">Призыв Питомцев</div>
+                    <div class="grid grid-cols-3 gap-1 text-center text-[11px]">
+                        <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-common font-bold">Common</span>10</div>
+                        <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-uncommon font-bold">Uncommon</span>10</div>
+                        <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-rare font-bold">Rare</span>20</div>
+                        <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-epic font-bold">Epic</span>20</div>
+                        <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-legendary font-bold">Legendary</span>30</div>
+                        <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-mythic font-bold">Mythic</span>30</div>
                     </div>
+                </div>
 
-                    <!-- DAY 6: PVP -->
-                    <div class="glass-panel rounded-2xl p-5 border border-slate-800 flex flex-col justify-between space-y-4">
-                        <div>
-                            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
-                                <h3 class="text-base font-bold text-rose-400 flex items-center gap-2">
-                                    <i class="fa-solid fa-swords"></i> День 6
-                                </h3>
-                                <span class="text-xs bg-rose-950 text-rose-300 border border-rose-800 px-2 py-0.5 rounded-md font-mono">PVP Финал</span>
-                            </div>
-                            <div class="space-y-3">
-                            <div class="space-y-3 ">
-                                <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 space-y-2 text-xs">
-                                    <div class="flex items-center justify-between">
-                                        <span class="text-slate-400 uppercase font-semibold">Награда:</span>
-                                        <span class="font-mono text-rose-400 font-bold">50 Очков / Бой</span>
-                                    </div>
-                                    <p class="text-slate-300 pt-1 border-t border-slate-800"><i class="fa-solid fa-clock text-amber-400 mr-1"></i> Сброс билета каждый час. Сброс ПВП каждые 45 побед</p>
-                                </div>
-                            </div>
-                            <div class="p-4 rounded-xl bg-gradient-to-br from-rose-950/30 to-amber-950/30 border border-rose-800/40 text-xs space-y-2">
-                                <span class="font-semibold text-rose-300 flex items-center gap-1.5">
-                                    <i class="fa-solid fa-lightbulb"></i>
-                                    Совет по PVP дню:
-                                </span>
-                                <p class="text-slate-400 leading-relaxed">
-                                    Старайтесь заходить каждый час, чтобы не терять восстанавливающиеся билеты. Накапливайте максимальное количество побед!
-                                </p>
-                            </div>
-                            </div>
-                        </div>
+                <!-- Task 3: Leveling Up -->
+                <div class="space-y-2">
+                    <div class="text-xs font-semibold text-slate-300 uppercase">Повышение Уровня</div>
+                    <div class="bg-slate-900 p-2.5 rounded-xl border border-slate-800 flex items-center justify-between text-xs">
+                        <span class="text-slate-400">Формула:</span>
+                        <span class="font-mono text-emerald-400 font-bold">Уровень * 100</span>
                     </div>
-
                 </div>
             </div>
+            <a href="#"><div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-yellow-400 font-semibold">
+                    <span>Открыть калькулятор ящиков</span>
+                    <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                </div></a>
+            <a href="#"><div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-emerald-400 font-semibold">
+                    <span>Открыть калькулятор компаньонов</span>
+                    <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                </div></a>
+        </div>
+
+        <!-- DAYS 2, 4 -->
+        <div class="glass-panel rounded-2xl p-5 border border-slate-800 flex flex-col justify-between space-y-4">
+            <div>
+                <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+                    <h3 class="text-base font-bold text-purple-400 flex items-center gap-2">
+                        <i class="fa-solid fa-calendar-days"></i> День 2, 4
+                    </h3>
+                    <span class="text-xs bg-purple-950 text-purple-300 border border-purple-800 px-2 py-0.5 rounded-md font-mono">Цикл B</span>
+                </div>
+
+                <!-- Task 1: Cloak Summoning -->
+                <div class="space-y-2 mb-4">
+                    <div class="text-xs font-semibold text-slate-300 uppercase">Призыв Плащей</div>
+                    <div class="grid grid-cols-3 gap-1 text-center text-[11px]">
+                        <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-common font-bold">Common</span>100</div>
+                        <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-uncommon font-bold">Uncommon</span>100</div>
+                        <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-rare font-bold">Rare</span>200</div>
+                        <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-epic font-bold">Epic</span>200</div>
+                        <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-legendary font-bold">Legendary</span>300</div>
+                        <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-mythic font-bold">Mythic</span>300</div>
+                    </div>
+                </div>
+
+                <!-- Task 2: Ore Mining -->
+                <div class="space-y-2 mb-4">
+                    <div class="text-xs font-semibold text-slate-300 uppercase">Добыча Руды</div>
+                    <div class="grid grid-cols-4 gap-1 text-center text-[11px]">
+                        <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block text-slate-400 font-bold">Камень</span>10</div>
+                        <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block text-slate-500 font-bold">Уголь</span>10</div>
+                        <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block text-slate-300 font-bold">Железо</span>20</div>
+                        <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block text-rose-400 font-bold">Рубин</span>20</div>
+                        <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block text-emerald-400 font-bold">Эмеральд</span>20</div>
+                        <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block text-amber-400 font-bold">Золото</span>30</div>
+                        <div class="bg-slate-900 p-1.5 rounded border border-slate-800 col-span-2"><span class="block text-cyan-400 font-bold">Алмаз</span>30</div>
+                    </div>
+                </div>
+
+                <!-- Task 3: Dungeon Keys -->
+                <div class="space-y-2">
+                    <div class="text-xs font-semibold text-slate-300 uppercase">Ключи Подземелья</div>
+                    <div class="bg-slate-900 p-2.5 rounded-xl border border-slate-800 flex items-center justify-between text-xs">
+                        <span class="text-slate-400">За ключ:</span>
+                        <span class="font-mono text-yellow-400 font-bold">500 Очков</span>
+                    </div>
+                </div>
+            </div>
+            <a href="#"><div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-indigo-400 font-semibold">
+                    <span>Открыть калькулятор плащей</span>
+                    <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                </div></a>
+        </div>
+
+        <!-- DAY 6: PVP -->
+        <div class="glass-panel rounded-2xl p-5 border border-slate-800 flex flex-col justify-between space-y-4">
+            <div>
+                <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+                    <h3 class="text-base font-bold text-rose-400 flex items-center gap-2">
+                        <i class="fa-solid fa-swords"></i> День 6
+                    </h3>
+                    <span class="text-xs bg-rose-950 text-rose-300 border border-rose-800 px-2 py-0.5 rounded-md font-mono">PVP Финал</span>
+                </div>
+                <div class="space-y-3">
+                    <div class="space-y-3">
+                        <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 space-y-2 text-xs">
+                            <div class="flex items-center justify-between">
+                                <span class="text-slate-400 uppercase font-semibold">Награда:</span>
+                                <span class="font-mono text-rose-400 font-bold">50 Очков / Бой</span>
+                            </div>
+                            <p class="text-slate-300 pt-1 border-t border-slate-800"><i class="fa-solid fa-clock text-amber-400 mr-1"></i> Сброс билета каждый час. Сброс ПВП каждые 45 побед</p>
+                        </div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-gradient-to-br from-rose-950/30 to-amber-950/30 border border-rose-800/40 text-xs space-y-2">
+                        <span class="font-semibold text-rose-300 flex items-center gap-1.5">
+                            <i class="fa-solid fa-lightbulb"></i>
+                            Совет по PVP дню:
+                        </span>
+                        <p class="text-slate-400 leading-relaxed">
+                            Старайтесь заходить каждый час, чтобы не терять восстанавливающиеся билеты. Накапливайте максимальное количество побед!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- REWARDS TABLE BY LEAGUE/TIER -->
+    <div class="glass-panel rounded-2xl p-5 border border-slate-800 space-y-4 shadow-xl">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div>
+                <h3 class="text-lg font-bold text-amber-400 flex items-center gap-2">
+                    <i class="fa-solid fa-trophy"></i> Награды Клановой Войны по Тирам
+                </h3>
+                <p class="text-xs text-slate-400 mt-1">Чем выше лига вашего клана, тем больше ценных ресурсов вы получите по окончанию недели.</p>
+            </div>
+            <span class="text-xs bg-amber-500/10 text-amber-400 border border-amber-500/20 px-3 py-1 rounded-lg font-semibold">
+                За победу
+            </span>
+        </div>
+
+        <div class="overflow-x-auto custom-scrollbar">
+            <table class="w-full text-left text-xs">
+                <thead>
+                    <tr class="uppercase text-[11px] tracking-wider text-slate-400 bg-slate-950/80 border-b border-slate-800">
+                        <th class="p-3 text-center">Лига (Тир)</th>
+                        <th class="p-3 text-center">Коробки</th>
+                        <th class="p-3 text-center">Кости</th>
+                        <th class="p-3 text-center">Короны</th>
+                        <th class="p-3 text-center">Золотые Кирки</th>
+                        <th class="p-3 text-center">Буры</th>
+                        <th class="p-3 text-center">Кровавые Колбы</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-800/60 font-mono">
+                    <!-- S TIER -->
+                    <tr class="bg-amber-950/30 hover:bg-amber-950/50 transition">
+                        <td class="p-3 font-bold text-center">
+                            <span class="px-2.5 py-1 rounded-lg bg-gradient-to-r from-amber-500 to-yellow-300 text-slate-950 font-black shadow-lg shadow-amber-500/20">S</span>
+                        </td>
+                        <td class="p-3 text-center font-bold text-amber-300">2,500</td>
+                        <td class="p-3 text-center font-bold text-slate-200">5,000</td>
+                        <td class="p-3 text-center font-bold text-yellow-400">500</td>
+                        <td class="p-3 text-center font-bold text-amber-400">10</td>
+                        <td class="p-3 text-center font-bold text-cyan-400">10</td>
+                        <td class="p-3 text-center font-bold text-rose-400">5,000</td>
+                    </tr>
+                    <!-- A TIER -->
+                    <tr class="hover:bg-slate-800/40 transition">
+                        <td class="p-3 font-bold text-center">
+                            <span class="px-2.5 py-1 rounded-lg bg-purple-600 text-white font-black">A</span>
+                        </td>
+                        <td class="p-3 text-center text-amber-300">TBA</td>
+                        <td class="p-3 text-center text-slate-300">TBA</td>
+                        <td class="p-3 text-center text-yellow-400">TBA</td>
+                        <td class="p-3 text-center text-amber-400">TBA</td>
+                        <td class="p-3 text-center text-cyan-400">TBA</td>
+                        <td class="p-3 text-center text-rose-400">TBA</td>
+                    </tr>
+                    <!-- B TIER -->
+                    <tr class="hover:bg-slate-800/40 transition">
+                        <td class="p-3 font-bold text-center">
+                            <span class="px-2.5 py-1 rounded-lg bg-indigo-600 text-white font-black">B</span>
+                        </td>
+                        <td class="p-3 text-center text-amber-300">TBA</td>
+                        <td class="p-3 text-center text-slate-300">TBA</td>
+                        <td class="p-3 text-center text-yellow-400">TBA</td>
+                        <td class="p-3 text-center text-amber-400">TBA</td>
+                        <td class="p-3 text-center text-cyan-400">TBA</td>
+                        <td class="p-3 text-center text-rose-400">TBA</td>
+                    </tr>
+                    <!-- C TIER -->
+                    <tr class="hover:bg-slate-800/40 transition">
+                        <td class="p-3 font-bold text-center">
+                            <span class="px-2.5 py-1 rounded-lg bg-cyan-600 text-slate-950 font-black">C</span>
+                        </td>
+                        <td class="p-3 text-center text-amber-300">TBA</td>
+                        <td class="p-3 text-center text-slate-300">TBA</td>
+                        <td class="p-3 text-center text-yellow-400">TBA</td>
+                        <td class="p-3 text-center text-amber-400">TBA</td>
+                        <td class="p-3 text-center text-cyan-400">TBA</td>
+                        <td class="p-3 text-center text-rose-400">TBA</td>
+                    </tr>
+                    <!-- D TIER -->
+                    <tr class="hover:bg-slate-800/40 transition">
+                        <td class="p-3 font-bold text-center">
+                            <span class="px-2.5 py-1 rounded-lg bg-emerald-700 text-white font-black">D</span>
+                        </td>
+                        <td class="p-3 text-center text-amber-300">TBA</td>
+                        <td class="p-3 text-center text-slate-300">TBA</td>
+                        <td class="p-3 text-center text-yellow-400">TBA</td>
+                        <td class="p-3 text-center text-amber-400">TBA</td>
+                        <td class="p-3 text-center text-cyan-400">TBA</td>
+                        <td class="p-3 text-center text-rose-400">TBA</td>
+                    </tr>
+                    <!-- E TIER -->
+                    <tr class="hover:bg-slate-800/40 transition">
+                        <td class="p-3 font-bold text-center">
+                            <span class="px-2.5 py-1 rounded-lg bg-slate-700 text-slate-300 font-black">E</span>
+                        </td>
+                        <td class="p-3 text-center text-amber-300">500</td>
+                        <td class="p-3 text-center text-slate-300">1000</td>
+                        <td class="p-3 text-center text-yellow-400">100</td>
+                        <td class="p-3 text-center text-amber-400">2</td>
+                        <td class="p-3 text-center text-cyan-400">2</td>
+                        <td class="p-3 text-center text-rose-400">1000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
         </section>
         
         <!-- DROP CHANCES SECTION -->
@@ -673,16 +762,146 @@
 
         // Data derived directly from guide.html
         const masteryData = [
-            { name: "Auto-Loot Speed", nameRu: "Скорость Авто-Лута", desc: "Количество ящиков, которые автоматически открываются", cost: "0", maxEffect: "15", perUpgrade: "1", levels: "15", gemsToMax: "7850", recommendedMax: "Да", order: "2", recLevel: "5 Затем Макс." },
-            { name: "EXP Boost Multiplier", nameRu: "Множитель Опыта", desc: "Множитель, который даёт усиление от рекламы", cost: "0", maxEffect: "x4", perUpgrade: "0.1", levels: "20", gemsToMax: "7150", recommendedMax: "Да*", order: "1*", recLevel: "Около 7" },
-            { name: "Offer Gem Chance", nameRu: "Шанс На Гемы", desc: "Шанс получить гемы вместо ящиков из летучих сундуков", cost: "30", maxEffect: "50%", perUpgrade: "0.30%", levels: "13", gemsToMax: "2030", recommendedMax: "Нет", order: "3", recLevel: "5" },
-            { name: "Summon Capacity", nameRu: "Вместимость Призыва", desc: "Увеличивает количество питомцев, которых можно призвать одновременно", cost: "60", maxEffect: "5", perUpgrade: "1", levels: "5", gemsToMax: "540", recommendedMax: "Да", order: "2", recLevel: "0 Затем Макс." },
-            { name: "Max Offline Time", nameRu: "Макс. Время Оффлайна", desc: "Увеличивает максимальное время, за которое можно получить оффлайн заработок", cost: "90", maxEffect: "x2", perUpgrade: "0.1", levels: "10", gemsToMax: "950", recommendedMax: "Да", order: "1*", recLevel: "6" },
-            { name: "Max Pickaxes", nameRu: "Макс. Кирок", desc: "Увеличивает количество максимальных кирок", cost: "120", maxEffect: "15", perUpgrade: "1", levels: "15", gemsToMax: "2340", recommendedMax: "Нет", order: "4", recLevel: "0" },
-            { name: "Max Item Level", nameRu: "Макс. Уровень Предметов", desc: "Увеличивает максимальный уровень экипировки", cost: "150", maxEffect: "30", perUpgrade: "2, потом 4 на 11 уровне", levels: "10", gemsToMax: "2340", recommendedMax: "Да", order: "2", recLevel: "Макс." },
-            { name: "Extended EXP Boost", nameRu: "Продолжительность Множителя Опыта", desc: "Увеличивает время множителя опыта за просмотр рекламы", cost: "180", maxEffect: "1200", perUpgrade: "90", levels: "10", gemsToMax: "950", recommendedMax: "Нет", order: "1*", recLevel: "6" },
-            { name: "Offline Earning Rate", nameRu: "Скорость Оффлайн Заработка", desc: "Увеличивает скорость получения ресурсов во время оффлайна", cost: "210", maxEffect: "x2.5", perUpgrade: "0.05, потом .1% на 8 уровне", levels: "25", gemsToMax: "6150", recommendedMax: "Да", order: "1*", recLevel: "6" },
-            { name: "Movement Speed", nameRu: "Скорость Передвижения", desc: "Увеличивает скорость передвижения персонажа", cost: "240", maxEffect: "x2", perUpgrade: "0.05", levels: "20", gemsToMax: "6150", recommendedMax: "Да если ближний", order: "4", recLevel: "5 затем 10 или Макс." }
+            { 
+                name: "Auto-Loot Speed", 
+                nameRu: "Скорость Авто-Лута", 
+                desc: "Количество ящиков, которые автоматически открываются", 
+                cost: "0", 
+                maxEffect: "15", 
+                perUpgrade: "1", 
+                levels: "15", 
+                gemsToMax: "7850", 
+                recommendedMax: "Да", 
+                order: "2", 
+                recLevel: "5 Затем Макс.",
+                levelCosts: ["TBA"]
+            },
+            { 
+                name: "EXP Boost Multiplier", 
+                nameRu: "Множитель Опыта", 
+                desc: "Множитель, который даёт усиление от рекламы", 
+                cost: "0", 
+                maxEffect: "x4", 
+                perUpgrade: "0.1", 
+                levels: "20", 
+                gemsToMax: "7150", 
+                recommendedMax: "Да*", 
+                order: "1*", 
+                recLevel: "Около 7",
+                levelCosts: ["TBA"]
+            },
+            { 
+                name: "Offer Gem Chance", 
+                nameRu: "Шанс На Гемы", 
+                desc: "Шанс получить гемы вместо ящиков из летучих сундуков", 
+                cost: "30", 
+                maxEffect: "50%", 
+                perUpgrade: "0.30%", 
+                levels: "13", 
+                gemsToMax: "2030", 
+                recommendedMax: "Нет", 
+                order: "3", 
+                recLevel: "5",
+                levelCosts: ["TBA"]
+            },
+            { 
+                name: "Summon Capacity", 
+                nameRu: "Вместимость Призыва", 
+                desc: "Увеличивает количество питомцев, которых можно призвать одновременно", 
+                cost: "60", 
+                maxEffect: "5", 
+                perUpgrade: "1", 
+                levels: "5", 
+                gemsToMax: "540", 
+                recommendedMax: "Да", 
+                order: "2", 
+                recLevel: "0 Затем Макс.",
+                levelCosts: ["TBA"]
+            },
+            { 
+                name: "Max Offline Time", 
+                nameRu: "Макс. Время Оффлайна", 
+                desc: "Увеличивает максимальное время, за которое можно получить оффлайн заработок", 
+                cost: "90", 
+                maxEffect: "x2", 
+                perUpgrade: "0.1", 
+                levels: "10", 
+                gemsToMax: "950", 
+                recommendedMax: "Да", 
+                order: "1*", 
+                recLevel: "6",
+                levelCosts: ["TBA"]
+            },
+            { 
+                name: "Max Pickaxes", 
+                nameRu: "Макс. Кирок", 
+                desc: "Увеличивает количество максимальных кирок", 
+                cost: "120", 
+                maxEffect: "15", 
+                perUpgrade: "1", 
+                levels: "15", 
+                gemsToMax: "2340", 
+                recommendedMax: "Нет", 
+                order: "4", 
+                recLevel: "0",
+                levelCosts: ["TBA"]
+            },
+            { 
+                name: "Max Item Level", 
+                nameRu: "Макс. Уровень Предметов", 
+                desc: "Увеличивает максимальный уровень экипировки", 
+                cost: "150", 
+                maxEffect: "30", 
+                perUpgrade: "2, потом 4 на 11 уровне", 
+                levels: "10", 
+                gemsToMax: "2340", 
+                recommendedMax: "Да", 
+                order: "2", 
+                recLevel: "Макс.",
+                levelCosts: ["TBA"]
+            },
+            { 
+                name: "Extended EXP Boost", 
+                nameRu: "Продолжительность Множителя Опыта", 
+                desc: "Увеличивает время множителя опыта за просмотр рекламы", 
+                cost: "180", 
+                maxEffect: "1200", 
+                perUpgrade: "90", 
+                levels: "10", 
+                gemsToMax: "950", 
+                recommendedMax: "Нет", 
+                order: "1*", 
+                recLevel: "6",
+                levelCosts: [180, 10, 20, 40, 60, 90, 120, 160, 200, 250]
+            },
+            { 
+                name: "Offline Earning Rate", 
+                nameRu: "Скорость Оффлайн Заработка", 
+                desc: "Увеличивает скорость получения ресурсов во время оффлайна", 
+                cost: "210", 
+                maxEffect: "x2.5", 
+                perUpgrade: "0.05, потом .1% на 8 уровне", 
+                levels: "25", 
+                gemsToMax: "6150", 
+                recommendedMax: "Да", 
+                order: "1*", 
+                recLevel: "6",
+                levelCosts: ["TBA"]
+            },
+            { 
+                name: "Movement Speed", 
+                nameRu: "Скорость Передвижения", 
+                desc: "Увеличивает скорость передвижения персонажа", 
+                cost: "240", 
+                maxEffect: "x2", 
+                perUpgrade: "0.05", 
+                levels: "20", 
+                gemsToMax: "6150", 
+                recommendedMax: "Да если ближний", 
+                order: "4", 
+                recLevel: "5 затем 10 или Макс.",
+                levelCosts: ["TBA"]
+            }
         ];
 
         const statsData = [
@@ -714,31 +933,94 @@
             if(!tbody) return;
             tbody.innerHTML = '';
 
-            data.forEach((item) => {
+            data.forEach((item, index) => {
+                // Основная строка таблицы
                 const tr = document.createElement('tr');
-                tr.className = 'hover:bg-slate-800/40 transition';
+                tr.className = 'hover:bg-slate-800/60 transition cursor-pointer group';
+                tr.setAttribute('onclick', `toggleMasteryDetail(${index})`);
+                
                 const isRecYes = item.recommendedMax.startsWith('Да');
                 const badgeColor = isRecYes ? 'bg-emerald-950/80 text-emerald-400 border-emerald-800' : 'bg-slate-800 text-slate-400 border-slate-700';
 
                 tr.innerHTML = `
                     <td class="p-4 font-bold text-white">
-                        <div>${item.name}</div>
-                        <div class="text-[11px] text-cyan-400 font-normal">${item.nameRu}</div>
+                        <div class="flex items-center gap-2">
+                            <i id="arrow-${index}" class="fa-solid fa-chevron-right text-slate-500 text-[10px] transition-transform duration-200 group-hover:text-cyan-400"></i>
+                            <div>
+                                <div>${item.name}</div>
+                                <div class="text-[11px] text-cyan-400 font-normal">${item.nameRu}</div>
+                            </div>
+                        </div>
                     </td>
                     <td class="p-4 text-xs text-slate-300 max-w-xs">${item.desc}</td>
                     <td class="p-4 text-center font-mono text-slate-300">${item.cost}</td>
                     <td class="p-4 text-center font-semibold text-cyan-300">${item.maxEffect}</td>
                     <td class="p-4 text-center text-xs text-slate-400">${item.perUpgrade}</td>
                     <td class="p-4 text-center font-mono">${item.levels}</td>
-                    <td class="p-4 text-center font-mono text-amber-400 font-medium">${item.gemsToMax}</td>
+                    <td class="p-4 text-center font-mono text-purple-400 font-medium">${item.gemsToMax} <i class="fa-solid fa-gem text-[10px] ml-0.5"></i></td>
                     <td class="p-4 text-center">
                         <span class="inline-block px-2 py-0.5 rounded text-[10px] font-medium border ${badgeColor}">${item.recommendedMax}</span>
                     </td>
-                    <td class="p-4 text-center font-bold text-purple-400">${item.order}</td>
+                    <td class="p-4 text-center font-bold text-amber-400">${item.order}</td>
                     <td class="p-4 text-xs font-medium text-slate-200">${item.recLevel}</td>
                 `;
                 tbody.appendChild(tr);
+
+                // Вложенная строка-dropdown с ценами уровней
+                const detailTr = document.createElement('tr');
+                detailTr.id = `detail-${index}`;
+                detailTr.className = 'hidden bg-slate-950/90 border-y border-slate-800/80';
+
+                let levelsListHtml = '';
+                if (item.levelCosts && item.levelCosts.length > 0) {
+                    levelsListHtml = item.levelCosts.map((gemCost, lvlIdx) => `
+                        <div class="flex items-center justify-between bg-slate-900/90 border border-slate-800 px-3 py-1.5 rounded-lg">
+                            <span class="text-slate-400 font-medium text-[11px]">${lvlIdx + 1} lvl:</span>
+                            <span class="font-mono text-purple-400 font-bold text-xs flex items-center gap-1">
+                                ${gemCost} <i class="fa-solid fa-gem text-[9px]"></i>
+                            </span>
+                        </div>
+                    `).join('');
+                } else {
+                    levelsListHtml = '<span class="text-slate-500 italic text-xs">Нет данных по уровням</span>';
+                }
+
+                detailTr.innerHTML = `
+                    <td colspan="10" class="p-4">
+                        <div class="bg-slate-900/60 rounded-xl p-4 border border-slate-800/80 space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-cyan-400 flex items-center gap-2">
+                                    <i class="fa-solid fa-list-ol"></i> Стоимость прокачки по уровням (${item.name}):
+                                </span>
+                                <span class="text-[11px] text-slate-400">
+                                    Всего гемов до макс.: <strong class="text-purple-400 font-mono">${Number(item.gemsToMax) + Number(item.cost)}</strong>
+                                </span>
+                            </div>
+                            <div class="grid grid-cols-2 sm:grid-cols-5 md:grid-cols-10 gap-2">
+                                ${levelsListHtml}
+                            </div>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(detailTr);
             });
+        }
+
+        // Функция скрытия / раскрытия деталей
+        function toggleMasteryDetail(index) {
+            const detailRow = document.getElementById(`detail-${index}`);
+            const arrowIcon = document.getElementById(`arrow-${index}`);
+
+            if (detailRow) {
+                const isHidden = detailRow.classList.contains('hidden');
+                if (isHidden) {
+                    detailRow.classList.remove('hidden');
+                    if (arrowIcon) arrowIcon.classList.add('rotate-90', 'text-cyan-400');
+                } else {
+                    detailRow.classList.add('hidden');
+                    if (arrowIcon) arrowIcon.classList.remove('rotate-90', 'text-cyan-400');
+                }
+            }
         }
 
         function renderFullStats(data) {
