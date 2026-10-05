@@ -1,10 +1,8 @@
 Информация точно только на 99,91%
 
-Отдельное спасибо google gemini
-
 # Dungeon Rush Wiki
 
-Неофициальная wiki по игре **[Dungeon Rush]**.
+Неофициальная wiki по игре **Dungeon Rush**.
 
 ## 🌐 Сайт
 
