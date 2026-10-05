@@ -34,9 +34,3 @@
 - Спасибо Github за возможность хостить бесплатно сайты <3
 - Спасибо Gemini за дизайн сайта <3
 - Биг Кумен
-
-Клонируйте репозиторий:
-
-```bash
-git clone https://github.com/username/repository.git
-cd repository
