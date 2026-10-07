@@ -294,6 +294,48 @@
                 </div>
             </div>
 
+            <!-- Progression Rewards Rules Block -->
+            <div class="glass-panel p-6 rounded-3xl border border-slate-800 space-y-4">
+                <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-chart-line text-teal-400"></i>
+                    Расчёт наград за уровень подземелий
+                </h3>
+                <p class="text-xs text-slate-400">
+                    <em>Примечание: Начальное количество наград для уровня 1-1 принято за 100 единиц (поскольку точные базовые значения 1-1 пока уточняются).</em>
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <div class="bg-slate-950/80 p-4 rounded-2xl border border-emerald-500/30 space-y-1">
+                        <strong class="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
+                            <i class="fa-solid fa-biohazard"></i> Данж с Зомби
+                        </strong>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            За победу даётся <strong>+2 кости</strong> за каждый новый уровень.<br>
+                            <span class="text-slate-500 text-[11px]">(Пример: 1-1 — 100 костей, 1-2 — 102 кости)</span>
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-950/80 p-4 rounded-2xl border border-purple-500/30 space-y-1">
+                        <strong class="text-xs font-bold text-purple-400 flex items-center gap-1.5">
+                            <i class="fa-solid fa-flask"></i> Данж с Культистами
+                        </strong>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            За победу даётся <strong>+2 колбы</strong> за каждый новый уровень.<br>
+                            <span class="text-slate-500 text-[11px]">(Пример: 1-1 — 100 колб, 1-2 — 102 колбы)</span>
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-950/80 p-4 rounded-2xl border border-rose-500/30 space-y-1">
+                        <strong class="text-xs font-bold text-rose-400 flex items-center gap-1.5">
+                            <i class="fa-solid fa-dragon"></i> Данж с Драконом
+                        </strong>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            За победу даётся <strong>+1 коробка</strong> за каждый новый уровень.<br>
+                            <span class="text-slate-500 text-[11px]">(Пример: 1-1 — 100 коробок, 1-2 — 101 коробка)</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
             <!-- Important Rules Block -->
             <div class="glass-panel p-6 rounded-3xl border border-slate-800 space-y-4">
                 <h3 class="text-sm font-bold text-white flex items-center gap-2">
@@ -569,7 +611,7 @@
                             <i class="fa-solid fa-skull-crossbones text-red-500"></i> Boss Rush Ивент
                         </h2>
                         <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
-                            Эпическое сражения <span class="text-red-400 font-semibold">8 игроков одновременно против 1 гигантского Босса</span>! Вносите максимум урона, получайте гарантированные награды и ключи в подземелья, а также занимайте места в ТОП-100 для получения кристаллов и корон.
+                            Эпическое сражение <span class="text-red-400 font-semibold">8 игроков одновременно против 1 гигантского Босса</span>! Вносите максимум урона, получайте гарантированные награды и ключи в подземелья, а также занимайте места в ТОП-100 для получения кристаллов и корон.
                         </p>
                         <p class="text-xs text-slate-400">
                             <i class="fa-solid fa-lock-open text-red-400 mr-1"></i> Открывается на <strong>15 уровне</strong>. Пропуск: <span class="text-red-400 font-semibold">Красные билеты</span>.
@@ -582,6 +624,14 @@
                 <div class="absolute -left-20 -top-20 w-72 h-72 bg-lime-500/10 rounded-full blur-3xl pointer-events-none"></div>
             </div>
 
+            <!-- Boss Rush Notice Banner -->
+            <div class="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center gap-3 text-amber-300 text-xs sm:text-sm">
+                <i class="fa-solid fa-clock-rotate-left text-xl shrink-0 text-amber-400"></i>
+                <div>
+                    <strong>Важная информация о наградах:</strong> В высших лигах награды по итогам недели могут начисляться с задержкой — примерно через <strong>1 – 1,5 часа</strong> после окончания сезона.
+                </div>
+            </div>
+
             <!-- Boss Rush Info Cards -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="glass-panel rounded-3xl p-6 border border-slate-800 space-y-3">
@@ -589,14 +639,14 @@
                         <i class="fa-solid fa-gift text-amber-400"></i> Гарантированные Награды
                     </h3>
                     <p class="text-xs text-slate-300 leading-relaxed">
-                        Независимо от занятого места, за каждый запуск вы получаете фиксированный пак ресурсов (количество зависит от Лиги):
+                        Независимо от захода, вы гарантированно получаете набор ресурсов, объём которых зависит от лучшего занятого вами места:
                     </p>
                     <ul class="text-xs text-slate-300 space-y-1.5 list-disc list-inside">
                         <li>Короны (Crowns)</li>
                         <li>Обычные сундуки (Boxes)</li>
                         <li>Кости (Bones)</li>
-                        <li>Ключи в подземелье с драконом (Dragon's Hoard)</li>
-                        <li>Ключи в подземелье с зомби (Zombie Outbreak)</li>
+                        <li>2 ключа дракона (2 Dragon keys)</li>
+                        <li>2 ключа зомби (2 Zombie keys)</li>
                     </ul>
                 </div>
 
@@ -605,12 +655,50 @@
                         <i class="fa-solid fa-medal text-rose-400"></i> Награды за место в Топ 100
                     </h3>
                     <p class="text-xs text-slate-300 leading-relaxed">
-                        По истечению ивента игроки получают дополнительные ценные бонусные награды за удерживаемое место:
+                        По истечению сезона события игроки получают бонусные награды в зависимости от Лиги и занятого места в рейтинге:
                     </p>
                     <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 text-xs text-slate-300 space-y-1">
                         <div><strong>Призовые места:</strong> 1, 2, 3, 4-10, 11-30, 31-50, 51-100</div>
-                        <div><strong>Награды:</strong> <span class="text-cyan-400 font-semibold">Гемы</span> и <span class="text-yellow-400 font-semibold">Короны</span> (варьируются от текущей Лиги)</div>
+                        <div><strong>Награды:</strong> <span class="text-yellow-400 font-semibold">Короны</span> и <span class="text-cyan-400 font-semibold">Гемы</span></div>
                     </div>
+                </div>
+            </div>
+
+            <!-- Boss Rush Rewards Table Block -->
+            <div class="glass-panel rounded-3xl p-6 border border-slate-800 space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <h3 class="text-base font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-ranking-star text-lime-400"></i>
+                        Таблица наград Boss Rush по Лигам
+                    </h3>
+                    <!-- Select League Dropdown for Boss Rush -->
+                    <select id="bossRushLeagueSelect" onchange="renderBossRushLeagueTable()" class="bg-slate-900 text-slate-200 border border-slate-700 rounded-xl px-4 py-2 text-xs sm:text-sm font-semibold focus:outline-none focus:border-lime-500">
+                        <option value="Iron">Iron League</option>
+                        <option value="Bronze">Bronze League</option>
+                        <option value="Silver" selected>Silver League</option>
+                        <option value="Gold">Gold League</option>
+                        <option value="Platinum">Platinum League</option>
+                        <option value="Emerald">Emerald League</option>
+                        <option value="Diamond">Diamond League</option>
+                        <option value="Master">Master League</option>
+                        <option value="Grandmaster">Grandmaster League</option>
+                        <option value="Legend">Legend League</option>
+                    </select>
+                </div>
+
+                <div class="overflow-x-auto custom-scrollbar rounded-2xl border border-slate-800">
+                    <table class="w-full text-left text-xs">
+                        <thead>
+                            <tr class="uppercase text-[11px] tracking-wider text-slate-400 bg-slate-950/60 border-b border-slate-800">
+                                <th class="p-3.5">Место в Топе</th>
+                                <th class="p-3.5"><i class="fa-solid fa-crown text-yellow-400 mr-1"></i>Короны</th>
+                                <th class="p-3.5"><i class="fa-solid fa-gem text-cyan-400 mr-1"></i>Гемы</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bossRushRewardsBody" class="divide-y divide-slate-800/60 font-medium bg-slate-950/30">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </section>
@@ -939,7 +1027,7 @@
                 { rank: "3", gems: 258, boxes: 1032, bones: 1548, crowns: 774 },
                 { rank: "4-10", gems: 179, boxes: 716, bones: 1074, crowns: 537 },
                 { rank: "11-25", gems: 149, boxes: 596, bones: 894, crowns: 447 },
-                { rank: "26-50", gems: 124, boxes: 496, bones: 744, crowns: 372 },
+                { rank: "26-50", gems: 124, boxes: 496, bones: 372, crowns: 372 },
                 { rank: "51-100", gems: 103, boxes: 412, bones: 618, crowns: 309 }
             ],
             "Emerald": [
@@ -989,6 +1077,100 @@
             ]
         };
 
+        /* --- База данных наград Boss Rush лиг --- */
+        const bossRushLeaguesData = {
+            "Iron": [
+                { rank: "1", crowns: "—", gems: "—" },
+                { rank: "2", crowns: "—", gems: "—" },
+                { rank: "3", crowns: "—", gems: "—" },
+                { rank: "4-10", crowns: "—", gems: "—" },
+                { rank: "11-30", crowns: "—", gems: "—" },
+                { rank: "31-50", crowns: "—", gems: "—" },
+                { rank: "51-100", crowns: "—", gems: "—" }
+            ],
+            "Bronze": [
+                { rank: "1", crowns: "—", gems: "—" },
+                { rank: "2", crowns: "—", gems: "—" },
+                { rank: "3", crowns: "—", gems: "—" },
+                { rank: "4-10", crowns: "—", gems: "—" },
+                { rank: "11-30", crowns: "—", gems: "—" },
+                { rank: "31-50", crowns: "—", gems: "—" },
+                { rank: "51-100", crowns: "—", gems: "—" }
+            ],
+            "Silver": [
+                { rank: "1", crowns: 150, gems: 150 },
+                { rank: "2", crowns: 120, gems: 120 },
+                { rank: "3", crowns: 75, gems: 75 },
+                { rank: "4-10", crowns: 45, gems: 45 },
+                { rank: "11-30", crowns: 30, gems: 30 },
+                { rank: "31-50", crowns: 15, gems: 15 },
+                { rank: "51-100", crowns: 7, gems: 7 }
+            ],
+            "Gold": [
+                { rank: "1", crowns: 175, gems: 175 },
+                { rank: "2", crowns: 140, gems: 140 },
+                { rank: "3", crowns: 87, gems: 87 },
+                { rank: "4-10", crowns: 52, gems: 52 },
+                { rank: "11-30", crowns: 35, gems: 35 },
+                { rank: "31-50", crowns: 17, gems: 17 },
+                { rank: "51-100", crowns: 8, gems: 8 }
+            ],
+            "Platinum": [
+                { rank: "1", crowns: "—", gems: "—" },
+                { rank: "2", crowns: "—", gems: "—" },
+                { rank: "3", crowns: "—", gems: "—" },
+                { rank: "4-10", crowns: "—", gems: "—" },
+                { rank: "11-30", crowns: "—", gems: "—" },
+                { rank: "31-50", crowns: "—", gems: "—" },
+                { rank: "51-100", crowns: "—", gems: "—" }
+            ],
+            "Emerald": [
+                { rank: "1", crowns: "—", gems: "—" },
+                { rank: "2", crowns: "—", gems: "—" },
+                { rank: "3", crowns: "—", gems: "—" },
+                { rank: "4-10", crowns: "—", gems: "—" },
+                { rank: "11-30", crowns: "—", gems: "—" },
+                { rank: "31-50", crowns: "—", gems: "—" },
+                { rank: "51-100", crowns: "—", gems: "—" }
+            ],
+            "Diamond": [
+                { rank: "1", crowns: 300, gems: 300 },
+                { rank: "2", crowns: 240, gems: 240 },
+                { rank: "3", crowns: 150, gems: 150 },
+                { rank: "4-10", crowns: 90, gems: 90 },
+                { rank: "11-30", crowns: 60, gems: 60 },
+                { rank: "31-50", crowns: 30, gems: 30 },
+                { rank: "51-100", crowns: 15, gems: 15 }
+            ],
+            "Master": [
+                { rank: "1", crowns: 400, gems: 400 },
+                { rank: "2", crowns: 320, gems: 320 },
+                { rank: "3", crowns: 200, gems: 200 },
+                { rank: "4-10", crowns: 120, gems: 120 },
+                { rank: "11-30", crowns: 80, gems: 80 },
+                { rank: "31-50", crowns: 40, gems: 40 },
+                { rank: "51-100", crowns: 20, gems: 20 }
+            ],
+            "Grandmaster": [
+                { rank: "1", crowns: "—", gems: "—" },
+                { rank: "2", crowns: "—", gems: "—" },
+                { rank: "3", crowns: "—", gems: "—" },
+                { rank: "4-10", crowns: "—", gems: "—" },
+                { rank: "11-30", crowns: "—", gems: "—" },
+                { rank: "31-50", crowns: "—", gems: "—" },
+                { rank: "51-100", crowns: "—", gems: "—" }
+            ],
+            "Legend": [
+                { rank: "1", crowns: 500, gems: 500 },
+                { rank: "2", crowns: 400, gems: 400 },
+                { rank: "3", crowns: 250, gems: 250 },
+                { rank: "4-10", crowns: 150, gems: 150 },
+                { rank: "11-30", crowns: 100, gems: 100 },
+                { rank: "31-50", crowns: 50, gems: 50 },
+                { rank: "51-100", crowns: 25, gems: 25 }
+            ]
+        };
+
         function renderPvpLeagueTable() {
             const league = document.getElementById('pvpLeagueSelect').value;
             const data = pvpLeaguesData[league];
@@ -1007,8 +1189,25 @@
             `).join('');
         }
 
+        function renderBossRushLeagueTable() {
+            const league = document.getElementById('bossRushLeagueSelect').value;
+            const data = bossRushLeaguesData[league];
+            const tbody = document.getElementById('bossRushRewardsBody');
+            
+            if (!data || !tbody) return;
+
+            tbody.innerHTML = data.map(item => `
+                <tr class="hover:bg-slate-800/40 transition">
+                    <td class="p-3.5 font-bold text-white">#${item.rank}</td>
+                    <td class="p-3.5 text-yellow-400 font-semibold">${item.crowns}</td>
+                    <td class="p-3.5 text-cyan-400 font-semibold">${item.gems}</td>
+                </tr>
+            `).join('');
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             renderPvpLeagueTable();
+            renderBossRushLeagueTable();
         });
     </script>
 </body>
