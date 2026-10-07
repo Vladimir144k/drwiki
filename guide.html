@@ -349,15 +349,15 @@
                     <div class="text-xs font-semibold text-slate-300 uppercase">Повышение Уровня</div>
                     <div class="bg-slate-900 p-2.5 rounded-xl border border-slate-800 flex items-center justify-between text-xs">
                         <span class="text-slate-400">Формула:</span>
-                        <span class="font-mono text-emerald-400 font-bold">Уровень * 100</span>
+                        <span class="font-mono text-emerald-400 font-bold">Новый Уровень * 100</span>
                     </div>
                 </div>
             </div>
-            <a href="#"><div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-yellow-400 font-semibold">
+            <a href="boxes.html"><div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-amber-400 font-semibold">
                     <span>Открыть калькулятор ящиков</span>
                     <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                 </div></a>
-            <a href="#"><div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-emerald-400 font-semibold">
+            <a href="pets.html"><div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-emerald-400 font-semibold">
                     <span>Открыть калькулятор компаньонов</span>
                     <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                 </div></a>
@@ -409,7 +409,7 @@
                     </div>
                 </div>
             </div>
-            <a href="#"><div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-indigo-400 font-semibold">
+            <a href="capes.html"><div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-indigo-400 font-semibold">
                     <span>Открыть калькулятор плащей</span>
                     <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                 </div></a>
@@ -450,109 +450,27 @@
     </div>
 
     <!-- REWARDS TABLE BY LEAGUE/TIER -->
-    <div class="glass-panel rounded-2xl p-5 border border-slate-800 space-y-4 shadow-xl">
-        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-            <div>
-                <h3 class="text-lg font-bold text-amber-400 flex items-center gap-2">
-                    <i class="fa-solid fa-trophy"></i> Награды Клановой Войны по Тирам
-                </h3>
-                <p class="text-xs text-slate-400 mt-1">Чем выше лига вашего клана, тем больше ценных ресурсов вы получите по окончанию недели.</p>
+    <a href="clans.html" class="block group">
+        <div class="glass-panel rounded-2xl p-6 sm:p-8 border border-slate-800 hover:border-amber-500/50 transition-all duration-300 shadow-xl glow-amber text-center flex flex-col sm:flex-row items-center justify-between gap-4 bg-gradient-to-r from-amber-950/20 via-slate-900 to-amber-950/20 hover:from-amber-950/40 hover:to-amber-950/40">
+            <div class="flex items-center space-x-4 text-left">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-500 to-yellow-300 flex items-center justify-center text-slate-950 text-2xl font-black shadow-lg shadow-amber-500/20 group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl sm:text-2xl font-black text-white group-hover:text-amber-400 transition-colors">
+                        Награды Клановой Войны по Тирам
+                    </h3>
+                    <p class="text-xs sm:text-sm text-slate-400 mt-1">
+                        Перейти к полным таблицам лиг, распределению ресурсов и подробным наградам
+                    </p>
+                </div>
             </div>
-            <span class="text-xs bg-amber-500/10 text-amber-400 border border-amber-500/20 px-3 py-1 rounded-lg font-semibold">
-                За победу
-            </span>
+            <div class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-amber-500 text-slate-950 font-bold text-sm shadow-lg shadow-amber-500/20 group-hover:bg-amber-400 group-hover:scale-105 transition-all whitespace-nowrap">
+                <span>Подробнее</span>
+                <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+            </div>
         </div>
-
-        <div class="overflow-x-auto custom-scrollbar">
-            <table class="w-full text-left text-xs">
-                <thead>
-                    <tr class="uppercase text-[11px] tracking-wider text-slate-400 bg-slate-950/80 border-b border-slate-800">
-                        <th class="p-3 text-center">Лига (Тир)</th>
-                        <th class="p-3 text-center">Коробки</th>
-                        <th class="p-3 text-center">Кости</th>
-                        <th class="p-3 text-center">Короны</th>
-                        <th class="p-3 text-center">Золотые Кирки</th>
-                        <th class="p-3 text-center">Буры</th>
-                        <th class="p-3 text-center">Кровавые Колбы</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-slate-800/60 font-mono">
-                    <!-- S TIER -->
-                    <tr class="bg-amber-950/30 hover:bg-amber-950/50 transition">
-                        <td class="p-3 font-bold text-center">
-                            <span class="px-2.5 py-1 rounded-lg bg-gradient-to-r from-amber-500 to-yellow-300 text-slate-950 font-black shadow-lg shadow-amber-500/20">S</span>
-                        </td>
-                        <td class="p-3 text-center font-bold text-amber-300">2,500</td>
-                        <td class="p-3 text-center font-bold text-slate-200">5,000</td>
-                        <td class="p-3 text-center font-bold text-yellow-400">500</td>
-                        <td class="p-3 text-center font-bold text-amber-400">10</td>
-                        <td class="p-3 text-center font-bold text-cyan-400">10</td>
-                        <td class="p-3 text-center font-bold text-rose-400">5,000</td>
-                    </tr>
-                    <!-- A TIER -->
-                    <tr class="hover:bg-slate-800/40 transition">
-                        <td class="p-3 font-bold text-center">
-                            <span class="px-2.5 py-1 rounded-lg bg-purple-600 text-white font-black">A</span>
-                        </td>
-                        <td class="p-3 text-center text-amber-300">TBA</td>
-                        <td class="p-3 text-center text-slate-300">TBA</td>
-                        <td class="p-3 text-center text-yellow-400">TBA</td>
-                        <td class="p-3 text-center text-amber-400">TBA</td>
-                        <td class="p-3 text-center text-cyan-400">TBA</td>
-                        <td class="p-3 text-center text-rose-400">TBA</td>
-                    </tr>
-                    <!-- B TIER -->
-                    <tr class="hover:bg-slate-800/40 transition">
-                        <td class="p-3 font-bold text-center">
-                            <span class="px-2.5 py-1 rounded-lg bg-indigo-600 text-white font-black">B</span>
-                        </td>
-                        <td class="p-3 text-center text-amber-300">TBA</td>
-                        <td class="p-3 text-center text-slate-300">TBA</td>
-                        <td class="p-3 text-center text-yellow-400">TBA</td>
-                        <td class="p-3 text-center text-amber-400">TBA</td>
-                        <td class="p-3 text-center text-cyan-400">TBA</td>
-                        <td class="p-3 text-center text-rose-400">TBA</td>
-                    </tr>
-                    <!-- C TIER -->
-                    <tr class="hover:bg-slate-800/40 transition">
-                        <td class="p-3 font-bold text-center">
-                            <span class="px-2.5 py-1 rounded-lg bg-cyan-600 text-slate-950 font-black">C</span>
-                        </td>
-                        <td class="p-3 text-center text-amber-300">TBA</td>
-                        <td class="p-3 text-center text-slate-300">TBA</td>
-                        <td class="p-3 text-center text-yellow-400">TBA</td>
-                        <td class="p-3 text-center text-amber-400">TBA</td>
-                        <td class="p-3 text-center text-cyan-400">TBA</td>
-                        <td class="p-3 text-center text-rose-400">TBA</td>
-                    </tr>
-                    <!-- D TIER -->
-                    <tr class="hover:bg-slate-800/40 transition">
-                        <td class="p-3 font-bold text-center">
-                            <span class="px-2.5 py-1 rounded-lg bg-emerald-700 text-white font-black">D</span>
-                        </td>
-                        <td class="p-3 text-center text-amber-300">TBA</td>
-                        <td class="p-3 text-center text-slate-300">TBA</td>
-                        <td class="p-3 text-center text-yellow-400">TBA</td>
-                        <td class="p-3 text-center text-amber-400">TBA</td>
-                        <td class="p-3 text-center text-cyan-400">TBA</td>
-                        <td class="p-3 text-center text-rose-400">TBA</td>
-                    </tr>
-                    <!-- E TIER -->
-                    <tr class="hover:bg-slate-800/40 transition">
-                        <td class="p-3 font-bold text-center">
-                            <span class="px-2.5 py-1 rounded-lg bg-slate-700 text-slate-300 font-black">E</span>
-                        </td>
-                        <td class="p-3 text-center text-amber-300">500</td>
-                        <td class="p-3 text-center text-slate-300">1000</td>
-                        <td class="p-3 text-center text-yellow-400">100</td>
-                        <td class="p-3 text-center text-amber-400">2</td>
-                        <td class="p-3 text-center text-cyan-400">2</td>
-                        <td class="p-3 text-center text-rose-400">1000</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+    </a>
 </div>
         </section>
         
