@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Companion Summon Calculator — Dungeon Rush Wiki</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Poppins & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        site: {
+                            bg: '#0E1017',
+                            card: '#161924',
+                            cardBorder: 'rgba(255, 255, 255, 0.08)',
+                            cardHover: '#1D2130',
+                            accent: '#6366F1',
+                            accentHover: '#4F46E5',
+                            gold: '#FFC700'
+                        },
+                        petCommon: '#a1a1aa',
+                        petUncommon: '#22c55e',
+                        petRare: '#3b82f6',
+                        petEpic: '#a855f7',
+                        petLegendary: '#eab308',
+                        petMythic: '#ef4444',
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'Inter', 'sans-serif'],
+                        body: ['Inter', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'glow-indigo': '0 0 20px rgba(99, 102, 241, 0.35)',
+                        'glow-gold': '0 0 20px rgba(245, 158, 11, 0.35)',
+                        'glow-emerald': '0 0 20px rgba(16, 185, 129, 0.35)',
+                        'card-depth': '0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0E1017;
+            color: #F3F4F6;
+            font-family: 'Poppins', sans-serif;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(99, 102, 241, 0.08) 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .pet-card {
+            background-color: #161924;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .pet-card:hover {
+            border-color: rgba(16, 185, 129, 0.3);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        .pet-input {
+            background-color: #0B0C12;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.75rem;
+            color: #FFFFFF;
+            transition: all 0.2s;
+        }
+
+        .pet-input:focus {
+            outline: none;
+            border-color: #10B981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+        }
+
+        .badge-r {
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .r-common { background: rgba(161, 161, 170, 0.15); color: #a1a1aa; border: 1px solid rgba(161, 161, 170, 0.3); }
+        .r-uncommon { background: rgba(34, 197, 94, 0.15); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.3); }
+        .r-rare { background: rgba(59, 130, 246, 0.15); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.3); }
+        .r-epic { background: rgba(168, 85, 247, 0.15); color: #a855f7; border: 1px solid rgba(168, 85, 247, 0.3); }
+        .r-legendary { background: rgba(234, 179, 8, 0.15); color: #eab308; border: 1px solid rgba(234, 179, 8, 0.3); }
+        .r-mythic { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); }
+
+        .stat-glow-gold { text-shadow: 0 0 12px rgba(255, 199, 0, 0.4); }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0E1017; }
+        ::-webkit-scrollbar-thumb { background: #1F2433; border-radius: 4px; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+    <div>
+        <!-- Top Navigation Header -->
+        <header class="border-b border-white/5 bg-[#12141D]/90 sticky top-0 z-50 backdrop-blur-xl">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-4">
+                
+                <a href="../index.html" class="flex items-center space-x-3 cursor-pointer">
+                    <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-emerald-500 via-teal-500 to-amber-400 p-0.5 shadow-glow-emerald">
+                        <div class="w-full h-full bg-[#12141D] rounded-[14px] flex items-center justify-center">
+                            <i class="fa-solid fa-paw text-emerald-400 text-xl"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h1 class="text-lg font-bold tracking-tight text-white">PET<span class="text-emerald-400">CALC</span></h1>
+                        </div>
+                        <p class="text-xs text-gray-400 font-body" data-i18n="index_calc_bone_title">Калькулятор Питомцев & Очков</p>
+                    </div>
+                </a>
+
+                <!-- Language Toggle Button -->
+                <button id="lang-toggle" 
+                        onclick="toggleLanguage()" 
+                        class="group relative inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-emerald-500/30 hover:border-emerald-500/60 text-slate-200 hover:text-white transition-all duration-200 shadow-md hover:shadow-emerald-500/10 active:scale-95"
+                        title="Switch language / Сменить язык">
+                    <i class="fa-solid fa-globe text-emerald-400 group-hover:rotate-12 transition-transform duration-200"></i>
+                    <div class="flex items-center font-semibold text-xs tracking-wide">
+                        <span id="lang-text" class="text-emerald-300 group-hover:text-amber-400 transition-colors">RU</span>
+                    </div>
+                </button>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 space-y-6">
+
+            <!-- MAIN CALCULATOR LAYOUT -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+                <!-- LEFT COLUMN: Controls & Data (5 Cols) -->
+                <div class="lg:col-span-5 space-y-5">
+
+                    <!-- Configuration Card -->
+                    <div class="pet-card p-5 space-y-4">
+                        <div class="flex items-center justify-between border-b border-white/5 pb-3">
+                            <h2 class="text-sm font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-sliders text-emerald-400"></i>
+                                <span data-i18n="cc_parameters">ПАРАМЕТРЫ ПРИЗЫВА</span>
+                            </h2>
+                            <button id="resetBtn" class="text-[11px] text-gray-400 hover:text-white transition flex items-center gap-1 font-body">
+                                <i class="fa-solid fa-rotate-left"></i> <span data-i18n="bc_reset">Сброс</span>
+                            </button>
+                        </div>
+
+                        <form id="calcForm" class="space-y-3.5 font-body" onsubmit="return false;">
+                            <!-- Input 1: Current Level -->
+                            <div>
+                                <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5" data-i18n="bc_lvl_current">
+                                    Текущий уровень призыва (1–100)
+                                </label>
+                                <div class="relative">
+                                    <input type="number" id="currentLevel" min="1" max="100" value="97" 
+                                        class="pet-input w-full px-3 py-2.5 text-sm font-bold pl-9">
+                                    <i class="fa-solid fa-layer-group absolute left-3 top-3 text-gray-500 text-xs"></i>
+                                </div>
+                            </div>
+
+                            <!-- Input 2: Pets Progress in current Level -->
+                            <div>
+                                <div class="flex justify-between items-center mb-1.5">
+                                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider" data-i18n="bc_progress_current_lvl">
+                                        Прогресс на текущем уровне
+                                    </label>
+                                    <span id="maxProgressHint" class="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 font-bold flex items-center gap-1">
+                                        <span data-i18n="bc_of">из</span> <span id="maxProgressHintVal">530</span>
+                                    </span>
+                                </div>
+                                <div class="relative">
+                                    <input type="number" id="currentProgress" min="0" value="0" 
+                                        class="pet-input w-full px-3 py-2.5 text-sm font-bold pl-9">
+                                    <i class="fa-solid fa-bars-progress absolute left-3 top-3 text-gray-500 text-xs"></i>
+                                </div>
+                            </div>
+
+                            <!-- Input 3: Pets per Summon -->
+                            <div>
+                                <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5" data-i18n="bc_pets_per_summon">
+                                    Количество питомцев за 1 призыв
+                                </label>
+                                <div class="relative">
+                                    <input type="number" id="petsPerSummon" min="1" value="37" 
+                                        class="pet-input w-full px-3 py-2.5 text-sm font-bold pl-9">
+                                    <i class="fa-solid fa-paw absolute left-3 top-3 text-emerald-400 text-xs"></i>
+                                </div>
+                            </div>
+
+                            <!-- Input 4: Total Bones -->
+                            <div>
+                                <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5" data-i18n="bc_total_bones">
+                                    Имеющиеся кости
+                                </label>
+                                <div class="relative">
+                                    <input type="number" id="totalBones" min="0" step="200" value="17000" 
+                                        class="pet-input w-full px-4 py-3 text-lg font-bold text-amber-300 pl-11">
+                                    <i class="fa-solid fa-bone absolute left-4 top-4 text-amber-400 text-sm"></i>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Pet Points Reference Card -->
+                    <div class="pet-card p-4 space-y-3">
+                        <div class="flex items-center justify-between border-b border-white/5 pb-2">
+                            <h3 class="text-xs font-bold text-gray-300 uppercase tracking-wider flex items-center gap-1.5">
+                                <i class="fa-solid fa-shield-halved text-emerald-400"></i> <span data-i18n="bc_pts_reference">Очки Клана за Редкость</span>
+                            </h3>
+                            <span class="text-[10px] text-gray-500" data-i18n="bc_per_one_pet">1 питомец</span>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2 text-xs font-medium">
+                            <div class="flex items-center justify-between p-2 rounded-lg bg-[#11131C] border border-white/5">
+                                <span class="badge-r r-common">Common</span>
+                                <span class="font-bold text-gray-200">10 <span data-i18n="system_pts_unit">очков</span></span>
+                            </div>
+                            <div class="flex items-center justify-between p-2 rounded-lg bg-[#11131C] border border-white/5">
+                                <span class="badge-r r-uncommon">Uncommon</span>
+                                <span class="font-bold text-gray-200">10 <span data-i18n="system_pts_unit">очков</span></span>
+                            </div>
+                            <div class="flex items-center justify-between p-2 rounded-lg bg-[#11131C] border border-white/5">
+                                <span class="badge-r r-rare">Rare</span>
+                                <span class="font-bold text-blue-300">20 <span data-i18n="system_pts_unit">очков</span></span>
+                            </div>
+                            <div class="flex items-center justify-between p-2 rounded-lg bg-[#11131C] border border-white/5">
+                                <span class="badge-r r-epic">Epic</span>
+                                <span class="font-bold text-purple-300">20 <span data-i18n="system_pts_unit">очков</span></span>
+                            </div>
+                            <div class="flex items-center justify-between p-2 rounded-lg bg-[#11131C] border border-white/5">
+                                <span class="badge-r r-legendary">Legendary</span>
+                                <span class="font-bold text-amber-300">30 <span data-i18n="system_pts_unit">очков</span></span>
+                            </div>
+                            <div class="flex items-center justify-between p-2 rounded-lg bg-[#11131C] border border-white/5">
+                                <span class="badge-r r-mythic">Mythic</span>
+                                <span class="font-bold text-red-300">30 <span data-i18n="system_pts_unit">очков</span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- RIGHT COLUMN: Results & Analytics (7 Cols) -->
+                <div class="lg:col-span-7 space-y-5">
+
+                    <!-- Summary Stats Header Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        
+                        <!-- Stat 1: Total Points -->
+                        <div class="pet-card p-4 relative overflow-hidden border-l-4 border-l-amber-500">
+                            <div class="text-[11px] font-bold text-gray-400 uppercase tracking-wider" data-i18n="cc_points">Клановые Очки</div>
+                            <div id="resTotalPoints" class="text-2xl sm:text-3xl font-extrabold text-amber-400 stat-glow-gold mt-1">0</div>
+                            <div class="text-[11px] text-gray-400 mt-1 flex items-center gap-1 font-body">
+                                <i class="fa-solid fa-star text-amber-400"></i> <span data-i18n="bc_avg_expected">Средний результат</span>
+                            </div>
+                            <i class="fa-solid fa-star absolute -right-2 -bottom-2 text-amber-500/10 text-5xl"></i>
+                        </div>
+
+                        <!-- Stat 2: Final Level -->
+                        <div class="pet-card p-4 relative overflow-hidden border-l-4 border-l-emerald-500">
+                            <div class="text-[11px] font-bold text-gray-400 uppercase tracking-wider" data-i18n="bc_summon_lvl">Уровень Призыва</div>
+                            <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400 mt-1 flex items-center gap-1">
+                                <span>Lvl</span>
+                                <span id="resStartLvlVal">97</span>
+                                <span>→</span>
+                                <span id="resEndLvlVal">97</span>
+                            </div>
+                            <div class="text-[11px] text-emerald-400/80 mt-1 flex items-center gap-1 font-body">
+                                <span data-i18n="bc_progress_label">Прогресс:</span>
+                                <span id="resProgressCurVal">0</span>
+                                <span>/</span>
+                                <span id="resProgressMaxVal">530</span>
+                            </div>
+                            <i class="fa-solid fa-layer-group absolute -right-2 -bottom-2 text-emerald-500/10 text-5xl"></i>
+                        </div>
+
+                        <!-- Stat 3: Summons & Bones -->
+                        <div class="pet-card p-4 relative overflow-hidden border-l-4 border-l-indigo-500">
+                            <div class="text-[11px] font-bold text-gray-400 uppercase tracking-wider" data-i18n="bc_summons_made">Сделано Призывов</div>
+                            <div id="resSummonsCount" class="text-2xl sm:text-3xl font-extrabold text-indigo-300 mt-1">0</div>
+                            <div class="text-[11px] text-indigo-400 mt-1 flex items-center gap-1 font-body">
+                                <span id="resBonesSpentVal">0</span>
+                                <span data-i18n="bc_bones_spent_text">костей потрачено</span>
+                            </div>
+                            <i class="fa-solid fa-bone absolute -right-2 -bottom-2 text-indigo-500/10 text-5xl"></i>
+                        </div>
+
+                    </div>
+
+                    <!-- Level Progress Bar Card -->
+                    <div class="pet-card p-5 space-y-3">
+                        <div class="flex justify-between items-center text-xs font-body">
+                            <span class="font-bold text-gray-200 flex items-center gap-2">
+                                <i class="fa-solid fa-bars-progress text-emerald-400"></i>
+                                <span data-i18n="bc_progress_next_lvl">Прогресс до следующего уровня</span>
+                                (<span id="resNextLvlNum" class="text-emerald-400">98</span> Lvl)
+                            </span>
+                            <span id="resProgressPercent" class="text-emerald-400 font-bold">0%</span>
+                        </div>
+                        <div class="w-full h-3.5 bg-[#0D0F16] rounded-full overflow-hidden p-0.5 border border-white/5">
+                            <div id="resProgressBar" class="h-full bg-gradient-to-r from-emerald-500 via-teal-500 to-amber-400 rounded-full transition-all duration-300" style="width: 0%"></div>
+                        </div>
+                        <div class="flex justify-between text-[11px] text-gray-500 font-body">
+                            <span><span data-i18n="bc_total_pets">Всего питомцев:</span> <strong id="resTotalPets" class="text-emerald-400">0</strong></span>
+                            <span><span data-i18n="bc_remainder">Остаток:</span> <span id="resBoneRemainderVal">0</span> <span data-i18n="bc_bones_unit">костей</span></span>
+                        </div>
+                    </div>
+
+                    <!-- Tier Breakdown Cards Grid -->
+                    <div class="pet-card p-5 space-y-4 font-body">
+                        <div class="flex justify-between items-center border-b border-white/5 pb-3">
+                            <h3 class="text-sm font-bold text-gray-200 flex items-center gap-2">
+                                <i class="fa-solid fa-layer-group text-emerald-400"></i>
+                                <span data-i18n="bc_tier_breakdown">Детализация выпадения по тирам питомцев</span>
+                            </h3>
+                            <span class="text-[11px] text-gray-400" data-i18n="bc_tier_with_lvl_growth">С учётом роста уровня</span>
+                        </div>
+
+                        <div id="tierCardsContainer" class="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+                            <!-- Dynamic JS Insertion -->
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="border-t border-white/5 py-6 mt-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-gray-500 space-y-2 font-body">
+            <p class="text-[12px]" data-i18n="system_footer">Неофициальный справочник по игре. Данный сайт не связан с разработчиками или издателем игры. Все права на игру, её название, изображения и другие материалы принадлежат LAVA LABS OYUN YAZILIM VE PAZARLAMA ANONİM ШİRKETİ. Данный сайт создан исключительно в информационных целях.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Engine -->
+    <script>
+        // Data Set: Drop chances for Levels 1 to 100 (%)
+        const DROP_RATES = {
+            1: [100, 0, 0, 0, 0, 0],
+            2: [98, 2, 0, 0, 0, 0],
+            3: [97, 3, 0, 0, 0, 0],
+            4: [95, 5, 0, 0, 0, 0],
+            5: [93, 7, 0, 0, 0, 0],
+            6: [90, 10, 0, 0, 0, 0],
+            7: [86.8, 13, 0.2, 0, 0, 0],
+            8: [83.7, 16, 0.3, 0, 0, 0],
+            9: [79.5, 20, 0.5, 0, 0, 0],
+            10: [75.3, 24, 0.7, 0, 0, 0],
+            11: [71, 28, 1, 0, 0, 0],
+            12: [66.5, 32, 1.5, 0, 0, 0],
+            13: [60, 38, 2, 0, 0, 0],
+            14: [53, 44, 3, 0, 0, 0],
+            15: [45, 50, 5, 0, 0, 0],
+            16: [33, 60, 7, 0, 0, 0],
+            17: [20, 70, 10, 0, 0, 0],
+            18: [17.5, 69.5, 13, 0, 0, 0],
+            19: [17.5, 66.5, 16, 0, 0, 0],
+            20: [17.5, 62.5, 20, 0, 0, 0],
+            21: [17.5, 58.5, 24, 0, 0, 0],
+            22: [17.5, 55.5, 28, 0, 0, 0],
+            23: [17.5, 50.5, 32, 0, 0, 0],
+            24: [17.5, 44.5, 38, 0, 0, 0],
+            25: [17.5, 38.49, 44, 0.01, 0, 0],
+            26: [17.5, 32.48, 50, 0.02, 0, 0],
+            27: [17.5, 22.47, 60, 0.03, 0, 0],
+            28: [17.5, 16.5, 65.95, 0.05, 0, 0],
+            29: [17.5, 16.5, 65.93, 0.07, 0, 0],
+            30: [17.5, 16.5, 65.9, 0.1, 0, 0],
+            31: [17.5, 16.5, 64.5, 1.5, 0, 0],
+            32: [17.5, 16.5, 65.8, 0.2, 0, 0],
+            33: [17.5, 16.5, 65.7, 0.3, 0, 0],
+            34: [17.5, 16.5, 65.5, 0.5, 0, 0],
+            35: [17.5, 16.5, 65.3, 0.7, 0, 0],
+            36: [17.5, 16.5, 65, 1, 0, 0],
+            37: [17.5, 16.5, 64.5, 1.5, 0, 0],
+            38: [17.5, 16.5, 64, 2, 0, 0],
+            39: [17.5, 16.5, 63, 3, 0, 0],
+            40: [17.5, 16.5, 61, 5, 0, 0],
+            41: [17.5, 16.5, 59, 7, 0, 0],
+            42: [17.5, 16.5, 56, 10, 0, 0],
+            43: [17.5, 16.5, 53, 13, 0, 0],
+            44: [17.5, 16.5, 50, 16, 0, 0],
+            45: [17.5, 16.5, 46, 20, 0, 0],
+            46: [17.5, 16.5, 42, 24, 0, 0],
+            47: [17.5, 16.5, 38, 28, 0, 0],
+            48: [17.5, 16.5, 31, 32, 0, 0],
+            49: [17.5, 16.5, 28, 38, 0, 0],
+            50: [17.5, 16.5, 21.99, 44, 0.01, 0],
+            51: [17.5, 16.5, 16.5, 49.48, 0.02, 0],
+            52: [17.5, 16.5, 16.5, 49.47, 0.03, 0],
+            53: [17.5, 16.5, 16.5, 49.45, 0.05, 0],
+            54: [17.5, 16.5, 16.5, 49.43, 0.07, 0],
+            55: [17.5, 16.5, 16.5, 49.4, 0.1, 0],
+            56: [17.5, 16.5, 16.5, 49.35, 0.15, 0],
+            57: [17.5, 16.5, 16.5, 49.3, 0.2, 0],
+            58: [17.5, 16.5, 16.5, 49.2, 0.3, 0],
+            59: [17.5, 16.5, 16.5, 49, 0.5, 0],
+            60: [17.5, 16.5, 16.5, 48.8, 0.7, 0],
+            61: [17.5, 16.5, 16.5, 48.5, 0.1, 0],
+            62: [17.5, 16.5, 16.5, 48, 1.5, 0],
+            63: [17.5, 16.5, 16.5, 47.5, 2, 0],
+            64: [17.5, 16.5, 16.5, 46.5, 3, 0],
+            65: [17.5, 16.5, 16.5, 44.5, 5, 0],
+            66: [17.5, 16.5, 16.5, 42.5, 7, 0],
+            67: [17.5, 16.5, 16.5, 39.5, 10, 0],
+            68: [17.5, 16.5, 16.5, 36.5, 13, 0],
+            69: [17.5, 16.5, 16.5, 33.5, 16, 0],
+            70: [17.5, 16.5, 16.5, 29.5, 20, 0],
+            71: [17.5, 16.5, 16.5, 25.5, 24, 0],
+            72: [17.5, 16.5, 16.5, 21, 28, 0],
+            73: [17.5, 16.5, 16.5, 17.5, 32, 0],
+            74: [17.5, 16.5, 16.5, 16.5, 33, 0],
+            75: [17.5, 16.5, 16.5, 16.5, 32.99, 0.01],
+            76: [17.5, 16.5, 16.5, 16.5, 32.98, 0.02],
+            77: [17.5, 16.5, 16.5, 16.5, 32.97, 0.03],
+            78: [17.5, 16.5, 16.5, 16.5, 32.95, 0.05],
+            79: [17.5, 16.5, 16.5, 16.5, 32.93, 0.07],
+            80: [17.5, 16.5, 16.5, 16.5, 32.9, 0.1],
+            81: [17.5, 16.5, 16.5, 16.5, 32.85, 0.15],
+            82: [17.5, 16.5, 16.5, 16.5, 32.8, 0.2],
+            83: [17.5, 16.5, 16.5, 16.5, 32.7, 0.3],
+            84: [17.5, 16.5, 16.5, 16.5, 32.5, 0.5],
+            85: [17.5, 16.5, 16.5, 16.5, 32.3, 0.7],
+            86: [17.5, 16.5, 16.5, 16.5, 32, 1],
+            87: [17.5, 16.5, 16.5, 16.5, 31.5, 1.5],
+            88: [17.5, 16.5, 16.5, 16.5, 31, 2],
+            89: [17.5, 16.5, 16.5, 16.5, 30, 3],
+            90: [17.5, 16.5, 16.5, 16.5, 29, 4],
+            91: [17.5, 16.5, 16.5, 16.5, 28, 5],
+            92: [17.5, 16.5, 16.5, 16.5, 27, 6],
+            93: [17.5, 16.5, 16.5, 16.5, 26, 7],
+            94: [17.5, 16.5, 16.5, 16.5, 25, 8],
+            95: [17.5, 16.5, 16.5, 16.5, 24, 9],
+            96: [17.5, 16.5, 16.5, 16.5, 23, 10],
+            97: [17.5, 16.5, 16.5, 16.5, 22, 11],
+            98: [17.5, 16.5, 16.5, 16.5, 20, 13],
+            99: [17.5, 16.5, 16.5, 16.5, 18, 15],
+            100: [17.5, 16.5, 16.5, 16.5, 16.5, 16.5]
+        };
+
+        const TIER_POINTS = [10, 10, 20, 20, 30, 30];
+        const TIER_NAMES = ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary', 'Mythic'];
+        const TIER_BADGES = ['r-common', 'r-uncommon', 'r-rare', 'r-epic', 'r-legendary', 'r-mythic'];
+        const TIER_TEXT_COLORS = ['text-gray-200', 'text-green-300', 'text-blue-300', 'text-purple-300', 'text-amber-300', 'text-red-300'];
+
+        function getRequiredPetsForLevel(lvl) {
+            return 50 + (lvl - 1) * 5;
+        }
+
+        const currentLevelInput = document.getElementById('currentLevel');
+        const currentProgressInput = document.getElementById('currentProgress');
+        const petsPerSummonInput = document.getElementById('petsPerSummon');
+        const totalBonesInput = document.getElementById('totalBones');
+        const maxProgressHintVal = document.getElementById('maxProgressHintVal');
+
+        function updateProgressHint() {
+            let lvl = parseInt(currentLevelInput.value) || 1;
+            lvl = Math.min(100, Math.max(1, lvl));
+            const req = getRequiredPetsForLevel(lvl);
+            if (maxProgressHintVal) {
+                maxProgressHintVal.textContent = req;
+            }
+        }
+
+        currentLevelInput.addEventListener('input', updateProgressHint);
+
+        function calculate() {
+            let lvl = parseInt(currentLevelInput.value) || 1;
+            lvl = Math.min(100, Math.max(1, lvl));
+
+            let progress = parseInt(currentProgressInput.value) || 0;
+            let petsPerSummon = parseInt(petsPerSummonInput.value) || 1;
+            let bones = parseInt(totalBonesInput.value) || 0;
+
+            const BONE_COST = 200;
+            const totalSummons = Math.floor(bones / BONE_COST);
+            const spentBones = totalSummons * BONE_COST;
+            const boneRemainder = bones - spentBones;
+
+            let startLevel = lvl;
+            let currentLevel = lvl;
+            let currentLevelProgress = progress;
+
+            let tierCounts = [0, 0, 0, 0, 0, 0];
+            let totalPoints = 0;
+            let totalPetsReceived = 0;
+
+            for (let i = 0; i < totalSummons; i++) {
+                let petsInThisSummon = petsPerSummon;
+                totalPetsReceived += petsInThisSummon;
+
+                let rates = DROP_RATES[currentLevel] || DROP_RATES[100];
+
+                for (let t = 0; t < 6; t++) {
+                    let expectedPetsForTier = petsInThisSummon * (rates[t] / 100);
+                    tierCounts[t] += expectedPetsForTier;
+                    totalPoints += expectedPetsForTier * TIER_POINTS[t];
+                }
+
+                currentLevelProgress += petsInThisSummon;
+
+                while (currentLevel < 100) {
+                    let reqForNext = getRequiredPetsForLevel(currentLevel);
+                    if (currentLevelProgress >= reqForNext) {
+                        currentLevelProgress -= reqForNext;
+                        currentLevel++;
+                    } else {
+                        break;
+                    }
+                }
+            }
+
+            document.getElementById('resTotalPoints').textContent = Math.round(totalPoints).toLocaleString('ru-RU');
+            document.getElementById('resSummonsCount').textContent = totalSummons.toLocaleString('ru-RU');
+            document.getElementById('resBonesSpentVal').textContent = spentBones.toLocaleString('ru-RU');
+            document.getElementById('resTotalPets').textContent = totalPetsReceived.toLocaleString('ru-RU');
+            document.getElementById('resBoneRemainderVal').textContent = boneRemainder.toLocaleString('ru-RU');
+            
+            document.getElementById('resStartLvlVal').textContent = startLevel;
+            document.getElementById('resEndLvlVal').textContent = currentLevel;
+            
+            let reqNext = getRequiredPetsForLevel(currentLevel);
+            if (currentLevel >= 100) {
+                document.getElementById('resProgressCurVal').textContent = "MAX";
+                document.getElementById('resProgressMaxVal').textContent = "MAX";
+                document.getElementById('resNextLvlNum').textContent = "MAX";
+                document.getElementById('resProgressPercent').textContent = "100%";
+                document.getElementById('resProgressBar').style.width = "100%";
+            } else {
+                document.getElementById('resProgressCurVal').textContent = Math.floor(currentLevelProgress);
+                document.getElementById('resProgressMaxVal').textContent = reqNext;
+                document.getElementById('resNextLvlNum').textContent = currentLevel + 1;
+                let pct = Math.min(100, Math.max(0, (currentLevelProgress / reqNext) * 100));
+                document.getElementById('resProgressPercent').textContent = `${pct.toFixed(1)}%`;
+                document.getElementById('resProgressBar').style.width = `${pct}%`;
+            }
+
+            renderTierCards(tierCounts);
+        }
+
+        function renderTierCards(tierCounts) {
+            const container = document.getElementById('tierCardsContainer');
+            container.innerHTML = '';
+
+            tierCounts.forEach((count, i) => {
+                const roundedCount = (Math.round(count * 10) / 10).toLocaleString('ru-RU');
+                const points = Math.round(count * TIER_POINTS[i]);
+
+                const card = document.createElement('div');
+                card.className = 'bg-[#11131C] p-3 rounded-xl border border-white/5 space-y-2';
+                
+                card.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="badge-r ${TIER_BADGES[i]}">${TIER_NAMES[i]}</span>
+                        <span class="text-[10px] text-gray-400 font-bold">+${TIER_POINTS[i]} <span data-i18n="system_pts_short">очк</span></span>
+                    </div>
+                    <div class="flex justify-between items-baseline">
+                        <span class="text-xl font-bold ${TIER_TEXT_COLORS[i]}">${roundedCount}</span>
+                        <span class="text-xs font-semibold text-amber-400">+${points.toLocaleString('ru-RU')} <span data-i18n="system_pts_short">очк</span></span>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            // Re-apply translations if language switcher script is active
+            if (typeof updatePageTranslations === 'function') {
+                updatePageTranslations();
+            }
+        }
+
+        document.getElementById('resetBtn').addEventListener('click', () => {
+            currentLevelInput.value = 97;
+            currentProgressInput.value = 0;
+            petsPerSummonInput.value = 37;
+            totalBonesInput.value = 17000;
+            updateProgressHint();
+            calculate();
+        });
+
+        [currentLevelInput, currentProgressInput, petsPerSummonInput, totalBonesInput].forEach(input => {
+            input.addEventListener('input', calculate);
+        });
+
+
+        window.onload = function() {
+            updateProgressHint();
+            calculate();
+        };
+    </script>
+    <script src="../assets/scripts/translations.js"></script>
+    <script src="../assets/scripts/language.js"></script>
+</body>
+</html>
