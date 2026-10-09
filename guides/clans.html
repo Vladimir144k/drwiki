@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гайд по Кланам | Dungeon Rush</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #030712;
+            color: #f3f4f6;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #0f172a;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glow-red {
+            box-shadow: 0 0 25px -5px rgba(239, 68, 68, 0.25);
+        }
+
+        .nav-tab-btn.active {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.25), rgba(139, 92, 246, 0.25));
+            border-color: #ef4444;
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
+        }
+
+        .tier-e { color: #a8a29e; }
+        .tier-d { color: rgb(7, 183, 7); }
+        .tier-c { color: #2563eb; }
+        .tier-b { color: rgb(202, 12, 202); }
+        .tier-a { color: orange; }
+        .tier-s { color: yellow; }
+
+        .rarity-common { color: #cacaca; border-color: #929090; }
+        .rarity-uncommon { color: #e0c69d; border-color: #be8f43; }
+        .rarity-rare { color: #b5e05c; border-color: #80a040; }
+        .rarity-epic { color: #45c4ff; border-color: #2c83ab; }
+        .rarity-legendary { color: #ffdd61; border-color: #b18d0a; }
+        .rarity-mythic { color: #a288f2; border-color: #715bb4; }
+        .rarity-artifact { color: #49a872; border-color: #337550; }
+        .rarity-ancient { color: #5166cd; border-color: #364694; }
+        .rarity-immortal { color: #e55e5f; border-color: rgb(173, 83, 19); }
+        .rarity-divine { color: #ffd75f; border-color: rgb(154, 118, 11); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-red-500 selection:text-slate-950">
+
+    <!-- Header Navigation -->
+    <header class="bg-slate-950/80 border-b border-slate-800/80 sticky top-0 z-30 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="../index.html">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-red-600 to-violet-600 flex items-center justify-center shadow-lg shadow-red-500/20 text-white font-black text-xl">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div>
+                        <span class="font-extrabold text-xl tracking-tight bg-gradient-to-r from-white via-slate-200 to-red-400 bg-clip-text text-transparent" data-i18n="cl_header_title">
+                            Dungeon Rush - Кланы
+                        </span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Language Switcher -->
+                <button id="lang-toggle" 
+                        onclick="toggleLanguage()" 
+                        class="group relative inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-indigo-500/30 hover:border-indigo-500/60 text-slate-200 hover:text-white transition-all duration-200 shadow-md hover:shadow-indigo-500/10 active:scale-95"
+                        title="Switch language / Сменить язык">
+                    <i class="fa-solid fa-globe text-indigo-400 group-hover:rotate-12 transition-transform duration-200"></i>
+                    <div class="flex items-center font-semibold text-xs tracking-wide">
+                        <span id="lang-text" class="text-indigo-300 group-hover:text-amber-400 transition-colors">RU</span>
+                    </div>
+                </button>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+
+        <!-- Hero Banner -->
+        <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-red-950/40 to-slate-900 p-6 sm:p-10 border border-slate-800 shadow-2xl glow-red">
+            <div class="relative z-10">
+                <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight" data-i18n="cl_hero_title">
+                    Гайд по Кланам
+                </h1>
+                <p class="mt-3 text-slate-300 max-w-4xl text-sm sm:text-base leading-relaxed" data-i18n="cl_hero_desc">
+                    Создание клана, управление участниками, рейтинги и тиры, статус Чемпиона, расписание еженедельных Клановых Войн, ежедневные задания и награды.
+                </p>
+            </div>
+            <div class="absolute -right-16 -bottom-16 w-80 h-80 bg-red-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -left-16 -top-16 w-80 h-80 bg-violet-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div id="navContainer" class="top-16 z-20 py-2 bg-slate-950/90 backdrop-blur-md border-y border-slate-800/80 transition-all duration-300 -mx-4 px-4 sm:mx-0 sm:px-0 sm:rounded-2xl">
+            <div class="max-w-7xl mx-auto flex items-center justify-center">
+                <nav class="flex flex-wrap items-center justify-center gap-2 py-1 px-1 w-full">
+                    <button onclick="showMainSection('overview-section', this)" class="nav-tab-btn active flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-red-500/40 transition flex items-center gap-2">
+                        <i class="fa-solid fa-users text-violet-400"></i>
+                        <span data-i18n="cl_tab_overview">Обзор и Управление</span>
+                    </button>
+
+                    <button onclick="showMainSection('ranks-section', this)" class="nav-tab-btn flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-red-500/40 transition flex items-center gap-2">
+                        <i class="fa-solid fa-trophy text-yellow-400"></i>
+                        <span data-i18n="cl_tab_ranks">Топы, Тиры и Чемпионы</span>
+                    </button>
+
+                    <button onclick="showMainSection('clanwar-section', this)" class="nav-tab-btn flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-red-500/40 transition flex items-center gap-2">
+                        <i class="fa-solid fa-shield-halved text-rose-400"></i>
+                        <span data-i18n="cl_tab_clanwars">Клановые Войны</span>
+                    </button>
+
+                    <button onclick="showMainSection('rewards-section', this)" class="nav-tab-btn flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-red-500/40 transition flex items-center gap-2">
+                        <i class="fa-solid fa-gift text-emerald-400"></i>
+                        <span data-i18n="cl_tab_rewards">Личные и Клановые Награды</span>
+                    </button>
+                </nav>
+            </div>
+        </div>
+
+        <!-- SECTION 1: OVERVIEW & MANAGEMENT -->
+        <section id="overview-section" class="main-section scroll-mt-36 space-y-6">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="p-3 rounded-2xl bg-red-500/10 text-red-400 border border-red-500/20 shadow-lg shadow-red-500/5">
+                    <i class="fa-solid fa-shield-cat text-2xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-white" data-i18n="cl_sec1_title">Основная Информация и Управление Кланом</h2>
+                    <p class="text-xs text-slate-400" data-i18n="cl_sec1_subtitle">Условия открытия, создание, баннеры и роли участников</p>
+                </div>
+            </div>
+
+            <!-- Overview Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="glass-panel p-5 rounded-3xl border border-slate-800 space-y-2">
+                    <div class="w-10 h-10 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 text-lg">
+                        <i class="fa-solid fa-lock-open"></i>
+                    </div>
+                    <h3 class="text-white font-bold text-base" data-i18n="cl_card_access_title">Доступ</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed" data-i18n="cl_card_access_desc">
+                        Клановый функционал разблокируется по достижении 20 уровня персонажа.
+                    </p>
+                </div>
+
+                <div class="glass-panel p-5 rounded-3xl border border-slate-800 space-y-2">
+                    <div class="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 text-lg">
+                        <i class="fa-solid fa-gem"></i>
+                    </div>
+                    <h3 class="text-white font-bold text-base" data-i18n="cl_card_create_title">Создание и Вход</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed" data-i18n="cl_card_create_desc">
+                        Создать свой клан стоит 100 гемов, либо вы можете вступить в уже существующий.
+                    </p>
+                </div>
+
+                <div class="glass-panel p-5 rounded-3xl border border-slate-800 space-y-2">
+                    <div class="w-10 h-10 rounded-xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-400 text-lg">
+                        <i class="fa-solid fa-users text-violet-400"></i>
+                    </div>
+                    <h3 class="text-white font-bold text-base" data-i18n="cl_card_capacity_title">Вместимость</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed" data-i18n="cl_card_capacity_desc">
+                        Максимальное количество участников в клане составляет 50 человек.
+                    </p>
+                </div>
+
+                <div class="glass-panel p-5 rounded-3xl border border-slate-800 space-y-2">
+                    <div class="w-10 h-10 rounded-xl bg-fuchsia-500/10 border border-fuchsia-500/20 flex items-center justify-center text-fuchsia-400 text-lg">
+                        <i class="fa-solid fa-door-open"></i>
+                    </div>
+                    <h3 class="text-white font-bold text-base" data-i18n="cl_card_types_title">Типы входа</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed" data-i18n="cl_card_types_desc">
+                        Существуют 2 типа входа: Открытый (сразу) и По заявке (требуется одобрение).
+                    </p>
+                </div>
+            </div>
+
+            <!-- Management & Banner Details -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Management Roles -->
+                <div class="glass-panel rounded-3xl p-6 border border-slate-800 space-y-4">
+                    <h3 class="text-base font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-user-gear text-red-400"></i>
+                        <span data-i18n="cl_hierarchy_title">Иерархия и Управление</span>
+                    </h3>
+                    <div class="space-y-3 text-xs text-slate-300">
+                        <div class="bg-slate-950/80 p-3.5 rounded-2xl border border-slate-800/80 flex items-start gap-3">
+                            <i class="fa-solid fa-crown text-red-400 mt-0.5 text-base"></i>
+                            <div>
+                                <strong class="text-white block mb-0.5" data-i18n="cl_role_leader">Лидер Клана</strong>
+                                <span data-i18n="cl_role_leader_desc">Имеет полный контроль, может менять настройки клана, принимать игроков, назначать Капитанов и исключать любых участников.</span>
+                            </div>
+                        </div>
+                        <div class="bg-slate-950/80 p-3.5 rounded-2xl border border-slate-800/80 flex items-start gap-3">
+                            <i class="fa-solid fa-user-shield text-violet-400 mt-0.5 text-base"></i>
+                            <div>
+                                <strong class="text-white block mb-0.5" data-i18n="cl_role_captains">Капитаны Клана</strong>
+                                <span data-i18n="cl_role_captains_desc">Назначаются Лидером. Капитаны, как и Лидер, имеют право принимать заявки и кикать участников из клана.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Custom Banner & Privacy -->
+                <div class="glass-panel rounded-3xl p-6 border border-slate-800 space-y-4">
+                    <h3 class="text-base font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-flag text-red-400"></i>
+                        <span data-i18n="cl_banner_title">Конструктор Баннера и Приватность</span>
+                    </h3>
+                    <div class="space-y-3 text-xs text-slate-300">
+                        <p data-i18n="cl_banner_intro">
+                            При создании клана вы можете полностью кастомизировать его визуальный стиль:
+                        </p>
+                        <ul class="space-y-1.5 list-disc list-inside text-slate-300">
+                            <li><strong data-i18n="cl_banner_color_label">Цвет баннера:</strong> <span data-i18n="cl_banner_color_desc">выбор палитры фона.</span></li>
+                            <li><strong data-i18n="cl_banner_shape_label">Форма баннера:</strong> <span data-i18n="cl_banner_shape_desc">уникальные геральдические формы.</span></li>
+                            <li><strong data-i18n="cl_banner_emblem_label">Эмблема:</strong> <span data-i18n="cl_banner_emblem_desc">выбор центрального символа клана.</span></li>
+                        </ul>
+                        <div class="bg-slate-950/80 p-3.5 rounded-2xl border border-red-500/20 text-slate-300">
+                            <strong class="text-red-400 block mb-1" data-i18n="cl_privacy_title">Опция Приватности:</strong>
+                            <span data-i18n="cl_privacy_desc">Приватные кланы не отображаются в общем поиске и не попадают в глобальный ТОП кланов.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: RANKS, TIERS & CHAMPIONS -->
+        <section id="ranks-section" class="main-section hidden scroll-mt-36 space-y-6">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="p-3 rounded-2xl bg-red-500/10 text-red-400 border border-red-500/20 shadow-lg shadow-red-500/5">
+                    <i class="fa-solid fa-trophy text-2xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-white" data-i18n="cl_sec2_title">Рейтинги, Тиры и Кланы-Чемпионы</h2>
+                    <p class="text-xs text-slate-400" data-i18n="cl_sec2_subtitle">Как рассчитывается сила клана, ступени тиров и борьба за чемпионский титул</p>
+                </div>
+            </div>
+
+            <!-- Tiers & Clan Power -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-panel p-6 rounded-3xl border border-slate-800 space-y-3">
+                    <h3 class="font-bold text-white text-base flex items-center gap-2">
+                        <i class="fa-solid fa-bolt text-red-400"></i> <span data-i18n="cl_power_title">Сила Клана</span>
+                    </h3>
+                    <p class="text-xs text-slate-300 leading-relaxed" data-i18n="cl_power_desc">
+                        Общая Сила Клана рассчитывается путем суммирования показателей мощи всех его участников. Чем сильнее игроки, тем выше клан в общем рейтинге.
+                    </p>
+                </div>
+
+                <div class="glass-panel p-6 rounded-3xl border border-slate-800 space-y-3 md:col-span-2">
+                    <h3 class="font-bold text-white text-base flex items-center gap-2">
+                        <i class="fa-solid fa-layer-group text-red-400"></i> <span data-i18n="cl_tiers_title">Тиры Кланов (6 рангов)</span>
+                    </h3>
+                    <p class="text-xs text-slate-300" data-i18n="cl_tiers_desc">Продвижение по тирам происходит по результатам Клановых Войн:</p>
+                    <div class="grid grid-cols-2 sm:grid-cols-6 gap-2 text-center text-xs font-black">
+                        <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-700 tier-e">Tier E</div>
+                        <div class="bg-slate-950 p-2.5 rounded-xl border border-green-500/40 tier-d">Tier D</div>
+                        <div class="bg-slate-950 p-2.5 rounded-xl border border-blue-500/40 tier-c">Tier C</div>
+                        <div class="bg-slate-950 p-2.5 rounded-xl border border-purple-500/40 tier-b">Tier B</div>
+                        <div class="bg-slate-950 p-2.5 rounded-xl border border-amber-500/40 tier-a">Tier A</div>
+                        <div class="bg-slate-950 p-2.5 rounded-xl border border-yellow-500/40 tier-s">Tier S</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Champion Clan Rules -->
+            <div class="glass-panel p-6 rounded-3xl border border-red-500/30 bg-gradient-to-br from-slate-900/90 via-red-950/20 to-slate-950 space-y-4">
+                <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+                    <div class="w-10 h-10 rounded-xl bg-red-500/20 border border-red-500/40 flex items-center justify-center text-red-400 text-xl">
+                        <i class="fa-solid fa-crown"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-black text-white" data-i18n="cl_champion_title">Статус Клана-Чемпиона</h3>
+                        <p class="text-xs text-red-400 font-semibold" data-i18n="cl_champion_sub">Особый титул вне зависимости от общей мощи</p>
+                    </div>
+                </div>
+
+                <div class="space-y-3 text-xs text-slate-300 leading-relaxed">
+                    <p data-i18n="cl_champion_top1_desc">
+                        Клан-Чемпион всегда отображается первым в мировом топе кланов, независимо от количества боевой мощи.
+                    </p>
+
+                    <div class="bg-slate-950/80 p-4 rounded-2xl border border-slate-800 space-y-2">
+                        <strong class="text-red-300 text-sm block" data-i18n="cl_qualification_title">Как стать Чемпионом (Правила квалификации):</strong>
+                        <blockquote class="italic text-slate-300 border-l-2 border-red-500 pl-3 py-1" data-i18n="cl_qualification_quote">
+                            «Зарабатывайте очки взноса (Contribution Points), чтобы подняться на вершину! Кланы ранжируются сначала по Тиру, затем по очкам взноса внутри одного Тира. Клан, занявший первое место в рейтинге, получает право бросить вызов Клану-Чемпиону на войне следующей недели. Если Клана-Чемпиона нет, два лучших клана сразятся друг с другом.»
+                        </blockquote>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
+                        <div class="bg-slate-950/80 p-3.5 rounded-2xl border border-slate-800 flex items-start gap-2.5">
+                            <i class="fa-solid fa-arrows-rotate text-red-400 mt-1"></i>
+                            <div>
+                                <strong class="text-white block" data-i18n="cl_stat_update_title">Обновление статистики:</strong>
+                                <span data-i18n="cl_stat_update_desc">Статистика чемпионов обновляется каждые 10 минут в течение всей недели.</span>
+                            </div>
+                        </div>
+                        <div class="bg-slate-950/80 p-3.5 rounded-2xl border border-slate-800 flex items-start gap-2.5">
+                            <i class="fa-solid fa-trophy text-red-400 mt-1"></i>
+                            <div>
+                                <strong class="text-white block" data-i18n="cl_final_war_title">Финал Клановой Войны:</strong>
+                                <span data-i18n="cl_final_war_desc">По окончанию войны первый (из 5) в топе чемпионов становится чемпионом и занимает Топ-1 в мировом топе кланов.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: CLAN WARS -->
+        <section id="clanwar-section" class="main-section hidden scroll-mt-36 space-y-6">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="p-3 rounded-2xl bg-rose-500/10 text-rose-400 border border-rose-500/20 shadow-lg shadow-rose-500/5">
+                    <i class="fa-solid fa-shield-halved text-2xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-white" data-i18n="cl_sec3_title">Еженедельные Клановые Войны</h2>
+                    <p class="text-xs text-slate-400" data-i18n="cl_sec3_subtitle">Формат проведения, ежедневный подсчет очков и перерыв</p>
+                </div>
+            </div>
+
+            <!-- War Structure & Matchmaking -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="glass-panel p-5 rounded-3xl border border-slate-800 space-y-2">
+                    <strong class="text-rose-400 text-sm font-bold flex items-center gap-2">
+                        <i class="fa-solid fa-calendar-check"></i> <span data-i18n="cl_war_cycle_title">Еженедельный цикл</span>
+                    </strong>
+                    <p class="text-xs text-slate-300 leading-relaxed" data-i18n="cl_war_cycle_desc">
+                        Клановые войны проходят каждую неделю. Соперники подбираются на основе их активности на предыдущей клановой войне.
+                    </p>
+                </div>
+
+                <div class="glass-panel p-5 rounded-3xl border border-slate-800 space-y-2">
+                    <strong class="text-red-400 text-sm font-bold flex items-center gap-2">
+                        <i class="fa-solid fa-star"></i> <span data-i18n="cl_daily_pts_title">Ежедневные Очки</span>
+                    </strong>
+                    <p class="text-xs text-slate-300 leading-relaxed" data-i18n="cl_daily_pts_desc">
+                        Каждый день участники выполняют задания дня. Клан, набравший больше клановых очков за день, становится победителем дня.
+                    </p>
+                </div>
+
+                <div class="glass-panel p-5 rounded-3xl border border-slate-800 space-y-2">
+                    <strong class="text-sky-400 text-sm font-bold flex items-center gap-2">
+                        <i class="fa-solid fa-mug-hot"></i> <span data-i18n="cl_day7_title">7-й День (Перерыв)</span>
+                    </strong>
+                    <p class="text-xs text-slate-300 leading-relaxed" data-i18n="cl_day7_desc">
+                        День отдыха. Происходит повышение или понижение в тирах, участники забирают награды и готовится подбор к новой войне.
+                    </p>
+                </div>
+            </div>
+
+            <!-- War Points Breakdown -->
+            <div class="glass-panel rounded-3xl p-6 border border-slate-800 space-y-4">
+                <h3 class="text-base font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-calculator text-red-400"></i>
+                    <span data-i18n="cl_pts_breakdown_title">Распределение Очков Победы по Дням</span>
+                </h3>
+                <p class="text-xs text-slate-300" data-i18n="cl_pts_breakdown_desc">
+                    Для итоговой победы клан должен набрать больше всего недельных очков за победы в ежедневных противостояниях:
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                    <div class="bg-slate-950/80 p-4 rounded-2xl border border-slate-800 text-center space-y-1">
+                        <span class="text-slate-400 block font-semibold" data-i18n="cl_day1_title">День 1</span>
+                        <span class="text-lg font-black text-red-400" data-i18n="cl_day1_pts">+1 Очко</span>
+                        <span class="text-[11px] text-slate-500 block" data-i18n="cl_day1_sub">За победу в первый день</span>
+                    </div>
+                    <div class="bg-slate-950/80 p-4 rounded-2xl border border-slate-800 text-center space-y-1">
+                        <span class="text-slate-400 block font-semibold" data-i18n="cl_days25_title">Дни 2, 3, 4 и 5</span>
+                        <span class="text-lg font-black text-red-400" data-i18n="cl_days25_pts">+2 Очка / день</span>
+                        <span class="text-[11px] text-slate-500 block" data-i18n="cl_days25_sub">За победу в каждый из дней</span>
+                    </div>
+                    <div class="bg-slate-950/80 p-4 rounded-2xl border border-red-500/30 text-center space-y-1 bg-red-500/5">
+                        <span class="text-red-400 block font-bold" data-i18n="cl_day6_title">День 6 (Решающий)</span>
+                        <span class="text-lg font-black text-red-300" data-i18n="cl_day6_pts">+4 Очка</span>
+                        <span class="text-[11px] text-slate-400 block" data-i18n="cl_day6_sub">Максимальный балл за день</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Daily Action Requirements -->
+            <div id="guide-tab-clan" class="guide-tab-content space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                    <!-- DAYS 1, 3, 5 -->
+                    <div class="glass-panel rounded-2xl p-5 border border-slate-800 flex flex-col justify-between space-y-4">
+                        <div>
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+                                <h3 class="text-base font-bold text-sky-400 flex items-center gap-2">
+                                    <i class="fa-solid fa-calendar-days"></i> <span data-i18n="cl_cycle_a_title">День 1, 3, 5</span>
+                                </h3>
+                                <span class="text-xs bg-sky-950 text-sky-300 border border-sky-800 px-2 py-0.5 rounded-md font-mono" data-i18n="cl_cycle_a_tag">Цикл A</span>
+                            </div>
+
+                            <!-- Task 1: Opening Boxes -->
+                            <div class="space-y-2 mb-4">
+                                <div class="text-xs font-semibold text-slate-300 uppercase" data-i18n="cl_task_boxes">Открытие Ящиков (Очки за ящик)</div>
+                                <div class="grid grid-cols-5 gap-1 text-center text-[11px]">
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-common font-bold">Common</span>1</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-uncommon font-bold">Uncommon</span>1</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-rare font-bold">Rare</span>1</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-epic font-bold">Epic</span>2</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-legendary font-bold">Legendary</span>2</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-mythic font-bold">Mythic</span>2</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-artifact font-bold">Artifact</span>2</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-ancient font-bold">Ancient</span>3</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-immortal font-bold">Immortal</span>3</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-divine font-bold">Divine</span>3</div>
+                                </div>
+                            </div>
+
+                            <!-- Task 2: Summoning Pets -->
+                            <div class="space-y-2 mb-4">
+                                <div class="text-xs font-semibold text-slate-300 uppercase" data-i18n="cl_task_pets">Призыв Питомцев</div>
+                                <div class="grid grid-cols-3 gap-1 text-center text-[11px]">
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-common font-bold">Common</span>10</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-uncommon font-bold">Uncommon</span>10</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-rare font-bold">Rare</span>20</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-epic font-bold">Epic</span>20</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-legendary font-bold">Legendary</span>30</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-mythic font-bold">Mythic</span>30</div>
+                                </div>
+                            </div>
+
+                            <!-- Task 3: Leveling Up -->
+                            <div class="space-y-2">
+                                <div class="text-xs font-semibold text-slate-300 uppercase" data-i18n="cl_task_lvlup">Повышение Уровня</div>
+                                <div class="bg-slate-900 p-2.5 rounded-xl border border-slate-800 flex items-center justify-between text-xs">
+                                    <span class="text-slate-400" data-i18n="cl_formula_label">Формула:</span>
+                                    <span class="font-mono text-sky-400 font-bold" data-i18n="cl_formula_val">Новый Уровень * 100</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="../calcs/boxcalc.html"><div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-amber-400 font-semibold">
+                                <span data-i18n="cl_open_box_calc">Открыть калькулятор ящиков</span>
+                                <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                            </div></a>
+                        <a href="../calcs/bonecalc.html"><div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-emerald-400 font-semibold">
+                                <span data-i18n="cl_open_pet_calc">Открыть калькулятор компаньонов</span>
+                                <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                            </div></a>
+                    </div>
+
+                    <!-- DAYS 2, 4 -->
+                    <div class="glass-panel rounded-2xl p-5 border border-slate-800 flex flex-col justify-between space-y-4">
+                        <div>
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+                                <h3 class="text-base font-bold text-violet-400 flex items-center gap-2">
+                                    <i class="fa-solid fa-calendar-days"></i> <span data-i18n="cl_cycle_b_title">День 2, 4</span>
+                                </h3>
+                                <span class="text-xs bg-violet-950 text-violet-300 border border-violet-800 px-2 py-0.5 rounded-md font-mono" data-i18n="cl_cycle_b_tag">Цикл B</span>
+                            </div>
+
+                            <!-- Task 1: Cloak Summoning -->
+                            <div class="space-y-2 mb-4">
+                                <div class="text-xs font-semibold text-slate-300 uppercase" data-i18n="cl_task_cloaks">Призыв Плащей</div>
+                                <div class="grid grid-cols-3 gap-1 text-center text-[11px]">
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-common font-bold">Common</span>100</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-uncommon font-bold">Uncommon</span>100</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-rare font-bold">Rare</span>200</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-epic font-bold">Epic</span>200</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-legendary font-bold">Legendary</span>300</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block rarity-mythic font-bold">Mythic</span>300</div>
+                                </div>
+                            </div>
+
+                            <!-- Task 2: Ore Mining -->
+                            <div class="space-y-2 mb-4">
+                                <div class="text-xs font-semibold text-slate-300 uppercase" data-i18n="cl_task_ores">Добыча Руды</div>
+                                <div class="grid grid-cols-4 gap-1 text-center text-[11px]">
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block text-slate-400 font-bold" data-i18n="cl_ore_stone">Камень</span>10</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block text-black-400 font-bold" data-i18n="cl_ore_coal">Уголь</span>10</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block text-white-400 font-bold" data-i18n="cl_ore_iron">Железо</span>20</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block text-red-400 font-bold" data-i18n="cl_ore_ruby">Рубин</span>20</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block text-emerald-400 font-bold" data-i18n="cl_ore_emerald">Эмеральд</span>20</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800"><span class="block text-yellow-300 font-bold" data-i18n="cl_ore_gold">Золото</span>30</div>
+                                    <div class="bg-slate-900 p-1.5 rounded border border-slate-800 col-span-2"><span class="block text-sky-400 font-bold" data-i18n="cl_ore_diamond">Алмаз</span>30</div>
+                                </div>
+                            </div>
+
+                            <!-- Task 3: Dungeon Keys -->
+                            <div class="space-y-2">
+                                <div class="text-xs font-semibold text-slate-300 uppercase" data-i18n="cl_task_keys">Ключи Подземелья</div>
+                                <div class="bg-slate-900 p-2.5 rounded-xl border border-slate-800 flex items-center justify-between text-xs">
+                                    <span class="text-slate-400" data-i18n="cl_key_label">За ключ:</span>
+                                    <span class="font-mono text-yellow-400 font-bold" data-i18n="cl_key_val">500 Очков</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="../calcs/crowncalc.html"><div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-indigo-400 font-semibold">
+                                <span data-i18n="cl_open_cape_calc">Открыть калькулятор плащей</span>
+                                <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                            </div></a>
+                    </div>
+
+                    <!-- DAY 6: PVP -->
+                    <div class="glass-panel rounded-2xl p-5 border border-slate-800 flex flex-col justify-between space-y-4">
+                        <div>
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+                                <h3 class="text-base font-bold text-red-400 flex items-center gap-2">
+                                    <i class="fa-solid fa-swords"></i> <span data-i18n="cl_day6_pvp_title">День 6</span>
+                                </h3>
+                                <span class="text-xs bg-red-950 text-red-300 border border-red-800 px-2 py-0.5 rounded-md font-mono" data-i18n="cl_day6_pvp_tag">PVP Финал</span>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="space-y-3">
+                                    <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 space-y-2 text-xs">
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-slate-400 uppercase font-semibold" data-i18n="cl_pvp_reward_label">Награда:</span>
+                                            <span class="font-mono text-red-400 font-bold" data-i18n="cl_pvp_reward_val">50 Очков / Бой</span>
+                                        </div>
+                                        <p class="text-slate-300 pt-1 border-t border-slate-800" data-i18n="cl_pvp_rule">
+                                            <i class="fa-solid fa-clock text-red-400 mr-1"></i> Сброс билета каждый час. Сброс ПВП каждые 45 побед
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="p-4 rounded-xl bg-gradient-to-br from-red-950/30 to-rose-950/30 border border-red-800/40 text-xs space-y-2">
+                                    <span class="font-semibold text-red-300 flex items-center gap-1.5">
+                                        <i class="fa-solid fa-lightbulb"></i>
+                                        <span data-i18n="cl_pvp_tip_title">Совет по PVP дню:</span>
+                                    </span>
+                                    <p class="text-slate-400 leading-relaxed" data-i18n="cl_pvp_tip_desc">
+                                        Старайтесь заходить каждый час, чтобы не терять восстанавливающиеся билеты. Накапливайте максимальное количество побед!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: REWARDS -->
+        <section id="rewards-section" class="main-section hidden scroll-mt-36 space-y-6">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="p-3 rounded-2xl bg-sky-500/10 text-sky-400 border border-sky-500/20 shadow-lg shadow-sky-500/5">
+                    <i class="fa-solid fa-gift text-2xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-white" data-i18n="cl_sec4_title">Награды Клановых Войн</h2>
+                    <p class="text-xs text-slate-400" data-i18n="cl_sec4_subtitle">Награды клана за победу/поражение в тирах и шкала личных наград игрока</p>
+                </div>
+            </div>
+
+            <!-- Clan War Rewards (Win & Loss) -->
+            <div class="glass-panel rounded-2xl p-6 border border-slate-800/80 bg-slate-900/60 backdrop-blur-md space-y-6 shadow-2xl max-w-1xl mx-auto">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-800 pb-4 gap-3">
+                    <div>
+                        <h3 class="text-xl font-bold text-rose-400 flex items-center gap-2.5 tracking-wide">
+                            <i class="fa-solid fa-trophy text-amber-400"></i> <span data-i18n="cl_rewards_tier_title">Награды Клановой Войны по Тирам</span>
+                        </h3>
+                        <p class="text-xs text-slate-400 mt-1" data-i18n="cl_rewards_tier_desc">Чем выше лига вашего клана, тем больше ценных ресурсов вы получите по окончании недели.</p>
+                    </div>
+                </div>
+
+                <!-- TABLE: VICTORY -->
+                <div class="space-y-3">
+                    <div class="flex items-center gap-2">
+                        <span class="inline-flex items-center gap-1.5 text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-3 py-1 rounded-full font-bold uppercase tracking-wider shadow-sm">
+                            <i class="fa-solid fa-circle-check text-[10px]"></i> <span data-i18n="cl_for_win">За победу</span>
+                        </span>
+                    </div>
+
+                    <div class="overflow-x-auto rounded-xl border border-slate-800 bg-slate-950/40 custom-scrollbar">
+                        <table class="w-full text-left text-xs border-collapse">
+                            <thead>
+                                <tr class="uppercase text-[11px] tracking-wider text-slate-400 bg-slate-950/90 border-b border-slate-800 select-none whitespace-nowrap">
+                                    <th class="p-3 text-center w-24" data-i18n="cl_th_tier">Лига (Тир)</th>
+                                    <th class="p-3 text-center"><i class="fa-solid fa-box text-amber-600 mr-1"></i> <span data-i18n="cl_th_boxes">Коробки</span></th>
+                                    <th class="p-3 text-center"><i class="fa-solid fa-bone text-slate-400 mr-1"></i> <span data-i18n="cl_th_bones">Кости</span></th>
+                                    <th class="p-3 text-center"><i class="fa-solid fa-crown text-yellow-400 mr-1"></i> <span data-i18n="cl_th_crowns">Короны</span></th>
+                                    <th class="p-3 text-center"><i class="fa-solid fa-person-digging text-amber-300 mr-1"></i> <span data-i18n="cl_th_pickaxes">Золотые Кирки</span></th>
+                                    <th class="p-3 text-center"><i class="fa-solid fa-bore-hole text-sky-400 mr-1"></i> <span data-i18n="cl_th_drills">Буры</span></th>
+                                    <th class="p-3 text-center"><i class="fa-solid fa-flask text-rose-500 mr-1"></i> <span data-i18n="cl_th_flasks">Кровавые Колбы</span></th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-800/60 font-mono">
+                                <tr class="bg-gradient-to-r from-amber-500/10 via-rose-500/5 to-transparent hover:bg-slate-800/50 transition-colors">
+                                    <td class="p-3 text-center">
+                                        <span class="px-3 py-1 rounded-md bg-gradient-to-r from-amber-500 to-rose-500 text-white font-black shadow-md shadow-rose-500/20 text-xs inline-block">S</span>
+                                    </td>
+                                    <td class="p-3 text-center font-bold text-rose-300">2,500</td>
+                                    <td class="p-3 text-center font-bold text-slate-200">5,000</td>
+                                    <td class="p-3 text-center font-bold text-yellow-400">500</td>
+                                    <td class="p-3 text-center font-bold text-amber-300">10</td>
+                                    <td class="p-3 text-center font-bold text-sky-400">10</td>
+                                    <td class="p-3 text-center font-bold text-rose-400">5,000</td>
+                                </tr>
+                                <tr class="hover:bg-slate-800/40 transition-colors">
+                                    <td class="p-3 text-center"><span class="px-3 py-1 rounded-md bg-orange-600 text-white font-black text-xs inline-block">A</span></td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                </tr>
+                                <tr class="hover:bg-slate-800/40 transition-colors">
+                                    <td class="p-3 text-center"><span class="px-3 py-1 rounded-md bg-purple-600 text-white font-black text-xs inline-block">B</span></td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                </tr>
+                                <tr class="hover:bg-slate-800/40 transition-colors">
+                                    <td class="p-3 text-center"><span class="px-3 py-1 rounded-md bg-blue-600 text-white font-black text-xs inline-block">C</span></td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                </tr>
+                                <tr class="hover:bg-slate-800/40 transition-colors">
+                                    <td class="p-3 text-center"><span class="px-3 py-1 rounded-md bg-emerald-600 text-white font-black text-xs inline-block">D</span></td>
+                                    <td class="p-3 text-center font-bold text-rose-300">750</td>
+                                    <td class="p-3 text-center font-bold text-slate-200">1,500</td>
+                                    <td class="p-3 text-center font-bold text-yellow-400">150</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                </tr>
+                                <tr class="hover:bg-slate-800/40 transition-colors">
+                                    <td class="p-3 text-center"><span class="px-3 py-1 rounded-md bg-slate-700 text-slate-200 font-black text-xs inline-block">E</span></td>
+                                    <td class="p-3 text-center font-semibold text-rose-300">500</td>
+                                    <td class="p-3 text-center font-semibold text-slate-300">1,000</td>
+                                    <td class="p-3 text-center font-semibold text-yellow-400">100</td>
+                                    <td class="p-3 text-center font-semibold text-amber-300">2</td>
+                                    <td class="p-3 text-center font-semibold text-sky-400">2</td>
+                                    <td class="p-3 text-center font-semibold text-rose-400">1,000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- TABLE: LOSS -->
+                <div class="space-y-3 pt-2">
+                    <div class="flex items-center gap-2">
+                        <span class="inline-flex items-center gap-1.5 text-xs bg-rose-500/10 text-rose-400 border border-rose-500/30 px-3 py-1 rounded-full font-bold uppercase tracking-wider shadow-sm">
+                            <i class="fa-solid fa-circle-xmark text-[10px]"></i> <span data-i18n="cl_for_loss">За проигрыш</span>
+                        </span>
+                    </div>
+
+                    <div class="overflow-x-auto rounded-xl border border-slate-800 bg-slate-950/40 custom-scrollbar opacity-90">
+                        <table class="w-full text-left text-xs border-collapse">
+                            <thead>
+                                <tr class="uppercase text-[11px] tracking-wider text-slate-400 bg-slate-950/90 border-b border-slate-800 select-none whitespace-nowrap">
+                                    <th class="p-3 text-center w-24" data-i18n="cl_th_tier">Лига (Тир)</th>
+                                    <th class="p-3 text-center"><i class="fa-solid fa-box text-amber-600 mr-1"></i> <span data-i18n="cl_th_boxes">Коробки</span></th>
+                                    <th class="p-3 text-center"><i class="fa-solid fa-bone text-slate-400 mr-1"></i> <span data-i18n="cl_th_bones">Кости</span></th>
+                                    <th class="p-3 text-center"><i class="fa-solid fa-crown text-yellow-400 mr-1"></i> <span data-i18n="cl_th_crowns">Короны</span></th>
+                                    <th class="p-3 text-center"><i class="fa-solid fa-person-digging text-amber-300 mr-1"></i> <span data-i18n="cl_th_pickaxes">Золотые Кирки</span></th>
+                                    <th class="p-3 text-center"><i class="fa-solid fa-bore-hole text-sky-400 mr-1"></i> <span data-i18n="cl_th_drills">Буры</span></th>
+                                    <th class="p-3 text-center"><i class="fa-solid fa-flask text-rose-500 mr-1"></i> <span data-i18n="cl_th_flasks">Кровавые Колбы</span></th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-800/60 font-mono text-slate-300">
+                                <tr class="hover:bg-slate-800/40 transition-colors">
+                                    <td class="p-3 text-center">
+                                        <span class="px-3 py-1 rounded-md bg-gradient-to-r from-amber-500/80 to-rose-500/80 text-white font-black text-xs inline-block">S</span>
+                                    </td>
+                                    <td class="p-3 text-center font-medium">1,250</td>
+                                    <td class="p-3 text-center font-medium">2,500</td>
+                                    <td class="p-3 text-center font-medium text-yellow-500/90">250</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                </tr>
+                                <tr class="hover:bg-slate-800/40 transition-colors">
+                                    <td class="p-3 text-center"><span class="px-3 py-1 rounded-md bg-orange-600/80 text-white font-black text-xs inline-block">A</span></td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                </tr>
+                                <tr class="hover:bg-slate-800/40 transition-colors">
+                                    <td class="p-3 text-center"><span class="px-3 py-1 rounded-md bg-purple-600/80 text-white font-black text-xs inline-block">B</span></td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                </tr>
+                                <tr class="hover:bg-slate-800/40 transition-colors">
+                                    <td class="p-3 text-center"><span class="px-3 py-1 rounded-md bg-blue-600/80 text-white font-black text-xs inline-block">C</span></td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                </tr>
+                                <tr class="hover:bg-slate-800/40 transition-colors">
+                                    <td class="p-3 text-center"><span class="px-3 py-1 rounded-md bg-emerald-600/80 text-white font-black text-xs inline-block">D</span></td>
+                                    <td class="p-3 text-center font-medium">375</td>
+                                    <td class="p-3 text-center font-medium">750</td>
+                                    <td class="p-3 text-center font-medium">75</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                </tr>
+                                <tr class="hover:bg-slate-800/40 transition-colors">
+                                    <td class="p-3 text-center"><span class="px-3 py-1 rounded-md bg-slate-700/80 text-slate-300 font-black text-xs inline-block">E</span></td>
+                                    <td class="p-3 text-center">500</td>
+                                    <td class="p-3 text-center">1,000</td>
+                                    <td class="p-3 text-center text-yellow-500/90">100</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                    <td class="p-3 text-center text-slate-500 italic">TBA</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Individual Milestone Rewards Table -->
+            <div class="glass-panel rounded-3xl p-6 border border-slate-800 space-y-4">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-base font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-user-check text-sky-400"></i>
+                        <span data-i18n="cl_indiv_title">Личные Еженедельные Награды Игрока (по Очкам Взноса)</span>
+                    </h3>
+                </div>
+                <p class="text-xs text-slate-400" data-i18n="cl_indiv_desc">
+                    Каждый игрок получает индивидуальные награды по достижении порога набранных за неделю клановых очков (pts):
+                </p>
+
+                <div class="overflow-x-auto custom-scrollbar rounded-2xl border border-slate-800">
+                    <table class="w-full text-left text-xs">
+                        <thead>
+                            <tr class="uppercase text-[11px] tracking-wider text-slate-400 bg-slate-950/60 border-b border-slate-800">
+                                <th class="p-3" data-i18n="cl_th_pts">Клановые очки (PTS)</th>
+                                <th class="p-3" data-i18n="cl_th_rewards">Награды</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800/60 font-medium bg-slate-950/30">
+                            <tr class="hover:bg-slate-800/40"><td class="p-3 font-bold text-white-400">1 000 pts</td><td class="p-3 text-slate-200" data-i18n="cl_rew_1000">📦 50 коробок, 🦴 250 костей, ⛏️ 15 обычных кирок</td></tr>
+                            <tr class="hover:bg-slate-800/40"><td class="p-3 font-bold text-white-400">2 500 pts</td><td class="p-3 text-slate-200" data-i18n="cl_rew_2500">⭐ 500 опыта, 👑 50 корон</td></tr>
+                            <tr class="hover:bg-slate-800/40"><td class="p-3 font-bold text-white-400">5 000 pts</td><td class="p-3 text-slate-200" data-i18n="cl_rew_1000">📦 50 коробок, 🦴 250 костей, ⛏️ 15 обычных кирок</td></tr>
+                            <tr class="hover:bg-slate-800/40"><td class="p-3 font-bold text-white-400">7 500 pts</td><td class="p-3 text-slate-200" data-i18n="cl_rew_2500">⭐ 500 опыта, 👑 50 корон</td></tr>
+                            <tr class="hover:bg-slate-800/40"><td class="p-3 font-bold text-white-400">10 000 pts</td><td class="p-3 text-slate-200" data-i18n="cl_rew_1000">📦 50 коробок, 🦴 250 костей, ⛏️ 15 обычных кирок</td></tr>
+                            <tr class="hover:bg-slate-800/40"><td class="p-3 font-bold text-white-400">12 500 pts</td><td class="p-3 text-slate-200" data-i18n="cl_rew_2500">⭐ 500 опыта, 👑 50 корон</td></tr>
+                            <tr class="hover:bg-slate-800/40"><td class="p-3 font-bold text-white-400">15 000 pts</td><td class="p-3 text-slate-200" data-i18n="cl_rew_1000">📦 50 коробок, 🦴 250 костей, ⛏️ 15 обычных кирок</td></tr>
+                            <tr class="hover:bg-slate-800/40"><td class="p-3 font-bold text-white-400">20 000 pts</td><td class="p-3 text-slate-200" data-i18n="cl_rew_2500">⭐ 500 опыта, 👑 50 корон</td></tr>
+                            <tr class="hover:bg-slate-800/40"><td class="p-3 font-bold text-white-400">25 000 pts</td><td class="p-3 text-slate-200" data-i18n="cl_rew_1000">📦 50 коробок, 🦴 250 костей, ⛏️ 15 обычных кирок</td></tr>
+                            <tr class="hover:bg-slate-800/40"><td class="p-3 font-bold text-white-400">30 000 pts</td><td class="p-3 text-slate-200" data-i18n="cl_rew_2500">⭐ 500 опыта, 👑 50 корон</td></tr>
+                            <tr class="hover:bg-slate-800/40"><td class="p-3 font-bold text-white-400">40 000 pts</td><td class="p-3 text-slate-200" data-i18n="cl_rew_1000">📦 50 коробок, 🦴 250 костей, ⛏️ 15 обычных кирок</td></tr>
+                            <tr class="hover:bg-slate-800/40"><td class="p-3 font-bold text-white-400">50 000 pts</td><td class="p-3 text-slate-200" data-i18n="cl_rew_2500">⭐ 500 опыта, 👑 50 корон</td></tr>
+                            <tr class="hover:bg-slate-800/40"><td class="p-3 font-bold text-white-400">65 000 pts</td><td class="p-3 text-slate-200" data-i18n="cl_rew_1000">📦 50 коробок, 🦴 250 костей, ⛏️ 15 обычных кирок</td></tr>
+                            <tr class="hover:bg-slate-800/40"><td class="p-3 font-bold text-white-400">80 000 pts</td><td class="p-3 text-slate-200" data-i18n="cl_rew_2500">⭐ 500 опыта, 👑 50 корон</td></tr>
+                            <tr class="hover:bg-slate-800/40"><td class="p-3 font-bold text-white-400">100 000 pts</td><td class="p-3 text-slate-200" data-i18n="cl_rew_1000">📦 50 коробок, 🦴 250 костей, ⛏️ 15 обычных кирок</td></tr>
+                            <tr class="hover:bg-slate-800/40"><td class="p-3 font-bold text-white-400">125 000 pts</td><td class="p-3 text-slate-200" data-i18n="cl_rew_2500">⭐ 500 опыта, 👑 50 корон</td></tr>
+                            <tr class="hover:bg-slate-800/40"><td class="p-3 font-bold text-white-400">160 000 pts</td><td class="p-3 text-slate-200" data-i18n="cl_rew_1000">📦 50 коробок, 🦴 250 костей, ⛏️ 15 обычных кирок</td></tr>
+                            <tr class="hover:bg-slate-800/40"><td class="p-3 font-bold text-white-400">200 000 pts</td><td class="p-3 text-slate-200" data-i18n="cl_rew_2500">⭐ 500 опыта, 👑 50 корон</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-panel border-t border-slate-800/80 py-8 mt-16">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 space-y-2">
+            <p class="text-[12px] text-slate-500" data-i18n="system_footer">Неофициальный справочник по игре. Данный сайт не связан с разработчиками или издателем игры. Все права на игру, её название, изображения и другие материалы принадлежат LAVA LABS OYUN YAZILIM VE PAZARLAMA ANONİM ŞİRKETİ. Данный сайт создан исключительно в информационных целях.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Navigation Logic -->
+    <script>
+        function showMainSection(sectionId, btn) {
+            document.querySelectorAll('.main-section').forEach(sec => sec.classList.add('hidden'));
+            document.querySelectorAll('.nav-tab-btn').forEach(b => b.classList.remove('active'));
+
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.remove('hidden');
+                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            if (btn) {
+                btn.classList.add('active');
+            }
+        }
+    </script>
+    <script src="../assets/scripts/translations.js"></script>
+    <script src="../assets/scripts/language.js"></script>
+</body>
+</html>
