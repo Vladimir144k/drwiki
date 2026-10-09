@@ -126,7 +126,7 @@
     <button id="backToTop" onclick="scrollToTop()" title="Наверх" 
             class="fixed top-20 right-6 z-50 p-3 bg-indigo-600/80 hover:bg-indigo-500 text-white rounded-xl shadow-lg border border-indigo-400/30 backdrop-blur-md transition-all duration-300 transform hover:scale-105 opacity-0 pointer-events-none flex items-center justify-center gap-2 text-xs font-semibold">
         <i class="fa-solid fa-arrow-up"></i>
-        <span class="hidden md:inline">Наверх</span>
+        <span class="hidden md:inline" data-i18n="system_top">Наверх</span>
     </button>
 
     <header class="border-b border-white/5 bg-[#12141D]/90 sticky top-0 z-50 backdrop-blur-xl">
@@ -143,14 +143,29 @@
                     <div class="flex items-center gap-2">
                         <h1 class="text-lg font-bold tracking-tight text-white">Dungeon <span class="text-indigo-400">Rush</span></h1>
                     </div>
-                    <p class="text-xs text-gray-400 font-body">Единый портал знаний</p>
+                    <p class="text-xs text-gray-400 font-body" data-i18n="index_header">Единый портал знаний</p>
                 </div>
             </div>
+
+            <!-- Right Side: Info & Language Switcher -->
             <div class="flex items-center space-x-3 text-xs">
-                <span class="hidden sm:inline-flex items-center px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-400">
-                    <i class="fa-solid fa-code-branch text-amber-400 mr-1.5"></i> Последнее обновление: 08.10.2026
+                <span class="hidden sm:inline-flex items-center px-2.5 py-1.5 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-400 shadow-inner">
+                    <i class="fa-solid fa-code-branch text-amber-400 mr-1.5"></i> 
+                    <span data-i18n="index_last_update">Последнее обновление: date</span>
                 </span>
+
+                <!-- Enhanced Language Toggle Button -->
+                <button id="lang-toggle" 
+                        onclick="toggleLanguage()" 
+                        class="group relative inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-indigo-500/30 hover:border-indigo-500/60 text-slate-200 hover:text-white transition-all duration-200 shadow-md hover:shadow-indigo-500/10 active:scale-95"
+                        title="Switch language / Сменить язык">
+                    <i class="fa-solid fa-globe text-indigo-400 group-hover:rotate-12 transition-transform duration-200"></i>
+                    <div class="flex items-center font-semibold text-xs tracking-wide">
+                        <span id="lang-text" class="text-indigo-300 group-hover:text-amber-400 transition-colors">RU</span>
+                    </div>
+                </button>
             </div>
+
         </div>
     </header>
 
@@ -159,27 +174,85 @@
         <!-- SECTION: HUB / DASHBOARD -->
         <div id="sectionHub" class="space-y-8">
             <!-- Hero Banner -->
-            <div class="pet-card p-6 sm:p-8 bg-gradient-to-r from-indigo-900/40 via-[#161924] to-purple-900/30 border-indigo-500/20 relative overflow-hidden">
+            <div class="pet-card p-6 sm:p-8 bg-gradient-to-r from-indigo-900/40 via-[#161924] to-purple-900/30 border-indigo-500/20 relative overflow-hidden space-y-6">
+                <i class="fa-solid fa-book-bookmark absolute -right-6 -bottom-6 text-white/5 text-[220px] pointer-events-none"></i>
+
+                <!-- Title & Description -->
                 <div class="max-w-2xl relative z-10 space-y-3">
-                    <h2 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">Dungeon Rush Wiki & Calculators</h2>
-                    <p class="text-sm text-gray-300 font-body leading-relaxed">
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight" data-i18n="index_hero_h2">Dungeon Rush Wiki & Calculators</h2>
+                    <p class="text-sm text-gray-300 font-body leading-relaxed" data-i18n="index_hero_p">
                         Добро пожаловать в неофициальную базу знаний. Рассчитывайте прокачку, изучайте гайды и анализируйте игровые механики.
                     </p>
                 </div>
-                <i class="fa-solid fa-book-bookmark absolute -right-6 -bottom-6 text-white/5 text-[220px] pointer-events-none"></i>
-                <div class="mt-5 flex flex-wrap items-center gap-3 text-xs font-medium">
-                    <span class="inline-flex items-center px-3.5 py-1.5 rounded-xl bg-slate-900/80 text-slate-300 border border-slate-800 shadow-inner">
-                        <i class="fa-solid fa-table-list mr-2 text-amber-400"></i> Данные: <strong class="text-amber-400 ml-1">Elpi The Wiki</strong>
-                    </span>
-                    <span class="inline-flex items-center px-3.5 py-1.5 rounded-xl bg-slate-900/80 text-slate-300 border border-slate-800 shadow-inner">
-                        <i class="fa-solid fa-language mr-2 text-indigo-400"></i> Перевод/Разработка: <strong class="text-indigo-400 ml-1">Tcan</strong>
-                    </span>
-                    <span class="inline-flex items-center px-3.5 py-1.5 rounded-xl bg-slate-900/80 text-slate-300 border border-slate-800 shadow-inner">
-                        <i class="fa-solid fa-gear mr-2 text-emerald-400"></i> Тестеры: <strong class="text-emerald-400 ml-1">Varyag, Dikci, Callin</strong>
-                    </span>
-                    <span class="inline-flex items-center px-3.5 py-1.5 rounded-xl bg-slate-900/80 text-slate-300 border border-slate-800 shadow-inner">
-                        <i class="fa-solid fa-heart mr-2 text-rose-400"></i> Отдельное спасибо: <strong class="text-rose-400 ml-1">Lev и Guppy</strong>
-                    </span>
+
+                <!-- Warning & Contact Banner -->
+                <div class="relative z-10 bg-red-500/10 border border-red-500/20 rounded-xl p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 backdrop-blur-sm">
+                    <div class="flex items-start gap-3">
+                        <div class="p-2 bg-red-500/20 rounded-lg text-red-400 text-lg shrink-0 mt-0.5 md:mt-0">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+                        <div class="text-xs space-y-0.5">
+                            <h4 class="font-bold text-red-500" data-i18n="index_disclaimer_title">Обратите внимание!</h4>
+                            <p class="text-gray-300 leading-relaxed" data-i18n="index_disclaimer_text">
+                                Информация на сайте может быть неточной или неполной. Если у вас есть актуальные данные или вы нашли ошибку, пожалуйста, свяжитесь с нами:
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 shrink-0 w-full md:w-auto">
+                        <a href="https://discord.com/users/1447238011271118982" target="_blank" rel="noopener noreferrer" 
+                           class="flex-1 md:flex-initial inline-flex items-center justify-center gap-2 px-3 py-1.5 bg-[#5865F2]/20 hover:bg-[#5865F2]/30 text-[#5865F2] hover:text-white border border-[#5865F2]/40 rounded-lg text-xs font-semibold transition-all">
+                            <i class="fa-brands fa-discord"></i>
+                            <span>Discord</span>
+                        </a>
+                        <a href="https://t.me/TxxcWst" target="_blank" rel="noopener noreferrer" 
+                           class="flex-1 md:flex-initial inline-flex items-center justify-center gap-2 px-3 py-1.5 bg-[#26A5E4]/20 hover:bg-[#26A5E4]/30 text-[#26A5E4] hover:text-white border border-[#26A5E4]/40 rounded-lg text-xs font-semibold transition-all">
+                            <i class="fa-brands fa-telegram"></i>
+                            <span>Telegram</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Flexible Hero Badges Grid -->
+                <div class="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs font-medium">
+                    <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/80 text-slate-300 border border-slate-800 shadow-inner">
+                        <div class="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 text-sm shrink-0">
+                            <i class="fa-solid fa-table-list"></i>
+                        </div>
+                        <div class="truncate">
+                            <div class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold" data-i18n="index_hero_badge_data">Данные</div>
+                            <div class="text-amber-400 font-bold truncate">Elpi The Wiki</div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/80 text-slate-300 border border-slate-800 shadow-inner">
+                        <div class="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400 text-sm shrink-0">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <div class="truncate">
+                            <div class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold" data-i18n="index_hero_badge_code">Перевод / Разработка</div>
+                            <div class="text-indigo-400 font-bold truncate">Tcan</div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/80 text-slate-300 border border-slate-800 shadow-inner">
+                        <div class="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400 text-sm shrink-0">
+                            <i class="fa-solid fa-vial-circle-check"></i>
+                        </div>
+                        <div class="truncate">
+                            <div class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold" data-i18n="index_hero_badge_tester">Тестеры</div>
+                            <div class="text-emerald-400 font-bold truncate">Varyag, Dikci, Callin</div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/80 text-slate-300 border border-slate-800 shadow-inner">
+                        <div class="w-8 h-8 rounded-lg bg-rose-500/10 flex items-center justify-center text-rose-400 text-sm shrink-0">
+                            <i class="fa-solid fa-heart"></i>
+                        </div>
+                        <div class="truncate">
+                            <div class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold" data-i18n="index_hero_badge_thank">Благодарность</div>
+                            <div class="text-rose-400 font-bold truncate">Lev, Guppy & Droulski</div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -187,7 +260,7 @@
             <div class="relative max-w-2xl mx-auto my-6">
                 <div class="relative flex items-center">
                     <i class="fa-solid fa-magnifying-glass absolute left-4 text-gray-400 text-sm"></i>
-                    <input type="text" id="siteSearch" oninput="filterCards()" placeholder="Поиск по названиям, описанию и ключевым словам..." 
+                    <input type="text" id="siteSearch" oninput="filterCards()" data-i18n="index_searchbar" placeholder="Поиск по названиям, описанию и ключевым словам..." 
                            class="w-full pl-11 pr-10 py-3 bg-[#161924] border border-white/10 rounded-xl text-sm text-white placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all shadow-inner">
                     <button id="clearSearch" onclick="clearSearchInput()" class="hidden absolute right-3 text-gray-400 hover:text-white text-xs p-1">
                         <i class="fa-solid fa-xmark"></i>
@@ -201,64 +274,64 @@
                     <div class="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 text-sm">
                         <i class="fa-solid fa-calculator"></i>
                     </div>
-                    <h3 class="text-lg font-bold text-white tracking-wide">Калькуляторы</h3>
+                    <h3 class="text-lg font-bold text-white tracking-wide" data-i18n="index_category_calc">Калькуляторы</h3>
                     <div class="h-[1px] flex-1 bg-gradient-to-r from-white/10 to-transparent"></div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                     <!-- Capes -->
-                    <a href="capes.html" data-keywords="корона короны плащ плащи клан клановые очки калькулятор призыв" class="pet-card searchable-card p-5 space-y-4 cursor-pointer group block">
+                    <a href="calcs/crowncalc.html" data-keywords="crowns crown cape cloak capes cloaks clan clans point points war summon drop calc calcs calculator корона короны плащ плащи клан клановые очки калькулятор призыв" class="pet-card searchable-card p-5 space-y-4 cursor-pointer group block">
                         <div class="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 text-xl group-hover:scale-110 transition-transform">
                             <i class="fa-solid fa-crown"></i>
                         </div>
                         <div class="space-y-1">
-                            <h4 class="text-base font-bold text-white group-hover:text-indigo-400 transition-colors">
-                                Калькулятор корон
+                            <h4 class="text-base font-bold text-white group-hover:text-indigo-400 transition-colors" data-i18n="index_calc_crown_title">
+                                Калькулятор Корон
                             </h4>
-                            <p class="text-xs text-gray-400 font-body">
+                            <p class="text-xs text-gray-400 font-body" data-i18n="index_calc_crown_desc">
                                 Расчёт клановых очков, затрат корон, уровней призыва и вероятностей редких плащей.
                             </p>
                         </div>
                         <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-indigo-400 font-semibold">
-                            <span>Открыть калькулятор</span>
+                            <span data-i18n="index_open_calc">Открыть калькулятор</span>
                             <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                         </div>
                     </a>
 
                     <!-- Pets -->
-                    <a href="pets.html" data-keywords="кости кость петомцы питомцы компаньоны клан клановые очки калькулятор призыв дроп" class="pet-card searchable-card p-5 space-y-4 cursor-pointer group block">
+                    <a href="calcs/bonecalc.html" data-keywords="bones bone pets pet companion companions clan clans war point points calc calcs calculator summon drop кости кость петомцы питомцы компаньоны клан клановые очки калькулятор призыв дроп" class="pet-card searchable-card p-5 space-y-4 cursor-pointer group block">
                         <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-xl group-hover:scale-110 transition-transform">
                             <i class="fa-solid fa-bone"></i>
                         </div>
                         <div class="space-y-1">
-                            <h4 class="text-base font-bold text-white group-hover:text-emerald-400 transition-colors">
-                                Калькулятор костей
+                            <h4 class="text-base font-bold text-white group-hover:text-emerald-400 transition-colors" data-i18n="index_calc_bone_title">
+                                Калькулятор Костей
                             </h4>
-                            <p class="text-xs text-gray-400 font-body">
+                            <p class="text-xs text-gray-400 font-body" data-i18n="index_calc_bone_desc">
                                 Расчёт клановых очков, затрат костей, уровень призыва и вероятность выпадений.
                             </p>
                         </div>
                         <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-emerald-400 font-semibold">
-                            <span>Открыть калькулятор</span>
+                            <span data-i18n="index_open_calc">Открыть калькулятор</span>
                             <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                         </div>
                     </a>
 
                     <!-- Boxes -->
-                    <a href="boxes.html" data-keywords="коробка коробки сундук сундуки клан клановые очки калькулятор сундучки дроп" class="pet-card searchable-card p-5 space-y-4 cursor-pointer group block">
+                    <a href="calcs/boxcalc.html" data-keywords="box boxes boxs chest drop gear summon clan clans war point points calc calcs calculator коробки сундук сундуки клан клановые очки калькулятор сундучки дроп" class="pet-card searchable-card p-5 space-y-4 cursor-pointer group block">
                         <div class="w-12 h-12 rounded-xl bg-yellow-500/10 border border-yellow-500/20 flex items-center justify-center text-yellow-400 text-xl group-hover:scale-110 transition-transform">
                             <i class="fa-solid fa-box"></i>
                         </div>
                         <div class="space-y-1">
-                            <h4 class="text-base font-bold text-white group-hover:text-yellow-400 transition-colors">
-                                Калькулятор коробок
+                            <h4 class="text-base font-bold text-white group-hover:text-yellow-400 transition-colors" data-i18n="index_calc_box_title">
+                                Калькулятор Коробок
                             </h4>
-                            <p class="text-xs text-gray-400 font-body">
+                            <p class="text-xs text-gray-400 font-body" data-i18n="index_calc_box_desc">
                                 Расчёт клановых очков, затрат коробок, примерные дропы.
                             </p>
                         </div>
                         <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-yellow-200 font-semibold">
-                            <span>Открыть калькулятор</span>
+                            <span data-i18n="index_open_calc">Открыть калькулятор</span>
                             <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                         </div>
                     </a>
@@ -271,121 +344,121 @@
                     <div class="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 text-sm">
                         <i class="fa-solid fa-book-open"></i>
                     </div>
-                    <h3 class="text-lg font-bold text-white tracking-wide">Гайды и База знаний</h3>
+                    <h3 class="text-lg font-bold text-white tracking-wide" data-i18n="index_category_guides">Гайды и База знаний</h3>
                     <div class="h-[1px] flex-1 bg-gradient-to-r from-white/10 to-transparent"></div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                     <!-- Guides Card -->
-                    <a href="guide.html" data-keywords="статистика таблицы дропы шансы гайд прокачка сборки гайды новичкам" class="pet-card searchable-card p-5 space-y-4 cursor-pointer group block">
+                    <a href="guides/tables.html" data-keywords="stats, statistics drops drop chance chances upgrade upgrading gear gears guide статистика таблицы дропы шансы гайд прокачка сборки гайды новичкам" class="pet-card searchable-card p-5 space-y-4 cursor-pointer group block">
                         <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 text-xl group-hover:scale-110 transition-transform">
                             <i class="fa-solid fa-chart-pie"></i>
                         </div>
                         <div class="space-y-1">
-                            <h4 class="text-base font-bold text-white group-hover:text-cyan-400 transition-colors">
+                            <h4 class="text-base font-bold text-white group-hover:text-cyan-400 transition-colors" data-i18n="index_guide_tables_title">
                                 Статистика, Таблицы и Дропы (Шансы)
                             </h4>
-                            <p class="text-xs text-gray-400 font-body">
+                            <p class="text-xs text-gray-400 font-body" data-i18n="index_guide_tables_desc">
                                 Таблицы, советы по прокачке, сборки и лайфхаки для новичков и опытных игроков.
                             </p>
                         </div>
                         <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-cyan-200 font-semibold">
-                            <span>Открыть таблицы</span>
+                            <span data-i18n="index_guide_tables_button">Открыть таблицы</span>
                             <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                         </div>
                     </a>
 
                     <!-- Friends & Co-Op -->
-                    <a href="сoop.html" data-keywords="друзья кооп кооператив группа команда пати мультиплеер" class="pet-card searchable-card p-5 space-y-4 cursor-pointer group block">
+                    <a href="guides/friends.html" data-keywords="friend friends coop cooperative group command party multiplayer друзья кооп кооператив группа команда пати мультиплеер" class="pet-card searchable-card p-5 space-y-4 cursor-pointer group block">
                         <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-xl group-hover:scale-110 transition-transform">
                             <i class="fa-solid fa-users"></i>
                         </div>
                         <div class="space-y-1">
-                            <h4 class="text-base font-bold text-white group-hover:text-purple-400 transition-colors">
+                            <h4 class="text-base font-bold text-white group-hover:text-purple-400 transition-colors" data-i18n="index_guide_friends_title">
                                 Друзья и Co-Op
                             </h4>
-                            <p class="text-xs text-gray-400 font-body">
+                            <p class="text-xs text-gray-400 font-body" data-i18n="index_guide_friends_desc">
                                 Кооперативные режимы, система друзей, взаимодействия и подбор команды.
                             </p>
                         </div>
                         <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-purple-200 font-semibold">
-                            <span>Найти друзей</span>
+                            <span data-i18n="index_guide_friends_button">Найти друзей</span>
                             <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                         </div>
                     </a>
 
                     <!-- Mine & Wings -->
-                    <a href="mine.html" data-keywords="шахта крылья руда ресурсы копание крылышки кирки" class="pet-card searchable-card p-5 space-y-4 group block">
+                    <a href="guides/mine.html" data-keywords="mine wings ore ores wing resources mining digging pickaxe pickaxes drill drills шахта крылья руда ресурсы копание крылышки кирки" class="pet-card searchable-card p-5 space-y-4 group block">
                         <div class="w-12 h-12 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-400 text-xl group-hover:scale-110 transition-transform">
                             <i class="fa-solid fa-feather-pointed"></i>
                         </div>
                         <div class="space-y-1">
-                            <h4 class="text-base font-bold text-white group-hover:text-orange-400 transition-colors">
+                            <h4 class="text-base font-bold text-white group-hover:text-orange-400 transition-colors" data-i18n="index_guide_mine_title">
                                 Шахта и Крылья
                             </h4>
-                            <p class="text-xs text-gray-400 font-body">
+                            <p class="text-xs text-gray-400 font-body" data-i18n="index_guide_mine_desc">
                                 Прокачка шахты, добыча ресурсов, система крыльев и их улучшения.
                             </p>
                         </div>
                         <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-orange-400 font-semibold">
-                            <span>Покопаться в шахте</span>
+                            <span data-i18n="index_guide_mine_button">Покопаться в шахте</span>
                             <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                         </div>
                     </a>
                     
                     <!-- Dungeons & Events -->
-                    <a href="events.html" data-keywords="ивенты эвенты подземелья данж боссы события данжи" class="pet-card searchable-card p-5 space-y-4 group block">
+                    <a href="guides/events.html" data-keywords="events dungeon dungeons boss bosses pvp coop dragon zombie cultist ивенты эвенты подземелья данж боссы события данжи" class="pet-card searchable-card p-5 space-y-4 group block">
                         <div class="w-12 h-12 rounded-xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center text-teal-400 text-xl group-hover:scale-110 transition-transform">
                             <i class="fa-solid fa-dragon"></i>
                         </div>
                         <div class="space-y-1">
-                            <h4 class="text-base font-bold text-white group-hover:text-teal-400 transition-colors">
+                            <h4 class="text-base font-bold text-white group-hover:text-teal-400 transition-colors" data-i18n="index_guide_events_title">
                                 Эвенты и Подземелья
                             </h4>
-                            <p class="text-xs text-gray-400 font-body">
+                            <p class="text-xs text-gray-400 font-body" data-i18n="index_guide_events_desc">
                                 Подробная информация про эвенты и подземелье. Стратегии и гайды.
                             </p>
                         </div>
                         <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-teal-400 font-semibold">
-                            <span>Спуститься в подземелье</span>
+                            <span data-i18n="index_guide_events_button">Спуститься в подземелье</span>
                             <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                         </div>
                     </a>
 
                     <!-- Codes -->
-                    <a href="https://youtu.be/dQw4w9WgXcQ" data-keywords="коды промокоды промо халява подарки бонусы" class="pet-card searchable-card p-5 space-y-4 cursor-pointer group block">
+                    <a href="https://youtu.be/dQw4w9WgXcQ" data-keywords="code codes redeem free gift gifts bonus bonuses коды промокоды промо халява подарки бонусы" class="pet-card searchable-card p-5 space-y-4 cursor-pointer group block">
                         <div class="w-12 h-12 rounded-xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center text-pink-400 text-xl group-hover:scale-110 transition-transform">
                             <i class="fa-solid fa-gift"></i>
                         </div>
                         <div class="space-y-1">
-                            <h4 class="text-base font-bold text-white group-hover:text-pink-400 transition-colors">
+                            <h4 class="text-base font-bold text-white group-hover:text-pink-400 transition-colors" data-i18n="index_guide_codes_title">
                                 Коды
                             </h4>
-                            <p class="text-xs text-gray-400 font-body">
+                            <p class="text-xs text-gray-400 font-body" data-i18n="index_guide_codes_desc">
                                 Redeem Codes! Получите немалые награды за ввод кодов!.
                             </p>
                         </div>
                         <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-pink-300 font-semibold">
-                            <span>Просмотреть список кодов</span>
+                            <span data-i18n="index_guide_codes_button">Просмотреть список кодов</span>
                             <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                         </div>
                     </a>
 
                     <!-- Clans -->
-                    <a href="clans.html" data-keywords="клан кланы топ рейтинг гильдии клановые очки" class="pet-card searchable-card p-5 space-y-4 opacity-85 group block">
+                    <a href="guides/clans.html" data-keywords="clan clans top war wars point points guild guilds клан кланы топ рейтинг гильдии клановые очки" class="pet-card searchable-card p-5 space-y-4 opacity-85 group block">
                         <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 text-xl group-hover:scale-110 transition-transform">
                             <i class="fa-solid fa-shield-halved"></i>
                         </div>
                         <div class="space-y-1">
-                            <h4 class="text-base font-bold text-white group-hover:text-red-400 transition-colors">
+                            <h4 class="text-base font-bold text-white group-hover:text-red-400 transition-colors" data-i18n="index_guide_clans_title">
                                 Кланы
                             </h4>
-                            <p class="text-xs text-gray-400 font-body">
+                            <p class="text-xs text-gray-400 font-body" data-i18n="index_guide_clans_desc">
                                 О кланах, рейтинги и тиры, статус Чемпиона, Клановых Войны и награды.
                             </p>
                         </div>
                         <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-red-400 font-semibold">
-                            <span>Вступить в клан</span>
+                            <span data-i18n="index_guide_clans_button">Вступить в клан</span>
                             <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                         </div>
                     </a>
@@ -399,7 +472,7 @@
                     <div class="w-8 h-8 rounded-lg bg-slate-500/10 border border-slate-500/20 flex items-center justify-center text-slate-400 text-sm">
                         <i class="fa-solid fa-flask"></i>
                     </div>
-                    <h3 class="text-lg font-bold text-white tracking-wide">В разработке</h3>
+                    <h3 class="text-lg font-bold text-white tracking-wide" data-i18n="index_category_ud">В разработке</h3>
                     <div class="h-[1px] flex-1 bg-gradient-to-r from-white/10 to-transparent"></div>
                 </div>
 
@@ -562,7 +635,7 @@
 
     <footer class="glass-panel border-t border-slate-800/80 py-8 mt-16">
         <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 space-y-2">
-            <p class="text-[12px] text-slate-500">Неофициальный справочник по игре. Данный сайт не связан с разработчиками или издателем игры. Все права на игру, её название, изображения и другие материалы принадлежат LAVA LABS OYUN YAZILIM VE PAZARLAMA ANONİM ШİRKETİ. Данный сайт создан исключительно в информационных целях.</p>
+            <p class="text-[12px] text-slate-500" data-i18n="system_footer">Неофициальный справочник по игре. Данный сайт не связан с разработчиками или издателем игры. Все права на игру, её название, изображения и другие материалы принадлежат LAVA LABS OYUN YAZILIM VE PAZARLAMA ANONİM ŞİRKETİ. Данный сайт создан исключительно в информационных целях.</p>
         </div>
     </footer>
 
@@ -634,6 +707,7 @@
             searchInput.focus();
         }
     </script>
-
+<script src="assets/scripts/translations.js"></script>
+<script src="assets/scripts/language.js"></script>
 </body>
 </html>
