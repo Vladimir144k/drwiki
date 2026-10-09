@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friends & CO-OP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #030712;
+            color: #f3f4f6;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #0f172a;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Glowing accents */
+        .glow-cyan {
+            box-shadow: 0 0 25px -5px rgba(6, 182, 212, 0.25);
+        }
+
+        /* Nav Tab Styles */
+        .nav-tab-btn.active {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(168, 85, 247, 0.2));
+            border-color: #06b6d4;
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.25);
+        }
+
+        /* League Specific Colors */
+        .league-iron { color: #94a3b8; }
+        .league-bronze { color: #cd7f32; }
+        .league-silver { color: #e2e8f0; }
+        .league-gold { color: #fbbf24; }
+        .league-platinum { color: #22d3ee; }
+        .league-emerald { color: #34d399; }
+        .league-diamond { color: #38bdf8; }
+        .league-master { color: #a855f7; }
+        .league-grandmaster { color: #f43f5e; }
+        .league-legend { color: #f59e0b; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-cyan-500 selection:text-slate-950">
+
+    <!-- Header Navigation -->
+    <header class="bg-slate-950/80 border-b border-slate-800/80 sticky top-0 z-30 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="../index.html">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-indigo-500 flex items-center justify-center shadow-lg shadow-cyan-500/20 text-slate-950 font-black text-xl">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                    <div>
+                        <span class="font-extrabold text-xl tracking-tight bg-gradient-to-r from-white via-slate-200 to-cyan-400 bg-clip-text text-transparent" data-i18n="fr_header_title">
+                            Dungeon Rush - Co-Op & Friends Guide
+                        </span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Language Switcher -->
+            <button id="lang-toggle" 
+                    onclick="toggleLanguage()" 
+                    class="group relative inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-cyan-500/30 hover:border-cyan-500/60 text-slate-200 hover:text-white transition-all duration-200 shadow-md hover:shadow-cyan-500/10 active:scale-95"
+                    title="Switch language / Сменить язык">
+                <i class="fa-solid fa-globe text-cyan-400 group-hover:rotate-12 transition-transform duration-200"></i>
+                <div class="flex items-center font-semibold text-xs tracking-wide">
+                    <span id="lang-text" class="text-cyan-300 group-hover:text-amber-400 transition-colors">RU</span>
+                </div>
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+
+        <!-- Hero Banner -->
+        <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-cyan-950/40 to-slate-900 p-6 sm:p-10 border border-slate-800 shadow-2xl glow-cyan">
+            <div class="relative z-10">
+                <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight" data-i18n="fr_hero_title">
+                    Гайд по системе Друзей и CO-OP Режиму
+                </h1>
+                <p class="mt-3 text-slate-300 max-w-3xl text-sm sm:text-base leading-relaxed" data-i18n="fr_hero_desc">
+                    Объединяйтесь с друзьями, сражайтесь в совместном ивенте, зарабатывайте короны и поднимайтесь по рейтинговым лигам за ценными наградами!
+                </p>
+            </div>
+            <div class="absolute -right-16 -bottom-16 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -left-16 -top-16 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        </div>
+
+        <!-- Warning Note Banner -->
+        <div class="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs flex items-center gap-3">
+            <i class="fa-solid fa-circle-exclamation text-xl shrink-0"></i>
+            <div>
+                <strong class="font-bold" data-i18n="fr_warning_bold">Обратите внимание:</strong> <span data-i18n="fr_warning_desc">Для доступа к социальной системе и CO-OP режиму убедитесь, что у вас установлена версия игры v59 или выше.</span>
+            </div>
+        </div>
+
+        <!-- Sticky Section Navigation -->
+        <div id="navContainer" class="top-16 z-20 py-2 bg-slate-950/90 backdrop-blur-md border-y border-slate-800/80 transition-all duration-300 -mx-4 px-4 sm:mx-0 sm:px-0 sm:rounded-2xl">
+            <div class="max-w-7xl mx-auto flex items-center justify-center">
+                <nav class="flex flex-wrap items-center justify-center gap-2 py-1 px-1 w-full">
+                    <button onclick="showMainSection('friends-section', this)" class="nav-tab-btn active flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-cyan-500/40 transition flex items-center gap-2">
+                        <i class="fa-solid fa-user-plus text-cyan-400"></i>
+                        <span data-i18n="fr_tab_add">Добавление в друзья</span>
+                    </button>
+                    <button onclick="showMainSection('coop-section', this)" class="nav-tab-btn flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-cyan-500/40 transition flex items-center gap-2">
+                        <i class="fa-solid fa-handshake text-purple-400"></i>
+                        <span data-i18n="fr_tab_how">Как играть в CO-OP</span>
+                    </button>
+                    <button onclick="showMainSection('leagues-section', this)" class="nav-tab-btn flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-amber-500/40 transition flex items-center gap-2">
+                        <i class="fa-solid fa-trophy text-amber-400"></i>
+                        <span data-i18n="fr_tab_leagues">Лиги и Награды</span>
+                    </button>
+                </nav>
+            </div>
+        </div>
+
+        <!-- SECTION 1: FRIENDS SYSTEM -->
+        <section id="friends-section" class="main-section scroll-mt-36 space-y-6">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="p-3 rounded-2xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 shadow-lg shadow-cyan-500/5">
+                    <i class="fa-solid fa-user-plus text-2xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-white" data-i18n="fr_sec1_title">Как добавить игрока в друзья?</h2>
+                    <p class="text-xs text-slate-400" data-i18n="fr_sec1_subtitle">Пошаговая инструкция по работе со списком друзей</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Step by step instructions -->
+                <div class="lg:col-span-2 glass-panel rounded-3xl p-6 border border-slate-800 space-y-4">
+                    <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-cyan-400"></i> <span data-i18n="fr_steps_title">Основные шаги</span>
+                    </h3>
+                    
+                    <ol class="space-y-3 text-xs text-slate-300">
+                        <li class="flex items-start bg-slate-950/60 p-3.5 rounded-xl border border-slate-800/80">
+                            <span class="w-6 h-6 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold mr-3 shrink-0">1</span>
+                            <span data-i18n="fr_step_1">Нажмите на иконку своего профиля в левом верхнем углу экрана.</span>
+                        </li>
+                        <li class="flex items-start bg-slate-950/60 p-3.5 rounded-xl border border-slate-800/80">
+                            <span class="w-6 h-6 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold mr-3 shrink-0">2</span>
+                            <span data-i18n="fr_step_2">Нажмите на новую кнопку социальных функций (расположенную над кнопкой «Redeem Code»).</span>
+                        </li>
+                        <li class="flex items-start bg-slate-950/60 p-3.5 rounded-xl border border-slate-800/80">
+                            <span class="w-6 h-6 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold mr-3 shrink-0">3</span>
+                            <span data-i18n="fr_step_3">Перейдите в раздел «Add Friends».</span>
+                        </li>
+                        <li class="flex items-start bg-slate-950/60 p-3.5 rounded-xl border border-slate-800/80">
+                            <span class="w-6 h-6 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold mr-3 shrink-0">4</span>
+                            <span data-i18n="fr_step_4">Введите никнейм или ID нужного игрока в поле поиска.</span>
+                        </li>
+                        <li class="flex items-start bg-slate-950/60 p-3.5 rounded-xl border border-slate-800/80">
+                            <span class="w-6 h-6 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold mr-3 shrink-0">5</span>
+                            <span data-i18n="fr_step_5">Откройте профиль найденного игрока и нажмите кнопку «Add Friend» в правом нижнем углу.</span>
+                        </li>
+                    </ol>
+                </div>
+
+                <!-- Useful Tips -->
+                <div class="glass-panel rounded-3xl p-6 border border-slate-800 space-y-4">
+                    <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-lightbulb text-amber-400"></i> <span data-i18n="fr_info_title">Полезная информация</span>
+                    </h3>
+                    <ul class="space-y-3 text-xs text-slate-300">
+                        <li class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 flex items-start gap-2">
+                            <i class="fa-solid fa-check text-emerald-400 mt-0.5"></i>
+                            <span data-i18n="fr_info_1">Добавлять в друзья можно напрямую через чат, список соклановцев или из меню ивентов.</span>
+                        </li>
+                        <li class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 flex items-start gap-2">
+                            <i class="fa-solid fa-envelope-open-text text-indigo-400 mt-0.5"></i>
+                            <span data-i18n="fr_info_2">Вкладка «Requests» позволяет просматривать и принимать входящие запросы.</span>
+                        </li>
+                        <li class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 flex items-start gap-2">
+                            <i class="fa-solid fa-signal text-cyan-400 mt-0.5"></i>
+                            <span data-i18n="fr_info_3">В списке друзей отображается онлайн-статус и время последнего входа в игру.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- FRIENDS GALLERY -->
+            <div class="glass-panel rounded-3xl p-6 border border-slate-800 space-y-4 mt-6">
+                <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-images text-cyan-400"></i> <span data-i18n="fr_gal1_title">Скриншоты: Взаимодействие с Друзьями</span>
+                </h3>
+                
+                <div class="relative w-full max-w-4xl mx-auto h-[22rem] sm:h-[26rem] rounded-2xl overflow-hidden border border-slate-800 bg-slate-950/80 flex items-center justify-center group cursor-pointer" onclick="openModalFromImage('friendsMainImage', 'friendsCaption')">
+                    <img 
+                        id="friendsMainImage" 
+                        src="../assets/images/friendsmain.png" 
+                        alt="Скриншот Друзей" 
+                        class="w-full h-full object-contain transition-all duration-300 group-hover:scale-105"
+                        onerror="this.src='images/noimg.png'"
+                    >
+                    <div class="absolute inset-0 bg-slate-950/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                        <span class="bg-slate-900/90 border border-cyan-500/40 text-cyan-400 px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 shadow-lg backdrop-blur-md">
+                            <i class="fa-solid fa-magnifying-glass-plus"></i> <span data-i18n="fr_zoom">Нажмите для увеличения</span>
+                        </span>
+                    </div>
+                    <div id="friendsCaption" class="absolute bottom-0 left-0 right-0 bg-slate-950/90 backdrop-blur-md p-3 text-center text-xs font-semibold text-slate-200 border-t border-slate-800 z-10" data-i18n="fr_cap_main">
+                        Как добавить в друзья
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-center gap-3 overflow-x-auto pb-2 custom-scrollbar">
+                    <button 
+                        onclick="switchImage('friendsMainImage', 'friendsCaption', '../assets/images/friends1.png', 'Нажимаем на профиль в левом вверхнем углу экрана', this, 'friends-thumb')" 
+                        class="friends-thumb shrink-0 w-24 h-16 rounded-xl border-2 border-transparent overflow-hidden opacity-100 transition"
+                    >
+                        <img src="../assets/images/friends1.png" alt="Скриншот 1" class="w-full h-full object-cover" onerror="this.src='../assets/images/noimg.png'">
+                    </button>
+                    <button 
+                        onclick="switchImage('friendsMainImage', 'friendsCaption', '../assets/images/friends2.png', 'Нажимаем на эту кнопку', this, 'friends-thumb')" 
+                        class="friends-thumb shrink-0 w-24 h-16 rounded-xl border-2 border-transparent overflow-hidden opacity-60 hover:opacity-100 transition"
+                    >
+                        <img src="../assets/images/friends2.png" alt="Скриншот 2" class="w-full h-full object-cover" onerror="this.src='../assets/images/noimg.png'">
+                    </button>
+                    <button 
+                        onclick="switchImage('friendsMainImage', 'friendsCaption', '../assets/images/friends3.png', 'Нажимаем на кнопку `Добавить в друзья`', this, 'friends-thumb')" 
+                        class="friends-thumb shrink-0 w-24 h-16 rounded-xl border-2 border-transparent overflow-hidden opacity-60 hover:opacity-100 transition"
+                    >
+                        <img src="../assets/images/friends3.png" alt="Скриншот 3" class="w-full h-full object-cover" onerror="this.src='../assets/images/noimg.png'">
+                    </button>
+                    <button 
+                        onclick="switchImage('friendsMainImage', 'friendsCaption', '../assets/images/friends4.png', 'Пишем Код ID или никнейм игрока', this, 'friends-thumb')" 
+                        class="friends-thumb shrink-0 w-24 h-16 rounded-xl border-2 border-transparent overflow-hidden opacity-60 hover:opacity-100 transition"
+                    >
+                        <img src="../assets/images/friends4.png" alt="Скриншот 4" class="w-full h-full object-cover" onerror="this.src='../assets/images/noimg.png'">
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: CO-OP MODE -->
+        <section id="coop-section" class="main-section hidden scroll-mt-36 space-y-6">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="p-3 rounded-2xl bg-purple-500/10 text-purple-400 border border-purple-500/20 shadow-lg shadow-purple-500/5">
+                    <i class="fa-solid fa-handshake text-2xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-white" data-i18n="fr_sec2_title">Как начать играть в CO-OP?</h2>
+                    <p class="text-xs text-slate-400" data-i18n="fr_sec2_subtitle">Инструкция по созданию лобби и совместному прохождению</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="glass-panel rounded-3xl p-6 border border-slate-800 space-y-4">
+                    <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-door-open text-purple-400"></i> <span data-i18n="fr_lobby_title">Вход и создание комнаты</span>
+                    </h3>
+                    <ol class="space-y-3 text-xs text-slate-300">
+                        <li class="flex items-start bg-slate-950/60 p-3.5 rounded-xl border border-slate-800/80">
+                            <span class="w-6 h-6 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold mr-3 shrink-0">1</span>
+                            <span data-i18n="fr_lobby_1">Перейдите в раздел Ивенты (значок кубка в нижнем меню).</span>
+                        </li>
+                        <li class="flex items-start bg-slate-950/60 p-3.5 rounded-xl border border-slate-800/80">
+                            <span class="w-6 h-6 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold mr-3 shrink-0">2</span>
+                            <span data-i18n="fr_lobby_2">Выберите новый игровой режим CO-OP.</span>
+                        </li>
+                        <li class="flex items-start bg-slate-950/60 p-3.5 rounded-xl border border-slate-800/80">
+                            <span class="w-6 h-6 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold mr-3 shrink-0">3</span>
+                            <span data-i18n="fr_lobby_3">Вы можете создать новое лобби или присоединиться к уже существующему.</span>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="glass-panel rounded-3xl p-6 border border-slate-800 space-y-4">
+                    <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-share-nodes text-cyan-400"></i> <span data-i18n="fr_inv_title">Приглашение друзей</span>
+                    </h3>
+                    <div class="space-y-3 text-xs text-slate-300">
+                        <div class="bg-slate-950/60 p-3.5 rounded-xl border border-slate-800/80 flex items-start gap-3">
+                            <i class="fa-solid fa-link text-cyan-400 text-base mt-0.5"></i>
+                            <div>
+                                <strong class="text-white" data-i18n="fr_inv1_bold">Прямая ссылка или код:</strong>
+                                <p class="text-slate-400 mt-0.5" data-i18n="fr_inv1_desc">Вы можете скопировать уникальный код комнаты или прямую ссылку для отправки в сторонние мессенджеры.</p>
+                            </div>
+                        </div>
+                        <div class="bg-slate-950/60 p-3.5 rounded-xl border border-slate-800/80 flex items-start gap-3">
+                            <i class="fa-solid fa-user-check text-emerald-400 text-base mt-0.5"></i>
+                            <div>
+                                <strong class="text-white" data-i18n="fr_inv2_bold">Быстрый инвайт:</strong>
+                                <p class="text-slate-400 mt-0.5" data-i18n="fr_inv2_desc">Отправляйте приглашение в один клик игрокам прямо из вашего списка друзей, если они находятся в сети.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CO-OP GALLERY -->
+            <div class="glass-panel rounded-3xl p-6 border border-slate-800 space-y-4 mt-6">
+                <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-images text-purple-400"></i> <span data-i18n="fr_gal2_title">Скриншоты: Режим CO-OP</span>
+                </h3>
+                
+                <div class="relative w-full max-w-4xl mx-auto h-[22rem] sm:h-[26rem] rounded-2xl overflow-hidden border border-slate-800 bg-slate-950/80 flex items-center justify-center group cursor-pointer" onclick="openModalFromImage('coopMainImage', 'coopCaption')">
+                    <img 
+                        id="coopMainImage" 
+                        src="../assets/images/coopmain.png" 
+                        alt="Скриншот CO-OP" 
+                        class="w-full h-full object-contain transition-all duration-300 group-hover:scale-105"
+                        onerror="this.src='images/noimg.png'"
+                    >
+                    <div class="absolute inset-0 bg-slate-950/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                        <span class="bg-slate-900/90 border border-purple-500/40 text-purple-400 px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 shadow-lg backdrop-blur-md">
+                            <i class="fa-solid fa-magnifying-glass-plus"></i> <span data-i18n="fr_zoom">Нажмите для увеличения</span>
+                        </span>
+                    </div>
+                    <div id="coopCaption" class="absolute bottom-0 left-0 right-0 bg-slate-950/90 backdrop-blur-md p-3 text-center text-xs font-semibold text-slate-200 border-t border-slate-800 z-10" data-i18n="fr_cap_coop_main">
+                        Как поиграть в co-op режим
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-center gap-3 overflow-x-auto pb-2 custom-scrollbar">
+                    <button
+                        onclick="switchImage('coopMainImage', 'coopCaption', '../assets/images/coop1.png', 'Нажимаем на кнопку с кубком в главной панели', this, 'coop-thumb')" 
+                        class="coop-thumb shrink-0 w-24 h-16 rounded-xl border-2 border-transparent overflow-hidden opacity-100 transition"
+                    >
+                        <img src="../assets/images/coop1.png" alt="Скриншот 1" class="w-full h-full object-cover" onerror="this.src='../assets/images/noimg.png'">
+                    </button>
+                    <button 
+                        onclick="switchImage('coopMainImage', 'coopCaption', '../assets/images/coop2.png', 'Выбираем режим CO-OP', this, 'coop-thumb')" 
+                        class="coop-thumb shrink-0 w-24 h-16 rounded-xl border-2 border-transparent overflow-hidden opacity-100 transition"
+                    >
+                        <img src="../assets/images/coop2.png" alt="Скриншот 2" class="w-full h-full object-cover" onerror="this.src='../assets/images/noimg.png'">
+                    </button>
+                    <button 
+                        onclick="switchImage('coopMainImage', 'coopCaption', '../assets/images/coop3.png', 'Создаём лобби или заходим в уже существующий', this, 'coop-thumb')" 
+                        class="coop-thumb shrink-0 w-24 h-16 rounded-xl border-2 border-transparent overflow-hidden opacity-100 transition"
+                    >
+                        <img src="../assets/images/coop3.png" alt="Скриншот 3" class="w-full h-full object-cover" onerror="this.src='../assets/images/noimg.png'">
+                    </button>
+                    <button 
+                        onclick="switchImage('coopMainImage', 'coopCaption', '../assets/images/coop4.png', 'Меню создания лобби', this, 'coop-thumb')" 
+                        class="coop-thumb shrink-0 w-24 h-16 rounded-xl border-2 border-transparent overflow-hidden opacity-100 transition"
+                    >
+                        <img src="../assets/images/coop4.png" alt="Скриншот 4" class="w-full h-full object-cover" onerror="this.src='../assets/images/noimg.png'">
+                    </button>
+                    <button 
+                        onclick="switchImage('coopMainImage', 'coopCaption', '../assets/images/coop5.png', 'Готово! Вы можете поделиться с кодом со своими друзьями, или напрямую пригласить их в игре, если они у вас есь в друзьях (нажав на пустые слоты с плюсиком)', this, 'coop-thumb')" 
+                        class="coop-thumb shrink-0 w-24 h-16 rounded-xl border-2 border-transparent overflow-hidden opacity-100 transition"
+                    >
+                        <img src="../assets/images/coop5.png" alt="Скриншот 5" class="w-full h-full object-cover" onerror="this.src='../assets/images/noimg.png'">
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: LEAGUES & REWARDS -->
+        <section id="leagues-section" class="main-section hidden scroll-mt-36 space-y-6">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="p-3 rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/20 shadow-lg shadow-amber-500/5">
+                    <i class="fa-solid fa-trophy text-2xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-white" data-i18n="fr_sec3_title">Рейтинговые Лиги и Награды</h2>
+                    <p class="text-xs text-slate-400" data-i18n="fr_sec3_subtitle">Побеждайте в матчах, собирайте короны и продвигайтесь по дивизионам</p>
+                </div>
+            </div>
+
+            <!-- Mechanics Explanation Banner -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="glass-panel p-5 rounded-2xl border border-slate-800 flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-xl shrink-0">
+                        <i class="fa-solid fa-crown"></i>
+                    </div>
+                    <div class="text-xs">
+                        <h4 class="font-bold text-white text-sm" data-i18n="fr_crown_title">Система корон</h4>
+                        <p class="text-slate-300 mt-1" data-i18n="fr_crown_desc">TBA; apprx: 12-15 pr.</p>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-5 rounded-2xl border border-slate-800 flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-xl shrink-0">
+                        <i class="fa-solid fa-gift"></i>
+                    </div>
+                    <div class="text-xs">
+                        <h4 class="font-bold text-white text-sm" data-i18n="fr_rew_prog_title">Прогрессия Наград</h4>
+                        <p class="text-slate-300 mt-1" data-i18n="fr_rew_prog_desc">Чем выше лига, тем ценнее награды за победу.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Leagues Table -->
+            <div class="glass-panel rounded-2xl shadow-xl overflow-hidden border border-slate-800">
+                <div class="overflow-x-auto custom-scrollbar">
+                    <table class="w-full text-left text-xs">
+                        <thead>
+                        <tr class="uppercase text-[11px] tracking-wider text-slate-400 bg-slate-950/80 border-b border-slate-800">
+                                <th class="p-4" data-i18n="fr_th_league">Название Лиги</th>
+                                <th class="p-4 text-center" data-i18n="fr_th_cups">Требуемые Кубки</th>
+                                <th class="p-4 text-center">
+                                    <span class="text-emerald-400"><i class="fa-solid fa-trophy mr-1"></i><span data-i18n="fr_th_win">Награда за Победу (Win)</span></span>
+                                </th>
+                                <th class="p-4 text-center">
+                                    <span class="text-rose-400"><i class="fa-solid fa-heart-crack mr-1"></i><span data-i18n="fr_th_lose">Награда за Поражение (Lose)</span></span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800/60 font-normal">
+                            <!-- Iron -->
+                            <tr class="hover:bg-slate-800/40 transition">
+                                <td class="p-4 font-bold league-iron flex items-center gap-2">
+                                    <i class="fa-solid fa-shield"></i> Iron League
+                                </td>
+                                <td class="p-4 text-center font-mono text-slate-300">1000 - 1199</td>
+                                <td class="p-4 text-center font-medium text-slate-200" data-i18n="fr_iron_w">
+                                    <span class="text-amber-400">15 👑</span>, <span class="text-cyan-400">25 📦</span>, <span class="text-slate-300">40 🦴</span>, <span class="text-emerald-400">5 💎</span>
+                                </td>
+                                <td class="p-4 text-center font-medium text-slate-400" data-i18n="fr_iron_l">
+                                    <span class="text-amber-400/80">5 👑</span>, <span class="text-cyan-400/80">10 📦</span>, <span class="text-slate-400">15 🦴</span>, <span class="text-emerald-400/80">5 💎</span>
+                                </td>
+                            </tr>
+                            <!-- Bronze -->
+                            <tr class="hover:bg-slate-800/40 transition">
+                                <td class="p-4 font-bold league-bronze flex items-center gap-2">
+                                    <i class="fa-solid fa-shield"></i> Bronze League
+                                </td>
+                                <td class="p-4 text-center font-mono text-slate-300">1200 - 1399</td>
+                                <td class="p-4 text-center font-medium text-slate-200" data-i18n="fr_bronz_w">
+                                    <span class="text-amber-400">20 👑</span>, <span class="text-cyan-400">30 📦</span>, <span class="text-slate-300">45 🦴</span>, <span class="text-emerald-400">10 💎</span>
+                                </td>
+                                <td class="p-4 text-center font-medium text-slate-400" data-i18n="fr_bronz_l">
+                                    <span class="text-amber-400/80">10 👑</span>, <span class="text-cyan-400/80">15 📦</span>, <span class="text-slate-400">25 🦴</span>, <span class="text-emerald-400/80">5 💎</span>
+                                </td>
+                            </tr>
+                            <!-- Silver -->
+                            <tr class="hover:bg-slate-800/40 transition">
+                                <td class="p-4 font-bold league-silver flex items-center gap-2">
+                                    <i class="fa-solid fa-shield"></i> Silver League
+                                </td>
+                                <td class="p-4 text-center font-mono text-slate-300">1400 - 1599</td>
+                                <td class="p-4 text-center font-medium text-slate-200" data-i18n="fr_silv_w">
+                                    <span class="text-amber-400">25 👑</span>, <span class="text-cyan-400">30 📦</span>, <span class="text-slate-300">45 🦴</span>, <span class="text-emerald-400">10 💎</span>
+                                </td>
+                                <td class="p-4 text-center font-medium text-slate-400" data-i18n="fr_silv_l">
+                                    <span class="text-amber-400/80">10 👑</span>, <span class="text-cyan-400/80">15 📦</span>, <span class="text-slate-400">25 🦴</span>, <span class="text-emerald-400/80">5 💎</span>
+                                </td>
+                            </tr>
+                            <!-- Gold -->
+                            <tr class="hover:bg-slate-800/40 transition">
+                                <td class="p-4 font-bold league-gold flex items-center gap-2">
+                                    <i class="fa-solid fa-shield text-amber-400"></i> Gold League
+                                </td>
+                                <td class="p-4 text-center font-mono text-slate-300">1600 - 1799</td>
+                                <td class="p-4 text-center font-medium text-slate-200" data-i18n="fr_gold_w">
+                                    <span class="text-amber-400">30 👑</span>, <span class="text-cyan-400">40 📦</span>, <span class="text-slate-300">60 🦴</span>, <span class="text-emerald-400">10 💎</span>
+                                </td>
+                                <td class="p-4 text-center font-medium text-slate-400" data-i18n="fr_gold_l">
+                                    <span class="text-amber-400/80">10 👑</span>, <span class="text-cyan-400/80">15 📦</span>, <span class="text-slate-400">25 🦴</span>, <span class="text-emerald-400/80">5 💎</span>
+                                </td>
+                            </tr>
+                            <!-- Platinum -->
+                            <tr class="hover:bg-slate-800/40 transition">
+                                <td class="p-4 font-bold league-platinum flex items-center gap-2">
+                                    <i class="fa-solid fa-shield text-cyan-400"></i> Platinum League
+                                </td>
+                                <td class="p-4 text-center font-mono text-slate-300">1800 - 1999</td>
+                                <td class="p-4 text-center font-medium text-slate-200" data-i18n="fr_plat_w">
+                                    <span class="text-amber-400">35 👑</span>, <span class="text-cyan-400">45 📦</span>, <span class="text-slate-300">70 🦴</span>, <span class="text-emerald-400">15 💎</span>
+                                </td>
+                                <td class="p-4 text-center font-medium text-slate-400" data-i18n="fr_plat_l">
+                                    <span class="text-amber-400/80">15 👑</span>, <span class="text-cyan-400/80">25 📦</span>, <span class="text-slate-400">40 🦴</span>, <span class="text-emerald-400/80">5 💎</span>
+                                </td>
+                            </tr>
+                            <!-- Emerald -->
+                            <tr class="hover:bg-slate-800/40 transition">
+                                <td class="p-4 font-bold league-emerald flex items-center gap-2">
+                                    <i class="fa-solid fa-shield text-emerald-400"></i> Emerald League
+                                </td>
+                                <td class="p-4 text-center font-mono text-slate-300">2000 - 2199</td>
+                                <td class="p-4 text-center font-medium text-slate-200" data-i18n="fr_eme_w">
+                                    <span class="text-amber-400">40 👑</span>, <span class="text-cyan-400">55 📦</span>, <span class="text-slate-300">85 🦴</span>, <span class="text-emerald-400">15 💎</span>
+                                </td>
+                                <td class="p-4 text-center font-medium text-slate-400" data-i18n="fr_eme_l">
+                                    <span class="text-amber-400/80">15 👑</span>, <span class="text-cyan-400/80">25 📦</span>, <span class="text-slate-400">40 🦴</span>, <span class="text-emerald-400/80">5 💎</span>
+                                </td>
+                            </tr>
+                            <!-- Diamonds -->
+                            <tr class="hover:bg-slate-800/40 transition">
+                                <td class="p-4 font-bold league-diamond flex items-center gap-2">
+                                    <i class="fa-solid fa-gem text-sky-400"></i> Diamond League
+                                </td>
+                                <td class="p-4 text-center font-mono text-slate-300">2200 - 2399</td>
+                                <td class="p-4 text-center font-medium text-slate-200" data-i18n="fr_dia_w">
+                                    <span class="text-amber-400">45 👑</span>, <span class="text-cyan-400">70 📦</span>, <span class="text-slate-300">105 🦴</span>, <span class="text-emerald-400">20 💎</span>
+                                </td>
+                                <td class="p-4 text-center font-medium text-slate-400" data-i18n="fr_dia_l">
+                                    <span class="text-amber-400/80">20 👑</span>, <span class="text-cyan-400/80">30 📦</span>, <span class="text-slate-400">45 🦴</span>, <span class="text-emerald-400/80">10 💎</span>
+                                </td>
+                            </tr>
+                            <!-- Master -->
+                            <tr class="hover:bg-slate-800/40 transition">
+                                <td class="p-4 font-bold league-master flex items-center gap-2">
+                                    <i class="fa-solid fa-crown text-purple-400"></i> Master League
+                                </td>
+                                <td class="p-4 text-center font-mono text-slate-300">2400 - 2599</td>
+                                <td class="p-4 text-center font-medium text-slate-200" data-i18n="fr_mas_w">
+                                    <span class="text-amber-400">55 👑</span>, <span class="text-cyan-400">85 📦</span>, <span class="text-slate-300">130 🦴</span>, <span class="text-emerald-400">25 💎</span>
+                                </td>
+                                <td class="p-4 text-center font-medium text-slate-400" data-i18n="fr_mas_l">
+                                    <span class="text-amber-400/80">25 👑</span>, <span class="text-cyan-400/80">40 📦</span>, <span class="text-slate-400">60 🦴</span>, <span class="text-emerald-400/80">15 💎</span>
+                                </td>
+                            </tr>
+                            <!-- Grandmaster -->
+                            <tr class="hover:bg-slate-800/40 transition">
+                                <td class="p-4 font-bold league-grandmaster flex items-center gap-2">
+                                    <i class="fa-solid fa-crown text-rose-500"></i> Grandmaster League
+                                </td>
+                                <td class="p-4 text-center font-mono text-slate-300">2600 - 2799</td>
+                                <td class="p-4 text-center font-medium text-slate-200" data-i18n="fr_gm_w">
+                                    <span class="text-amber-400">70 👑</span>, <span class="text-cyan-400">108 📦</span>, <span class="text-slate-300">160 🦴</span>, <span class="text-emerald-400">35 💎</span>
+                                </td>
+                                <td class="p-4 text-center font-medium text-slate-400" data-i18n="fr_gm_l">
+                                    <span class="text-amber-400/80">35 👑</span>, <span class="text-cyan-400/80">55 📦</span>, <span class="text-slate-400">85 🦴</span>, <span class="text-emerald-400/80">15 💎</span>
+                                </td>
+                            </tr>
+                            <!-- Legend -->
+                            <tr class="hover:bg-slate-800/40 transition">
+                                <td class="p-4 font-bold league-legend flex items-center gap-2">
+                                    <i class="fa-solid fa-trophy text-amber-300"></i> Legend League
+                                </td>
+                                <td class="p-4 text-center font-mono text-slate-300">2800+</td>
+                                <td class="p-4 text-center font-bold text-amber-300" data-i18n="fr_leg_w">
+                                    <span>85 👑</span>, <span class="text-cyan-300">130 📦</span>, <span class="text-slate-100">195 🦴</span>, <span class="text-emerald-300">40 💎</span>
+                                </td>
+                                <td class="p-4 text-center font-medium text-slate-300" data-i18n="fr_leg_l">
+                                    <span class="text-amber-400/90">40 👑</span>, <span class="text-cyan-400/90">60 📦</span>, <span class="text-slate-300">90 🦴</span>, <span class="text-emerald-400/90">20 💎</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-panel border-t border-slate-800/80 py-8 mt-16">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 space-y-2">
+            <p class="text-[12px] text-slate-500" data-i18n="system_footer">Неофициальный справочник по игре. Данный сайт не связан с разработчиками или издателем игры. Все права на игру, её название, изображения и другие материалы принадлежат LAVA LABS OYUN YAZILIM VE PAZARLAMA ANONİM ШİRKETİ. Данный сайт создан исключительно в информационных целях.</p>
+        </div>
+    </footer>
+
+    <!-- Universal JavaScript for Navigation & Image Switching -->
+    <script>
+        function showMainSection(sectionId, btn) {
+            document.querySelectorAll('.main-section').forEach(sec => sec.classList.add('hidden'));
+            document.querySelectorAll('.nav-tab-btn').forEach(b => b.classList.remove('active'));
+
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.remove('hidden');
+                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            if (btn) {
+                btn.classList.add('active');
+            }
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Universal function for switching images in any gallery section
+        function switchImage(imageId, captionId, src, caption, btn, thumbClass) {
+            const mainImg = document.getElementById(imageId);
+            const captionEl = document.getElementById(captionId);
+
+            mainImg.style.opacity = '0';
+            setTimeout(() => {
+                mainImg.src = src;
+                captionEl.innerText = caption;
+                mainImg.style.opacity = '1';
+            }, 150);
+
+            document.querySelectorAll('.' + thumbClass).forEach(thumb => {
+                thumb.classList.remove('border-cyan-400', 'opacity-100');
+                thumb.classList.add('border-transparent', 'opacity-60');
+            });
+
+            btn.classList.remove('border-transparent', 'opacity-60');
+            btn.classList.add('border-cyan-400', 'opacity-100');
+        }
+    </script>
+
+    <!-- Modal Lightbox with Zoom -->
+    <div id="imageModal" class="fixed inset-0 z-50 hidden bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-4 select-none">
+        <!-- Close Button -->
+        <button onclick="closeModal()" class="absolute top-4 right-4 z-10 w-11 h-11 rounded-full bg-slate-900/80 border border-slate-700/60 text-slate-300 hover:text-white hover:bg-slate-800 transition flex items-center justify-center text-xl shadow-lg">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <!-- Controls Bar -->
+        <div class="absolute top-4 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2 bg-slate-900/80 border border-slate-700/60 px-4 py-2 rounded-full shadow-lg text-xs text-slate-300">
+            <button onclick="zoomOut()" class="p-1.5 hover:text-cyan-400 transition" title="Уменьшить"><i class="fa-solid fa-magnifying-glass-minus text-base"></i></button>
+            <span id="zoomLevel" class="font-mono w-12 text-center text-slate-200 font-bold">100%</span>
+            <button onclick="zoomIn()" class="p-1.5 hover:text-cyan-400 transition" title="Увеличить"><i class="fa-solid fa-magnifying-glass-plus text-base"></i></button>
+            <div class="w-px h-4 bg-slate-700 mx-1"></div>
+            <button onclick="resetZoom()" class="p-1.5 hover:text-cyan-400 transition" title="Сбросить"><i class="fa-solid fa-rotate-right text-base"></i></button>
+        </div>
+
+        <!-- Image Container -->
+        <div id="modalViewport" class="relative w-full h-full max-w-6xl max-h-[82vh] flex items-center justify-center overflow-hidden cursor-grab active:cursor-grabbing">
+            <img id="modalImage" src="" alt="Enlarged View" class="max-w-full max-h-full object-contain transition-transform duration-150 ease-out rounded-lg shadow-2xl">
+        </div>
+
+        <!-- Caption Footer -->
+        <div id="modalCaption" class="mt-4 text-center text-sm font-semibold text-slate-200 bg-slate-900/80 border border-slate-800 px-6 py-2.5 rounded-2xl max-w-2xl"></div>
+    </div>
+
+    <script>
+    // --- MODAL & ZOOM CONTROLLER ---
+    let currentScale = 1;
+    let isDragging = false;
+    let startX = 0, startY = 0;
+    let translateX = 0, translateY = 0;
+
+    function openModalFromImage(imageId, captionId) {
+        const img = document.getElementById(imageId);
+        const caption = document.getElementById(captionId);
+        if (img && img.src) {
+            openModal(img.src, caption ? caption.innerText : '');
+        }
+    }
+
+    function openModal(src, captionText) {
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const modalCaption = document.getElementById('modalCaption');
+
+        modalImg.src = src;
+        modalCaption.innerText = captionText || '';
+        
+        resetZoom();
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('imageModal');
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+    }
+
+    function updateTransform() {
+        const modalImg = document.getElementById('modalImage');
+        const zoomText = document.getElementById('zoomLevel');
+        
+        modalImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
+        zoomText.innerText = `${Math.round(currentScale * 100)}%`;
+    }
+
+    function zoomIn() {
+        currentScale = Math.min(currentScale + 0.25, 4);
+        updateTransform();
+    }
+
+    function zoomOut() {
+        currentScale = Math.max(currentScale - 0.25, 0.5);
+        if (currentScale <= 1) {
+            translateX = 0;
+            translateY = 0;
+        }
+        updateTransform();
+    }
+
+    function resetZoom() {
+        currentScale = 1;
+        translateX = 0;
+        translateY = 0;
+        updateTransform();
+    }
+
+    document.getElementById('imageModal')?.addEventListener('click', (e) => {
+        if (e.target.id === 'imageModal' || e.target.id === 'modalViewport') {
+            closeModal();
+        }
+    });
+
+    document.getElementById('modalViewport')?.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        if (e.deltaY < 0) {
+            zoomIn();
+        } else {
+            zoomOut();
+        }
+    }, { passive: false });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModal();
+    });
+
+    document.getElementById('modalImage')?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (currentScale === 1) {
+            currentScale = 2;
+        } else {
+            resetZoom();
+        }
+        updateTransform();
+    });
+
+    const viewport = document.getElementById('modalViewport');
+    viewport?.addEventListener('mousedown', (e) => {
+        if (currentScale > 1) {
+            isDragging = true;
+            startX = e.clientX - translateX;
+            startY = e.clientY - translateY;
+        }
+    });
+
+    window.addEventListener('mousemove', (e) => {
+        if (isDragging && currentScale > 1) {
+            translateX = e.clientX - startX;
+            translateY = e.clientY - startY;
+            updateTransform();
+        }
+    });
+
+    window.addEventListener('mouseup', () => {
+        isDragging = false;
+    });
+    </script>
+    <script src="../assets/scripts/translations.js"></script>
+    <script src="../assets/scripts/language.js"></script>
+</body>
+</html>
