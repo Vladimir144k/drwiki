@@ -53,6 +53,9 @@ const translations = {
     index_guide_clans_desc: "О кланах, рейтинги и тиры, статус Чемпиона, Клановых Войны и награды.",
     index_guide_clans_button: "Вступить в клан",
     index_category_ud: "В разработке",
+    
+    index_hero_badge_legends: "Легенды проекта",
+    index_hero_badge_legends_desc: "Люди с невероятно широкой душой, благодаря которым развитие вики и калькуляторов идет гораздо быстрее! ✨",
 
     // crown calc
     cc_parameters: "ПАРАМЕТРЫ ПРИЗЫВА",
@@ -740,6 +743,9 @@ const translations = {
     index_guide_clans_desc: "About clans, rankings and tiers, Champion status, Clan Wars and rewards.",
     index_guide_clans_button: "Join a clan",
     index_category_ud: "Under Development",
+    
+    index_hero_badge_legends: "Legends of the project",
+    index_hero_badge_legends_desc: "People with incredibly generous hearts, helping wiki and calculators evolve so much faster! ✨",
 
     // crown calc
     cc_parameters: "SUMMON PARAMETERS",
