@@ -412,6 +412,11 @@ const translations = {
     ev_hard_610: "🎁 5 кор. эвента, 🟡 2 зол. кирки, 🦴 500 костей, 👑 25 корон",
     ev_hard_810: "🎁 5 кор. эвента, 📦 200 об. коробок, 🛠️ 2 бура, 🦴 500 костей",
     ev_hard_1010: "🎁 5 кор. эвента, 👑 100 корон, 🦴 500 костей, 🟡 2 зол. кирки",
+    ev_extreme_210: "🎁 5 кор. эвента, 📦 250 об. коробок, 🦴 750 костей",
+    ev_extreme_410: "🎁 5 кор. эвента, 📦 200 об. коробок, 🦴 600 костей, 🛠️ 2 бура",
+    ev_extreme_610: "🎁 5 кор. эвента, 👑 100 корон, 🦴 500 костей, 🟡 1 зол. кирка",
+    ev_extreme_810: "🎁 5 кор. эвента, 📦 250 об. коробок, 🦴 400 костей, 🟡 2 зол. кирки, ⭐ 2000 опыта",
+    ev_extreme_1010: "🎁 5 кор. эвента, 👑 100 корон, 🦴 600 костей, 📦 100 об. коробок",
     ev_coming_soon: "Скоро",
     ev_tba: "Уточняется",
 
@@ -1100,6 +1105,11 @@ const translations = {
     ev_hard_610: "🎁 5 event boxes, 🟡 2 gold pickaxes, 🦴 500 bones, 👑 25 crowns",
     ev_hard_810: "🎁 5 event boxes, 📦 200 common boxes, 🛠️ 2 drills, 🦴 500 bones",
     ev_hard_1010: "🎁 5 event boxes, 👑 100 crowns, 🦴 500 bones, 🟡 2 gold pickaxes",
+    ev_extreme_210: "🎁 5 event boxes, 📦 250 common boxes, 🦴 750 bones",
+    ev_extreme_410: "🎁 5 event boxes, 📦 200 common boxes, 🦴 600 bones, 🛠️ 2 drills",
+    ev_extreme_610: "🎁 5 event boxes, 👑 100 common, 🦴 500 bones, 🟡 1 gold pickaxes",
+    ev_extreme_810: "🎁 5 event boxes, 📦 250 common boxes, 🦴 400 bones, 🟡 2 gold pickaxes, ⭐ 2000 EXP",
+    ev_extreme_1010: "🎁 5 event boxes, 👑 100 common, 🦴 600 bones, 📦 100 common boxes",
     ev_coming_soon: "Coming Soon",
     ev_tba: "TBA",
     
