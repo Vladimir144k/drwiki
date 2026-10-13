@@ -1,7 +1,7 @@
 // data-i18n=""
 
 const APP_CONFIG = {
-  lastUpdateDate: "09.10.2026"
+  lastUpdateDate: "13.10.2026"
 };
 
 const translations = {
@@ -472,6 +472,10 @@ const translations = {
     fr_th_cups: "Требуемые Кубки",
     fr_th_win: "Награда за Победу (Win)",
     fr_th_lose: "Награда за Поражение (Lose)",
+    fr_cap_img1: "Нажимаем на профиль в левом верхнем углу экрана",
+    fr_cap_img2: "Нажимаем на эту кнопку",
+    fr_cap_img3: "Нажимаем на кнопку `Добавить в друзья`",
+    fr_cap_img4: "Пишем Код ID или никнейм игрока",
 
     // mine.html
     mn_header_title: "Dungeon Rush - Шахта и Крылья",
@@ -654,6 +658,7 @@ const translations = {
     tbl_ore_gold: "Золото",
     tbl_ore_dia: "Алмаз",
     tbl_val_yes: "Да",
+    tbl_val_yes_melee: "Да если ближний",
     tbl_val_no: "Нет",
     tbl_val_maybe: "Возможно",
     tbl_val_nodata: "Нет данных",
@@ -1165,7 +1170,11 @@ const translations = {
     fr_th_cups: "Required Cups",
     fr_th_win: "Win Reward",
     fr_th_lose: "Loss Reward",
-
+    fr_cap_img1: "Click on the profile in the top-left corner of the screen",
+    fr_cap_img2: "Click on this button",
+    fr_cap_img3: "Click on the `Add Friend` button",
+    fr_cap_img4: "Enter the player's ID code or nickname",
+    
     // mine.html
     mn_header_title: "Dungeon Rush - Mine & Wings",
     mn_hero_title: "Mine & Effective Wings Guide",
@@ -1347,6 +1356,7 @@ const translations = {
     tbl_ore_gold: "Gold",
     tbl_ore_dia: "Diamond",
     tbl_val_yes: "Yes",
+    tbl_val_yes_melee: "Yes if melee",
     tbl_val_no: "No",
     tbl_val_maybe: "Maybe",
     tbl_val_nodata: "No Data",
