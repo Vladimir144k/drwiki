@@ -212,69 +212,86 @@
                     </div>
                 </div>
 
-                <!-- Flexible Hero Badges Grid -->
-                <div class="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs font-medium">
-                    <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/80 text-slate-300 border border-slate-800 shadow-inner">
-                        <div class="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 text-sm shrink-0">
-                            <i class="fa-solid fa-table-list"></i>
-                        </div>
-                        <div class="truncate">
-                            <div class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold" data-i18n="index_hero_badge_data">Данные</div>
-                            <div class="text-amber-400 font-bold truncate">Elpi The Wiki</div>
-                        </div>
-                    </div>
-
-                    <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/80 text-slate-300 border border-slate-800 shadow-inner">
-                        <div class="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400 text-sm shrink-0">
-                            <i class="fa-solid fa-code"></i>
-                        </div>
-                        <div class="truncate">
-                            <div class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold" data-i18n="index_hero_badge_code">Перевод / Разработка</div>
-                            <div class="text-indigo-400 font-bold truncate">Tcan</div>
-                        </div>
-                    </div>
-
-                    <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/80 text-slate-300 border border-slate-800 shadow-inner">
-                        <div class="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400 text-sm shrink-0">
-                            <i class="fa-solid fa-vial-circle-check"></i>
-                        </div>
-                        <div class="truncate">
-                            <div class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold" data-i18n="index_hero_badge_tester">Тестеры</div>
-                            <div class="text-emerald-400 font-bold truncate">Dikci, Callin</div>
-                        </div>
-                    </div>
-
-                    <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/80 text-slate-300 border border-slate-800 shadow-inner">
-                        <div class="w-8 h-8 rounded-lg bg-rose-500/10 flex items-center justify-center text-rose-400 text-sm shrink-0">
-                            <i class="fa-solid fa-heart"></i>
-                        </div>
-                        <div class="truncate">
-                            <div class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold" data-i18n="index_hero_badge_thank">Благодарность</div>
-                            <div class="text-rose-400 font-bold truncate">Lev, Guppy, Droulski & Madraso</div>
-                        </div>
-                    </div>
+<!-- КОМПАКТНЫЙ БЛОК БЛАГОДАРНОСТЕЙ И КОМАНДЫ -->
+<div class="relative z-10 bg-slate-900/90 border border-white/10 rounded-2xl p-4 sm:p-5 backdrop-blur-md shadow-card-depth space-y-4">
+    
+    <!-- 👑 ЛЕГЕНДЫ ПРОЕКТА (Выделены отдельно в премиальную шапку) -->
+    <div class="p-3 rounded-xl bg-gradient-to-r from-amber-500/15 via-amber-500/5 to-transparent border border-amber-500/30 shadow-glow-gold flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 text-sm shadow-inner">
+                <i class="fa-solid fa-crown"></i>
+            </div>
+            <div>
+                <div class="text-[10px] text-amber-400 uppercase tracking-wider font-extrabold" data-i18n="index_hero_badge_legends">Легенды проекта</div>
+                <div class="py-2 text-xs text-amber-200 font-bold tracking-wide">
+                <span class="px-2 py-0.5 rounded bg-amber-500/15 border border-amber-500/30 text-amber-200 font-medium text-[13px]">Varyag ✨</span>
+                <span class="px-2 py-0.5 rounded bg-amber-500/15 border border-amber-500/30 text-amber-200 font-medium text-[13px]">Alaphest ✨</span>
                 </div>
+            </div>
+        </div>
+        <span class="text-[11px] text-gray-400 font-body hidden sm:inline" data-i18n="index_hero_badge_legends_desc">
+            Особый вклад в развитие вики и калькуляторов
+        </span>
+    </div>
 
-                <!-- NEW: Legends / Special Thanks Badge (Смягченная подсветка и спокойный стиль) -->
-                <div class="relative z-10 p-4 rounded-xl bg-slate-900/90 border border-amber-500/20 shadow-glow-gold flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-lg shrink-0 shadow-inner">
-                            <i class="fa-solid fa-crown"></i>
-                        </div>
-                        <div>
-                            <div class="text-[10px] text-amber-400/90 uppercase tracking-wider font-extrabold flex items-center gap-1.5">
-                                <span data-i18n="index_hero_badge_legends">Легенды проекта</span>
-                                <i class="fa-solid fa-star text-amber-400 text-[10px]"></i>
-                            </div>
-                            <div class="text-amber-100 font-bold text-sm mt-0.5 tracking-wide">
-                                👑 Varyag & Alaphest 👑
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-[11px] text-gray-400 font-body max-w-xs leading-relaxed" data-i18n="index_hero_badge_legends_desc">
-                        Люди с невероятно широкой душой, благодаря которым развитие вики и калькуляторов идет гораздо быстрее! ✨
-                    </div>
-                </div>
+    <!-- ОСНОВНАЯ КОМАНДА И УЧАСТНИКИ (Компактная сетка в одну линию на роли) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+        
+        <!-- Перевод / Разработка -->
+        <div class="p-3 rounded-xl bg-slate-800/40 border border-white/5 space-y-1.5">
+            <div class="text-[11px] font-bold text-indigo-400 flex items-center gap-1.5">
+                <i class="fa-solid fa-code"></i>
+                <span data-i18n="index_hero_badge_code">Разработка</span>
+            </div>
+            <div class="flex flex-wrap gap-1">
+                <span class="px-2 py-0.5 rounded bg-indigo-500/15 border border-indigo-500/30 text-indigo-200 font-medium text-[11px]">Tcan</span>
+                <!-- Сюда легко дописывать новые ники через запятую/теги -->
+            </div>
+        </div>
+
+        <!-- Данные / Таблицы -->
+        <div class="p-3 rounded-xl bg-slate-800/40 border border-white/5 space-y-1.5">
+            <div class="text-[11px] font-bold text-cyan-400 flex items-center gap-1.5">
+                <i class="fa-solid fa-table-list"></i>
+                <span data-i18n="index_hero_badge_data">Таблицы</span>
+            </div>
+            <div class="flex flex-wrap gap-1">
+                <span class="px-2 py-0.5 rounded bg-cyan-500/15 border border-cyan-500/30 text-cyan-200 font-medium text-[11px]">Elpi The Wiki</span>
+                <span class="px-2 py-0.5 rounded bg-cyan-500/15 border border-cyan-500/30 text-cyan-200 font-medium text-[11px]">Tcan</span>
+            </div>
+        </div>
+
+        <!-- Тестеры -->
+        <div class="p-3 rounded-xl bg-slate-800/40 border border-white/5 space-y-1.5">
+            <div class="text-[11px] font-bold text-emerald-400 flex items-center gap-1.5">
+                <i class="fa-solid fa-vial-circle-check"></i>
+                <span data-i18n="index_hero_badge_info">Тестеры</span>
+            </div>
+            <div class="flex flex-wrap gap-1">
+                <span class="px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/30 text-emerald-200 font-medium text-[11px]">Dikci</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/30 text-emerald-200 font-medium text-[11px]">Callin</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/30 text-emerald-200 font-medium text-[11px]">Droulski</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/30 text-emerald-200 font-medium text-[11px]">777alexx777</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/30 text-emerald-200 font-medium text-[11px]">Artlil</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/30 text-emerald-200 font-medium text-[11px]">4mok</span>
+            </div>
+        </div>
+
+        <!-- Отдельное спасибо -->
+        <div class="p-3 rounded-xl bg-slate-800/40 border border-white/5 space-y-1.5">
+            <div class="text-[11px] font-bold text-rose-400 flex items-center gap-1.5">
+                <i class="fa-solid fa-heart"></i>
+                <span data-i18n="index_hero_badge_thank">Благодарность</span>
+            </div>
+            <div class="flex flex-wrap gap-1">
+                <span class="px-2 py-0.5 rounded bg-rose-500/15 border border-rose-500/30 text-rose-200 font-medium text-[11px]">Lev</span>
+                <span class="px-2 py-0.5 rounded bg-rose-500/15 border border-rose-500/30 text-rose-200 font-medium text-[11px]">Guppy</span>
+                <span class="px-2 py-0.5 rounded bg-rose-500/15 border border-rose-500/30 text-rose-200 font-medium text-[11px]">Madraso</span>
+            </div>
+        </div>
+
+    </div>
+</div>
             </div>
 
             <!-- SEARCH BAR -->
