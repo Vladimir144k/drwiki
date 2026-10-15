@@ -171,135 +171,87 @@
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
 
-        <!-- SECTION: HUB / DASHBOARD -->
-        <div id="sectionHub" class="space-y-8">
-            <!-- Hero Banner -->
-            <div class="pet-card p-6 sm:p-8 bg-gradient-to-r from-indigo-900/40 via-[#161924] to-purple-900/30 border-indigo-500/20 relative overflow-hidden space-y-6">
-                <i class="fa-solid fa-book-bookmark absolute -right-6 -bottom-6 text-white/5 text-[220px] pointer-events-none"></i>
+<!-- SECTION: HUB / DASHBOARD -->
+        <div id="sectionHub" class="space-y-5">
+            
+            <!-- COMPACT HEADER PANEL -->
+            <div class="pet-card p-5 sm:p-6 bg-[#161924] border-indigo-500/20 relative overflow-hidden space-y-4">
+                
+                <!-- Верхняя строка: Заголовок и Кнопка Boosty -->
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2">
+                            <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight" data-i18n="index_hero_h2">Dungeon Rush Wiki & Calculators</h2>
+                        </div>
+                        <p class="text-xs sm:text-sm text-gray-400 font-body" data-i18n="index_hero_p">
+                            База знаний, калькуляторы клановых очков и гайды по игровым механикам.
+                        </p>
+                    </div>
 
-                <!-- Title & Description -->
-                <div class="max-w-2xl relative z-10 space-y-3">
-                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight" data-i18n="index_hero_h2">Dungeon Rush Wiki & Calculators</h2>
-                    <p class="text-sm text-gray-300 font-body leading-relaxed" data-i18n="index_hero_p">
-                        Добро пожаловать в неофициальную базу знаний. Рассчитывайте прокачку, изучайте гайды и анализируйте игровые механики.
-                    </p>
+                    <!-- Быстрые действия (Соцсети + Boosty) -->
+                    <div class="flex flex-wrap items-center gap-2">
+                        <!-- Boosty (Выделена оранжевым акцентом) -->
+                        <a href="https://boosty.to/tcan" target="_blank" rel="noopener noreferrer" 
+                           class="inline-flex items-center gap-2 px-3.5 py-2 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white rounded-xl text-xs font-bold shadow-md shadow-orange-500/20 transition-all hover:scale-105 active:scale-95">
+                            <i class="fa-solid fa-heart text-red-800"></i>
+                            <span data-i18n="index_hero_support" class="font-bold text-gray-900">Поддержите проект на Boosty</span>
+                        </a>
+                    </div>
                 </div>
 
-                <!-- Warning & Contact Banner -->
-                <div class="relative z-10 bg-red-500/10 border border-red-500/20 rounded-xl p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 backdrop-blur-sm">
-                    <div class="flex items-start gap-3">
-                        <div class="p-2 bg-red-500/20 rounded-lg text-red-400 text-lg shrink-0 mt-0.5 md:mt-0">
+                <!-- ОБЯЗАТЕЛЬНАЯ ПЛАШКА "Обратите внимание" (Исправлена для мобильных устройств) -->
+                <div class="relative z-10 p-3.5 rounded-xl bg-red-500/10 border border-red-500/20 text-xs text-gray-300 space-y-3">
+                    <div class="flex flex-col sm:flex-row sm:items-center gap-2">
+                        <div class="flex items-center gap-1.5 text-red-400 font-bold shrink-0">
                             <i class="fa-solid fa-triangle-exclamation"></i>
+                            <span data-i18n="index_disclaimer_title">Обратите внимание:</span>
                         </div>
-                        <div class="text-xs space-y-0.5">
-                            <h4 class="font-bold text-red-500" data-i18n="index_disclaimer_title">Обратите внимание!</h4>
-                            <p class="text-gray-300 leading-relaxed" data-i18n="index_disclaimer_text">
-                                Информация на сайте может быть неточной или неполной. Если у вас есть актуальные данные или вы нашли ошибку, пожалуйста, свяжитесь с нами:
-                            </p>
-                        </div>
+                        <p class="leading-relaxed font-body" data-i18n="index_disclaimer_text">
+                            Информация может быть неполной. Нашли ошибку или есть данные? Свяжитесь со мной:
+                        </p>
                     </div>
-                    <div class="flex items-center gap-2 shrink-0 w-full md:w-auto">
+                    
+                    <!-- Кнопки связи (адаптивные на мобилках) -->
+                    <div class="flex flex-wrap items-center gap-2 pt-1 border-t border-red-500/10">
+                        <!-- Discord -->
                         <a href="https://discord.gg/HMn36QXBmY" target="_blank" rel="noopener noreferrer" 
-                           class="flex-1 md:flex-initial inline-flex items-center justify-center gap-2 px-3 py-1.5 bg-[#5865F2]/20 hover:bg-[#5865F2]/30 text-[#5865F2] hover:text-white border border-[#5865F2]/40 rounded-lg text-xs font-semibold transition-all">
-                            <i class="fa-brands fa-discord"></i>
-                            <span>Discord</span>
+                           class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#5865F2]/15 hover:bg-[#5865F2]/25 text-[#5865F2] hover:text-white border border-[#5865F2]/30 rounded-lg text-xs transition-all">
+                            <i class="fa-brands fa-discord text-sm"></i>
+                            <span class="font-bold">Discord</span>
                         </a>
+                        <!-- Telegram -->
                         <a href="https://t.me/TxxcWst" target="_blank" rel="noopener noreferrer" 
-                           class="flex-1 md:flex-initial inline-flex items-center justify-center gap-2 px-3 py-1.5 bg-[#26A5E4]/20 hover:bg-[#26A5E4]/30 text-[#26A5E4] hover:text-white border border-[#26A5E4]/40 rounded-lg text-xs font-semibold transition-all">
-                            <i class="fa-brands fa-telegram"></i>
-                            <span>Telegram</span>
+                           class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#26A5E4]/15 hover:bg-[#26A5E4]/25 text-[#26A5E4] hover:text-white border border-[#26A5E4]/30 rounded-lg text-xs transition-all">
+                            <i class="fa-brands fa-telegram text-sm"></i>
+                            <span class="font-bold">Telegram</span>
                         </a>
                     </div>
                 </div>
 
-<!-- КОМПАКТНЫЙ БЛОК БЛАГОДАРНОСТЕЙ И КОМАНДЫ -->
-<div class="relative z-10 bg-slate-900/90 border border-white/10 rounded-2xl p-4 sm:p-5 backdrop-blur-md shadow-card-depth space-y-4">
-    
-    <!-- 👑 ЛЕГЕНДЫ ПРОЕКТА (Выделены отдельно в премиальную шапку) -->
-    <div class="p-3 rounded-xl bg-gradient-to-r from-amber-500/15 via-amber-500/5 to-transparent border border-amber-500/30 shadow-glow-gold flex flex-wrap items-center justify-between gap-3">
-        <div class="flex items-center gap-2.5">
-            <div class="w-8 h-8 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 text-sm shadow-inner">
-                <i class="fa-solid fa-crown"></i>
-            </div>
-            <div>
-                <div class="text-[10px] text-amber-400 uppercase tracking-wider font-extrabold" data-i18n="index_hero_badge_legends">Легенды проекта</div>
-                <div class="py-2 text-xs text-amber-200 font-bold tracking-wide">
-                <span class="px-2 py-0.5 rounded bg-amber-500/15 border border-amber-500/30 text-amber-200 font-medium text-[13px]">Varyag ✨</span>
-                <span class="px-2 py-0.5 rounded bg-amber-500/15 border border-amber-500/30 text-amber-200 font-medium text-[13px]">Alaphest ✨</span>
+                <!-- Ультра-компактная строка авторов и легенд -->
+                <div class="pt-3 border-t border-white/5 flex flex-wrap items-center justify-between gap-2 text-[11px] text-gray-400">
+                    <div class="flex items-center gap-1.5">
+                        <i class="fa-solid fa-crown text-amber-400"></i>
+                        <span class="font-bold text-amber-300" data-i18n="index_hero_badge_legends">Легенды:</span>
+                        <span class="text-amber-200 bg-amber-500/10 px-1.5 py-0.5 rounded border border-amber-500/20">Varyag ✨</span>
+                        <span class="text-amber-200 bg-amber-500/10 px-1.5 py-0.5 rounded border border-amber-500/20">Alaphest ✨</span>
+                    </div>
+                    <div class="flex flex-wrap gap-x-3 gap-y-1">
+                        <span><strong class="text-indigo-400" data-i18n="index_hero_badge_code">Код:</strong> <span class="text-indigo-100">Tcan</span></span>
+                        <span><strong class="text-cyan-400" data-i18n="index_hero_badge_data">Таблицы:</strong> Elpi The Wiki, Tcan</span>
+                        <span><strong class="text-emerald-400" data-i18n="index_hero_badge_info">Данные:</strong> Dikci, Callin, Droulski, <span class="text-emerald-200">777alexx777, Artlil</span>, 4mok</span>
+                        <span><strong class="text-red-400" data-i18n="index_hero_badge_thank">Благодарность:</strong> <span class="text-pink-400">Lev, Guppy, Madraso</span></span>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <span class="text-[11px] text-gray-400 font-body hidden sm:inline" data-i18n="index_hero_badge_legends_desc">
-            Особый вклад в развитие вики и калькуляторов
-        </span>
-    </div>
 
-    <!-- ОСНОВНАЯ КОМАНДА И УЧАСТНИКИ (Компактная сетка в одну линию на роли) -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
-        
-        <!-- Перевод / Разработка -->
-        <div class="p-3 rounded-xl bg-slate-800/40 border border-white/5 space-y-1.5">
-            <div class="text-[11px] font-bold text-indigo-400 flex items-center gap-1.5">
-                <i class="fa-solid fa-code"></i>
-                <span data-i18n="index_hero_badge_code">Разработка</span>
-            </div>
-            <div class="flex flex-wrap gap-1">
-                <span class="px-2 py-0.5 rounded bg-indigo-500/15 border border-indigo-500/30 text-indigo-200 font-medium text-[11px]">Tcan</span>
-                <!-- Сюда легко дописывать новые ники через запятую/теги -->
-            </div>
-        </div>
-
-        <!-- Данные / Таблицы -->
-        <div class="p-3 rounded-xl bg-slate-800/40 border border-white/5 space-y-1.5">
-            <div class="text-[11px] font-bold text-cyan-400 flex items-center gap-1.5">
-                <i class="fa-solid fa-table-list"></i>
-                <span data-i18n="index_hero_badge_data">Таблицы</span>
-            </div>
-            <div class="flex flex-wrap gap-1">
-                <span class="px-2 py-0.5 rounded bg-cyan-500/15 border border-cyan-500/30 text-cyan-200 font-medium text-[11px]">Elpi The Wiki</span>
-                <span class="px-2 py-0.5 rounded bg-cyan-500/15 border border-cyan-500/30 text-cyan-200 font-medium text-[11px]">Tcan</span>
-            </div>
-        </div>
-
-        <!-- Тестеры -->
-        <div class="p-3 rounded-xl bg-slate-800/40 border border-white/5 space-y-1.5">
-            <div class="text-[11px] font-bold text-emerald-400 flex items-center gap-1.5">
-                <i class="fa-solid fa-vial-circle-check"></i>
-                <span data-i18n="index_hero_badge_info">Тестеры</span>
-            </div>
-            <div class="flex flex-wrap gap-1">
-                <span class="px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/30 text-emerald-200 font-medium text-[11px]">Dikci</span>
-                <span class="px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/30 text-emerald-200 font-medium text-[11px]">Callin</span>
-                <span class="px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/30 text-emerald-200 font-medium text-[11px]">Droulski</span>
-                <span class="px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/30 text-emerald-200 font-medium text-[11px]">777alexx777</span>
-                <span class="px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/30 text-emerald-200 font-medium text-[11px]">Artlil</span>
-                <span class="px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/30 text-emerald-200 font-medium text-[11px]">4mok</span>
-            </div>
-        </div>
-
-        <!-- Отдельное спасибо -->
-        <div class="p-3 rounded-xl bg-slate-800/40 border border-white/5 space-y-1.5">
-            <div class="text-[11px] font-bold text-rose-400 flex items-center gap-1.5">
-                <i class="fa-solid fa-heart"></i>
-                <span data-i18n="index_hero_badge_thank">Благодарность</span>
-            </div>
-            <div class="flex flex-wrap gap-1">
-                <span class="px-2 py-0.5 rounded bg-rose-500/15 border border-rose-500/30 text-rose-200 font-medium text-[11px]">Lev</span>
-                <span class="px-2 py-0.5 rounded bg-rose-500/15 border border-rose-500/30 text-rose-200 font-medium text-[11px]">Guppy</span>
-                <span class="px-2 py-0.5 rounded bg-rose-500/15 border border-rose-500/30 text-rose-200 font-medium text-[11px]">Madraso</span>
-            </div>
-        </div>
-
-    </div>
-</div>
             </div>
 
             <!-- SEARCH BAR -->
-            <div class="relative max-w-2xl mx-auto my-6">
+            <div class="relative max-w-2xl mx-auto my-3">
                 <div class="relative flex items-center">
                     <i class="fa-solid fa-magnifying-glass absolute left-4 text-gray-400 text-sm"></i>
-                    <input type="text" id="siteSearch" oninput="filterCards()" data-i18n="index_searchbar" placeholder="Поиск по названиям, описанию и ключевым словам..." 
-                           class="w-full pl-11 pr-10 py-3 bg-[#161924] border border-white/10 rounded-xl text-sm text-white placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all shadow-inner">
+                    <input type="text" id="siteSearch" oninput="filterCards()" data-i18n="index_searchbar" placeholder="Быстрый поиск по сайту..." 
+                           class="w-full pl-11 pr-10 py-2.5 bg-[#161924] border border-white/10 rounded-xl text-sm text-white placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all shadow-inner">
                     <button id="clearSearch" onclick="clearSearchInput()" class="hidden absolute right-3 text-gray-400 hover:text-white text-xs p-1">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
@@ -389,18 +341,18 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                     <!-- Guides Card -->
                     <a href="guides/tables.html" data-keywords="stats, statistics drops drop chance chances upgrade upgrading gear gears guide статистика таблицы дропы шансы гайд прокачка сборки гайды новичкам" class="pet-card searchable-card p-5 space-y-4 cursor-pointer group block">
-                        <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 text-xl group-hover:scale-110 transition-transform">
+                        <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 text-xl group-hover:scale-110 transition-transform">
                             <i class="fa-solid fa-chart-pie"></i>
                         </div>
                         <div class="space-y-1">
-                            <h4 class="text-base font-bold text-white group-hover:text-cyan-400 transition-colors" data-i18n="index_guide_tables_title">
+                            <h4 class="text-base font-bold text-white group-hover:text-blue-400 transition-colors" data-i18n="index_guide_tables_title">
                                 Статистика, Таблицы и Дропы (Шансы)
                             </h4>
                             <p class="text-xs text-gray-400 font-body" data-i18n="index_guide_tables_desc">
                                 Таблицы, советы по прокачке, сборки и лайфхаки для новичков и опытных игроков.
                             </p>
                         </div>
-                        <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-cyan-200 font-semibold">
+                        <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-blue-200 font-semibold">
                             <span data-i18n="index_guide_tables_button">Открыть таблицы</span>
                             <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                         </div>
@@ -408,18 +360,18 @@
 
                     <!-- Friends & Co-Op -->
                     <a href="guides/friends.html" data-keywords="friend friends coop cooperative group command party multiplayer друзья кооп кооператив группа команда пати мультиплеер" class="pet-card searchable-card p-5 space-y-4 cursor-pointer group block">
-                        <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-xl group-hover:scale-110 transition-transform">
+                        <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 text-xl group-hover:scale-110 transition-transform">
                             <i class="fa-solid fa-users"></i>
                         </div>
                         <div class="space-y-1">
-                            <h4 class="text-base font-bold text-white group-hover:text-purple-400 transition-colors" data-i18n="index_guide_friends_title">
+                            <h4 class="text-base font-bold text-white group-hover:text-cyan-400 transition-colors" data-i18n="index_guide_friends_title">
                                 Друзья и Co-Op
                             </h4>
                             <p class="text-xs text-gray-400 font-body" data-i18n="index_guide_friends_desc">
                                 Кооперативные режимы, система друзей, взаимодействия и подбор команды.
                             </p>
                         </div>
-                        <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-purple-200 font-semibold">
+                        <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-cyan-200 font-semibold">
                             <span data-i18n="index_guide_friends_button">Найти друзей</span>
                             <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                         </div>
@@ -497,6 +449,25 @@
                         </div>
                         <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-red-400 font-semibold">
                             <span data-i18n="index_guide_clans_button">Вступить в клан</span>
+                            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </a>
+
+                    <!-- Relics -->
+                    <a href="guides/relics.html" data-keywords="relic relics runes enchanting enchantment ench blood Vessel vessels cultist ritual реликвия реликвии руны руна Зачарование Зачарования кровь колба колбы кровавая колба" class="pet-card searchable-card p-5 space-y-4 opacity-85 group block">
+                        <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </div>
+                        <div class="space-y-1">
+                            <h4 class="text-base font-bold text-white group-hover:text-purple-400 transition-colors" data-i18n="index_guide_relics_title">
+                                Реликвии
+                            </h4>
+                            <p class="text-xs text-gray-400 font-body" data-i18n="index_guide_relics_desc">
+                                Гайд по реликвиям, Кровавые Кольы, Зачарованию, Проценту усиление и Совету по сбору.
+                            </p>
+                        </div>
+                        <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-purple-200 font-semibold">
+                            <span data-i18n="index_guide_relics_button">Зачароваться</span>
                             <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                         </div>
                     </a>
@@ -636,10 +607,10 @@
                         </div>
                         <div class="space-y-1">
                             <h4 class="text-base font-bold text-white">
-                                Реликвии
+                                Кровавые Колбы
                             </h4>
                             <p class="text-xs text-gray-400 font-body">
-                                Расчёт кровавых колб, реликвий, уровни.
+                                Калькулятор и Расчёт кровавых колб.
                             </p>
                         </div>
                         <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-slate-400 font-semibold">
