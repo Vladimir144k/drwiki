@@ -129,12 +129,15 @@
         <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-amber-950/40 to-slate-900 p-6 sm:p-10 border border-slate-800 shadow-2xl glow-amber">
             <div class="relative z-10">
                 <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight" data-i18n="mn_hero_title">
-                    Гайд по Шахте и Эффективному Получению Крыльев
+                    Гайд по Шахте и Крыльев
                 </h1>
                 <p class="mt-3 text-slate-300 max-w-3xl text-sm sm:text-base leading-relaxed" data-i18n="mn_hero_desc">
-                    Стратегии раскопок, секреты быстрого развития, механики шахты, Механики и характеристик крыльев.
+                    Стратегии раскопок, секреты быстрого развития, механики шахты, инструменты и характеристик крыльев.
                 </p>
-                <p class="text-amber-300 font-medium mt-1" data-i18n="mn_hero_unlock">Шахта и крылья открываются на 6 уровне!</p>
+                <div class="inline-flex items-center gap-2 mt-3 px-3.5 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-300 font-semibold text-xs sm:text-sm">
+                    <i class="fa-solid fa-lock-open text-amber-400"></i>
+                    <span data-i18n="mn_hero_unlock">Шахта вместе с крыльями открывается на 6 уровне!</span>
+                </div>
             </div>
             <div class="absolute -right-16 -bottom-16 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
             <div class="absolute -left-16 -top-16 w-80 h-80 bg-rose-500/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -144,7 +147,11 @@
         <div id="navContainer" class="top-16 z-20 py-2 bg-slate-950/90 backdrop-blur-md border-y border-slate-800/80 transition-all duration-300 -mx-4 px-4 sm:mx-0 sm:px-0 sm:rounded-2xl">
             <div class="max-w-7xl mx-auto flex items-center justify-center">
                 <nav class="flex flex-wrap items-center justify-center gap-2 py-1 px-1 w-full">
-                    <button onclick="showMainSection('strategies-section', this)" class="nav-tab-btn active flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-amber-500/40 transition flex items-center gap-2">
+                    <button onclick="showMainSection('mine-overview-section', this)" class="nav-tab-btn active flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-amber-500/40 transition flex items-center gap-2">
+                        <i class="fa-solid fa-mountain text-amber-400"></i>
+                        <span data-i18n="mn_mine_title">Шахта</span>
+                    </button>
+                    <button onclick="showMainSection('strategies-section', this)" class="nav-tab-btn flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-amber-500/40 transition flex items-center gap-2">
                         <i class="fa-solid fa-compass text-amber-400"></i>
                         <span data-i18n="mn_tab_strat">Стратегии Раскопок</span>
                     </button>
@@ -156,8 +163,171 @@
             </div>
         </div>
 
+        <!-- NEW SECTION: MINE OVERVIEW & MECHANICS -->
+        <section id="mine-overview-section" class="main-section scroll-mt-36 space-y-6">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="p-3 rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/20 shadow-lg shadow-amber-500/5">
+                    <i class="fa-solid fa-person-digging text-2xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-white" data-i18n="mn_mine_title">Шахта</h2>
+                    <p class="text-xs text-slate-400" data-i18n="mn_mine_subtitle">Основные механики раскопок, инструменты и клановые очки</p>
+                </div>
+            </div>
+
+            <!-- Grid & Level Info Block -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="glass-panel p-6 rounded-3xl border border-slate-800 space-y-4">
+                    <h3 class="text-lg font-bold text-white flex items-center gap-2 border-b border-slate-800 pb-3">
+                        <i class="fa-solid fa-grid-2 text-amber-400"></i>
+                        <span data-i18n="mn_layout_title">Устройство Шахты и Уровень</span>
+                    </h3>
+                    <ul class="space-y-3 text-xs sm:text-sm text-slate-300">
+                        <li class="flex items-start gap-2.5 bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
+                            <i class="fa-solid fa-border-all text-amber-400 mt-1 shrink-0"></i>
+                            <span data-i18n="mn_grid_desc">В самой шахте вам даётся сетка 9 на 9 блоков.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5 bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
+                            <i class="fa-solid fa-eye text-slate-400 mt-1 shrink-0"></i>
+                            <span data-i18n="mn_grey_row_desc">Последний ряд сеток снизу окрашен в серый цвет: вы не можете там копать, но можете видеть, какие ресурсы там находятся.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5 bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
+                            <i class="fa-solid fa-layer-group text-emerald-400 mt-1 shrink-0"></i>
+                            <span data-i18n="mn_mine_lvl_desc">У самой шахты есть уровень. Максимальный уровень — 60. Уровень повышается за счёт спуска в глубину.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Resources & Drop Chances Block -->
+                <div class="glass-panel p-6 rounded-3xl border border-slate-800 space-y-4 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-lg font-bold text-white flex items-center gap-2 border-b border-slate-800 pb-3">
+                            <i class="fa-solid fa-cubes text-cyan-400"></i>
+                            <span data-i18n="mn_resources_title">Добываемые Ресурсы</span>
+                        </h3>
+                        <p class="text-xs text-slate-300 mt-3 leading-relaxed" data-i18n="mn_resources_desc">
+                            В шахте вы можете копать следующие ресурсы:
+                        </p>
+                        <div class="flex flex-wrap gap-2 mt-3">
+                            <span class="px-2.5 py-1 rounded-lg bg-amber-950/80 border border-amber-800/50 text-amber-200 text-xs" data-i18n="mn_res_dirt">Земля</span>
+                            <span class="px-2.5 py-1 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 text-xs" data-i18n="tbl_ore_stone">Камень</span>
+                            <span class="px-2.5 py-1 rounded-lg bg-gray-900 border border-gray-700 text-gray-300 text-xs" data-i18n="tbl_ore_coal">Уголь</span>
+                            <span class="px-2.5 py-1 rounded-lg bg-slate-700 border border-slate-600 text-slate-100 text-xs" data-i18n="tbl_ore_iron">Железо</span>
+                            <span class="px-2.5 py-1 rounded-lg bg-rose-950/80 border border-rose-800/50 text-rose-300 text-xs" data-i18n="tbl_ore_ruby">Рубин</span>
+                            <span class="px-2.5 py-1 rounded-lg bg-emerald-950/80 border border-emerald-800/50 text-emerald-300 text-xs" data-i18n="tbl_ore_emera">Эмеральд</span>
+                            <span class="px-2.5 py-1 rounded-lg bg-yellow-950/80 border border-yellow-700/50 text-yellow-300 text-xs" data-i18n="tbl_ore_gold">Золото</span>
+                            <span class="px-2.5 py-1 rounded-lg bg-cyan-950/80 border border-cyan-800/50 text-cyan-300 text-xs" data-i18n="tbl_ore_dia">Алмаз</span>
+                        </div>
+                        <p class="text-xs text-slate-400 mt-3" data-i18n="mn_res_drop_chance">
+                            У каждого ресурса (за исключением земли) есть свой шанс выпадения.
+                        </p>
+                    </div>
+
+                    <div class="pt-4">
+                        <a href="tables.html" class="inline-flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs sm:text-sm shadow-lg shadow-amber-500/20 transition active:scale-95">
+                            <i class="fa-solid fa-table-list"></i>
+                            <span data-i18n="mn_tables_btn">Таблица шансов выпадения руды</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Digging Methods / Tools -->
+            <div class="glass-panel p-6 rounded-3xl border border-slate-800 space-y-4">
+                <h3 class="text-lg font-bold text-white flex items-center gap-2 border-b border-slate-800 pb-3">
+                    <i class="fa-solid fa-hammer text-amber-400"></i>
+                    <span data-i18n="mn_tools_title">Инструменты для Копания (3 Способа)</span>
+                </h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <!-- Regular Pickaxe -->
+                    <div class="bg-slate-950/70 p-4 rounded-2xl border border-slate-800/80 space-y-2">
+                        <div class="flex items-center gap-2 text-amber-400 font-bold text-sm">
+                            <i class="fa-solid fa-person-digging"></i>
+                            <span data-i18n="mn_tool_pick_title">Обычная кирка</span>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-relaxed" data-i18n="mn_tool_pick_desc">
+                            Копает 1 блок в нажатом направлении. Нельзя копать блоки за другими блоками, но можно по диагонали (если путь не прегражден).
+                        </p>
+                        <div class="text-[11px] text-slate-400 pt-2 border-t border-slate-800/60" data-i18n="mn_tool_pick_regen">
+                            <i class="fa-solid fa-clock text-amber-400/80 mr-1"></i>
+                            +1 кирка каждые 5 минут. Изначальный максимум: 30. С улучшением мастерства "Max Pickaxes" число поднимается до 45.
+                        </div>
+                    </div>
+
+                    <!-- Golden Pickaxe -->
+                    <div class="bg-slate-950/70 p-4 rounded-2xl border border-slate-800/80 space-y-2">
+                        <div class="flex items-center gap-2 text-yellow-400 font-bold text-sm">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            <span data-i18n="mn_tool_gpick_title">Золотая кирка</span>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-relaxed" data-i18n="mn_tool_gpick_desc">
+                            Копает все 9 блоков в столбце и 5 блоков вниз.
+                        </p>
+                        <div class="text-[11px] text-slate-400 pt-2 border-t border-slate-800/60" data-i18n="mn_tool_gpick_obt">
+                            <i class="fa-solid fa-gift text-yellow-400/80 mr-1"></i>
+                            Получение: Battle Pass, Clan Wars, Time Warp Event, в магазине за 45 гемов и за донат.
+                        </div>
+                    </div>
+
+                    <!-- Drill -->
+                    <div class="bg-slate-950/70 p-4 rounded-2xl border border-slate-800/80 space-y-2">
+                        <div class="flex items-center gap-2 text-cyan-400 font-bold text-sm">
+                            <i class="fa-solid fa-bore-hole"></i>
+                            <span data-i18n="mn_tool_drill_title">Бур</span>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-relaxed" data-i18n="mn_tool_drill_desc">
+                            Копает один столбец и 8 блоков вниз.
+                        </p>
+                        <div class="text-[11px] text-slate-400 pt-2 border-t border-slate-800/60" data-i18n="mn_tool_drill_obt">
+                            <i class="fa-solid fa-gift text-cyan-400/80 mr-1"></i>
+                            Получение: Battle Pass, Clan Wars, Time Warp Event, в магазине за 45 гемов и за донат.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ad Rewards Note -->
+                <div class="bg-indigo-950/30 p-4 rounded-2xl border border-indigo-500/20 text-xs text-slate-300 flex items-start gap-3">
+                    <i class="fa-solid fa-rectangle-ad text-indigo-400 text-xl mt-0.5 shrink-0"></i>
+                    <div>
+                        <strong data-i18n="mn_ads_title">Накопление и Реклама:</strong> <span data-i18n="mn_ads_desc">Кирки, Золотые кирки и Буры накапливаются с наград. Также можно просмотреть до 6 реклам для каждого типа:</span>
+                        <ul class="list-disc list-inside mt-1 text-slate-400 space-y-0.5">
+                            <li data-i18n="mn_ads_pick">Обычные кирки: +10 кирок за просмотр.</li>
+                            <li data-i18n="mn_ads_drill">Золотая кирка и Бур: +1 шт. за просмотр.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Clan War Points -->
+            <div class="glass-panel p-6 rounded-3xl border border-slate-800 space-y-4">
+                <h3 class="text-lg font-bold text-white flex items-center gap-2 border-b border-slate-800 pb-3">
+                    <i class="fa-solid fa-shield-halved text-rose-400"></i>
+                    <span data-i18n="mn_clan_pts_title">Клановые Очки (Во время 2 и 4 дня Клановой Войны)</span>
+                </h3>
+                <p class="text-xs text-slate-300" data-i18n="mn_clan_pts_desc">
+                    За копание руд вы получаете клановые очки для победы вашего клана:
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center text-xs">
+                    <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800">
+                        <div class="font-bold text-slate-300" data-i18n="mn_cp_group1">Камень и Уголь</div>
+                        <div class="text-amber-400 font-extrabold text-lg mt-1" data-i18n="mn_cp_10">+10 очков</div>
+                    </div>
+                    <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800">
+                        <div class="font-bold text-slate-300" data-i18n="mn_cp_group2">Железо, Рубин, Эмеральд</div>
+                        <div class="text-amber-400 font-extrabold text-lg mt-1" data-i18n="mn_cp_20">+20 очков</div>
+                    </div>
+                    <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800">
+                        <div class="font-bold text-slate-300" data-i18n="mn_cp_group3">Золото и Алмаз</div>
+                        <div class="text-amber-400 font-extrabold text-lg mt-1" data-i18n="mn_cp_30">+30 очков</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- SECTION 1: STRATEGIES -->
-        <section id="strategies-section" class="main-section scroll-mt-36 space-y-6">
+        <section id="strategies-section" class="main-section hidden scroll-mt-36 space-y-6">
             <div class="flex items-center space-x-3 mb-6">
                 <div class="p-3 rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/20 shadow-lg shadow-amber-500/5">
                     <i class="fa-solid fa-layer-group text-2xl"></i>
@@ -247,63 +417,7 @@
                         </h2>
                     </div>
 
-                    <div class="bg-slate-950/80 p-4 rounded-2xl border-slate-800 grid grid-cols-1 md:grid-cols-3 gap-3">
-
-                        <!-- Tip 1 -->
-                        <div class="bg-indigo-500/5 border border-white/5 rounded-xl p-4 hover:border-indigo-500/30 transition-all">
-                            <div class="flex items-start gap-3">
-                                <div class="w-9 h-9 shrink-0 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center">
-                                    <i class="fa-solid fa-clock-rotate-left text-indigo-400"></i>
-                                </div>
-
-                                <div>
-                                    <h3 class="text-sm font-bold text-gray-200 mb-1" data-i18n="mn_tip1_title">
-                                        Обновление кирок
-                                    </h3>
-                                    <p class="text-xs text-gray-500 leading-relaxed font-body" data-i18n="mn_tip1_desc">
-                                        Обычные кирки обновляются каждые 5 минут. Вам нужно 2 часа и 30 минут чтобы получить 30 кирок.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Tip 2 -->
-                        <div class="bg-indigo-500/5 border border-white/5 rounded-xl p-4 hover:border-amber-500/30 transition-all">
-                            <div class="flex items-start gap-3">
-                                <div class="w-9 h-9 shrink-0 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
-                                    <i class="fa-solid fa-crown text-amber-400"></i>
-                                </div>
-
-                                <div>
-                                    <h3 class="text-sm font-bold text-gray-200 mb-1" data-i18n="mn_tip2_title">
-                                        Золотые кирки и буры
-                                    </h3>
-                                    <p class="text-xs text-gray-500 leading-relaxed font-body" data-i18n="mn_tip2_desc">
-                                        Золотые кирки и буры можно получить с Battle Pass, Clan war battle rewards, Time Warp Event а так же в магазине за 45 гемов.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Tip 3 -->
-                        <div class="bg-indigo-500/5 border border-white/5 rounded-xl p-4 hover:border-purple-500/30 transition-all">
-                            <div class="flex items-start gap-3">
-                                <div class="w-9 h-9 shrink-0 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center">
-                                    <i class="fa-solid fa-chart-simple text-purple-400"></i>
-                                </div>
-
-                                <div>
-                                    <h3 class="text-sm font-bold text-gray-200 mb-1" data-i18n="mn_tip3_title">
-                                        Мастерство
-                                    </h3>
-                                    <p class="text-xs text-gray-500 leading-relaxed font-body" data-i18n="mn_tip3_desc">
-                                        Мастерство "Max Pickaxes" - Увеличивает количество максимальных кирок. На максимальном уровне (15) вы будете иметь 45 кирок.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
+                    
 
                     <!-- Important Notice -->
                     <div class="bg-slate-950/80 p-4 rounded-2xl border border-slate-800/80 text-xs sm:text-sm text-slate-300 leading-relaxed flex flex-col sm:flex-row items-start sm:items-center gap-4">
@@ -328,7 +442,7 @@
                 </div>
                 <div>
                     <h2 class="text-2xl font-bold text-white" data-i18n="mn_wings_title">Крылья</h2>
-                    <p class="text-xs text-slate-400" data-i18n="mn_wings_sub">Виды крыльев, цена открытие и улучшения</p>
+                    <p class="text-xs text-slate-400" data-i18n="mn_wings_sub">Виды крыльев, цена открытие и улучшения. Крылья, как и сама шахта, открываются на 6 уровне. За накопление руд вы можете покупать крылья.</p>
                 </div>
             </div>
 
@@ -442,7 +556,7 @@
             <!-- TABLE OF WINGS -->
             <div class="glass-panel rounded-2xl shadow-xl overflow-hidden border border-slate-800">
                 <div class="p-4 bg-slate-950/80 border-b border-slate-800 font-bold text-sm text-white flex items-center gap-2">
-                    <i class="fa-solid fa-feather text-amber-400"></i> <span data-i18n="mn_tbl_title">Все 10 Видов Крыльев и Требования</span>
+                    <i class="fa-solid fa-feather text-amber-400"></i> <span data-i18n="mn_tbl_title">Все 10 Видов Крыльев и Требования (За накопление руд)</span>
                 </div>
                 <div class="overflow-x-auto custom-scrollbar">
                     <table class="w-full text-left text-xs">
