@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Реликвии и Зачарование | Dungeon Rush</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #030712;
+            color: #f3f4f6;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #0f172a;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glow-purple {
+            box-shadow: 0 0 25px -5px rgba(168, 85, 247, 0.25);
+        }
+
+        .nav-tab-btn.active {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(236, 72, 153, 0.2));
+            border-color: #a855f7;
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.25);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-purple-500 selection:text-slate-950">
+
+    <!-- Header Navigation -->
+    <header class="bg-slate-950/80 border-b border-slate-800/80 sticky top-0 z-30 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="../index.html">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-purple-500/20 text-slate-950 font-black text-xl">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </div>
+                    <div>
+                        <span class="font-extrabold text-xl tracking-tight bg-gradient-to-r from-white via-slate-200 to-purple-400 bg-clip-text text-transparent" data-i18n="rn_header_title">
+                            Dungeon Rush - Реликвии и Зачарование
+                        </span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Language Switcher -->
+            <button id="lang-toggle" 
+                    onclick="toggleLanguage()" 
+                    class="group relative inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-purple-500/30 hover:border-purple-500/60 text-slate-200 hover:text-white transition-all duration-200 shadow-md hover:shadow-purple-500/10 active:scale-95"
+                    title="Switch language / Сменить язык">
+                <i class="fa-solid fa-globe text-purple-400 group-hover:rotate-12 transition-transform duration-200"></i>
+                <div class="flex items-center font-semibold text-xs tracking-wide">
+                    <span id="lang-text" class="text-purple-300 group-hover:text-purple-400 transition-colors">RU</span>
+                </div>
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+
+        <!-- Hero Banner -->
+        <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-purple-950/40 to-slate-900 p-6 sm:p-10 border border-slate-800 shadow-2xl glow-purple">
+            <div class="relative z-10">
+                <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight" data-i18n="rn_hero_title">
+                    Гайд по Реликвиям и Зачарованию Слотов
+                </h1>
+                <p class="mt-3 text-slate-300 max-w-3xl text-sm sm:text-base leading-relaxed" data-i18n="rn_hero_desc">
+                    Механики призыва реликвий, Кровавые Колбы, слияние уровней от +1 до +11, таблица усилений и приоритеты экипировки.
+                </p>
+                <div class="inline-flex items-center gap-2 mt-3 px-3.5 py-1.5 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-300 font-semibold text-xs sm:text-sm">
+                    <i class="fa-solid fa-lock-open text-purple-400"></i>
+                    <span data-i18n="rn_hero_unlock">Реликвии открываются на 20 уровне вместе подземельем "Cultist Ritual"</span>
+                </div>
+            </div>
+            <div class="absolute -right-16 -bottom-16 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -left-16 -top-16 w-80 h-80 bg-pink-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        </div>
+
+        <!-- Sticky Section Navigation -->
+        <div id="navContainer" class="top-16 z-20 py-2 bg-slate-950/90 backdrop-blur-md border-y border-slate-800/80 transition-all duration-300 -mx-4 px-4 sm:mx-0 sm:px-0 sm:rounded-2xl">
+            <div class="max-w-7xl mx-auto flex items-center justify-center">
+                <nav class="flex flex-wrap items-center justify-center gap-2 py-1 px-1 w-full">
+                    <button onclick="showMainSection('mechanics-section', this)" class="nav-tab-btn active flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-purple-500/40 transition flex items-center gap-2">
+                        <i class="fa-solid fa-wand-magic-sparkles text-purple-400"></i>
+                        <span data-i18n="rn_tab_mech">Механики и Призыв</span>
+                    </button>
+                    <button onclick="showMainSection('table-section', this)" class="nav-tab-btn flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-purple-500/40 transition flex items-center gap-2">
+                        <i class="fa-solid fa-table-cells text-pink-400"></i>
+                        <span data-i18n="rn_tab_table">Таблица Усилений</span>
+                    </button>
+                    <button onclick="showMainSection('tips-section', this)" class="nav-tab-btn flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-purple-500/40 transition flex items-center gap-2">
+                        <i class="fa-solid fa-shield-heart text-amber-400"></i>
+                        <span data-i18n="rn_tab_tips">Советы по Экипировке</span>
+                    </button>
+                </nav>
+            </div>
+        </div>
+
+        <!-- SECTION 1: MECHANICS & SUMMONING -->
+        <section id="mechanics-section" class="main-section scroll-mt-36 space-y-6">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="p-3 rounded-2xl bg-purple-500/10 text-purple-400 border border-purple-500/20 shadow-lg shadow-purple-500/5">
+                    <i class="fa-solid fa-flask text-2xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-white" data-i18n="rn_sec1_title">Получение и Зачарование</h2>
+                    <p class="text-xs text-slate-400" data-i18n="rn_sec1_sub">Кровавые колбы, ячейки предметов и система призыва</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Blood Vessels & Slot Enchanting -->
+                <div class="glass-panel p-6 rounded-3xl border border-slate-800 space-y-4">
+                    <h3 class="text-lg font-bold text-white flex items-center gap-2 border-b border-slate-800 pb-3">
+                        <i class="fa-solid fa-vial text-pink-400"></i>
+                        <span data-i18n="rn_card1_title">Кровавые Колбы (Blood Vessels)</span>
+                    </h3>
+                    <ul class="space-y-3 text-xs sm:text-sm text-slate-300">
+                        <li class="flex items-start gap-2.5 bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
+                            <i class="fa-solid fa-dungeon text-purple-400 mt-1 shrink-0"></i>
+                            <span data-i18n="rn_card1_p1">При прохождении подземелья «Cultist Ritual» вы получаете Blood Vessels (Кровавые Колбы).</span>
+                        </li>
+                        <li class="flex items-start gap-2.5 bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
+                            <i class="fa-solid fa-gem text-amber-400 mt-1 shrink-0"></i>
+                            <span data-i18n="rn_card1_p2">С помощью них вы можете призывать Реликвии и зачаровать слот (ячейку) предмета.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5 bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
+                            <i class="fa-solid fa-square-caret-up text-cyan-400 mt-1 shrink-0"></i>
+                            <span data-i18n="rn_card1_p3">После открытия Реликвии над ячейками предметов появляются маленькие пустые «ячейки-квадраты». При нажатии на них у вас открывается окно с Зачарованием.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Summoning & Sources -->
+                <div class="glass-panel p-6 rounded-3xl border border-slate-800 space-y-4 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-lg font-bold text-white flex items-center gap-2 border-b border-slate-800 pb-3">
+                            <i class="fa-solid fa-box-open text-purple-400"></i>
+                            <span data-i18n="rn_card2_title">Стоимость и Источники Колб</span>
+                        </h3>
+                        <ul class="space-y-3 text-xs sm:text-sm text-slate-300 mt-3">
+                            <li class="flex items-start gap-2.5 bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
+                                <i class="fa-solid fa-coins text-yellow-400 mt-1 shrink-0"></i>
+                                <span data-i18n="rn_card2_p1">Для призыва 5 реликвий вам требуется <strong>100 колб</strong>.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5 bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
+                                <i class="fa-solid fa-shield-halved text-rose-400 mt-1 shrink-0"></i>
+                                <span data-i18n="rn_card2_p2">Колбы можно получить за прохождение подземелья «Cultist Ritual», Клановые Войны или донат.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fusion & Drop Tiers -->
+            <div class="glass-panel p-6 rounded-3xl border border-slate-800 space-y-4">
+                <h3 class="text-lg font-bold text-white flex items-center gap-2 border-b border-slate-800 pb-3">
+                    <i class="fa-solid fa-layer-group text-purple-400"></i>
+                    <span data-i18n="rn_card3_title">Уровни Призыва и Система Слияния</span>
+                </h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm text-slate-300">
+                    <div class="bg-slate-950/70 p-4 rounded-2xl border border-slate-800/80 space-y-2">
+                        <div class="font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-arrow-up-wide-short text-purple-400"></i>
+                            <span data-i18n="rn_card3_limits">Лимиты и Дроп</span>
+                        </div>
+                        <p class="leading-relaxed" data-i18n="rn_card3_limits_desc">
+                            Максимальный уровень Реликвии — <strong>«+11»</strong>, а максимальный уровень призыва — <strong>50</strong>. За призыв вы можете получать реликвии от <strong>«+1» до «+6»</strong>.
+                        </p>
+                        <div class="pt-2">
+                            <a href="tables.html" class="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 font-semibold transition border-b border-slate-800 pb-3">
+                                <i class="fa-solid fa-table-list"></i>
+                                <span data-i18n="rn_tables_link">Таблица уровней и шансов дропа реликвий</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-950/70 p-4 rounded-2xl border border-slate-800/80 space-y-2">
+                        <div class="font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-code-merge text-pink-400"></i>
+                            <span data-i18n="rn_card3_merge">Правила Объединения (Слияния)</span>
+                        </div>
+                        <p class="leading-relaxed text-slate-300" data-i18n="rn_card3_merge_desc">
+                            Чтобы получить реликвии выше уровня, вам надо объединить <strong>3 реликвии ниже уровня</strong>. К примеру, чтобы получить реликвию «+6», нужно объединить 3 реликвии «+5», чтобы получить «+11», нужно объединить 3 реликвии «+10» и т. д.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: BUFF TABLE -->
+        <section id="table-section" class="main-section hidden scroll-mt-36 space-y-6">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="p-3 rounded-2xl bg-pink-500/10 text-pink-400 border border-pink-500/20 shadow-lg shadow-pink-500/5">
+                    <i class="fa-solid fa-table-cells text-2xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-white" data-i18n="rn_sec2_title">Процент Усиления Реликвий</h2>
+                    <p class="text-xs text-slate-400" data-i18n="rn_sec2_sub">Таблица бонусов от уровня +1 до максимального +11</p>
+                </div>
+            </div>
+
+            <div class="glass-panel rounded-2xl shadow-xl overflow-hidden border border-slate-800">
+                <div class="p-4 bg-slate-950/80 border-b border-slate-800 font-bold text-sm text-white flex items-center gap-2">
+                    <i class="fa-solid fa-chart-line text-purple-400"></i> <span data-i18n="rn_tbl_title">Сила Усиления по Уровням</span>
+                </div>
+                <div class="overflow-x-auto custom-scrollbar">
+                    <table class="w-full text-left text-xs">
+                        <thead>
+                            <tr class="uppercase text-[11px] tracking-wider text-slate-400 bg-slate-950/40 border-b border-slate-800">
+                                <th class="p-3.5 text-center" data-i18n="rn_th_lvl">Уровень Реликвии</th>
+                                <th class="p-3.5 text-center" data-i18n="rn_th_boost">Процент Усиления</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800/60 font-medium text-center">
+                            <tr class="hover:bg-slate-800/40 transition"><td class="p-3 font-mono text-purple-300 font-bold">+1</td><td class="p-3 text-slate-200">+1%</td></tr>
+                            <tr class="hover:bg-slate-800/40 transition"><td class="p-3 font-mono text-purple-300 font-bold">+2</td><td class="p-3 text-slate-200">+4%</td></tr>
+                            <tr class="hover:bg-slate-800/40 transition"><td class="p-3 font-mono text-purple-300 font-bold">+3</td><td class="p-3 text-slate-200">+9%</td></tr>
+                            <tr class="hover:bg-slate-800/40 transition"><td class="p-3 font-mono text-purple-300 font-bold">+4</td><td class="p-3 text-slate-200">+16%</td></tr>
+                            <tr class="hover:bg-slate-800/40 transition"><td class="p-3 font-mono text-purple-300 font-bold">+5</td><td class="p-3 text-slate-200">+25%</td></tr>
+                            <tr class="hover:bg-slate-800/40 transition"><td class="p-3 font-mono text-purple-300 font-bold">+6</td><td class="p-3 text-slate-200">+36%</td></tr>
+                            <tr class="hover:bg-slate-800/40 transition"><td class="p-3 font-mono text-purple-300 font-bold">+7</td><td class="p-3 text-slate-200">+49%</td></tr>
+                            <tr class="hover:bg-slate-800/40 transition"><td class="p-3 font-mono text-purple-300 font-bold">+8</td><td class="p-3 text-slate-200">+64%</td></tr>
+                            <tr class="hover:bg-slate-800/40 transition"><td class="p-3 font-mono text-purple-300 font-bold">+9</td><td class="p-3 text-slate-200">+81%</td></tr>
+                            <tr class="hover:bg-slate-800/40 transition"><td class="p-3 font-mono text-purple-300 font-bold">+10</td><td class="p-3 text-slate-200">+100%</td></tr>
+                            <tr class="hover:bg-slate-800/40 transition bg-purple-950/20"><td class="p-3 font-mono text-pink-400 font-extrabold">+11 (Max)</td><td class="p-3 text-pink-300 font-extrabold">+121%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: TIPS & PRIORITY -->
+        <section id="tips-section" class="main-section hidden scroll-mt-36 space-y-6">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="p-3 rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/20 shadow-lg shadow-amber-500/5">
+                    <i class="fa-solid fa-shield-heart text-2xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-white" data-i18n="rn_sec3_title">Советы по «одеванию» реликвий по слотам</h2>
+                    <p class="text-xs text-slate-400" data-i18n="rn_sec3_sub">Оптимальные стратегии распределения рун для максимальной эффективности</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Tip 1: Equal leveling -->
+                <div class="glass-panel p-6 rounded-3xl border border-slate-800 space-y-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 font-bold text-lg">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                    </div>
+                    <h3 class="font-bold text-white text-base" data-i18n="rn_tip1_title">Равномерная прокачка</h3>
+                    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed" data-i18n="rn_tip1_desc">
+                        Старайтесь поднимать уровни реликвий одинаково во всех доступных ячейках, чтобы получать сбалансированный прирост характеристик.
+                    </p>
+                </div>
+
+                <!-- Tip 2: Slot Priority -->
+                <div class="glass-panel p-6 rounded-3xl border border-slate-800 space-y-3">
+                    <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 font-bold text-lg">
+                        <i class="fa-solid fa-list-ol"></i>
+                    </div>
+                    <h3 class="font-bold text-white text-base" data-i18n="rn_tip2_title">Приоритет Слотов Экипировки</h3>
+                    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-2" data-i18n="rn_tip2_desc">
+                        Всегда ставьте самую сильную руну по строгому приоритету:
+                    </p>
+                    <ol class="list-decimal list-inside text-xs sm:text-sm text-purple-300 font-semibold space-y-1">
+                        <li data-i18n="rn_prio_1">Крылья (Wings)</li>
+                        <li data-i18n="rn_prio_2">Плащ (Cape)</li>
+                        <li data-i18n="rn_prio_3">Оружие (Weapon)</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-panel border-t border-slate-800/80 py-8 mt-16">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 space-y-2">
+            <p class="text-[12px] text-slate-500" data-i18n="system_footer">Неофициальный справочник по игре. Данный сайт не связан с разработчиками или издателем игры. Все права на игру, её название, изображения и другие материалы принадлежат LAVA LABS OYUN YAZILIM VE PAZARLAMA ANONİM ŞİRKETİ. Данный сайт создан исключительно в информационных целях.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Navigation -->
+    <script>
+        function showMainSection(sectionId, btn) {
+            document.querySelectorAll('.main-section').forEach(sec => sec.classList.add('hidden'));
+            document.querySelectorAll('.nav-tab-btn').forEach(b => b.classList.remove('active'));
+
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.remove('hidden');
+                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            if (btn) {
+                btn.classList.add('active');
+            }
+        }
+    </script>
+    <script src="../assets/scripts/translations.js"></script>
+    <script src="../assets/scripts/language.js"></script>
+</body>
+</html>
