@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dungeon Rush & Calculators — Changelogs</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Poppins & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        site: {
+                            bg: '#0E1017',
+                            card: '#161924',
+                            cardBorder: 'rgba(255, 255, 255, 0.08)',
+                            cardHover: '#1D2130',
+                            accent: '#6366F1',
+                            accentHover: '#4F46E5',
+                            gold: '#FFC700'
+                        },
+                        rarity: {
+                            common: '#A1A1AA',
+                            uncommon: '#22C55E',
+                            rare: '#3B82F6',
+                            epic: '#A855F7',
+                            legendary: '#F59E0B',
+                            mythic: '#EF4444'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'Inter', 'sans-serif'],
+                        body: ['Inter', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'glow-indigo': '0 0 20px rgba(99, 102, 241, 0.35)',
+                        'glow-gold': '0 0 12px rgba(245, 158, 11, 0.15)',
+                        'glow-mythic': '0 0 25px rgba(239, 68, 68, 0.4)',
+                        'card-depth': '0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #0E1017;
+            color: #F3F4F6;
+            font-family: 'Poppins', sans-serif;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(168, 85, 247, 0.08) 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .pet-card {
+            background-color: #161924;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .pet-card:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.6);
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0E1017; }
+        ::-webkit-scrollbar-thumb { background: #1F2433; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #2D344B; }
+    </style>
+</head>
+<body class="min-h-screen relative">
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" onclick="scrollToTop()" title="Наверх" 
+            class="fixed top-20 right-6 z-50 p-3 bg-indigo-600/80 hover:bg-indigo-500 text-white rounded-xl shadow-lg border border-indigo-400/30 backdrop-blur-md transition-all duration-300 transform hover:scale-105 opacity-0 pointer-events-none flex items-center justify-center gap-2 text-xs font-semibold">
+        <i class="fa-solid fa-arrow-up"></i>
+        <span class="hidden md:inline" data-i18n="system_top">Наверх</span>
+    </button>
+
+    <header class="border-b border-white/5 bg-[#12141D]/90 sticky top-0 z-50 backdrop-blur-xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-4">
+            
+            <!-- Logo & Title -->
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="window.location.href='index.html'">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-amber-400 p-0.5 shadow-glow-indigo">
+                    <div class="w-full h-full bg-[#12141D] rounded-[14px] flex items-center justify-center">
+                        <i class="fa-solid fa-gamepad text-amber-400 text-xl"></i>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h1 class="text-lg font-bold tracking-tight text-white">Dungeon <span class="text-indigo-400">Rush</span></h1>
+                    </div>
+                    <p class="text-xs text-gray-400 font-body" data-i18n="index_header">Единый портал знаний</p>
+                </div>
+            </div>
+
+            <!-- Right Side: Navigation Links & Language Switcher -->
+            <div class="flex items-center space-x-3 text-xs">
+                <span class="hidden sm:inline-flex items-center px-2.5 py-1.5 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-400 shadow-inner">
+                    <i class="fa-solid fa-code-branch text-amber-400 mr-1.5"></i>
+                    <span data-i18n="index_last_update">Последнее обновление: date</span>
+                </span>
+
+                <!-- Enhanced Language Toggle Button -->
+                <button id="lang-toggle" 
+                        onclick="toggleLanguage()" 
+                        class="group relative inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-indigo-500/30 hover:border-indigo-500/60 text-slate-200 hover:text-white transition-all duration-200 shadow-md hover:shadow-indigo-500/10 active:scale-95"
+                        title="Switch language / Сменить язык">
+                    <i class="fa-solid fa-globe text-indigo-400 group-hover:rotate-12 transition-transform duration-200"></i>
+                    <div class="flex items-center font-semibold text-xs tracking-wide">
+                        <span id="lang-text" class="text-indigo-300 group-hover:text-amber-400 transition-colors">RU</span>
+                    </div>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 mb-16 space-y-6">
+
+        <!-- PAGE HEADER HERO -->
+        <div class="pet-card p-6 sm:p-8 bg-[#161924] border-indigo-500/20 relative overflow-hidden space-y-3">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 text-2xl shadow-inner">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight" data-i18n="changelogs_title">История обновлений</h2>
+                    <p class="text-xs sm:text-sm text-gray-400 font-body" data-i18n="changelogs_subtitle">Лог изменений сайта, таблиц и калькуляторов Dungeon Rush.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CHANGELOG LIST CONTAINER -->
+        <div class="space-y-6">
+
+            <!-- UPDATE ITEM 1 -->
+            <div class="pet-card p-6 space-y-4">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-white/5 pb-3">
+                    <div class="flex items-center gap-2.5">
+                        <span class="px-2.5 py-1 rounded-lg bg-indigo-500/20 border border-indigo-500/30 text-indigo-300 font-bold text-xs">v1.2.0</span>
+                        <h3 class="text-base font-bold text-white">Исправление ошибок и обновление даты</h3>
+                    </div>
+                    <span class="text-xs text-gray-400 flex items-center gap-1.5">
+                        <i class="fa-regular fa-calendar text-indigo-400"></i> 18 октября 2026
+                    </span>
+                </div>
+                <ul class="space-y-2 text-xs sm:text-sm text-gray-300 font-body">
+                    <li class="flex items-start gap-2">
+                        <i class="fa-solid fa-circle-check text-emerald-400 mt-1 shrink-0"></i>
+                        <span>Исправлена информация в таблицах мастерство</span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="glass-panel border-t border-slate-800/80 py-8 mt-16">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 space-y-2">
+            <p class="text-[12px] text-slate-500" data-i18n="system_footer">Неофициальный справочник по игре. Данный сайт не связан с разработчиками или издателем игры. Все права на игру, её название, изображения и другие материалы принадлежат LAVA LABS OYUN YAZILIM VE PAZARLAMA ANONİM ŞİRKETİ. Данный сайт создан исключительно в информационных целях.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript для Back to Top -->
+    <script>
+        const backToTopBtn = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 200) {
+                backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                backToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+            } else {
+                backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+                backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+<script src="assets/scripts/translations.js"></script>
+<script src="assets/scripts/language.js"></script>
+</body>
+</html>
