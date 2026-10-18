@@ -214,7 +214,7 @@
                     <div class="mt-4 flex flex-col sm:flex-row gap-3">
                         <div class="relative flex-1">
                             <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-                            <input type="text" id="full-mastery-search" oninput="filterFullMastery()" placeholder="Поиск по названию или описанию..." class="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl pl-9 pr-4 py-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-500">
+                            <input type="text" id="full-mastery-search" oninput="filterFullMastery()" data-i18n="tbl_m_searchbar" placeholder="Поиск по названию или описанию..." class="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl pl-9 pr-4 py-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-500">
                         </div>
                         <div class="flex items-center gap-2 text-xs">
                             <span class="text-slate-400 whitespace-nowrap" data-i18n="tbl_filter_rec">Рекомендация:</span>
@@ -276,7 +276,7 @@
                     <div class="mt-4 flex flex-col sm:flex-row gap-3">
                         <div class="relative flex-1">
                             <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-                            <input type="text" id="full-stats-search" oninput="filterFullStats()" placeholder="Поиск по статам..." class="w-full bg-slate-900 border border-slate-700 rounded-xl pl-9 pr-4 py-2 text-xs text-slate-200 focus:outline-none focus:border-purple-500">
+                            <input type="text" id="full-stats-search" oninput="filterFullStats()" data-i18n="tbl_s_searchbar" placeholder="Поиск по статам..." class="w-full bg-slate-900 border border-slate-700 rounded-xl pl-9 pr-4 py-2 text-xs text-slate-200 focus:outline-none focus:border-purple-500">
                         </div>
                         <div class="flex items-center gap-2 text-xs">
                             <span class="text-slate-400 whitespace-nowrap" data-i18n="tbl_filter_cat">Категория:</span>
@@ -713,7 +713,7 @@
                 order: "1*", 
                 recLevelKey: "m_exp_boost_rec",
                 recLevel: "Около 7",
-                levelCosts: [0, 10, NaN, 40, 60, 90, 120, 160, 200, 250, 300, 360, 420, 490, 560, 640, 720, 810, 900, 1000]
+                levelCosts: [0, 10, 20, 40, 60, 90, 120, 160, 200, 250, 300, 360, 420, 490, 560, 640, 720, 810, 900, 1000]
             },
             { 
                 name: "Offer Gem Chance", 
@@ -791,14 +791,15 @@
                 desc: "Увеличивает максимальный уровень экипировки", 
                 cost: "150", 
                 maxEffect: "30", 
-                perUpgrade: "2, потом 4 на 11 уровне", 
+                perUpgradeKey: "m_max_item_upg",
+                perUpgrade: "2, потом 4 на 5 уровне", 
                 levels: "10", 
                 gemsToMax: "2340", 
                 recommendedMax: "Да", 
                 order: "2", 
                 recLevelKey: "m_max_item_lvl_rec",
                 recLevel: "Макс.",
-                levelCosts: [150, 60, 120, NaN, 200, NaN, NaN, NaN, NaN, NaN]
+                levelCosts: [150, 60, 120, 160, 200, 250, 300, 350, 400, 500]
             },
             { 
                 name: "Extended EXP Boost", 
@@ -825,14 +826,15 @@
                 desc: "Увеличивает скорость получения ресурсов во время оффлайна", 
                 cost: "210", 
                 maxEffect: "x2.5", 
+                perUpgradeKey: "m_offline_rate_upg",
                 perUpgrade: "0.05, потом .1% на 8 уровне", 
-                levels: "25", 
+                levels: "19", 
                 gemsToMax: "6150", 
                 recommendedMax: "Да", 
                 order: "1*", 
                 recLevelKey: "m_offline_rate_rec",
                 recLevel: "6",
-                levelCosts: ["TBA"]
+                levelCosts: [210, NaN, NaN, NaN, NaN, 90, 120, 160, NaN, 250, 300, 360, 420, 490, 560, 640, 720, 810, 900]
             },
             { 
                 name: "Movement Speed", 
@@ -894,7 +896,7 @@
             return v;
         }
 
-        function renderFullMastery(data) {
+function renderFullMastery(data) {
             const tbody = document.getElementById('full-mastery-tbody');
             if(!tbody) return;
             tbody.innerHTML = '';
@@ -910,21 +912,21 @@
                 const nameRuTrans = getTranslation(item.nameRuKey, item.nameRu);
                 const descTrans = getTranslation(item.descKey, item.desc);
                 const recLvlTrans = getTranslation(item.recLevelKey, item.recLevel);
+                const perUpgTrans = getTranslation(item.perUpgradeKey, item.perUpgrade); // Получаем перевод для perUpgrade
 
                 tr.innerHTML = `
                     <td class="p-4 font-bold text-white">
                         <div class="flex items-center gap-2">
                             <i id="arrow-${index}" class="fa-solid fa-chevron-right text-slate-500 text-[10px] transition-transform duration-200 group-hover:text-cyan-400"></i>
                             <div>
-                                <div>${item.name}</div>
-                                <div class="text-[11px] text-cyan-400 font-normal">${nameRuTrans}</div>
+                                <div>${nameRuTrans}</div>
                             </div>
                         </div>
                     </td>
                     <td class="p-4 text-xs text-slate-300 max-w-xs">${descTrans}</td>
                     <td class="p-4 text-center font-mono text-slate-300">${item.cost}</td>
                     <td class="p-4 text-center font-semibold text-cyan-300">${item.maxEffect}</td>
-                    <td class="p-4 text-center text-xs text-slate-400">${item.perUpgrade}</td>
+                    <td class="p-4 text-center text-xs text-slate-400">${perUpgTrans}</td> <!-- Используем переведенную переменную -->
                     <td class="p-4 text-center font-mono">${item.levels}</td>
                     <td class="p-4 text-center font-mono text-purple-400 font-medium">${item.gemsToMax} <i class="fa-solid fa-gem text-[10px] ml-0.5"></i></td>
                     <td class="p-4 text-center">
