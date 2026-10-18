@@ -121,17 +121,17 @@
                     </button>
 
                     <button onclick="showMainSection('pvp-section', this)" class="nav-tab-btn flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-teal-500/40 transition flex items-center gap-2">
-                        <i class="fa-solid fa-trophy text-violet-400"></i>
+                        <i class="fa-solid fa-trophy text-yellow-400"></i>
                         <span data-i18n="ev_tab_pvp">PVP Ивенты</span>
                     </button>
 
                     <button onclick="showMainSection('coop-section', this)" class="nav-tab-btn flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-teal-500/40 transition flex items-center gap-2">
-                        <i class="fa-solid fa-users text-rose-400"></i>
+                        <i class="fa-solid fa-users text-purple-400"></i>
                         <span data-i18n="ev_tab_coop">CO-OP Ивент</span>
                     </button>
 
                     <button onclick="showMainSection('bossrush-section', this)" class="nav-tab-btn flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-teal-500/40 transition flex items-center gap-2">
-                        <i class="fa-solid fa-dragon text-lime-400"></i>
+                        <i class="fa-solid fa-dragon text-red-400"></i>
                         <span data-i18n="ev_tab_bossrush">Boss Rush</span>
                     </button>
 
@@ -146,7 +146,7 @@
         <!-- SECTION 1: DUNGEONS -->
         <section id="dungeons-section" class="main-section scroll-mt-36 space-y-6">
             <div class="flex items-center space-x-3 mb-6">
-                <div class="p-3 rounded-2xl bg-rose-500/10 text-rose-400 border border-rose-500/20 shadow-lg shadow-rose-500/5">
+                <div class="p-3 rounded-2xl bg-teal-500/10 text-teal-400 border border-teal-500/20 shadow-lg shadow-teal-500/5">
                     <i class="fa-solid fa-dungeon text-2xl"></i>
                 </div>
                 <div>
@@ -235,11 +235,17 @@
                                 <p class="text-xs text-rose-400 font-semibold" data-i18n="ev_dragon_unlock">Открывается на 4 уровне</p>
                             </div>
                         </div>
-                        <span class="px-3 py-1 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-bold" data-i18n="ev_red_keys">Красные ключи</span>
+                        <span class="px-3 py-1 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-bold inline-flex items-center gap-2">
+                            <i class="fa-solid fa-key text-red-400"></i>
+                            <span data-i18n="ev_red_keys">Красные ключи</span>
+                        </span>   
                     </div>
                     <p class="text-xs text-slate-300" data-i18n="ev_dragon_desc">Сокровищница дракона. Отличный старт для новых игроков.</p>
                     <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 text-xs text-slate-300">
                         <strong class="text-amber-400" data-i18n="ev_win_reward_label">Награда за победу:</strong> <span data-i18n="ev_reward_boxes">Коробки (Boxes)</span>
+                    </div>
+                    <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 text-xs text-slate-300">
+                        <strong class="text-amber-400" data-i18n="ev_reward_begin">Начинается с:</strong> <span data-i18n="ev_begin_boxes">1-1: 50 коробок</span>
                     </div>
                 </div>
 
@@ -255,11 +261,17 @@
                                 <p class="text-xs text-emerald-400 font-semibold" data-i18n="ev_zombie_unlock">Открывается на 5 уровне</p>
                             </div>
                         </div>
-                        <span class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold" data-i18n="ev_green_keys">Зелёные ключи</span>
+                        <span class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold inline-flex items-center gap-2">
+                            <i class="fa-solid fa-key text-emerald-400"></i>
+                            <span data-i18n="ev_green_keys">Зелёные ключи</span>
+                        </span>                      
                     </div>
                     <p class="text-xs text-slate-300" data-i18n="ev_zombie_desc">Нашествие зомби. Сражайтесь с ордами ходячих мертвецов.</p>
                     <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 text-xs text-slate-300">
                         <strong class="text-amber-400" data-i18n="ev_win_reward_label">Награда за победу:</strong> <span data-i18n="ev_reward_bones">Кости (Bones)</span>
+                    </div>
+                    <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 text-xs text-slate-300">
+                        <strong class="text-amber-400" data-i18n="ev_reward_begin">Начинается с:</strong> <span data-i18n="ev_begin_bones">100 костей (1-1)</span>
                     </div>
                 </div>
 
@@ -275,11 +287,17 @@
                                 <p class="text-xs text-slate-400 font-semibold" data-i18n="ev_cultist_unlock">Открывается на 20 уровне</p>
                             </div>
                         </div>
-                        <span class="px-3 py-1 rounded-full bg-slate-500/10 border border-slate-500/30 text-slate-300 text-xs font-bold" data-i18n="ev_grey_keys">Серые ключи</span>
+                        <span class="px-3 py-1 rounded-full bg-slate-500/10 border border-slate-500/30 text-slate-400 text-xs font-bold inline-flex items-center gap-2">
+                            <i class="fa-solid fa-key text-slate-400"></i>
+                            <span data-i18n="ev_grey_keys">Серые ключи</span>
+                        </span>                    
                     </div>
                     <p class="text-xs text-slate-300" data-i18n="ev_cultist_desc">Темный ритуал культистов. Уничтожьте адептов тьмы.</p>
                     <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 text-xs text-slate-300">
                         <strong class="text-amber-400" data-i18n="ev_win_reward_label">Награда за победу:</strong> <span data-i18n="ev_reward_flasks">Кровавые колбы (Blood Vials)</span>
+                    </div>
+                    <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 text-xs text-slate-300">
+                        <strong class="text-amber-400" data-i18n="ev_reward_begin">Начинается с:</strong> <span data-i18n="ev_begin_blood">100 колб (1-1)</span>
                     </div>
                 </div>
 
@@ -295,53 +313,17 @@
                                 <p class="text-xs text-amber-400 font-semibold" data-i18n="ev_celestial_unlock">Открывается на 80 уровне</p>
                             </div>
                         </div>
-                        <span class="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold" data-i18n="ev_gold_keys">Золотые ключи</span>
+                        <span class="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold inline-flex items-center gap-2">
+                            <i class="fa-solid fa-key text-amber-400"></i>
+                            <span data-i18n="ev_gold_keys">Золотые ключи</span>
+                        </span>
                     </div>
                     <p class="text-xs text-slate-300" data-i18n="ev_celestial_desc">Небесное восхождение для хай-левел игроков.</p>
                     <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 text-xs text-slate-300">
                         <strong class="text-amber-400" data-i18n="ev_win_reward_label">Награда за победу:</strong> <span data-i18n="ev_reward_exp_stats">Шанс получить предмет с EXP статами</span>
                     </div>
-                </div>
-            </div>
-
-            <!-- Progression Rewards Rules Block -->
-            <div class="glass-panel p-6 rounded-3xl border border-slate-800 space-y-4">
-                <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                    <i class="fa-solid fa-chart-line text-teal-400"></i>
-                    <span data-i18n="ev_calc_title">Расчёт наград за уровень подземелий</span>
-                </h3>
-                <p class="text-xs text-slate-400">
-                    <em data-i18n="ev_calc_note">Примечание: Начальное количество наград для уровня 1-1 принято за 100 единиц (поскольку точные базовые значения 1-1 пока уточняются).</em>
-                </p>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                    <div class="bg-slate-950/80 p-4 rounded-2xl border border-emerald-500/30 space-y-1">
-                        <strong class="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
-                            <i class="fa-solid fa-biohazard"></i> <span data-i18n="ev_calc_zombie_title">Данж с Зомби</span>
-                        </strong>
-                        <p class="text-xs text-slate-300 leading-relaxed">
-                            <span data-i18n="ev_calc_zombie_desc">За победу даётся +2 кости за каждый новый уровень.</span><br>
-                            <span class="text-slate-500 text-[11px]" data-i18n="ev_calc_zombie_ex">(Пример: 1-1 — 100 костей, 1-2 — 102 кости)</span>
-                        </p>
-                    </div>
-
-                    <div class="bg-slate-950/80 p-4 rounded-2xl border border-purple-500/30 space-y-1">
-                        <strong class="text-xs font-bold text-purple-400 flex items-center gap-1.5">
-                            <i class="fa-solid fa-flask"></i> <span data-i18n="ev_calc_cultist_title">Данж с Культистами</span>
-                        </strong>
-                        <p class="text-xs text-slate-300 leading-relaxed">
-                            <span data-i18n="ev_calc_cultist_desc">За победу даётся +2 колбы за каждый новый уровень.</span><br>
-                            <span class="text-slate-500 text-[11px]" data-i18n="ev_calc_cultist_ex">(Пример: 1-1 — 100 колб, 1-2 — 102 колбы)</span>
-                        </p>
-                    </div>
-
-                    <div class="bg-slate-950/80 p-4 rounded-2xl border border-rose-500/30 space-y-1">
-                        <strong class="text-xs font-bold text-rose-400 flex items-center gap-1.5">
-                            <i class="fa-solid fa-dragon"></i> <span data-i18n="ev_calc_dragon_title">Данж с Драконом</span>
-                        </strong>
-                        <p class="text-xs text-slate-300 leading-relaxed">
-                            <span data-i18n="ev_calc_dragon_desc">За победу даётся +1 коробка за каждый новый уровень.</span><br>
-                            <span class="text-slate-500 text-[11px]" data-i18n="ev_calc_dragon_ex">(Пример: 1-1 — 100 коробок, 1-2 — 101 коробка)</span>
-                        </p>
+                    <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 text-xs text-slate-300">
+                        <strong class="text-amber-400" data-i18n="ev_reward_begin">Начинается с:</strong> <span data-i18n="ev_begin_celestial">TBA</span>
                     </div>
                 </div>
             </div>
@@ -394,9 +376,13 @@
                         <p class="text-slate-300 text-sm sm:text-base leading-relaxed" data-i18n="ev_pvp_desc">
                             Соревнуйтесь с 100 игроками вашей группы в запеклых дуэлях за место в топе! Поднимайтесь по 10 ранговым Лигам (от Iron до Legend) и зарабатывайте щедрые ценные награды в конце каждой недели.
                         </p>
-                        <p class="text-xs text-slate-400">
-                            <i class="fa-solid fa-lock-open text-amber-400 mr-1"></i> <span data-i18n="ev_pvp_unlock">Открывается на 15 уровне персонажа. Пропуск: Жёлтые билеты.</span>
-                        </p>
+                            <p class="text-xs text-slate-400">
+                                <i class="fa-solid fa-lock-open text-amber-400 mr-1"></i>
+                                <span data-i18n="ev_pvp_unlock">
+                                    Открывается на 15 уровне персонажа. Пропуск: Жёлтые билеты
+                                </span>
+                                <i class="fa-solid fa-ticket text-amber-400 mr-1"></i>
+                            </p>
                     </div>
 
                     <div class="bg-slate-950/80 backdrop-blur-md p-4 sm:p-5 rounded-2xl border border-amber-500/20 text-center md:text-right space-y-1 flex-shrink-0">
@@ -490,9 +476,13 @@
                         <p class="text-slate-300 text-sm sm:text-base leading-relaxed" data-i18n="ev_coop_desc">
                             Объединяйтесь от 2 до 4 игроков для совместного прохождения 5 этажей и эпического Босса. Играйте вместе с друзьями или находите соратников через систему случайных публичных лобби.
                         </p>
-                        <p class="text-xs text-slate-400">
-                            <i class="fa-solid fa-lock-open text-purple-400 mr-1"></i> <span data-i18n="ev_coop_unlock">Открывается на 15 уровне. Пропуск: Фиолетовые билеты.</span>
-                        </p>
+                            <p class="text-xs text-slate-400">
+                                <i class="fa-solid fa-lock-open text-purple-400 mr-1"></i>
+                                <span data-i18n="ev_coop_unlock">
+                                    Открывается на 15 уровне. Пропуск: Фиолетовые билеты.
+                                </span>
+                                <i class="fa-solid fa-ticket text-purple-400 mr-1"></i>
+                            </p>
                     </div>
                 </div>
 
@@ -618,9 +608,13 @@
                         <p class="text-slate-300 text-sm sm:text-base leading-relaxed" data-i18n="ev_boss_desc">
                             Эпическое сражение 8 игроков одновременно против 1 гигантского Босса! Вносите максимум урона, получайте гарантированные награды и ключи в подземелья, а также занимайте места в ТОП-100 для получения кристаллов и корон.
                         </p>
-                        <p class="text-xs text-slate-400">
-                            <i class="fa-solid fa-lock-open text-red-400 mr-1"></i> <span data-i18n="ev_boss_unlock">Открывается на 15 уровне. Пропуск: Красные билеты.</span>
-                        </p>
+                            <p class="text-xs text-slate-400">
+                                <i class="fa-solid fa-lock-open text-red-400 mr-1"></i>
+                                <span data-i18n="ev_boss_unlock">
+                                    Открывается на 15 уровне. Пропуск: Красные билеты.
+                                </span>
+                                <i class="fa-solid fa-ticket text-red-400 mr-1"></i>
+                            </p>
                     </div>
                 </div>
 
@@ -889,23 +883,23 @@
                             <span class="text-xs text-slate-400 font-mono"><span data-i18n="ev_stages_prefix">Этапы</span> 2-10 - 10-10</span>
                         </div>
                         <ul class="space-y-2 text-xs sm:text-sm text-slate-400">
-                            <li class="flex justify-between items-center bg-slate-950/60 p-2.5 rounded-lg border border-slate-500/20">
+                            <li class="text-[12px] flex justify-between items-center bg-slate-950/60 p-2.5 rounded-lg border border-slate-500/20">
                                 <span class="font-semibold text-slate-300">Extreme 2-10</span>
                                 <span class="text-slate-300 text-right" data-i18n="ev_extreme_1010">🎁 5 кор. эвента, 📦 250 об. коробок, 🦴 750 костей</span>
                             </li>
-                            <li class="flex justify-between items-center bg-slate-950/60 p-2.5 rounded-lg border border-slate-500/20">
+                            <li class="text-[12px] flex justify-between items-center bg-slate-950/60 p-2.5 rounded-lg border border-slate-500/20">
                                 <span class="font-semibold text-slate-300">Extreme 4-10</span>
                                 <span class="text-slate-300 text-right" data-i18n="ev_extreme_1010">🎁 5 кор. эвента, 📦 200 об. коробок, 🦴 600 костей, 🛠️ 2 бура</span>
                             </li>
-                            <li class="flex justify-between items-center bg-slate-950/60 p-2.5 rounded-lg border border-slate-500/20">
+                            <li class="text-[12px] flex justify-between items-center bg-slate-950/60 p-2.5 rounded-lg border border-slate-500/20">
                                 <span class="font-semibold text-slate-300">Extreme 6-10</span>
                                 <span class="text-slate-300 text-right" data-i18n="ev_extreme_1010">🎁 5 кор. эвента, 👑 100 корон, 🦴 500 костей, 🟡 1 зол. кирка</span>
                             </li>
-                            <li class="flex justify-between items-center bg-slate-950/60 p-2.5 rounded-lg border border-slate-500/20">
+                            <li class="text-[12px] flex justify-between items-center bg-slate-950/60 p-2.5 rounded-lg border border-slate-500/20">
                                 <span class="font-semibold text-slate-300">Extreme 8-10</span>
                                 <span class="text-slate-300 text-right" data-i18n="ev_extreme_1010">🎁 5 кор. эвента, 📦 250 об. коробок, 🦴 400 костей, 🟡 2 зол. кирки, ⭐ 2000 опыта</span>
                             </li>
-                            <li class="flex justify-between items-center bg-slate-950/60 p-2.5 rounded-lg border border-rose-500/20">
+                            <li class="text-[12px] flex justify-between items-center bg-slate-950/60 p-2.5 rounded-lg border border-rose-500/20">
                                 <span class="font-semibold text-rose-300">Extreme 10-10</span>
                                 <span class="text-slate-300 text-right" data-i18n="ev_extreme_1010">🎁 5 кор. эвента, 👑 100 корон, 🦴 600 костей, 📦 100 об. коробок</span>
                             </li>
@@ -918,28 +912,28 @@
                             <span class="font-bold text-lime-400 text-lg flex items-center gap-2">
                                 <i class="fa-solid fa-radiation"></i> Overkill
                             </span>
-                            <span class="text-xs text-slate-400 font-mono" data-i18n="ev_coming_soon">Скоро</span>
+                            <span class="text-xs text-slate-400 font-mono"><span data-i18n="ev_stages_prefix">Этапы</span> 2-10 - 10-10</span>
                         </div>
                         <ul class="space-y-2 text-xs sm:text-sm text-slate-400">
-                            <li class="flex justify-between items-center bg-slate-950/60 p-2.5 rounded-lg border border-slate-800/50">
-                                <span>Overkill 2-10</span>
-                                <span class="italic text-slate-500" data-i18n="ev_tba">Уточняется</span>
+                            <li class="text-[13px] flex justify-between items-center bg-slate-950/60 p-2.5 rounded-lg border border-slate-500/20">
+                                <span class="font-semibold text-slate-300">Overkill 2-10</span>
+                                <span class="text-slate-300 text-right" data-i18n="ev_extreme_1010">🎁 5 кор. эвента, 📦 250 об. коробок, 🦴 750 костей</span>
                             </li>
-                            <li class="flex justify-between items-center bg-slate-950/60 p-2.5 rounded-lg border border-slate-800/50">
-                                <span>Overkill 4-10</span>
-                                <span class="italic text-slate-500" data-i18n="ev_tba">Уточняется</span>
+                            <li class="text-[13px] flex justify-between items-center bg-slate-950/60 p-2.5 rounded-lg border border-slate-500/20">
+                                <span class="font-semibold text-slate-300">Overkill 4-10</span>
+                                <span class="text-slate-300 text-right" data-i18n="ev_extreme_1010">🎁 5 кор. эвента, 📦 200 об. коробок, 🦴 600 костей, 🛠️ 2 бура</span>
                             </li>
-                            <li class="flex justify-between items-center bg-slate-950/60 p-2.5 rounded-lg border border-slate-800/50">
-                                <span>Overkill 6-10</span>
-                                <span class="italic text-slate-500" data-i18n="ev_tba">Уточняется</span>
+                            <li class="text-[13px] flex justify-between items-center bg-slate-950/60 p-2.5 rounded-lg border border-slate-500/20">
+                                <span class="font-semibold text-slate-300">Overkill 6-10</span>
+                                <span class="text-slate-300 text-right" data-i18n="ev_extreme_1010">🎁 5 кор. эвента, 👑 100 корон, 🦴 500 костей, 🟡 1 зол. кирка</span>
                             </li>
-                            <li class="flex justify-between items-center bg-slate-950/60 p-2.5 rounded-lg border border-slate-800/50">
-                                <span>Overkill 8-10</span>
-                                <span class="italic text-slate-500" data-i18n="ev_tba">Уточняется</span>
+                            <li class="text-[13px] flex justify-between items-center bg-slate-950/60 p-2.5 rounded-lg border border-slate-500/20">
+                                <span class="font-semibold text-slate-300">Overkill 8-10</span>
+                                <span class="text-slate-300 text-right" data-i18n="ev_extreme_1010">🎁 5 кор. эвента, 📦 250 об. коробок, 🦴 400 костей, 🟡 2 зол. кирки, ⭐ 2000 опыта</span>
                             </li>
-                            <li class="flex justify-between items-center bg-slate-950/60 p-2.5 rounded-lg border border-slate-800/50">
-                                <span>Overkill 10-10</span>
-                                <span class="italic text-slate-500" data-i18n="ev_tba">Уточняется</span>
+                            <li class="text-[13px] flex justify-between items-center bg-slate-950/60 p-2.5 rounded-lg border border-lime-500/20">
+                                <span class="font-semibold text-lime-300">Overkill 10-10</span>
+                                <span class="text-slate-300 text-right" data-i18n="ev_extreme_1010">🎁 5 кор. эвента, 👑 100 корон, 🦴 600 костей, 📦 100 об. коробок</span>
                             </li>
                         </ul>
                     </div>
