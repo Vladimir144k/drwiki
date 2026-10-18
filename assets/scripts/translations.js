@@ -1,17 +1,21 @@
 // data-i18n=""
 
 const APP_CONFIG = {
-  lastUpdateDate: "15.10.2026"
+  lastUpdateDate: "18.10.2026"
 };
 
 const translations = {
   ru: {
     // All
     system_top: "Наверх",
-    system_footer: "Неофициальный справочник по игре. Данный сайт не связан с разработчиками или издателем игры. Все права на игру, её название, изображения и другие материалы принадлежат LAVA LABS OYUN YAZILIM VE PAZARLAMA ANONİM ШİRKETİ. Данный сайт создан исключительно в информационных целях.",
+    system_footer: "Неофициальный справочник по игре. Данный сайт не связан с разработчиками или издателем игры. Все права на игру, её название, изображения и другие материалы принадлежат LAVA LABS OYUN YAZILIM VE PAZARLAMA ANONİM ŞİRKETİ. Данный сайт создан исключительно в информационных целях.",
     system_pts_short: "очк",
     system_pts_unit: "очков",
     system_pt_unit: "очко",
+
+    // changelogs.html
+    changelogs_title: "История обновлений",
+    changelogs_subtitle: "Лог изменений сайта, таблиц и калькуляторов Dungeon Rush.",
     
     // index.html
     index_header: "Единый портал знаний",
@@ -20,10 +24,10 @@ const translations = {
     index_disclaimer_title: "Обратите внимание!",
     index_disclaimer_text: "Информация может быть неполной. Нашли ошибку или есть данные? Свяжитесь со мной:",
     index_hero_p: "Добро пожаловать в неофициальную базу знаний. Рассчитывайте прокачку, изучайте гайды и анализируйте игровые механики.",
-    index_hero_badge_data: "Таблицы",
-    index_hero_badge_code: "Код",
-    index_hero_badge_info: "Данные",
-    index_hero_badge_thank: "Благодарность",
+    index_hero_badge_data: "Таблицы:",
+    index_hero_badge_code: "Код:",
+    index_hero_badge_info: "Данные:",
+    index_hero_badge_thank: "Благодарность:",
     index_searchbar: "Поиск по названиям, описанию и ключевым словам...",
     index_category_calc: "Калькуляторы",
     index_calc_crown_title: "Калькулятор Корон",
@@ -58,7 +62,7 @@ const translations = {
     index_category_ud: "В разработке",
     index_hero_support: "Поддержите проект на Boosty",
     
-    index_hero_badge_legends: "Легенды",
+    index_hero_badge_legends: "Легенды:",
     index_hero_badge_legends_desc: "Люди с невероятно широкой душой, благодаря которым развитие вики и калькуляторов идет гораздо быстрее! ✨",
 
     // crown calc
@@ -272,6 +276,11 @@ const translations = {
     ev_win_reward_label: "Награда за победу:",
     ev_reward_boxes: "Коробки (Boxes)",
     ev_zombie_unlock: "Открывается на 5 уровне",
+    ev_reward_begin: "Начинается с:",
+    ev_begin_boxes: "50 коробок (1-1) | +1 коробка за уровень",
+    ev_begin_bones: "100 костей (1-1) | +2 костей за уровень",
+    ev_begin_blood: "100 колб (1-1) | +2 колбы за уровень",
+    ev_begin_celestial: "TBA % (1-1) | TBA %",
     ev_green_keys: "Зелёные ключи",
     ev_zombie_desc: "Нашествие зомби. Сражайтесь с ордами ходячих мертвецов.",
     ev_reward_bones: "Кости (Bones)",
@@ -283,24 +292,13 @@ const translations = {
     ev_gold_keys: "Золотые ключи",
     ev_celestial_desc: "Небесное восхождение для хай-левел игроков.",
     ev_reward_exp_stats: "Шанс получить предмет с EXP статами",
-    ev_calc_title: "Расчёт наград за уровень подземелий",
-    ev_calc_note: "Примечание: Начальное количество наград для уровня 1-1 принято за 100 единиц (поскольку точные базовые значения 1-1 пока уточняются).",
-    ev_calc_zombie_title: "Данж с Зомби",
-    ev_calc_zombie_desc: "За победу даётся +2 кости за каждый новый уровень.",
-    ev_calc_zombie_ex: "(Пример: 1-1 — 100 костей, 1-2 — 102 кости)",
-    ev_calc_cultist_title: "Данж с Культистами",
-    ev_calc_cultist_desc: "За победу даётся +2 колбы за каждый новый уровень.",
-    ev_calc_cultist_ex: "(Пример: 1-1 — 100 колб, 1-2 — 102 колбы)",
-    ev_calc_dragon_title: "Данж с Драконом",
-    ev_calc_dragon_desc: "За победу даётся +1 коробка за каждый новый уровень.",
-    ev_calc_dragon_ex: "(Пример: 1-1 — 100 коробок, 1-2 — 101 коробка)",
     ev_rules_title: "Важные правила и лимиты Подземелий",
     ev_rule1_bold: "Без потерь при поражении:",
     ev_rule1_desc: "За проигрыш в подземелье ключи НЕ сбрасываются. Вы можете пробовать снова.",
     ev_rule2_bold: "Источники ключей:",
-    ev_rule2_desc: "Дневной сброс, Battle Pass, Boss Rush, награды за Клановую Войну и просмотр рекламы.",
+    ev_rule2_desc: "Дневной сброс, Battle Pass, Boss Rush и просмотр рекламы.",
     ev_rule3_bold: "Ежедневный лимит:",
-    ev_rule3_desc: "2 бесплатных ключа + 3 за просмотр рекламы. Максимум 5 заходов в 1 данж в день.",
+    ev_rule3_desc: "2 бесплатных ключа + 3 за просмотр рекламы. Максимум 5 заходов в 1 подземелье в день.",
     ev_rule4_bold: "Правило стакания:",
     ev_rule4_desc: "Ежедневные бесплатные ключи не стакаются. Ключи из BP, Boss Rush и Клановых войн — накапливаются (стакаются).",
     ev_pvp_title: "PVP Арена Ивент",
@@ -587,6 +585,8 @@ const translations = {
     stat_lifesteal: "Вампиризм",
 
     // tables.html
+    tbl_m_searchbar: "Поиск по названию или описанию...",
+    tbl_s_searchbar: "Поиск по статам...",
     tbl_header_title: "Dungeon Rush - Статистика, Таблицы и Дропы (Шансы)",
     tbl_hero_title: "Информация, статистики и гайды по игре!",
     tbl_hero_desc: "Полный справочник по мастерству, обычным и EXP статам, клановой войне и шансы дропов. Выбирайте категорию в интерактивном меню ниже.",
@@ -696,6 +696,8 @@ const translations = {
     tbl_ore_dia: "Алмаз",
     tbl_val_yes: "Да",
     tbl_val_yes_melee: "Да если ближний",
+    tbl_val_percentone: "0.05, потом .1% на 8 уровне",
+    tbl_val_percenttwo: "sex",
     tbl_val_no: "Нет",
     tbl_val_maybe: "Возможно",
     tbl_val_nodata: "Нет данных",
@@ -703,6 +705,8 @@ const translations = {
     tbl_lvl_cost_title: "Стоимость прокачки по уровням",
     tbl_total_gems: "Всего гемов до макс.",
     tbl_exp_stats_header: "EXP Статы",
+    m_offline_rate_upg: "0.05, потом .1% на 8 уровне",
+    m_max_item_upg: "2, потом 4 на 5 уровне",
     m_auto_loot: "Скорость Авто-Лута",
     m_auto_loot_desc: "Количество ящиков, которые автоматически открываются",
     m_auto_loot_rec: "5 Затем Макс.",
@@ -783,10 +787,14 @@ const translations = {
   en: {
     // All
     system_top: "Back to Top",
-    system_footer: "An unofficial guide to the game. This site is not affiliated with the developers or publisher of the game. All rights to the game, its name, images and other materials belong to LAVA LABS OYUN YAZILIM VE PAZARLAMA ANONIM SHIRKETI. This website was created solely for informational purposes.",
+    system_footer: "An unofficial guide to the game. This site is not affiliated with the developers or publisher of the game. All rights to the game, its name, images and other materials belong to LAVA LABS OYUN YAZILIM VE PAZARLAMA ANONIM ŞİRKETİ. This website was created solely for informational purposes.",
     system_pts_short: "pts",
     system_pts_unit: "points",
     system_pt_unit: "point",
+
+    // changelogs.html
+    changelogs_title: "Update history",
+    changelogs_subtitle: "Change log for the Dungeon Rush website, tables, and calculators.",
     
     // index.html
     index_header: "Unified Knowledge Portal",
@@ -795,10 +803,10 @@ const translations = {
     index_disclaimer_title: "Please note!",
     index_disclaimer_text: "The information may be incomplete. Did you find an error or do you have additional data? Please contact me:",
     index_hero_p: "Welcome to the unofficial knowledge base. Calculate the leveling, study the guides and analyze the game mechanics.",
-    index_hero_badge_data: "Tables",
-    index_hero_badge_code: "Code",
-    index_hero_badge_info: "Info",
-    index_hero_badge_thank: "Special thanks to",
+    index_hero_badge_data: "Tables:",
+    index_hero_badge_code: "Code:",
+    index_hero_badge_info: "Info:",
+    index_hero_badge_thank: "Special thanks to:",
     index_searchbar: "Search by name, description, and keywords...",
     index_category_calc: "Calculators",
     index_calc_crown_title: "Crown Calculator",
@@ -833,7 +841,7 @@ const translations = {
     index_category_ud: "Under Development",
     index_hero_support: "Support the project on Boosty",
     
-    index_hero_badge_legends: "Legends",
+    index_hero_badge_legends: "Legends:",
     index_hero_badge_legends_desc: "People with incredibly generous hearts, helping wiki and calculators evolve so much faster! ✨",
 
     // crown calc
@@ -1048,6 +1056,11 @@ const translations = {
     ev_green_keys: "Green Keys",
     ev_zombie_desc: "Zombie outbreak. Fight off hordes of walking dead.",
     ev_reward_bones: "Bones",
+    ev_reward_begin: "Begins with:",
+    ev_begin_boxes: "50 boxes (1-1) | +1 box per level",
+    ev_begin_bones: "100 bones (1-1) | +2 bones per level",
+    ev_begin_blood: "100 vials (1-1) | +2 vials per level",
+    ev_begin_celestial: "TBA % (1-1) | TBA %",
     ev_cultist_unlock: "Unlocks at Level 20",
     ev_grey_keys: "Grey Keys",
     ev_cultist_desc: "Dark cultist ritual. Defeat the disciples of shadow.",
@@ -1056,22 +1069,11 @@ const translations = {
     ev_gold_keys: "Gold Keys",
     ev_celestial_desc: "Celestial ascent for high-level players.",
     ev_reward_exp_stats: "Chance to get an item with EXP stats",
-    ev_calc_title: "Dungeon Level Reward Scaling",
-    ev_calc_note: "Note: Base reward amount for Level 1-1 is set at 100 units for reference.",
-    ev_calc_zombie_title: "Zombie Dungeon",
-    ev_calc_zombie_desc: "Victory grants +2 bones per new level.",
-    ev_calc_zombie_ex: "(Example: 1-1 — 100 bones, 1-2 — 102 bones)",
-    ev_calc_cultist_title: "Cultist Dungeon",
-    ev_calc_cultist_desc: "Victory grants +2 blood vials per new level.",
-    ev_calc_cultist_ex: "(Example: 1-1 — 100 vials, 1-2 — 102 vials)",
-    ev_calc_dragon_title: "Dragon Dungeon",
-    ev_calc_dragon_desc: "Victory grants +1 box per new level.",
-    ev_calc_dragon_ex: "(Example: 1-1 — 100 boxes, 1-2 — 101 boxes)",
     ev_rules_title: "Important Dungeon Rules & Limits",
     ev_rule1_bold: "No loss on defeat:",
     ev_rule1_desc: "Keys are NOT consumed when losing in a dungeon. You can retry freely.",
     ev_rule2_bold: "Key Sources:",
-    ev_rule2_desc: "Daily reset, Battle Pass, Boss Rush, Clan War rewards, and ad views.",
+    ev_rule2_desc: "Daily reset, Battle Pass, Boss Rush and ad views.",
     ev_rule3_bold: "Daily Limit:",
     ev_rule3_desc: "2 free keys + 3 for watching ads. Max 5 entries per dungeon daily.",
     ev_rule4_bold: "Stacking Rule:",
@@ -1191,9 +1193,9 @@ const translations = {
     ev_hard_1010: "🎁 5 event boxes, 👑 100 crowns, 🦴 500 bones, 🟡 2 gold pickaxes",
     ev_extreme_210: "🎁 5 event boxes, 📦 250 common boxes, 🦴 750 bones",
     ev_extreme_410: "🎁 5 event boxes, 📦 200 common boxes, 🦴 600 bones, 🛠️ 2 drills",
-    ev_extreme_610: "🎁 5 event boxes, 👑 100 common, 🦴 500 bones, 🟡 1 gold pickaxes",
+    ev_extreme_610: "🎁 5 event boxes, 👑 100 crowns, 🦴 500 bones, 🟡 1 gold pickaxes",
     ev_extreme_810: "🎁 5 event boxes, 📦 250 common boxes, 🦴 400 bones, 🟡 2 gold pickaxes, ⭐ 2000 EXP",
-    ev_extreme_1010: "🎁 5 event boxes, 👑 100 common, 🦴 600 bones, 📦 100 common boxes",
+    ev_extreme_1010: "🎁 5 event boxes, 👑 100 crowns, 🦴 600 bones, 📦 100 common boxes",
     ev_coming_soon: "Coming Soon",
     ev_tba: "TBA",
     
@@ -1360,6 +1362,8 @@ const translations = {
     stat_lifesteal: "Lifesteal",
 
     // tables.html
+    tbl_m_searchbar: "Search by name or description...",
+    tbl_s_searchbar: "Search by stats...",
     tbl_header_title: "Dungeon Rush - Stats, Tables & Drop Rates",
     tbl_hero_title: "Game Guides, Statistics & Knowledge Base!",
     tbl_hero_desc: "Complete guide on Mastery, regular & EXP stats, Clan Wars, and drop rates. Choose a category from the navigation below.",
@@ -1469,6 +1473,8 @@ const translations = {
     tbl_ore_dia: "Diamond",
     tbl_val_yes: "Yes",
     tbl_val_yes_melee: "Yes if melee",
+    tbl_val_percentone: "0.05, then .1% on level 8",
+    tbl_val_percenttwo: "sex",
     tbl_val_no: "No",
     tbl_val_maybe: "Maybe",
     tbl_val_nodata: "No Data",
@@ -1476,6 +1482,8 @@ const translations = {
     tbl_lvl_cost_title: "Level Cost Breakdown",
     tbl_total_gems: "Total Gems to Max",
     tbl_exp_stats_header: "EXP Stats",
+    m_offline_rate_upg: "0.05, then .1% at level 8",
+    m_max_item_upg: "2, then 4 at level 5",
     m_auto_loot: "Auto-Loot Speed",
     m_auto_loot_desc: "Number of boxes automatically opened",
     m_auto_loot_rec: "5 then Max",
