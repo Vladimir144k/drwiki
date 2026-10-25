@@ -522,6 +522,103 @@
                 </div>
             </div>
 
+            <!-- COOP Details & Mechanics -->
+            <div class="space-y-6 mt-6">
+                <!-- Общие правила и прогрессия -->
+                <div class="glass-panel p-6 rounded-3xl border border-slate-800 space-y-4">
+                    <h3 class="text-base font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-chart-line text-purple-400"></i>
+                        <span data-i18n="ev_coop_league_title">Правила лиг и масштабирования врагов</span>
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs text-slate-300">
+                        <div class="bg-slate-950/80 p-3.5 rounded-2xl border border-slate-800/80">
+                            <strong class="text-purple-400 block mb-1" data-i18n="ev_coop_league_start">Стартовая лига и трофеи</strong>
+                            <span data-i18n="ev_coop_league_start_desc">Вы начинаете в Iron лиге с 1000 трофеев. Каждая лига охватывает диапазон в 200 трофеев.</span>
+                        </div>
+                        <div class="bg-slate-950/80 p-3.5 rounded-2xl border border-slate-800/80">
+                            <strong class="text-purple-400 block mb-1" data-i18n="ev_coop_league_enemy">Масштабирование врагов</strong>
+                            <span data-i18n="ev_coop_league_enemy_desc">Враги становятся сильнее по мере вашего прогресса и масштабируются под самого сильного игрока в вашей группе.</span>
+                        </div>
+                        <div class="bg-slate-950/80 p-3.5 rounded-2xl border border-slate-800/80 md:col-span-2">
+                            <strong class="text-purple-400 block mb-1" data-i18n="ev_coop_league_reward">Награды трофеями</strong>
+                            <span data-i18n="ev_coop_league_reward_desc">Вы получаете меньше трофеев по мере продвижения по лигам.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Командная работа и стратегия -->
+                <div class="glass-panel p-6 rounded-3xl border border-slate-800 space-y-4">
+                    <h3 class="text-base font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-chess text-amber-400"></i>
+                        <span data-i18n="ev_coop_strat">Командная работа и стратегия</span>
+                    </h3>
+                    <p class="text-xs text-slate-300" data-i18n="ev_coop_strat_desc">
+                        Играйте с игроками похожей силы. Более слабым союзникам будет тяжело против врагов, масштабированных под сильного игрока.
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-slate-300">
+                        <div class="bg-slate-950/80 p-3.5 rounded-2xl border border-slate-800/80">
+                            <strong class="text-amber-400 block mb-1" data-i18n="ev_coop_strat_tank">Танк (Tank)</strong>
+                            <span data-i18n="ev_coop_strat_tank_desc">Игроки с высокой защитой привлекают (агрят) атаки врагов на себя.</span>
+                        </div>
+                        <div class="bg-slate-950/80 p-3.5 rounded-2xl border border-slate-800/80">
+                            <strong class="text-amber-400 block mb-1" data-i18n="ev_coop_strat_damage">Урон (Damage dealers)</strong>
+                            <span data-i18n="ev_coop_strat_damage_desc">Атакуйте сзади или обходите врагов с флангов.</span>
+                        </div>
+                        <div class="bg-slate-950/80 p-3.5 rounded-2xl border border-slate-800/80">
+                            <strong class="text-amber-400 block mb-1" data-i18n="ev_coop_strat_pos">Позиционирование</strong>
+                            <span data-i18n="ev_coop_strat_pos_desc">Уклоняйтесь и маневрируйте! Вы управляете персонажем вручную, избегая атак, загоняя врагов в углы или ловушки.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Воскрешение и Буст трофеев -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="glass-panel p-6 rounded-3xl border border-slate-800 space-y-3">
+                        <h3 class="font-bold text-white text-base flex items-center gap-2">
+                            <i class="fa-solid fa-heart-pulse text-rose-400"></i> <span data-i18n="ev_coop_revieve">Воскрешение и награды</span>
+                        </h3>
+                        <p class="text-xs text-slate-300 leading-relaxed" data-i18n="ev_coop_revieve_desc">
+                            Вы можете потратить гемы на воскрешение после смерти, однако <strong>воскрешение не является обязательным</strong> для получения наград по завершении.
+                        </p>
+                    </div>
+
+                    <div class="glass-panel p-6 rounded-3xl border border-slate-800 space-y-3">
+                        <h3 class="font-bold text-white text-base flex items-center gap-2">
+                            <i class="fa-solid fa-arrow-trend-up text-emerald-400"></i> <span data-i18n="ev_coop_cup_boost">Буст трофеев (Trophy Boosting)</span>
+                        </h3>
+                        <p class="text-xs text-slate-300 leading-relaxed" data-i18n="ev_coop_cup_boost_desc">
+                            Игра с тем, у кого больше трофеев, приносит вам бонусные трофеи, а более высокоранговый игрок получает меньше.
+                        </p>
+                        <div class="bg-slate-950/60 p-2.5 rounded-xl border border-slate-800 text-xs text-slate-300 space-y-1">
+                            <div data-i18n="ev_coop_cup_boost_a">• Игрок A (1,800 трофеев) — получает бонусные трофеи.</div>
+                            <div data-i18n="ev_coop_cup_boost_b">• Игрок B (2,300 трофеев) — получает меньше трофеев.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Важные предупреждения -->
+                <div class="glass-panel p-6 rounded-3xl border border-rose-500/30 space-y-4 bg-gradient-to-br from-slate-900 via-rose-950/20 to-slate-900">
+                    <h3 class="text-sm font-bold text-rose-400 flex items-center gap-2">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <span data-i18n="ev_coop_warning">Важные предупреждения (Important Warnings)</span>
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs text-slate-300">
+                        <div class="bg-slate-950/80 p-3.5 rounded-2xl border border-slate-800/80">
+                            <strong class="text-rose-400 block mb-1" data-i18n="ev_coop_warning_lose">Поражение группы (Party wipes)</strong>
+                            <span data-i18n="ev_coop_warning_lose_desc">Если погибают все участники, уровень проваливается, и вы можете потерять около 20 трофеев.</span>
+                        </div>
+                        <div class="bg-slate-950/80 p-3.5 rounded-2xl border border-slate-800/80">
+                            <strong class="text-amber-400 block mb-1" data-i18n="ev_coop_warning_disc">Отключение (Disconnecting)</strong>
+                            <span data-i18n="ev_coop_warning_disc_desc">Может привести к штрафу по трофеям, даже если команда зачистит подземелье. Иногда теряется только билет без штрафа.</span>
+                        </div>
+                        <div class="bg-slate-950/80 p-3.5 rounded-2xl border border-slate-800/80">
+                            <strong class="text-purple-400 block mb-1" data-i18n="ev_coop_warning_block">Блокировка прохода (Body blocking)</strong>
+                            <span data-i18n="ev_coop_warning_block_desc">В узких местах (choke points) другие игроки могут перекрыть путь, из-за чего придется выйти из игры или погибнуть.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Co-op Leagues Table -->
             <div class="glass-panel rounded-3xl p-6 border border-slate-800 space-y-4">
                 <h3 class="text-base font-bold text-white flex items-center gap-2">
@@ -1065,22 +1162,22 @@
         /* --- База данных наград Boss Rush лиг --- */
         const bossRushLeaguesData = {
             "Iron": [
-                { rank: "1", crowns: "—", gems: "—" },
-                { rank: "2", crowns: "—", gems: "—" },
-                { rank: "3", crowns: "—", gems: "—" },
-                { rank: "4-10", crowns: "—", gems: "—" },
-                { rank: "11-30", crowns: "—", gems: "—" },
-                { rank: "31-50", crowns: "—", gems: "—" },
-                { rank: "51-100", crowns: "—", gems: "—" }
+                { rank: "1", crowns: 100, gems: 100 },
+                { rank: "2", crowns: 80, gems: 80 },
+                { rank: "3", crowns: 50, gems: 50 },
+                { rank: "4-10", crowns: 30, gems: 30 },
+                { rank: "11-30", crowns: 20, gems: 20 },
+                { rank: "31-50", crowns: 10, gems: 10 },
+                { rank: "51-100", crowns: 5, gems: 5 }
             ],
             "Bronze": [
-                { rank: "1", crowns: "—", gems: "—" },
-                { rank: "2", crowns: "—", gems: "—" },
-                { rank: "3", crowns: "—", gems: "—" },
-                { rank: "4-10", crowns: "—", gems: "—" },
-                { rank: "11-30", crowns: "—", gems: "—" },
-                { rank: "31-50", crowns: "—", gems: "—" },
-                { rank: "51-100", crowns: "—", gems: "—" }
+                { rank: "1", crowns: 125, gems: 125 },
+                { rank: "2", crowns: 100, gems: 100 },
+                { rank: "3", crowns: 62, gems: 62 },
+                { rank: "4-10", crowns: 37, gems: 37 },
+                { rank: "11-30", crowns: 25, gems: 25 },
+                { rank: "31-50", crowns: 12, gems: 12 },
+                { rank: "51-100", crowns: 6, gems: 6 }
             ],
             "Silver": [
                 { rank: "1", crowns: 150, gems: 150 },
@@ -1101,13 +1198,13 @@
                 { rank: "51-100", crowns: 8, gems: 8 }
             ],
             "Platinum": [
-                { rank: "1", crowns: "—", gems: "—" },
-                { rank: "2", crowns: "—", gems: "—" },
-                { rank: "3", crowns: "—", gems: "—" },
-                { rank: "4-10", crowns: "—", gems: "—" },
-                { rank: "11-30", crowns: "—", gems: "—" },
-                { rank: "31-50", crowns: "—", gems: "—" },
-                { rank: "51-100", crowns: "—", gems: "—" }
+                { rank: "1", crowns: 200, gems: 200 },
+                { rank: "2", crowns: 160, gems: 160 },
+                { rank: "3", crowns: 100, gems: 100 },
+                { rank: "4-10", crowns: 60, gems: 60 },
+                { rank: "11-30", crowns: 40, gems: 40 },
+                { rank: "31-50", crowns: 20, gems: 20 },
+                { rank: "51-100", crowns: 10, gems: 10 }
             ],
             "Emerald": [
                 { rank: "1", crowns: 250, gems: 250 },
@@ -1137,15 +1234,6 @@
                 { rank: "51-100", crowns: 20, gems: 20 }
             ],
             "Grandmaster": [
-                { rank: "1", crowns: "—", gems: "—" },
-                { rank: "2", crowns: "—", gems: "—" },
-                { rank: "3", crowns: "—", gems: "—" },
-                { rank: "4-10", crowns: "—", gems: "—" },
-                { rank: "11-30", crowns: "—", gems: "—" },
-                { rank: "31-50", crowns: "—", gems: "—" },
-                { rank: "51-100", crowns: "—", gems: "—" }
-            ],
-            "Legend": [
                 { rank: "1", crowns: 500, gems: 500 },
                 { rank: "2", crowns: 400, gems: 400 },
                 { rank: "3", crowns: 250, gems: 250 },
@@ -1153,6 +1241,15 @@
                 { rank: "11-30", crowns: 100, gems: 100 },
                 { rank: "31-50", crowns: 50, gems: 50 },
                 { rank: "51-100", crowns: 25, gems: 25 }
+            ],
+            "Legend": [
+                { rank: "1", crowns: "—", gems: "—" },
+                { rank: "2", crowns: "—", gems: "—" },
+                { rank: "3", crowns: "—", gems: "—" },
+                { rank: "4-10", crowns: "—", gems: "—" },
+                { rank: "11-30", crowns: "—", gems: "—" },
+                { rank: "31-50", crowns: "—", gems: "—" },
+                { rank: "51-100", crowns: "—", gems: "—" }
             ]
         };
 
