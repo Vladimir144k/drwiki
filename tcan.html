@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#070a12">
+  <meta name="description" content="Tcan — веб-разработка, игровые инструменты, локализация и разработка игр.">
+  <title>Tcan | Developer</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            viking: ['Cinzel', 'serif']
+          },
+          colors: {
+            darkBg: '#070a12',
+            cardBg: 'rgba(15, 23, 42, 0.65)',
+            accentPurple: '#8b5cf6',
+            accentBlue: '#3b82f6',
+            accentGold: '#f59e0b'
+          },
+          boxShadow: {
+            'glow-purple': '0 0 25px -5px rgba(139, 92, 246, 0.3)',
+            'glow-gold': '0 0 25px -5px rgba(245, 158, 11, 0.3)'
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    body {
+      background-color: #070a12;
+      background-image:
+        radial-gradient(at 15% 15%, rgba(139, 92, 246, .12) 0, transparent 45%),
+        radial-gradient(at 85% 85%, rgba(59, 130, 246, .12) 0, transparent 45%),
+        radial-gradient(at 50% 50%, rgba(245, 158, 11, .05) 0, transparent 60%);
+      background-attachment: fixed;
+    }
+    .glass-panel {
+      background: rgba(15, 23, 42, .65);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, .08);
+    }
+    .glass-panel:hover { border-color: rgba(139, 92, 246, .4); }
+    .glass-panel-gold:hover { border-color: rgba(245, 158, 11, .5); }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #070a12; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #8b5cf6; }
+    .text-gradient {
+      background: linear-gradient(90deg, #c084fc, #60a5fa, #fcd34d);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .project-link { transition: transform .2s ease, border-color .2s ease, background .2s ease; }
+    .project-link:hover { transform: translateY(-2px); }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+
+<body class="bg-darkBg text-gray-200 font-sans antialiased min-h-screen flex flex-col selection:bg-purple-500 selection:text-white relative">
+  <!-- Ambient background glows -->
+  <div class="fixed top-0 left-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+  <div class="fixed bottom-0 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+
+  <!-- Navigation -->
+  <header class="sticky top-0 z-50 w-full backdrop-blur-md bg-darkBg/80 border-b border-slate-800/80">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center gap-4">
+      <a href="#top" class="flex items-center gap-3 group shrink-0" aria-label="Tcan.dev — главная">
+        <span class="text-2xl font-black tracking-wider text-gradient">Tcan</span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-7 text-sm font-medium">
+        <a href="#about" class="hover:text-purple-400 transition-colors"><i class="fa-solid fa-user-ninja text-purple-400 mr-1.5"></i><span data-i18n="nav_about">О себе</span></a>
+        <a href="#projects" class="hover:text-purple-400 transition-colors"><i class="fa-solid fa-gamepad text-purple-400 mr-1.5"></i><span data-i18n="nav_projects">Проекты</span></a>
+        <a href="#contact" class="hover:text-purple-400 transition-colors"><i class="fa-solid fa-paper-plane text-purple-400 mr-1.5"></i><span data-i18n="nav_contact">Контакты</span></a>
+      </nav>
+
+      <button id="langToggle" type="button" class="px-3 py-2 rounded-lg glass-panel border border-slate-700 text-xs font-semibold flex items-center gap-2 text-purple-300 hover:text-white transition-all" aria-label="Переключить язык">
+        <i class="fa-solid fa-globe text-purple-400"></i>
+        <span id="langLabel">RU</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top" class="w-full max-w-6xl mx-auto px-4 sm:px-6 space-y-14 sm:space-y-16 my-8 sm:my-10 flex-grow">
+
+    <!-- Profile -->
+    <section id="about" class="glass-panel rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
+      <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-gradient-to-br from-purple-600/10 via-amber-500/5 to-transparent rounded-full blur-2xl pointer-events-none" aria-hidden="true"></div>
+
+      <div class="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-12 relative z-10">
+        <div class="relative group shrink-0">
+          <div class="absolute -inset-1 bg-gradient-to-r from-purple-600 via-amber-500 to-blue-600 rounded-3xl blur opacity-70 group-hover:opacity-100 transition duration-500"></div>
+          <div class="relative w-40 h-40 sm:w-48 sm:h-48 rounded-2xl bg-slate-950 flex flex-col items-center justify-center border border-purple-500/30 overflow-hidden shadow-2xl">
+            <img src="../Ozen_is_angry.webp" alt="Tcan" class="w-full h-full object-cover">
+          </div>
+        </div>
+
+        <div class="flex-1 text-center lg:text-left space-y-5">
+          <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3">
+            <span class="px-3 py-1 bg-purple-500/15 border border-purple-500/30 rounded-full text-xs font-bold text-purple-300 flex items-center gap-1.5">
+              <i class="fa-solid fa-code text-purple-400"></i><span data-i18n="hero_role">Web Developer</span>
+            </span>
+            <span class="px-3 py-1 bg-blue-500/15 border border-blue-500/30 rounded-full text-xs font-bold text-blue-300 flex items-center gap-1.5">
+              <i class="fa-solid fa-language"></i><span data-i18n="hero_loc">Game Designer</span>
+            </span>
+          </div>
+
+          <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
+            <span class="text-gradient" data-i18n="hero_greeting">Привет</span>👋
+          </h1>
+          <p class="text-gray-400 text-xs sm:text-sm" data-i18n="hero_aka">Так же известен как:</p>
+          <p class="text-gray-300 text-base sm:text-lg leading-relaxed max-w-3xl" data-i18n="hero_bio">
+            Разрабатываю игровые инструменты, веб-сервисы и создаю собственную игру «Варяги Раш».
+          </p>
+
+          <div class="pt-2">
+            <h2 class="text-xs uppercase tracking-wider text-slate-400 font-bold mb-3" data-i18n="hero_stack_title">Технологии и навыки</h2>
+            <div class="flex flex-wrap justify-center lg:justify-start gap-2">
+              <span class="px-3 py-1.5 bg-slate-900/90 text-xs font-medium text-yellow-300 rounded-lg border border-yellow-500/30 flex items-center gap-1.5"><i class="fa-brands fa-js text-yellow-400"></i> JavaScript</span>
+              <span class="px-3 py-1.5 bg-slate-900/90 text-xs font-medium text-orange-300 rounded-lg border border-orange-500/30 flex items-center gap-1.5"><i class="fa-brands fa-html5 text-orange-400"></i> HTML / CSS / Tailwind</span>
+              <span class="px-3 py-1.5 bg-slate-900/90 text-xs font-medium text-lime-300 rounded-lg border border-lime-500/30 flex items-center gap-1.5"><i class="fa-brands fa-node-js text-lime-400"></i> Node.js</span>
+              <span class="px-3 py-1.5 bg-slate-900/90 text-xs font-medium text-blue-300 rounded-lg border border-blue-500/30 flex items-center gap-1.5"><i class="fa-brands fa-python text-blue-400"></i> Python</span>
+              <span class="px-3 py-1.5 bg-slate-900/90 text-xs font-medium text-cyan-300 rounded-lg border border-cyan-500/30 flex items-center gap-1.5"><i class="fa-solid fa-g text-cyan-400"></i> Godot</span>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap justify-center lg:justify-start gap-3 pt-2">
+            <a href="#projects" class="project-link inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 text-white text-sm font-bold shadow-glow-purple">
+              <i class="fa-solid fa-layer-group"></i><span data-i18n="hero_cta">Посмотреть проекты</span>
+            </a>
+            <a href="#contact" class="project-link inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-900/80 border border-slate-700 hover:border-purple-500/50 text-gray-200 text-sm font-semibold">
+              <i class="fa-regular fa-paper-plane"></i><span data-i18n="hero_contact">Связаться</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="space-y-7">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between border-b border-slate-800 pb-4 gap-3">
+        <div>
+          <div class="flex items-center gap-3 mb-2">
+            <div class="p-2.5 bg-purple-500/10 rounded-xl border border-purple-500/20 text-purple-400"><i class="fa-solid fa-cubes text-xl"></i></div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-tight" data-i18n="projects_title">Мои проекты</h2>
+          </div>
+          <p class="text-sm text-slate-400" data-i18n="projects_subtitle">Игры, инструменты и локализация</p>
+        </div>
+        <span class="text-xs text-slate-500" data-i18n="projects_note">Основные направления моей работы</span>
+      </div>
+
+      <!-- Featured game -->
+      <article class="glass-panel glass-panel-gold rounded-3xl p-6 sm:p-8 relative overflow-hidden shadow-glow-gold border border-amber-500/30 group">
+        <div class="absolute top-0 right-0 w-full h-full bg-gradient-to-l from-amber-500/10 via-purple-500/5 to-transparent pointer-events-none" aria-hidden="true"></div>
+        <div class="relative z-10 space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+            <div class="flex items-center gap-3">
+              <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 text-2xl"><i class="fa-solid fa-paw"></i></div>
+              <div>
+                <h3 class="text-2xl sm:text-3xl font-viking font-bold text-white tracking-wide">Варяги Раш <span class="block sm:inline text-amber-400 font-sans text-base sm:text-lg font-normal">/ Varangian Rush</span></h3>
+                <p class="text-xs text-amber-300/80 font-mono mt-1" data-i18n="game_tagline">Собственная игра в разработке</p>
+              </div>
+            </div>
+            <span class="self-start px-3 py-1.5 bg-amber-500/15 border border-amber-500/40 text-amber-300 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span><span data-i18n="game_status">В разработке</span>
+            </span>
+          </div>
+
+          <p class="text-gray-300 text-sm sm:text-base leading-relaxed max-w-4xl" data-i18n="game_desc">
+            Тактическая RPG в сеттинге Древней Руси и Скандинавии. Собирай дружину, развивай героев, находи артефакты и сражайся с мифологическими противниками.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="bg-slate-900/75 p-4 rounded-xl border border-amber-500/15">
+              <div class="text-amber-400 font-bold text-xs mb-2 flex items-center gap-2"><i class="fa-solid fa-chess-board"></i><span data-i18n="game_feature1_title">Тактический бой</span></div>
+              <p class="text-gray-400 text-xs leading-relaxed" data-i18n="game_feature1_desc">Способности, решения игрока и развитие боевой системы.</p>
+            </div>
+            <div class="bg-slate-900/75 p-4 rounded-xl border border-amber-500/15">
+              <div class="text-amber-400 font-bold text-xs mb-2 flex items-center gap-2"><i class="fa-solid fa-dragon"></i><span data-i18n="game_feature2_title">Мифология</span></div>
+              <p class="text-gray-400 text-xs leading-relaxed" data-i18n="game_feature2_desc">Вдохновение славянскими и скандинавскими легендами.</p>
+            </div>
+            <div class="bg-slate-900/75 p-4 rounded-xl border border-amber-500/15">
+              <div class="text-amber-400 font-bold text-xs mb-2 flex items-center gap-2"><i class="fa-solid fa-users"></i><span data-i18n="game_feature3_title">Герои и экипировка</span></div>
+              <p class="text-gray-400 text-xs leading-relaxed" data-i18n="game_feature3_desc">Развитие персонажей, предметы и подготовка к сражениям.</p>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-slate-800">
+            <div class="flex flex-wrap gap-2 text-xs font-mono text-gray-400">
+              <span class="bg-slate-900 px-2.5 py-1.5 rounded-lg border border-slate-700">Godot / GDScript</span>
+              <span class="bg-slate-900 px-2.5 py-1.5 rounded-lg border border-slate-700" data-i18n="game_platform">PC · Windows / Linux (планируется)</span>
+              <span class="bg-slate-900 px-2.5 py-1.5 rounded-lg border border-slate-700">Prototype</span>
+            </div>
+            <a href="https://t.me/Toxicwstt" class="project-link inline-flex justify-center items-center gap-2 px-4 py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold text-xs rounded-xl shadow-md">
+              <i class="fa-regular fa-envelope"></i><span data-i18n="game_cta">Обсудить проект</span>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Dungeon Rush: one unified project -->
+      <article class="glass-panel rounded-3xl p-6 sm:p-8 transition-all duration-300 hover:-translate-y-1">
+        <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-5">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-2xl"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+            <div>
+              <h3 class="text-xl sm:text-2xl font-bold text-white">Dungeon Rush — Tools & Wiki</h3>
+              <p class="text-xs text-slate-400 mt-1" data-i18n="rush_subtitle">Игровые инструменты, база знаний и русская локализация</p>
+            </div>
+          </div>
+          <span class="self-start px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 rounded-full text-xs font-semibold"><i class="fa-solid fa-circle-check mr-1"></i><span data-i18n="rush_status">Активный проект</span></span>
+        </div>
+
+        <p class="text-gray-300 text-sm leading-relaxed max-w-4xl mb-6" data-i18n="rush_desc">
+          Единый проект для сообщества Dungeon Rush: игровые калькуляторы, расчёты вероятностей и прокачки, а также русскоязычные гайды и справочные материалы.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-slate-950/60 rounded-2xl p-5 border border-purple-500/20">
+            <div class="flex items-center gap-2 mb-3 text-purple-300">
+              <i class="fa-solid fa-calculator text-xl"></i><h4 class="font-bold" data-i18n="rush_tools_title">RushCalcs · Калькуляторы</h4>
+            </div>
+            <p class="text-sm text-gray-400 leading-relaxed mb-4" data-i18n="rush_tools_desc">Расчёты шансов выпадения предметов, развитие питомцев и другие игровые механики.</p>
+            <span class="text-xs text-slate-500 font-mono">Calculators · Game Mechanics</span>
+          </div>
+          <div class="bg-slate-950/60 rounded-2xl p-5 border border-blue-500/20">
+            <div class="flex items-center gap-2 mb-3 text-blue-300">
+              <i class="fa-solid fa-book-open text-xl"></i><h4 class="font-bold" data-i18n="rush_wiki_title">Wiki · Гайды</h4>
+            </div>
+            <p class="text-sm text-gray-400 leading-relaxed mb-4" data-i18n="rush_wiki_desc">Справочники по событиям, предметам и игровым режимам, переведённые и адаптированные для русскоязычного сообщества.</p>
+            <span class="text-xs text-slate-500 font-mono">Guides</span>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mt-6 pt-5 border-t border-slate-800">
+          <div class="flex flex-wrap gap-2 text-xs text-slate-400">
+            <span class="bg-slate-900 px-2.5 py-1.5 rounded-lg border border-slate-700">JavaScript</span>
+            <span class="bg-slate-900 px-2.5 py-1.5 rounded-lg border border-slate-700">HTML / CSS Tailwind</span>
+          </div>
+          <a href="https://vladimir144k.github.io/drwiki/index.html" target="_blank" rel="noopener noreferrer" class="project-link inline-flex justify-center items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-purple-500/50 text-purple-300 text-xs font-bold">
+            <i class="fa-brands fa-github"></i><span data-i18n="rush_github">Открыть репозиторий</span><i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+          </a>
+        </div>
+      </article>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="glass-panel rounded-3xl p-8 sm:p-10 text-center space-y-6 relative overflow-hidden">
+      <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-purple-500/60 to-transparent" aria-hidden="true"></div>
+      <div class="max-w-xl mx-auto space-y-3 relative">
+        <div class="inline-flex w-12 h-12 items-center justify-center rounded-2xl bg-purple-500/10 border border-purple-500/20 text-purple-400 mb-2"><i class="fa-solid fa-paper-plane text-xl"></i></div>
+        <h2 class="text-3xl font-extrabold text-white" data-i18n="contact_title">Связаться со мной</h2>
+        <p class="text-gray-400 text-sm leading-relaxed" data-i18n="contact_subtitle">Открыт к обсуждению игровых инструментов, локализации и разработке «Варяги Раш».</p>
+      </div>
+
+      <div class="relative mx-auto max-w-2xl rounded-2xl border border-amber-500/25 bg-gradient-to-r from-amber-500/10 via-purple-500/10 to-orange-500/10 px-5 py-5 sm:px-7">
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 text-center sm:text-left">
+          <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-amber-500/30 bg-amber-500/10 text-amber-300 text-2xl">
+            <i class="fa-solid fa-heart"></i>
+          </div>
+          <div class="flex-1">
+            <h3 class="font-bold text-white text-base sm:text-lg" data-i18n="boosty_title">Поддержите меня и мои проекты здесь:</h3>
+            <p class="mt-1 text-sm text-gray-400" data-i18n="boosty_desc">Ваша поддержка помогает развивать игры, инструменты и другие проекты.</p>
+          </div>
+          <a href="#" id="boostyLink" target="_blank" rel="noopener noreferrer" class="project-link inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-[#f15f2c] px-5 py-3 text-sm font-bold text-white shadow-lg shadow-orange-950/20 hover:bg-[#ff7040]">
+            <i class="fa-solid fa-mug-hot"></i><span>Boosty</span><i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-3 pt-2 relative">
+        <a href="https://github.com/Vladimir144k" target="_blank" rel="noopener noreferrer" class="project-link px-5 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-gray-200 font-medium transition flex items-center gap-3 text-sm">
+          <i class="fa-brands fa-github text-xl text-purple-400"></i> GitHub
+        </a>
+        <button type="button" id="discordCopy" class="project-link px-5 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-gray-200 font-medium transition flex items-center gap-3 text-sm cursor-pointer">
+          <i class="fa-brands fa-discord text-xl text-indigo-400"></i> Discord: Tcan
+        </button>
+        <a href="https://t.me/TxxcWst" id="telegramLink" class="project-link px-5 py-3 rounded-xl bg-blue-950/40 hover:bg-blue-900/40 border border-blue-500/30 text-blue-300 font-medium transition flex items-center gap-3 text-sm">
+          <i class="fa-brands fa-telegram text-xl"></i> Telegram
+        </a>
+      </div>
+      <p id="contactFeedback" class="text-xs text-slate-500 min-h-4" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <footer class="w-full border-t border-slate-900 py-6 mt-8 bg-darkBg/80 text-center text-xs text-slate-500">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-3">
+      <div>&copy; <span id="year"></span> Tcan. <span data-i18n="footer_rights">Все права защищены.</span></div>
+      <div class="flex flex-wrap justify-center gap-2 sm:gap-3 text-slate-400">
+        <span>Tailwind CSS</span><span class="text-slate-700">•</span><span>JavaScript</span><span class="text-slate-700">•</span><span>GitHub Pages</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const translations = {
+      ru: {
+        nav_about: "О себе",
+        nav_projects: "Проекты",
+        nav_contact: "Контакты",
+        hero_role: "Веб Разработчик",
+        hero_loc: "Геймдизайнер",
+        hero_greeting: "Привет",
+        hero_aka: "Так же известен как:",
+        hero_bio: "Разрабатываю игровые инструменты, веб-сервисы и создаю собственную игру «Варяги Раш».",
+        hero_stack_title: "Технологии и навыки",
+        hero_cta: "Посмотреть проекты",
+        hero_contact: "Связаться",
+        projects_title: "Мои проекты",
+        projects_subtitle: "Игры, инструменты и локализация",
+        projects_note: "Основные направления моей работы",
+        game_tagline: "Собственная игра в разработке",
+        game_status: "В разработке",
+        game_desc: "Тактическая RPG в сеттинге Древней Руси и Скандинавии. Собирай дружину, развивай героев, находи артефакты и сражайся с мифологическими противниками.",
+        game_feature1_title: "Тактический бой",
+        game_feature1_desc: "Способности, решения игрока и развитие боевой системы.",
+        game_feature2_title: "Мифология",
+        game_feature2_desc: "Вдохновение славянскими и скандинавскими легендами.",
+        game_feature3_title: "Герои и экипировка",
+        game_feature3_desc: "Развитие персонажей, предметы и подготовка к сражениям.",
+        game_platform: "PC · Windows / Linux (планируется)",
+        game_cta: "Обсудить проект",
+        rush_subtitle: "Игровые инструменты, база знаний и русская локализация",
+        rush_status: "Активный проект",
+        rush_desc: "Единый проект для сообщества Dungeon Rush: игровые калькуляторы, расчёты вероятностей и прокачки, а также русскоязычные гайды и справочные материалы.",
+        rush_tools_title: "RushCalcs · Калькуляторы",
+        rush_tools_desc: "Расчёты шансов выпадения предметов, развитие питомцев и другие игровые механики.",
+        rush_wiki_title: "Wiki · Гайды",
+        rush_wiki_desc: "Справочники по событиям, предметам и игровым режимам, переведённые и адаптированные для русскоязычного сообщества.",
+        rush_github: "Открыть репозиторий",
+        boosty_title: "Поддержите меня и мои проекты здесь:",
+        boosty_desc: "Ваша поддержка помогает развивать игры, инструменты и другие проекты.",
+        contact_title: "Связаться со мной",
+        contact_subtitle: "Открыт к обсуждению игровых инструментов, локализации и разработке «Варяги Раш».",
+        footer_rights: "Все права защищены.",
+        copied: "Скопировано: Tcan",
+        copy_failed: "Не удалось скопировать. Discord: Tcan"
+      },
+      en: {
+        nav_about: "About",
+        nav_projects: "Projects",
+        nav_contact: "Contact",
+        hero_role: "Web Developer",
+        hero_loc: "Game Designer",
+        hero_greeting: "Hello",
+        hero_aka: "Also known as:",
+        hero_bio: "I build game tools and web services, work on localization, and develop my own game, Varangian Rush.",
+        hero_stack_title: "Tech Stack & Skills",
+        hero_cta: "Explore Projects",
+        hero_contact: "Contact Me",
+        projects_title: "My Projects",
+        projects_subtitle: "Games, tools and localization",
+        projects_note: "The main areas of my work",
+        game_tagline: "Indie game in development",
+        game_status: "In Development",
+        game_desc: "A tactical RPG set in the worlds of Ancient Rus and Scandinavia. Build your warband, develop heroes, discover artifacts, and fight mythological enemies.",
+        game_feature1_title: "Tactical Combat",
+        game_feature1_desc: "Abilities, player choices, and an evolving combat system.",
+        game_feature2_title: "Mythology",
+        game_feature2_desc: "Inspired by Slavic and Norse legends.",
+        game_feature3_title: "Heroes & Gear",
+        game_feature3_desc: "Character progression, items, and battle preparation.",
+        game_platform: "PC · Windows / Linux (planned)",
+        game_cta: "Discuss the Project",
+        rush_subtitle: "Game tools, knowledge base and Russian localization",
+        rush_status: "Active Project",
+        rush_desc: "A unified Dungeon Rush community project featuring game calculators, probability and progression tools, plus Russian-language guides and reference material.",
+        rush_tools_title: "RushCalcs · Calculators",
+        rush_tools_desc: "Drop-rate calculations, pet progression, and other game mechanics.",
+        rush_wiki_title: "Wiki · Guides",
+        rush_wiki_desc: "Guides and reference materials for events, items, and game modes translated and adapted for the community.",
+        rush_github: "Open Repository",
+        boosty_title: "Support me and my projects here:",
+        boosty_desc: "Your support helps me develop games, tools, and other projects.",
+        contact_title: "Get in Touch",
+        contact_subtitle: "Open to discussing game tools, localization, and collaboration on Varangian Rush.",
+        footer_rights: "All rights reserved.",
+        copied: "Copied: Tcan",
+        copy_failed: "Could not copy. Discord: Tcan"
+      }
+    };
+
+    const languageKey = "tcan_lang";
+    let currentLang = "ru";
+
+    function applyLanguage(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+
+      try {
+        localStorage.setItem(languageKey, lang);
+      } catch (error) {
+        // Fallback if storage unavailable
+      }
+
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        const key = element.dataset.i18n;
+        const translation = translations[lang]?.[key];
+        if (translation) element.textContent = translation;
+      });
+
+      document.getElementById("langLabel").textContent = lang === "ru" ? "RU" : "EN";
+    }
+
+    document.getElementById("langToggle").addEventListener("click", () => {
+      applyLanguage(currentLang === "ru" ? "en" : "ru");
+    });
+
+    const discordCopyBtn = document.getElementById("discordCopy");
+    if (discordCopyBtn) {
+      discordCopyBtn.addEventListener("click", async () => {
+        const feedback = document.getElementById("contactFeedback");
+        try {
+          await navigator.clipboard.writeText("Tcan");
+          feedback.textContent = translations[currentLang].copied;
+        } catch (error) {
+          feedback.textContent = translations[currentLang].copy_failed;
+        }
+      });
+    }
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    try {
+      const savedLanguage = localStorage.getItem(languageKey);
+      if (savedLanguage === "ru" || savedLanguage === "en") {
+        currentLang = savedLanguage;
+      }
+    } catch (error) {
+      // Default to ru
+    }
+    applyLanguage(currentLang);
+  </script>
+</body>
+</html>
