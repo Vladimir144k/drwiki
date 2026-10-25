@@ -147,7 +147,7 @@
                     </button>
                     <button onclick="showMainSection('drop-chances', this)" class="nav-tab-btn flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-cyan-500/40 transition flex items-center gap-2">
                         <i class="fa-solid fa-percent text-green-400"></i>
-                        <span data-i18n="tbl_tab_drops">Дропы</span>
+                        <span data-i18n="tbl_tab_drops">Дропы & Опыт</span>
                     </button>
                     <button onclick="showMainSection('stats', this)" class="nav-tab-btn flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-amber-500/40 transition flex items-center gap-2">
                         <i class="fa-solid fa-chart-simple text-indigo-400"></i>
@@ -168,7 +168,7 @@
                 </div>
                 <div>
                     <h2 class="text-2xl font-bold text-white" data-i18n="tbl_sec1_title">Таблицы</h2>
-                    <p class="text-xs text-slate-400" data-i18n="tbl_sec1_subtitle">Полные таблицы Мастерство, Статов и Очков Клановой Войны</p>
+                    <p class="text-xs text-slate-400" data-i18n="tbl_sec1_subtitle">Полные таблицы Мастерства, Статов и Очков Клановой Войны</p>
                 </div>
             </div>
 
@@ -485,7 +485,7 @@
             </div>
         </section>
         
-        <!-- DROP CHANCES SECTION -->
+        <!-- DROP CHANCES & XP SECTION -->
         <section id="drop-chances" class="main-section hidden scroll-mt-36 space-y-6">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-2">
                 <div class="flex items-center space-x-3">
@@ -493,8 +493,8 @@
                         <i class="fa-solid fa-percent text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-white" data-i18n="tbl_drops_title">Шансы Выпадения</h2>
-                        <p class="text-xs text-slate-400" data-i18n="tbl_drops_subtitle">Вероятности получения предметов по уровням</p>
+                        <h2 class="text-2xl font-bold text-white" data-i18n="tbl_drops_title">Шансы Выпадения и Опыт</h2>
+                        <p class="text-xs text-slate-400" data-i18n="tbl_drops_subtitle">Вероятности получения предметов по уровням, Time Warp и опыт персонажа</p>
                     </div>
                 </div>
 
@@ -515,11 +515,17 @@
                     <button type="button" data-tab="ores" class="drop-tab-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-2">
                         <i class="fa-solid fa-gem"></i> <span data-i18n="tbl_dr_ores">Руды</span>
                     </button>
+                    <button type="button" data-tab="timewarp" class="drop-tab-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-hourglass-half"></i> <span>Time Warp</span>
+                    </button>
+                    <button type="button" data-tab="xp" class="drop-tab-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-angles-up"></i> <span>Опыт (XP)</span>
+                    </button>
                 </div>
             </div>
 
-            <!-- Table Container -->
-            <div class="glass-panel rounded-2xl border border-slate-800 overflow-hidden shadow-xl">
+            <!-- Table Container for Drops / Time Warp -->
+            <div id="dropRatesContainer" class="glass-panel rounded-2xl border border-slate-800 overflow-hidden shadow-xl">
                 <div class="max-h-[600px] overflow-y-auto custom-scrollbar">
                     <table class="w-full text-xs text-left text-slate-300">
                         <thead id="dropRatesTableHead" class="text-[11px] uppercase bg-slate-950/90 text-slate-400 sticky top-0 border-b border-slate-800 backdrop-blur-md z-10">
@@ -529,6 +535,55 @@
                             <!-- Populated dynamically via JS -->
                         </tbody>
                     </table>
+                </div>
+            </div>
+
+            <!-- Dedicated Container for XP Table in Drops section -->
+            <div id="xpTableContainer" class="hidden space-y-4">
+                <div class="glass-panel p-5 rounded-2xl border border-slate-800 shadow-xl relative overflow-hidden">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-angles-up text-emerald-400"></i>
+                                Таблица Опыта Персонажа (1 - 200 Уровень)
+                            </h3>
+                            <p class="text-xs text-slate-400 mt-1">Количество опыта (XP), необходимое для перехода на следующий уровень, и отметки рангов.</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 flex flex-col sm:flex-row gap-3">
+                        <div class="relative flex-1">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                            <input type="text" id="full-xp-search" oninput="filterFullXP()" placeholder="Поиск по уровню или редкости..." class="w-full bg-slate-900 border border-slate-700 rounded-xl pl-9 pr-4 py-2 text-xs text-slate-200 focus:outline-none focus:border-emerald-500">
+                        </div>
+                        <div class="flex items-center gap-2 text-xs">
+                            <span class="text-slate-400 whitespace-nowrap">Диапазон:</span>
+                            <select id="full-xp-range-filter" onchange="filterFullXP()" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-emerald-500">
+                                <option value="all">Все уровни (1 - 200)</option>
+                                <option value="1-50">1 - 50</option>
+                                <option value="51-100">51 - 100</option>
+                                <option value="101-150">101 - 150</option>
+                                <option value="151-200">151 - 200</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-panel rounded-2xl shadow-xl overflow-hidden border border-slate-800">
+                    <div class="max-h-[600px] overflow-y-auto custom-scrollbar">
+                        <table class="w-full text-left text-xs">
+                            <thead class="sticky top-0 bg-slate-950/90 backdrop-blur-md z-10 border-b border-slate-800">
+                                <tr class="uppercase text-[11px] tracking-wider text-slate-400">
+                                    <th class="p-4 text-center">Уровень</th>
+                                    <th class="p-4 text-center">Необходимый XP</th>
+                                    <th class="p-4 text-center">Ранг / Редкость</th>
+                                </tr>
+                            </thead>
+                            <tbody id="full-xp-tbody" class="divide-y divide-slate-800/60 font-mono">
+                                <!-- Dynamic JS Insertion -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </section>
@@ -879,6 +934,36 @@
             { name: "Knockback", key: "stat_knockback", nameRu: "Отдача", maxApprox: "15", realMax: "90", stack: "Нет Данных", ranged: "Нет", melee: "Нет", givesPower: "Нет", category: "exp" }
         ];
 
+        // Level UP XP Data (1 to 200)
+        const rawXpMap = {
+            1: "0", 2: "200", 3: "600", 4: "1 200", 5: "3 000", 6: "4 500", 7: "6 000", 8: "9 000", 9: "10 800", 10: "12 600",
+            11: "14 400", 12: "16 200", 13: "18 000", 14: "19 800", 15: "21 600", 16: "23 400", 17: "25 200", 18: "27 000", 19: "28 800", 20: "30 600",
+            21: "36 000", 22: "38 000", 23: "40 000", 24: "42 000", 25: "44 000", 26: "50 600", 27: "52 800", 28: "55 000", 29: "57 200", 30: "59 400",
+            31: "61 600", 32: "63 700", 33: "69 800", 34: "76 200", 35: "82 900", 36: "89 900", 37: "97 200", 38: "104 800", 39: "112 700", 40: "121 000",
+            41: "129 500", 42: "138 400", 43: "147 700", 44: "157 200", 45: "167 200", 46: "177 400", 47: "188 000", 48: "199 000", 49: "210 300", 50: "222 000",
+            51: "234 000", 52: "246 400", 53: "259 200", 54: "272 400", 55: "285 900", 56: "299 900", 57: "314 200", 58: "328 900", 59: "344 000", 60: "359 500",
+            61: "375 400", 62: "391 700", 63: "408 400", 64: "425 500", 65: "443 100", 66: "461 000", 67: "479 400", 68: "498 200", 69: "517 500", 70: "537 100",
+            71: "557 200", 72: "577 800", 73: "598 700", 74: "620 200", 75: "642 000", 76: "664 400", 77: "687 100", 78: "710 400", 79: "734 100", 80: "758 200",
+            81: "782 800", 82: "807 900", 83: "833 500", 84: "859 500", 85: "886 000", 86: "913 000", 87: "940 500", 88: "968 500", 89: "996 900", 90: "1 030 000",
+            91: "1 060 000", 92: "1 090 000", 93: "1 120 000", 94: "1 150 000", 95: "1 180 000", 96: "1 210 000", 97: "1 240 000", 98: "1 280 000", 99: "1 310 000", 100: "1 340 000",
+            101: "1 380 000", 102: "1 840 000", 103: "2 320 000", 104: "2 830 000", 105: "3 360 000", 106: "3 920 000", 107: "4 500 000", 108: "5 110 000", 109: "5 750 000", 110: "6 420 000",
+            111: "7 120 000", 112: "7 320 000", 113: "7 500 000", 114: "7 690 000", 115: "7 890 000", 116: "8 100 000", 117: "8 310 000", 118: "8 520 000", 119: "8 750 000", 120: "8 970 000",
+            121: "9 210 000", 122: "9 450 000", 123: "9 690 000", 124: "9 940 000", 126: "10 470 000"
+        };
+
+        const rawRarityMap = {
+            1: "Common", 2: "Uncommon", 3: "Rare", 5: "Epic", 10: "Legendary", 20: "Mythic", 35: "Artifact", 50: "Ancient", 65: "Immortal", 85: "Divine"
+        };
+
+        const xpData = [];
+        for (let lvl = 1; lvl <= 200; lvl++) {
+            xpData.push({
+                level: lvl,
+                xp: rawXpMap[lvl] || "-",
+                rarity: rawRarityMap[lvl] || ""
+            });
+        }
+
         function getTranslation(key, fallback) {
             const lang = localStorage.getItem('app_lang') || document.documentElement.lang || 'ru';
             if (typeof translations !== 'undefined' && translations[lang] && translations[lang][key]) {
@@ -887,7 +972,6 @@
             return fallback;
         }
 
-        // Перевод значений вида "Да", "Нет", "Да*", "Да если ближний"
         function translateRec(val) {
             const v = String(val);
             if (v === 'Да если ближний') return getTranslation('tbl_val_yes_melee', v);
@@ -896,7 +980,7 @@
             return v;
         }
 
-function renderFullMastery(data) {
+        function renderFullMastery(data) {
             const tbody = document.getElementById('full-mastery-tbody');
             if(!tbody) return;
             tbody.innerHTML = '';
@@ -912,7 +996,7 @@ function renderFullMastery(data) {
                 const nameRuTrans = getTranslation(item.nameRuKey, item.nameRu);
                 const descTrans = getTranslation(item.descKey, item.desc);
                 const recLvlTrans = getTranslation(item.recLevelKey, item.recLevel);
-                const perUpgTrans = getTranslation(item.perUpgradeKey, item.perUpgrade); // Получаем перевод для perUpgrade
+                const perUpgTrans = getTranslation(item.perUpgradeKey, item.perUpgrade);
 
                 tr.innerHTML = `
                     <td class="p-4 font-bold text-white">
@@ -926,7 +1010,7 @@ function renderFullMastery(data) {
                     <td class="p-4 text-xs text-slate-300 max-w-xs">${descTrans}</td>
                     <td class="p-4 text-center font-mono text-slate-300">${item.cost}</td>
                     <td class="p-4 text-center font-semibold text-cyan-300">${item.maxEffect}</td>
-                    <td class="p-4 text-center text-xs text-slate-400">${perUpgTrans}</td> <!-- Используем переведенную переменную -->
+                    <td class="p-4 text-center text-xs text-slate-400">${perUpgTrans}</td>
                     <td class="p-4 text-center font-mono">${item.levels}</td>
                     <td class="p-4 text-center font-mono text-purple-400 font-medium">${item.gemsToMax} <i class="fa-solid fa-gem text-[10px] ml-0.5"></i></td>
                     <td class="p-4 text-center">
@@ -1042,6 +1126,32 @@ function renderFullMastery(data) {
             });
         }
 
+        function renderFullXP(data) {
+            const tbody = document.getElementById('full-xp-tbody');
+            if(!tbody) return;
+            tbody.innerHTML = '';
+
+            data.forEach((item) => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-800/40 transition border-b border-slate-800/40';
+
+                let rarityBadge = '-';
+                if (item.rarity) {
+                    const rarityLower = item.rarity.toLowerCase();
+                    rarityBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold border rarity-${rarityLower}">${item.rarity}</span>`;
+                }
+
+                const xpVal = item.xp === '-' ? '<span class="text-slate-600">-</span>' : `<span class="text-emerald-400 font-bold">${item.xp}</span>`;
+
+                tr.innerHTML = `
+                    <td class="p-3 text-center font-bold text-slate-200">Lvl ${item.level}</td>
+                    <td class="p-3 text-center">${xpVal}</td>
+                    <td class="p-3 text-center">${rarityBadge}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
         function filterFullMastery() {
             const query = document.getElementById('full-mastery-search').value.toLowerCase();
             const filterVal = document.getElementById('full-mastery-filter').value;
@@ -1082,6 +1192,27 @@ function renderFullMastery(data) {
             renderFullStats(filtered);
         }
 
+        function filterFullXP() {
+            const query = document.getElementById('full-xp-search').value.toLowerCase();
+            const rangeVal = document.getElementById('full-xp-range-filter').value;
+
+            const filtered = xpData.filter(item => {
+                const matchesSearch = String(item.level).includes(query) ||
+                                     item.xp.toLowerCase().includes(query) ||
+                                     item.rarity.toLowerCase().includes(query);
+                
+                let matchesRange = true;
+                if (rangeVal === '1-50') matchesRange = item.level >= 1 && item.level <= 50;
+                else if (rangeVal === '51-100') matchesRange = item.level >= 51 && item.level <= 100;
+                else if (rangeVal === '101-150') matchesRange = item.level >= 101 && item.level <= 150;
+                else if (rangeVal === '151-200') matchesRange = item.level >= 151 && item.level <= 200;
+
+                return matchesSearch && matchesRange;
+            });
+
+            renderFullXP(filtered);
+        }
+
         function switchGuideTab(tabKey) {
             document.querySelectorAll('.guide-tab-content').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -1104,6 +1235,7 @@ function renderFullMastery(data) {
         window.onload = function() {
             renderFullMastery(masteryData);
             renderFullStats(statsData);
+            renderFullXP(xpData);
 
             const origToggle = window.toggleLanguage;
             if (typeof origToggle === 'function') {
@@ -1111,6 +1243,7 @@ function renderFullMastery(data) {
                     const r = origToggle.apply(this, arguments);
                     filterFullMastery();
                     filterFullStats();
+                    filterFullXP();
                     return r;
                 };
             }
@@ -1603,8 +1736,23 @@ function renderFullMastery(data) {
                             58: [21.5, 21.5, 16.1, 10.8, 10.8, 10.8, 8.5],
                             59: [21.3, 21.3, 16, 10.6, 10.6, 10.6, 9.6],
                             60: [21.1, 21.1, 15.8, 10.5, 10.5, 10.5, 10.5]
+                        }
+                    },
+                    timewarp: {
+                        columns: ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary', 'Mythic', 'Artifact', 'Ancient', 'Immortal', 'Divine'],
+                        rates: {
+                            1: [95.0, 5.0, 0, 0, 0, 0, 0, 0, 0, 0],
+                            2: [80.0, 15.0, 5.0, 0, 0, 0, 0, 0, 0, 0],
+                            3: [45.0, 35.0, 15.0, 5.0, 0, 0, 0, 0, 0, 0],
+                            4: [0, 45.0, 35.0, 15.0, 5.0, 0, 0, 0, 0, 0],
+                            5: [0, 0, 45.0, 35.0, 15.0, 5.0, 0, 0, 0, 0],
+                            6: [0, 0, 0, 45.0, 35.0, 15.0, 5.0, 0, 0, 0],
+                            7: [0, 0, 0, 0, 45.0, 35.0, 15.0, 5.0, 0, 0],
+                            8: [0, 0, 0, 0, 0, 45.0, 35.0, 15.0, 5.0, 0],
+                            9: ['TBA', 'TBA', 'TBA', 'TBA', 'TBA', 'TBA', 'TBA', 'TBA', 'TBA', 'TBA'],
+                            10: ['TBA', 'TBA', 'TBA', 'TBA', 'TBA', 'TBA', 'TBA', 'TBA', 'TBA', 'TBA']
+                        }
                     }
-                }
                 };
 
                 const RARITY_CLASSES = {
@@ -1643,6 +1791,18 @@ function renderFullMastery(data) {
                 let activeCategory = 'pets';
 
                 function renderDropTable(categoryKey) {
+                    const dropContainer = document.getElementById('dropRatesContainer');
+                    const xpContainer = document.getElementById('xpTableContainer');
+
+                    if (categoryKey === 'xp') {
+                        dropContainer.classList.add('hidden');
+                        xpContainer.classList.remove('hidden');
+                        return;
+                    } else {
+                        dropContainer.classList.remove('hidden');
+                        xpContainer.classList.add('hidden');
+                    }
+
                     const category = DROP_DATA[categoryKey];
                     if (!category) return;
 
@@ -1673,8 +1833,21 @@ function renderFullMastery(data) {
                         rates.forEach((rate, idx) => {
                             const colName = colArray[idx];
                             const styleClass = RARITY_CLASSES[colName] || 'text-slate-300';
-                            const formattedRate = rate > 0 ? `${rate}%` : '—';
-                            const opacityClass = rate === 0 ? 'text-slate-600 font-normal' : styleClass;
+                            
+                            let formattedRate = '—';
+                            let opacityClass = 'text-slate-600 font-normal';
+
+                            if (rate === 'TBA') {
+                                formattedRate = '<span class="text-amber-500 font-bold">TBA</span>';
+                                opacityClass = '';
+                            } else if (typeof rate === 'number') {
+                                formattedRate = rate > 0 ? `${rate}%` : '—';
+                                opacityClass = rate === 0 ? 'text-slate-600 font-normal' : styleClass;
+                            } else if (rate) {
+                                formattedRate = `${rate}%`;
+                                opacityClass = styleClass;
+                            }
+
                             bodyHtml += `<td class="px-4 py-2 ${opacityClass}">${formattedRate}</td>`;
                         });
 
