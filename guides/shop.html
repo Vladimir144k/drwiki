@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Магазин и Предложения | Dungeon Rush</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #030712;
+            color: #f3f4f6;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #0f172a;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glow-amber {
+            box-shadow: 0 0 25px -5px rgba(245, 158, 11, 0.25);
+        }
+
+        .nav-tab-btn.active {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(139, 92, 246, 0.25));
+            border-color: #f59e0b;
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+        }
+
+        /* Color classes by Rarity */
+        .rarity-common { color: #cacaca; border-color: #929090; }
+        .rarity-uncommon { color: #e0c69d; border-color: #be8f43; }
+        .rarity-rare { color: #b5e05c; border-color: #80a040; }
+        .rarity-epic { color: #45c4ff; border-color: #2c83ab; }
+        .rarity-legendary { color: #ffdd61; border-color: #b18d0a; }
+        .rarity-mythic { color: #a288f2; border-color: #715bb4; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-fuchsia-500 selection:text-slate-950">
+
+    <!-- Header Navigation -->
+    <header class="bg-slate-950/80 border-b border-slate-800/80 sticky top-0 z-30 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="../index.html" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-fuchsia-500 to-violet-600 flex items-center justify-center shadow-lg shadow-fuchsia-500/20 text-white font-black text-xl group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-store"></i>
+                </div>
+                <div>
+                    <span class="font-extrabold text-xl tracking-tight bg-gradient-to-r from-white via-slate-200 to-fuchsia-400 bg-clip-text text-transparent" data-i18n="shop_header_title">
+                        Dungeon Rush - Магазин
+                    </span>
+                </div>
+            </a>
+
+            <!-- Right Controls (Currency + Language) -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <!-- Currency Switcher -->
+                <div class="relative inline-block text-left">
+                    <button id="currency-menu-btn" 
+                            onclick="toggleCurrencyDropdown()" 
+                            class="group inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-amber-500/30 hover:border-amber-500/60 text-slate-200 hover:text-white transition-all duration-200 shadow-md active:scale-95 text-xs font-semibold">
+                        <i class="fa-solid fa-coins text-amber-400"></i>
+                        <span id="current-currency-text" class="text-amber-300">RUB (₽)</span>
+                        <i class="fa-solid fa-chevron-down text-[10px] text-slate-400"></i>
+                    </button>
+                    <!-- Dropdown Menu -->
+                    <div id="currency-dropdown" class="hidden absolute right-0 mt-2 w-32 rounded-xl bg-slate-900 border border-slate-800 shadow-xl py-1 z-50">
+                        <button onclick="setCurrency('RUB')" class="w-full text-left px-3 py-2 text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-amber-400 flex justify-between items-center">
+                            <span>RUB</span> <span class="text-slate-500">₽</span>
+                        </button>
+                        <button onclick="setCurrency('USD')" class="w-full text-left px-3 py-2 text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-amber-400 flex justify-between items-center">
+                            <span>USD</span> <span class="text-slate-500">$</span>
+                        </button>
+                        <button onclick="setCurrency('EUR')" class="w-full text-left px-3 py-2 text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-amber-400 flex justify-between items-center">
+                            <span>EUR</span> <span class="text-slate-500">€</span>
+                        </button>
+                        <button onclick="setCurrency('TRY')" class="w-full text-left px-3 py-2 text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-amber-400 flex justify-between items-center">
+                            <span>TRY</span> <span class="text-slate-500">₺</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Language Switcher -->
+                <button id="lang-toggle" 
+                        onclick="toggleLanguage()" 
+                        class="group relative inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-indigo-500/30 hover:border-indigo-500/60 text-slate-200 hover:text-white transition-all duration-200 shadow-md hover:shadow-indigo-500/10 active:scale-95 text-xs font-semibold"
+                        title="Switch language / Сменить язык">
+                    <i class="fa-solid fa-globe text-indigo-400 group-hover:rotate-12 transition-transform duration-200"></i>
+                    <span id="lang-text" class="text-indigo-300 group-hover:text-amber-400 transition-colors">RU</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+
+        <!-- Hero Banner -->
+        <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-fuchsia-950/30 to-slate-900 p-6 sm:p-10 border border-slate-800 shadow-2xl glow-fuchsia">
+            <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div>
+                    <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight" data-i18n="shop_hero_title">
+                        Магазин и Предложения
+                    </h1>
+                    <p class="mt-3 text-slate-300  text-sm sm:text-base leading-relaxed" data-i18n="shop_hero_desc">
+                        Покупайте сундуки с плащами и компаньонами, оформляйте подписки, активируйте бустеры опыта, приобретайте гемы и специальные выгодные наборы!
+                    </p>
+                    <div class="inline-flex items-center gap-2 mt-3 px-3.5 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-300 font-semibold text-xs sm:text-sm">
+                        <i class="fa-solid fa-lock-open text-amber-400"></i>
+                        <span data-i18n="shop_req_level">Магазин открывается на 3 уровне!</span>
+                    </div>
+                </div>
+            </div>
+            <div class="absolute -right-16 -bottom-16 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -left-16 -top-16 w-80 h-80 bg-violet-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div id="navContainer" class="top-16 z-20 py-2 bg-slate-950/90 backdrop-blur-md border-y border-slate-800/80 transition-all duration-300 -mx-4 px-4 sm:mx-0 sm:px-0 sm:rounded-2xl">
+            <div class="max-w-7xl mx-auto flex items-center justify-center">
+                <nav class="flex flex-wrap items-center justify-center gap-2 py-1 px-1 w-full">
+                    <button onclick="showMainSection('chests-section', this)" class="nav-tab-btn active flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-amber-500/40 transition flex items-center gap-2">
+                        <i class="fa-solid fa-box-archive text-amber-400"></i>
+                        <span data-i18n="shop_tab_chests">Сундуки и Бусты</span>
+                    </button>
+
+                    <button onclick="showMainSection('subscriptions-section', this)" class="nav-tab-btn flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-amber-500/40 transition flex items-center gap-2">
+                        <i class="fa-solid fa-crown text-yellow-400"></i>
+                        <span data-i18n="shop_tab_currency">Подписки и Валюта</span>
+                    </button>
+
+                    <button onclick="showMainSection('daily-section', this)" class="nav-tab-btn flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-amber-500/40 transition flex items-center gap-2">
+                        <i class="fa-solid fa-calendar-day text-emerald-400"></i>
+                        <span data-i18n="shop_tab_deals">Ежедневные Акции</span>
+                    </button>
+
+                    <button onclick="showMainSection('offers-section', this)" class="nav-tab-btn flex-shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-800 hover:border-amber-500/40 transition flex items-center gap-2">
+                        <i class="fa-solid fa-fire text-rose-400"></i>
+                        <span data-i18n="shop_tab_offers">Особые Предложения</span>
+                    </button>
+                </nav>
+            </div>
+        </div>
+
+        <!-- SECTION 1: CHESTS & BOOSTERS (GEMS) -->
+        <section id="chests-section" class="main-section scroll-mt-36 space-y-6">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="p-3 rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/20 shadow-lg shadow-amber-500/5">
+                    <i class="fa-solid fa-box-open text-2xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-white" data-i18n="shop_sec1_title">Покупки за Гемы (Сундуки и Ресурсы)</h2>
+                    <p class="text-xs text-slate-400" data-i18n="shop_sec1_subtitle">Все сундуки содержат в себе плащ или компаньона случайной редкой категории</p>
+                </div>
+            </div>
+
+            <!-- Chests Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Standard Chest -->
+                <div class="glass-panel p-6 rounded-3xl border border-slate-800 flex flex-col justify-between space-y-4 hover:border-slate-700 transition">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 border border-slate-700 uppercase">Standard</span>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-white" data-i18n="chest_std_title">Standard Chest</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed" data-i18n="chest_std_desc">Содержит плащ или компаньона категорий Common, Uncommon или Rare.</p>
+                        
+                        <div class="space-y-1.5 pt-2 border-t border-slate-800 text-xs font-medium">
+                            <div class="flex justify-between"><span class="rarity-common font-bold">Common:</span><span class="text-slate-200">87%</span></div>
+                            <div class="flex justify-between"><span class="rarity-uncommon font-bold">Uncommon:</span><span class="text-slate-200">9%</span></div>
+                            <div class="flex justify-between"><span class="rarity-rare font-bold">Rare:</span><span class="text-slate-200">4%</span></div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800 text-center">
+                        <span class="text-purple-400 text-xs font-bold" data-i18n="chest_price_40">Цена: 40 гемов</span>
+                    </div>
+                </div>
+
+                <!-- Epic Chest -->
+                <div class="glass-panel p-6 rounded-3xl border border-sky-500/30 flex flex-col justify-between space-y-4 hover:border-sky-500/50 transition">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold px-2.5 py-1 rounded-lg bg-sky-950 text-sky-300 border border-sky-800 uppercase">Epic</span>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-white" data-i18n="chest_epic_title">Epic Chest</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed" data-i18n="chest_epic_desc">Содержит предметы от Common до Epic категорий.</p>
+                        
+                        <div class="bg-sky-500/10 border border-sky-500/20 p-2.5 rounded-xl text-[11px] text-sky-300 font-medium">
+                            <i class="fa-solid fa-shield-cat mr-1"></i> <span data-i18n="chest_epic_pity">Гарантированный Epic плащ после 20 открытий</span>
+                        </div>
+
+                        <div class="space-y-1.5 pt-2 border-t border-slate-800 text-xs font-medium">
+                            <div class="flex justify-between"><span class="rarity-common font-bold">Common:</span><span class="text-slate-200">75%</span></div>
+                            <div class="flex justify-between"><span class="rarity-uncommon font-bold">Uncommon:</span><span class="text-slate-200">20%</span></div>
+                            <div class="flex justify-between"><span class="rarity-rare font-bold">Rare:</span><span class="text-slate-200">4%</span></div>
+                            <div class="flex justify-between"><span class="rarity-epic font-bold">Epic:</span><span class="text-slate-200">1%</span></div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800 text-center">
+                        <span class="text-purple-400 text-xs font-bold" data-i18n="chest_price_80">Цена: 80 гемов</span>
+                    </div>
+                </div>
+
+                <!-- Legendary Chest -->
+                <div class="glass-panel p-6 rounded-3xl border border-amber-500/40 flex flex-col justify-between space-y-4 hover:border-amber-500/60 transition">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold px-2.5 py-1 rounded-lg bg-amber-950 text-amber-300 border border-amber-800 uppercase">Legendary</span>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-white" data-i18n="chest_leg_title">Legendary Chest</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed" data-i18n="chest_leg_desc">Содержит предметы от Common до Legendary категорий.</p>
+
+                        <div class="bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-xl text-[11px] text-amber-300 font-medium">
+                            <i class="fa-solid fa-crown mr-1"></i> <span data-i18n="chest_leg_pity">Гарантированный Legendary плащ после 20 открытий</span>
+                        </div>
+
+                        <div class="space-y-1.5 pt-2 border-t border-slate-800 text-xs font-medium">
+                            <div class="flex justify-between"><span class="rarity-common font-bold">Common:</span><span class="text-slate-200">63.13%</span></div>
+                            <div class="flex justify-between"><span class="rarity-uncommon font-bold">Uncommon:</span><span class="text-slate-200">30.3%</span></div>
+                            <div class="flex justify-between"><span class="rarity-rare font-bold">Rare:</span><span class="text-slate-200">5.05%</span></div>
+                            <div class="flex justify-between"><span class="rarity-epic font-bold">Epic:</span><span class="text-slate-200">1.01%</span></div>
+                            <div class="flex justify-between"><span class="rarity-legendary font-bold">Legendary:</span><span class="text-slate-200">0.51%</span></div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800 text-center">
+                        <span class="text-purple-400 text-xs font-bold" data-i18n="chest_price_120">Цена: 120 гемов</span>
+                    </div>
+                </div>
+
+                <!-- Mythic Vault -->
+                <div class="glass-panel p-6 rounded-3xl border border-purple-500/40 flex flex-col justify-between space-y-4 hover:border-purple-500/60 transition bg-gradient-to-b from-purple-950/20 to-transparent">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold px-2.5 py-1 rounded-lg bg-purple-950 text-purple-300 border border-purple-800 uppercase">Mythic</span>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-white" data-i18n="chest_myth_title">Mythic Vault</h3>
+                        
+                        <div class="bg-purple-900/30 border border-purple-500/30 p-2.5 rounded-xl text-[11px] text-purple-200 leading-tight">
+                            <i class="fa-solid fa-key text-purple-400 mr-1"></i>
+                            <strong data-i18n="chest_mythic_req_title">Условие открытия:</strong> <span data-i18n="chest_mythic_req_desc">Необходимо призвать 2 эпических компаньона и 2 эпических плаща.</span>
+                        </div>
+
+                        <div class="bg-purple-500/10 border border-purple-500/20 p-2.5 rounded-xl text-[11px] text-purple-300 font-medium">
+                            <i class="fa-solid fa-wand-magic-sparkles mr-1"></i> <span data-i18n="chest_mythic_pity">Гарантированный Mythic плащ после 20 открытий</span>
+                        </div>
+
+                        <div class="space-y-1.5 pt-2 border-t border-slate-800 text-xs font-medium">
+                            <div class="flex justify-between"><span class="rarity-common font-bold">Common:</span><span class="text-slate-200">45.92%</span></div>
+                            <div class="flex justify-between"><span class="rarity-uncommon font-bold">Uncommon:</span><span class="text-slate-200">40%</span></div>
+                            <div class="flex justify-between"><span class="rarity-rare font-bold">Rare:</span><span class="text-slate-200">10%</span></div>
+                            <div class="flex justify-between"><span class="rarity-epic font-bold">Epic:</span><span class="text-slate-200">3%</span></div>
+                            <div class="flex justify-between"><span class="rarity-legendary font-bold">Legendary:</span><span class="text-slate-200">0.75%</span></div>
+                            <div class="flex justify-between"><span class="rarity-mythic font-bold">Mythic:</span><span class="text-slate-200">0.33%</span></div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800 text-center">
+                        <span class="text-purple-400 text-xs font-bold" data-i18n="chest_price_200">Цена: 200 гемов</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Boosters & Utility Resources -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                <!-- Boosters -->
+                <div class="glass-panel p-6 rounded-3xl border border-slate-800 space-y-4">
+                    <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-bolt text-yellow-400"></i>
+                        <span data-i18n="boosters_title">Бустеры Опыта (Boosters)</span>
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                        <div class="bg-slate-950/80 p-4 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-2">
+                            <div>
+                                <strong class="text-base text-white block" data-i18n="boost_15_title">x1.5 EXP Boost</strong>
+                                <span class="text-slate-400 block" data-i18n="boost_15_dur">Длительность: 20 минут</span>
+                            </div>
+                            <span class="text-purple-400 font-bold block pt-2 border-t border-slate-800" data-i18n="boost_15_cost">Стоимость: 45 гемов</span>
+                        </div>
+                        <div class="bg-slate-950/80 p-4 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-2">
+                            <div>
+                                <strong class="text-base text-white block" data-i18n="boost_20_title">x2 Exp Boost</strong>
+                                <span class="text-slate-400 block" data-i18n="boost_20_dur">Длительность: 5 минут</span>
+                            </div>
+                            <span class="text-purple-400 font-bold block pt-2 border-t border-slate-800" data-i18n="boost_20_cost">Стоимость: 75 гемов</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resources -->
+                <div class="glass-panel p-6 rounded-3xl border border-slate-800 space-y-4">
+                    <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-hammer text-amber-400"></i>
+                        <span data-i18n="resources_title">Ресурсы для Шахты (Resources)</span>
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                        <div class="bg-slate-950/80 p-4 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-2">
+                            <div>
+                                <strong class="text-base text-amber-300 block" data-i18n="res_pick_title">Gold Pickaxe</strong>
+                                <span class="text-slate-400 block" data-i18n="res_pick_amount">Количество: 3 шт.</span>
+                            </div>
+                            <span class="text-purple-400 font-bold block pt-2 border-t border-slate-800" data-i18n="boost_15_cost">Стоимость: 45 гемов</span>
+                        </div>
+                        <div class="bg-slate-950/80 p-4 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-2">
+                            <div>
+                                <strong class="text-base text-sky-400 block" data-i18n="res_drill_title">Drill</strong>
+                                <span class="text-slate-400 block" data-i18n="res_pick_amount">Количество: 3 шт.</span>
+                            </div>
+                            <span class="text-purple-400 font-bold block pt-2 border-t border-slate-800" data-i18n="boost_15_cost">Стоимость: 45 гемов</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: SUBSCRIPTIONS & CURRENCY (MONEY) -->
+        <section id="subscriptions-section" class="main-section hidden scroll-mt-36 space-y-6">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="p-3 rounded-2xl bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 shadow-lg shadow-yellow-500/5">
+                    <i class="fa-solid fa-crown text-2xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-white" data-i18n="shop_sec2_title">Покупки за Деньги (Подписки, Гемы, Билеты)</h2>
+                    <p class="text-xs text-slate-400" data-i18n="shop_sec2_subtitle">VIP Подписки, наборы гемов, билеты пропуска рекламы и постоянные усовершенствования</p>
+                </div>
+            </div>
+
+            <!-- VIP Memberships -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- VIP Club -->
+                <div class="glass-panel rounded-3xl p-6 border border-slate-400/30 flex flex-col justify-between space-y-4 bg-gradient-to-b from-slate-900 via-slate-900/90 to-slate-950">
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-slate-300/20 border border-slate-300/40 flex items-center justify-center text-slate-200 text-xl font-bold">
+                                <i class="fa-solid fa-award"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-black text-slate-200" >VIP Club Membership</h3>
+                                <span class="text-xs text-slate-400" data-i18n="vip_badge">Серебряный статус</span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2 text-xs">
+                            <strong class="text-slate-300 block font-semibold uppercase tracking-wider" data-i18n="vip_daily_rewards">Ежедневные награды:</strong>
+                            <ul class="space-y-1.5 list-disc list-inside text-slate-300">
+                                <li data-i18n="vip_daily_rewards_gems">25 гемов ежедневно</li>
+                                <li data-i18n="vip_daily_rewards_ads">3 билета скип-рекламы</li>
+                            </ul>
+                        </div>
+
+                        <div class="space-y-2 text-xs pt-2 border-t border-slate-800">
+                            <strong class="text-slate-300 block font-semibold uppercase tracking-wider" data-i18n="vip_excl_title">Эксклюзивные преимущества:</strong>
+                            <ul class="space-y-1.5 text-slate-300">
+                                <li class="flex items-center gap-2" data-i18n="vip_excl_a"><i class="fa-solid fa-check text-slate-400"></i> Никнейм становится серебряным</li>
+                                <li class="flex items-center gap-2" data-i18n="vip_excl_b"><i class="fa-solid fa-check text-slate-400"></i> Аватарка имеет серебряную обводку</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 text-center space-y-1">
+                        <div class="text-xs text-slate-400">
+                            <span><span data-i18n="membership_monthly">Месяц:</span> <strong class="text-white" data-price-key="vip_monthly">10 ₽</strong></span> | 
+                            <span><span data-i18n="membership_forever">Навсегда:</span> <strong class="text-emerald-400" data-price-key="vip_lifetime">20 ₽</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Elite Club -->
+                <div class="glass-panel rounded-3xl p-6 border border-yellow-500/40 flex flex-col justify-between space-y-4 bg-gradient-to-b from-amber-950/30 via-slate-900/90 to-slate-950">
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-yellow-500/20 border border-yellow-500/40 flex items-center justify-center text-yellow-400 text-xl font-bold">
+                                <i class="fa-solid fa-crown"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-black text-amber-300">Elite Club Membership</h3>
+                                <span class="text-xs text-amber-400 font-semibold" data-i18n="elite_badge">Золотой статус</span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2 text-xs">
+                            <strong class="text-slate-300 block font-semibold uppercase tracking-wider" data-i18n="vip_daily_rewards">Ежедневные награды:</strong>
+                            <ul class="space-y-1.5 list-disc list-inside text-slate-300">
+                                <li data-i18n="elite_daily_rewards_gems">50 гемов ежедневно</li>
+                                <li data-i18n="elite_daily_rewards_ads">6 билетов скип-рекламы</li>
+                            </ul>
+                        </div>
+
+                        <div class="space-y-2 text-xs pt-2 border-t border-slate-800">
+                            <strong class="text-slate-300 block font-semibold uppercase tracking-wider" data-i18n="vip_excl_title">Эксклюзивные преимущества:</strong>
+                            <ul class="space-y-1.5 text-slate-300">
+                                <li class="flex items-center gap-2" data-i18n="elite_excl_a"><i class="fa-solid fa-check text-yellow-400"></i> Никнейм становится золотым</li>
+                                <li class="flex items-center gap-2" data-i18n="elite_excl_b"><i class="fa-solid fa-check text-yellow-400"></i> Аватарка имеет золотую обводку</li>
+                                <li class="flex items-center gap-2" data-i18n="elite_excl_c"><i class="fa-brands fa-discord text-indigo-400"></i> Роль в Discord + доступ к разработчикам</li>
+                                <li class="flex items-center gap-2" data-i18n="elite_excl_d"><i class="fa-solid fa-headset text-emerald-400"></i> Приоритетная поддержка клиентов</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 text-center space-y-1">
+                        <div class="text-xs text-slate-400">
+                            <span><span data-i18n="membership_monthly">Месяц:</span> <strong class="text-white" data-price-key="elite_monthly">20 ₽</strong></span> | 
+                            <span><span data-i18n="membership_forever">Навсегда:</span> <strong class="text-emerald-400" data-price-key="elite_lifetime">30 ₽</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Boost EXP x2 Forever -->
+                <div class="glass-panel rounded-3xl p-6 border border-emerald-500/30 flex flex-col justify-between space-y-4 bg-gradient-to-b from-emerald-950/20 via-slate-900 to-slate-950">
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 text-xl font-bold">
+                                <i class="fa-solid fa-infinity"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-black text-emerald-400" data-i18n="exp_forever_title">Boost Exp x2 Forever</h3>
+                                <span class="text-xs text-emerald-300 font-semibold" data-i18n="exp_forever_tag">Вечный бонус</span>
+                            </div>
+                        </div>
+
+                        <p class="text-xs text-slate-300 leading-relaxed" data-i18n="exp_forever_desc">
+                            Даёт постоянное удваивание получаемого опыта персонажа навсегда! Ускоряет ваш прогресс в игре без каких-либо временных ограничений.
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 text-center">
+                        <span class="text-emerald-400 font-bold text-sm"><span data-i18n="shop_price">Цена:</span> <span data-price-key="exp_forever">10 ₽</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gems & Skip'its Packs Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                <!-- Gems Purchases -->
+                <div class="glass-panel p-6 rounded-3xl border border-slate-800 space-y-4">
+                    <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-gem text-amber-400"></i>
+                        <span data-i18n="gems_pack_title">Покупка Гемов</span>
+                    </h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs font-mono">
+                        <div class="bg-slate-950/80 p-3 rounded-2xl border border-slate-800 text-center space-y-1">
+                            <span class="text-purple-400 block font-bold text-sm">100 <span data-i18n="shop_gemov">Гемов</span></span>
+                            <span class="text-slate-300 block" data-price-key="gems_100">10 ₽</span>
+                        </div>
+                        <div class="bg-slate-950/80 p-3 rounded-2xl border border-slate-800 text-center space-y-1">
+                            <span class="text-purple-400 block font-bold text-sm">255 <span data-i18n="shop_gemov">Гемов</span></span>
+                            <span class="text-slate-300 block" data-price-key="gems_255">20 ₽</span>
+                        </div>
+                        <div class="bg-slate-950/80 p-3 rounded-2xl border border-slate-800 text-center space-y-1">
+                            <span class="text-purple-400 block font-bold text-sm">520 <span data-i18n="shop_gemov">Гемов</span></span>
+                            <span class="text-slate-300 block" data-price-key="gems_520">30 ₽</span>
+                        </div>
+                        <div class="bg-slate-950/80 p-3 rounded-2xl border border-slate-800 text-center space-y-1">
+                            <span class="text-purple-400 block font-bold text-sm">1.1к <span data-i18n="shop_gemov">Гемов</span></span>
+                            <span class="text-slate-300 block" data-price-key="gems_1100">40 ₽</span>
+                        </div>
+                        <div class="bg-slate-950/80 p-3 rounded-2xl border border-slate-800 text-center space-y-1">
+                            <span class="text-purple-400 block font-bold text-sm">2.7к <span data-i18n="shop_gemov">Гемов</span></span>
+                            <span class="text-slate-300 block" data-price-key="gems_2700">50 ₽</span>
+                        </div>
+                        <div class="bg-slate-950/80 p-3 rounded-2xl border border-amber-500/30 text-center space-y-1 bg-amber-500/5">
+                            <span class="text-purple-300 block font-bold text-sm">5.5к <span data-i18n="shop_gemov">Гемов</span></span>
+                            <span class="text-emerald-400 block font-bold" data-price-key="gems_5500">100 ₽</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skip'its -->
+                <div class="glass-panel p-6 rounded-3xl border border-slate-800 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-ticket text-rose-400"></i>
+                            <span data-i18n="skipits_title">Билеты скип-рекламы (Skip'its)</span>
+                        </h3>
+                    </div>
+                    <p class="text-xs text-slate-300 italic" data-i18n="skipits_desc">
+                        «С помощью Skip'its можно получать награды, не просматривая видео!»
+                    </p>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs font-mono">
+                        <div class="bg-slate-950/80 p-3 rounded-2xl border border-slate-800 text-center space-y-1">
+                            <span class="text-rose-400 block font-bold text-sm">10 <span data-i18n="shop_tickets"> Билетов</span></span>
+                            <span class="text-slate-300 block" data-price-key="skips_10">10 ₽</span>
+                        </div>
+                        <div class="bg-slate-950/80 p-3 rounded-2xl border border-slate-800 text-center space-y-1">
+                            <span class="text-rose-400 block font-bold text-sm">30 <span data-i18n="shop_tickets"> Билетов</span></span>
+                            <span class="text-slate-300 block" data-price-key="skips_30">20 ₽</span>
+                        </div>
+                        <div class="bg-slate-950/80 p-3 rounded-2xl border border-slate-800 text-center space-y-1">
+                            <span class="text-rose-400 block font-bold text-sm">100 <span data-i18n="shop_tickets"> Билетов</span></span>
+                            <span class="text-slate-300 block" data-price-key="skips_100">40 ₽</span>
+                        </div>
+                        <div class="bg-slate-950/80 p-3 rounded-2xl border border-slate-800 text-center space-y-1">
+                            <span class="text-rose-400 block font-bold text-sm">250 <span data-i18n="shop_tickets"> Билетов</span></span>
+                            <span class="text-slate-300 block" data-price-key="skips_250">50 ₽</span>
+                        </div>
+                        <div class="bg-slate-950/80 p-3 rounded-2xl border border-slate-800 text-center space-y-1">
+                            <span class="text-rose-400 block font-bold text-sm">450 <span data-i18n="shop_tickets"> Билетов</span></span>
+                            <span class="text-slate-300 block" data-price-key="skips_450">70 ₽</span>
+                        </div>
+                        <div class="bg-slate-950/80 p-3 rounded-2xl border border-rose-500/30 text-center space-y-1 bg-rose-500/5">
+                            <span class="text-rose-300 block font-bold text-sm">800 <span data-i18n="shop_tickets"> Билетов</span></span>
+                            <span class="text-emerald-400 block font-bold" data-price-key="skips_800">100 ₽</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: DAILY DEALS -->
+        <section id="daily-section" class="main-section hidden scroll-mt-36 space-y-6">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="p-3 rounded-2xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-lg shadow-emerald-500/5">
+                    <i class="fa-solid fa-calendar-day text-2xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-white" data-i18n="shop_sec3_title">Ежедневные Акции</h2>
+                    <p class="text-xs text-slate-400" data-i18n="shop_sec3_subtitle">Каждый день в магазине появляется 3 акции. Покупка всех 3 обновит список!</p>
+                </div>
+            </div>
+
+            <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-800 text-xs text-slate-300 leading-relaxed">
+                <i class="fa-solid fa-arrows-rotate text-emerald-400 mr-1.5"></i>
+                <span data-i18n="daily_rules_info">Акции варьируются в зависимости от дня. Если купить все 3 акции в один день, список мгновенно обновится.</span>
+            </div>
+
+            <!-- Daily Deals Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Companion Deal -->
+                <div class="glass-panel rounded-3xl p-6 border border-slate-800 flex flex-col justify-between space-y-4 hover:border-emerald-500/40 transition">
+                    <div class="space-y-3">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-xl font-bold">
+                            <i class="fa-solid fa-paw"></i>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-white">Companion Deal</h3>
+                        <p class="text-xs text-slate-400" data-i18n="deal_comp_sub">Отличный набор для призыва и прокачки питомцев</p>
+
+                        <div class="space-y-2 pt-2 border-t border-slate-800 text-xs">
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-bone text-slate-400"></i> 1,000 <span data-i18n="shop_bones">Костей</span></div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-gem text-purple-400"></i> 150 <span data-i18n="shop_gemov">Гемов</span></div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-box text-amber-600"></i> 300 <span data-i18n="shop_boxes">Коробок</span></div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-center">
+                        <span class="text-emerald-400 font-bold text-sm"><span data-i18n="shop_price">Цена:</span> <span data-price-key="deal_companion">10 ₽</span></span>
+                    </div>
+                </div>
+
+                <!-- Mining Deal -->
+                <div class="glass-panel rounded-3xl p-6 border border-slate-800 flex flex-col justify-between space-y-4 hover:border-emerald-500/40 transition">
+                    <div class="space-y-3">
+                        <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-xl font-bold">
+                            <i class="fa-solid fa-person-digging"></i>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-white">Mining Deal</h3>
+                        <p class="text-xs text-slate-400" data-i18n="deal_mine_sub">Огромный запасы ресурсов для глубокой шахты</p>
+
+                        <div class="space-y-2 pt-2 border-t border-slate-800 text-xs">
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-hammer text-slate-400"></i> 100 <span data-i18n="shop_pickaxes">Кирок</span></div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-box text-amber-600"></i> 1,500 <span data-i18n="shop_boxes">Коробок</span></div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-person-digging text-amber-300"></i> 10 <span data-i18n="shop_gold_pickaxes">Золотых Кирок</span></div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-bore-hole text-sky-400"></i> 10 <span data-i18n="shop_drills">Буров</span></div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-gem text-purple-400"></i> 750 <span data-i18n="shop_gemov">Гемов</span></div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-center">
+                        <span class="text-emerald-400 font-bold text-sm"><span data-i18n="shop_price"></span> <span data-price-key="deal_mining">20 ₽</span></span>
+                    </div>
+                </div>
+
+                <!-- Gem Deal -->
+                <div class="glass-panel rounded-3xl p-6 border border-slate-800 flex flex-col justify-between space-y-4 hover:border-emerald-500/40 transition">
+                    <div class="space-y-3">
+                        <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-xl font-bold">
+                            <i class="fa-solid fa-sack-dollar"></i>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-white">Gem Deal</h3>
+                        <p class="text-xs text-slate-400" data-i18n="deal_gem_sub">Максимальная выгода по гемам</p>
+
+                        <div class="space-y-2 pt-2 border-t border-slate-800 text-xs">
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-gem text-purple-400"></i> 5,000 <span data-i18n="shop_gemov">Гемов</span></div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-box text-amber-600"></i> 3,000 <span data-i18n="shop_boxes">Коробок</span></div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-center">
+                        <span class="text-emerald-400 font-bold text-sm"><span data-i18n="shop_price"></span>><span data-price-key="deal_gem">30 ₽</span></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: SPECIAL OFFERS & FLYING CHEST -->
+        <section id="offers-section" class="main-section hidden scroll-mt-36 space-y-6">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="p-3 rounded-2xl bg-rose-500/10 text-rose-400 border border-rose-500/20 shadow-lg shadow-rose-500/5">
+                    <i class="fa-solid fa-fire text-2xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-white" data-i18n="shop_sec4_title">Специальные Предложения</h2>
+                    <p class="text-xs text-slate-400" data-i18n="shop_sec4_subtitle">Предложения появляются на основном экране и при запуске игры</p>
+                </div>
+            </div>
+
+            <!-- Interactive Flying Chest Feature -->
+            <div class="glass-panel p-6 rounded-3xl border border-sky-500/30 bg-gradient-to-br from-slate-900/90 via-sky-950/20 to-slate-950 space-y-4">
+                <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-800 pb-4 gap-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-2xl bg-sky-500/20 border border-sky-500/40 flex items-center justify-center text-sky-400 text-2xl">
+                            <i class="fa-solid fa-box-archive"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-extrabold text-white" data-i18n="flying_chest_title">Летающий Сундук</h3>
+                            <p class="text-xs text-sky-300" data-i18n="flying_chest_sub">Появляется каждую минуту на главном экране</p>
+                        </div>
+                    </div>
+                    <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800 text-xs text-slate-300">
+                        <span class="font-bold text-purple-400" data-i18n="flying_gem_chance">Шанс на 6 гемов:</span> 
+                        <span data-i18n="flying_gem_chance_sub">базовый, качается мастери "Offer Gem Chance" (+50%)</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-300">
+                    <div class="space-y-2 leading-relaxed">
+                        <p data-i18n="flying_chest_desc">
+                            При нажатии на сундук вам предлагаются коробки за просмотр рекламы. Количество коробок рассчитывается по строго установленной формуле вашего уровня.
+                        </p>
+                        <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800 font-mono text-sky-400" data-i18n="flying_chest_formula">
+                            Формула: (Ваш уровень * 2 + 10)
+                        </div>
+                        <p class="text-slate-400" data-i18n="flying_gem_note">
+                            С малым шансом вместо коробок могут выпасть 6 гемов. Количество гемов за рекламу не меняется (стабильно 6).
+                        </p>
+                    </div>
+
+                    <!-- Calculator Tool -->
+                    <div class="bg-slate-950/90 p-4 rounded-2xl border border-slate-800 space-y-3">
+                        <strong class="text-white block font-bold" data-i18n="flying_calc_title">Калькулятор коробок с сундука:</strong>
+                        <div class="flex items-center gap-3">
+                            <label for="userLevel" class="text-slate-400 whitespace-nowrap" data-i18n="flying_lvl_label">Ваш уровень:</label>
+                            <input type="number" id="userLevel" value="1" min="1" max="999" oninput="calculateFlyingChest()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-white font-mono focus:outline-none focus:border-sky-500">
+                        </div>
+                        <div class="pt-2 border-t border-slate-800 flex justify-between items-center text-sm">
+                            <span class="text-slate-400" data-i18n="flying_result_label">Получите коробок:</span>
+                            <span id="flyingResult" class="font-black text-emerald-400 text-lg">12</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Offers Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Premium Pass -->
+                <div class="glass-panel p-6 rounded-3xl border border-slate-800 flex flex-col justify-between space-y-4">
+                    <div class="space-y-3">
+                        <span class="text-xs font-bold px-2.5 py-1 rounded-lg bg-indigo-950 text-indigo-300 border border-indigo-800 uppercase">Pass</span>
+                        <h3 class="text-xl font-extrabold text-white">Premium Pass</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed" data-i18n="offer_pass_desc">
+                            За покупку вы получаете дополнительные премиум-награды за прохождение уровней Battle Pass.
+                        </p>
+                    </div>
+                    <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-center">
+                        <span class="text-emerald-400 font-bold text-sm"><span data-i18n="shop_price"></span> <span data-price-key="offer_pass">10 ₽</span></span>
+                    </div>
+                </div>
+
+                <!-- Enchantment Offer -->
+                <div class="glass-panel p-6 rounded-3xl border border-slate-800 flex flex-col justify-between space-y-4">
+                    <div class="space-y-3">
+                        <span class="text-xs font-bold px-2.5 py-1 rounded-lg bg-rose-950 text-rose-300 border border-rose-800 uppercase">Enchantment</span>
+                        <h3 class="text-xl font-extrabold text-white">Enchantment Offer</h3>
+                        <div class="space-y-1.5 text-xs text-slate-300">
+                            <div class="flex items-center gap-2" data-i18n="ench_offer_a"><i class="fa-solid fa-flask text-rose-500"></i> 2,500 кровавых колб</div>
+                            <div class="flex items-center gap-2" data-i18n="ench_offer_b"><i class="fa-solid fa-gem text-violet-400"></i> 3 руны 7-го уровня</div>
+                            <div class="flex items-center gap-2" data-i18n="ench_offer_c"><i class="fa-solid fa-gem text-purple-400"></i> 3 руны 8-го уровня</div>
+                            <div class="flex items-center gap-2" data-i18n="ench_offer_d"><i class="fa-solid fa-gem text-amber-400"></i> 1 руна 9-го уровня</div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-center">
+                        <span class="text-emerald-400 font-bold text-sm"><span data-i18n="shop_price">Цена</span> <span data-price-key="offer_enchantment">10 ₽</span></span>
+                    </div>
+                </div>
+
+                <!-- Mining Offer -->
+                <div class="glass-panel p-6 rounded-3xl border border-slate-800 flex flex-col justify-between space-y-4">
+                    <div class="space-y-3">
+                        <span class="text-xs font-bold px-2.5 py-1 rounded-lg bg-amber-950 text-amber-300 border border-amber-800 uppercase">Mining</span>
+                        <h3 class="text-xl font-extrabold text-white">Mining Offer</h3>
+                        <div class="space-y-1.5 text-xs text-slate-300">
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-bore-hole text-sky-400"></i> 17 <span data-i18n="shop_drills">Буров</span></div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-person-digging text-amber-300"></i> 17 <span data-i18n="shop_gold_pickaxes">Золотых Кирок</span></div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-hammer text-slate-400"></i> 55 <span data-i18n="shop_pickaxes">Кирок</span></div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-gem text-purple-400"></i> 600 <span data-i18n="shop_gemov">Гемов</span></div>
+                            <div class="text-emerald-400 font-bold pt-1" data-i18n="mining_offer_d"><i class="fa-solid fa-circle-plus"></i> Увеличивает максимум кирок на +10</div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-center">
+                        <span class="text-emerald-400 font-bold text-sm"><span data-i18n="shop_price"></span> <span data-price-key="offer_mining">10 ₽</span></span>
+                    </div>
+                </div>
+
+                <!-- Legendary Chest Bundle -->
+                <div class="glass-panel p-6 rounded-3xl border border-amber-500/30 flex flex-col justify-between space-y-4">
+                    <div class="space-y-3">
+                        <span class="text-xs font-bold px-2.5 py-1 rounded-lg bg-amber-950 text-amber-300 border border-amber-800 uppercase">Bundle</span>
+                        <h3 class="text-xl font-extrabold text-white">Legendary Chest Bundle</h3>
+                        <div class="space-y-1.5 text-xs text-slate-300">
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-box-open text-sky-400"></i> 20 Epic <span data-i18n="shop_chests">Сундуков</span></div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-box-open text-amber-400"></i> 10 Legendary <span data-i18n="shop_chests">Сундуков</span></div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-gem text-purple-400"></i> 2,500 <span data-i18n="shop_gemov">Гемов</span></div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-center">
+                        <span class="text-emerald-400 font-bold text-sm"><span data-i18n="shop_price">Цена</span> <span data-price-key="offer_leg_bundle">50 ₽</span></span>
+                    </div>
+                </div>
+
+                <!-- Mythic Chest Bundle -->
+                <div class="glass-panel p-6 rounded-3xl border border-purple-500/30 flex flex-col justify-between space-y-4">
+                    <div class="space-y-3">
+                        <span class="text-xs font-bold px-2.5 py-1 rounded-lg bg-purple-950 text-purple-300 border border-purple-800 uppercase">Bundle</span>
+                        <h3 class="text-xl font-extrabold text-white">Mythic Chest Bundle</h3>
+                        <div class="space-y-1.5 text-xs text-slate-300">
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-box-open text-amber-400"></i> 20 Legendary <span data-i18n="shop_chests">Сундуков</span></div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-box-open text-purple-400"></i> 10 Mythic <span data-i18n="shop_chests">Сундуков</span></div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-gem text-purple-400"></i> 3,000 <span data-i18n="shop_gemov">Гемов</span></div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-center">
+                        <span class="text-emerald-400 font-bold text-sm"><span data-i18n="shop_price">Цена</span> <span data-price-key="offer_myth_bundle">50 ₽</span></span>
+                    </div>
+                </div>
+
+                <!-- Gear Offer -->
+                <div class="glass-panel p-6 rounded-3xl border border-sky-500/40 flex flex-col justify-between space-y-4 bg-gradient-to-b from-sky-950/20 to-transparent">
+                    <div class="space-y-3">
+                        <span class="text-xs font-bold px-2.5 py-1 rounded-lg bg-sky-950 text-sky-300 border border-sky-800 uppercase">Gear Offer</span>
+                        <h3 class="text-xl font-extrabold text-white">Squire Crossbow (Epic)</h3>
+                        <p class="text-xs text-slate-400" data-i18n="gear_offer_sub">В зависимости от уровня вам выпадает предложение на оружие или сет</p>
+                        
+                        <div class="space-y-1.5 pt-2 border-t border-slate-800 text-xs font-mono">
+                            <div class="flex justify-between"><span class="text-slate-400">Level:</span><span class="text-white">1</span></div>
+                            <div class="flex justify-between"><span class="text-slate-400">Damage:</span><span class="text-rose-400 font-bold">225</span></div>
+                            <div class="flex justify-between"><span class="text-slate-400">Attack Speed:</span><span class="text-emerald-400 font-bold">+30%</span></div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-center">
+                        <span class="text-emerald-400 font-bold text-sm"><span data-i18n="shop_price">Цена</span> <span data-price-key="offer_gear_crossbow">10 ₽</span></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-panel border-t border-slate-800/80 py-8 mt-16">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 space-y-2">
+            <p class="text-[12px] text-slate-500" data-i18n="system_footer">Неофициальный справочник по игре. Данный сайт не связан с разработчиками или издателем игры. Все права на игру, её название, изображения и другие материалы принадлежат LAVA LABS OYUN YAZILIM VE PAZARLAMA ANONİM ŞİRKETİ. Данный сайт создан исключительно в информационных целях.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Currency Manager & Interactive Logic -->
+    <script>
+        // Centralized Prices Matrix per Currency
+        // Easy to edit later! Format: KEY: { RUB: 'x ₽', USD: '$x', EUR: 'x €', TRY: 'x ₺' }
+        const PRICES = {
+            // Subscriptions
+            vip_monthly:    { RUB: '10 ₽', USD: '$0.15', EUR: '0.15 €', TRY: '5 ₺' },
+            vip_lifetime:   { RUB: '20 ₽', USD: '$0.29', EUR: '0.29 €', TRY: '10 ₺' },
+            elite_monthly:  { RUB: '20 ₽', USD: '$0.29', EUR: '0.29 €', TRY: '10 ₺' },
+            elite_lifetime: { RUB: '30 ₽', USD: '$0.45', EUR: '0.45 €', TRY: '15 ₺' },
+            exp_forever:    { RUB: '10 ₽', USD: '$0.15', EUR: '0.15 €', TRY: '5 ₺' },
+
+            // Gems Packs
+            gems_100:  { RUB: '10 ₽', USD: '$0.15', EUR: '0.15 €', TRY: '5 ₺' },
+            gems_255:  { RUB: '20 ₽', USD: '$0.29', EUR: '0.29 €', TRY: '10 ₺' },
+            gems_520:  { RUB: '30 ₽', USD: '$0.45', EUR: '0.45 €', TRY: '15 ₺' },
+            gems_1100: { RUB: '40 ₽', USD: '$0.59', EUR: '0.59 €', TRY: '20 ₺' },
+            gems_2700: { RUB: '50 ₽', USD: '$0.75', EUR: '0.75 €', TRY: '25 ₺' },
+            gems_5500: { RUB: '100 ₽', USD: '$1.49', EUR: '1.49 €', TRY: '50 ₺' },
+
+            // Skip'its
+            skips_10:  { RUB: '10 ₽', USD: '$0.15', EUR: '0.15 €', TRY: '5 ₺' },
+            skips_30:  { RUB: '20 ₽', USD: '$0.29', EUR: '0.29 €', TRY: '10 ₺' },
+            skips_100: { RUB: '40 ₽', USD: '$0.59', EUR: '0.59 €', TRY: '20 ₺' },
+            skips_250: { RUB: '50 ₽', USD: '$0.75', EUR: '0.75 €', TRY: '25 ₺' },
+            skips_450: { RUB: '70 ₽', USD: '$0.99', EUR: '0.99 €', TRY: '35 ₺' },
+            skips_800: { RUB: '100 ₽', USD: '$1.49', EUR: '1.49 €', TRY: '50 ₺' },
+
+            // Daily Deals
+            deal_companion: { RUB: '10 ₽', USD: '$0.15', EUR: '0.15 €', TRY: '5 ₺' },
+            deal_mining:    { RUB: '20 ₽', USD: '$0.29', EUR: '0.29 €', TRY: '10 ₺' },
+            deal_gem:       { RUB: '30 ₽', USD: '$0.45', EUR: '0.45 €', TRY: '15 ₺' },
+
+            // Offers
+            offer_pass:          { RUB: '10 ₽', USD: '$0.15', EUR: '0.15 €', TRY: '5 ₺' },
+            offer_enchantment:   { RUB: '10 ₽', USD: '$0.15', EUR: '0.15 €', TRY: '5 ₺' },
+            offer_mining:        { RUB: '10 ₽', USD: '$0.15', EUR: '0.15 €', TRY: '5 ₺' },
+            offer_leg_bundle:    { RUB: '50 ₽', USD: '$0.75', EUR: '0.75 €', TRY: '25 ₺' },
+            offer_myth_bundle:   { RUB: '50 ₽', USD: '$0.75', EUR: '0.75 €', TRY: '25 ₺' },
+            offer_gear_crossbow: { RUB: '10 ₽', USD: '$0.15', EUR: '0.15 €', TRY: '5 ₺' }
+        };
+
+        const CURRENCY_SYMBOLS = {
+            RUB: 'RUB (₽)',
+            USD: 'USD ($)',
+            EUR: 'EUR (€)',
+            TRY: 'TRY (₺)'
+        };
+
+        let currentCurrency = localStorage.getItem('dr_shop_currency') || 'RUB';
+
+        function toggleCurrencyDropdown() {
+            const dropdown = document.getElementById('currency-dropdown');
+            dropdown.classList.toggle('hidden');
+        }
+
+        function setCurrency(curr) {
+            if (!PRICES.vip_monthly[curr]) return;
+            currentCurrency = curr;
+            localStorage.setItem('dr_shop_currency', curr);
+            
+            // Update UI Button text
+            document.getElementById('current-currency-text').textContent = CURRENCY_SYMBOLS[curr] || curr;
+            
+            // Close dropdown
+            document.getElementById('currency-dropdown').classList.add('hidden');
+            
+            // Refresh Prices on DOM
+            updateDisplayedPrices();
+        }
+
+        function updateDisplayedPrices() {
+            document.querySelectorAll('[data-price-key]').forEach(el => {
+                const key = el.getAttribute('data-price-key');
+                if (PRICES[key] && PRICES[key][currentCurrency]) {
+                    el.textContent = PRICES[key][currentCurrency];
+                }
+            });
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            const btn = document.getElementById('currency-menu-btn');
+            const dropdown = document.getElementById('currency-dropdown');
+            if (btn && dropdown && !btn.contains(e.target) && !dropdown.contains(e.target)) {
+                dropdown.classList.add('hidden');
+            }
+        });
+
+        // Navigation tab switching
+        function showMainSection(sectionId, btn) {
+            document.querySelectorAll('.main-section').forEach(sec => sec.classList.add('hidden'));
+            document.querySelectorAll('.nav-tab-btn').forEach(b => b.classList.remove('active'));
+
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.remove('hidden');
+                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            if (btn) {
+                btn.classList.add('active');
+            }
+        }
+
+        // Flying chest calculator formula
+        function calculateFlyingChest() {
+            const lvlInput = document.getElementById('userLevel');
+            let lvl = parseInt(lvlInput.value) || 1;
+            if (lvl < 1) lvl = 1;
+            
+            const boxes = (lvl * 2) + 10;
+            document.getElementById('flyingResult').textContent = `${boxes}`;
+        }
+
+        // Initialization
+        window.addEventListener('DOMContentLoaded', () => {
+            calculateFlyingChest();
+            setCurrency(currentCurrency);
+        });
+    </script>
+    <script src="../assets/scripts/translations.js"></script>
+    <script src="../assets/scripts/language.js"></script>
+</body>
+</html>
