@@ -1758,6 +1758,12 @@ const translations = {
     chest_epic_desc: "Containts a Common, Uncommon, Rare and Epic cape or companion.",
     chest_epic_pity: "Guaranteed Epic cape after 20 openings.",
     chest_leg_title: "Legendary Chest",
+
+    boosters_title: "Exp Booster",
+    resources_title: "Resources for the Mine",
+    chest_leg_desc: "Contains items ranging from Common to Legendary categories.",
+    chest_mythic_req_title: "Opening condition:",
+
     chest_leg_pity: "Guaranteed Legendary cape after 20 openings.",
     chest_myth_title: "Mythic Vault",
     chest_mythic_pity: "Guaranteed Mythic cape after 20 openings.",
