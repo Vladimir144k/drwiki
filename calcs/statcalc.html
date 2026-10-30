@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dungeon Rush — Stat Calculator</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Poppins & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        site: {
+                            bg: '#0E1017',
+                            card: '#161924',
+                            cardBorder: 'rgba(255, 255, 255, 0.08)',
+                            cardHover: '#1D2130',
+                            accent: '#6366F1',
+                            accentHover: '#4F46E5',
+                            gold: '#FFC700'
+                        },
+                        rarity: {
+                            common: '#cacaca',
+                            uncommon: '#e0c69d',
+                            rare: '#b5e05c',
+                            epic: '#45c4ff',
+                            legendary: '#ffdd61',
+                            mythic: '#a288f2'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'Inter', 'sans-serif'],
+                        body: ['Inter', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'glow-indigo': '0 0 20px rgba(99, 102, 241, 0.35)',
+                        'glow-gold': '0 0 20px rgba(245, 158, 11, 0.35)',
+                        'card-depth': '0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0E1017;
+            color: #F3F4F6;
+            font-family: 'Poppins', sans-serif;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(168, 85, 247, 0.08) 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .pet-card {
+            background-color: #161924;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .pet-card:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.6);
+        }
+
+        .pet-input, input, select {
+            background-color: #0B0C12 !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            border-radius: 0.75rem !important;
+            color: #FFFFFF !important;
+            transition: all 0.2s;
+        }
+
+        input:focus, select:focus {
+            outline: none !important;
+            border-color: #6366F1 !important;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2) !important;
+        }
+
+        .badge-rarity {
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .rarity-common { background: rgba(156, 163, 175, 0.15); color: #cacaca; border: 1px solid #929090; }
+        .rarity-uncommon { background: rgba(34, 197, 94, 0.15); color: #e0c69d; border: 1px solid #be8f43; }
+        .rarity-rare { background: rgba(59, 130, 246, 0.15); color: #b5e05c; border: 1px solid #80a040; }
+        .rarity-epic { background: rgba(168, 85, 247, 0.15); color: #45c4ff; border: 1px solid #2c83ab; }
+        .rarity-legendary { background: rgba(245, 158, 11, 0.15); color: #ffdd61; border: 1px solid #b18d0a; }
+        .rarity-mythic { background: rgba(158, 19, 137, 0.15); color: #a288f2; border: 1px solid #715bb4; }
+
+        .stat-glow-gold { text-shadow: 0 0 12px rgba(255, 199, 0, 0.4); }
+
+        /* Pet Card Stylings */
+        .gear-calc-pet {
+            background: #11131C;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 0.75rem;
+            padding: 0.6rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            align-items: center;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .gear-calc-pet:hover {
+            border-color: rgba(99, 102, 241, 0.4);
+        }
+
+        .gear-calc-pet.is-inactive {
+            opacity: 0.35;
+            filter: grayscale(0.8);
+        }
+
+        .gear-calc-pets {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            gap: 0.6rem;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0E1017; }
+        ::-webkit-scrollbar-thumb { background: #1F2433; border-radius: 4px; }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <header class="border-b border-white/5 bg-[#12141D]/80 sticky top-0 z-50 backdrop-blur-xl">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+            
+            <a href="index.html" class="flex items-center space-x-3">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-amber-400 p-0.5 shadow-glow-indigo">
+                    <div class="w-full h-full bg-[#12141D] rounded-[14px] flex items-center justify-center">
+                        <i class="fa-solid fa-calculator text-amber-400 text-xl"></i>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h1 class="text-lg font-bold tracking-tight text-white">STAT<span class="text-indigo-400">CALC</span></h1>
+                    </div>
+                    <p class="text-xs text-gray-400 font-body" data-i18n="index_calc_stat_title">Калькулятор Характеристик Персонажа</p>
+                </div>
+            </a>
+
+            <!-- Language Switcher Button -->
+            <button id="lang-toggle" 
+                    onclick="toggleLanguage()" 
+                    class="group relative inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-indigo-500/30 hover:border-indigo-500/60 text-slate-200 hover:text-white transition-all duration-200 shadow-md hover:shadow-indigo-500/10 active:scale-95"
+                    title="Switch language / Сменить язык">
+                <i class="fa-solid fa-globe text-indigo-400 group-hover:rotate-12 transition-transform duration-200"></i>
+                <div class="flex items-center font-semibold text-xs tracking-wide">
+                    <span id="lang-text" class="text-indigo-300 group-hover:text-amber-400 transition-colors">RU</span>
+                </div>
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+        <div id="stat-calculator"></div>
+    </main>
+
+    <footer class="glass-panel border-t border-slate-800/80 py-8 mt-16">
+        <div class="max-w-5xl mx-auto px-4 text-center text-xs text-slate-500 space-y-2">
+            <p class="text-[12px] text-slate-500" data-i18n="system_footer">Неофициальный справочник по игре. Данный сайт не связан с разработчиками или издателем игры. Все права на игру, её название, изображения и другие материалы принадлежат LAVA LABS OYUN YAZILIM VE PAZARLAMA ANONİM ŞİRKETİ. Данный сайт создан исключительно в информационных целях.</p>
+        </div>
+    </footer>
+
+    <script>
+    (function () {
+        'use strict';
+
+        var TIER_SCALER = Math.sqrt(10);
+        var LEVEL_SCALER = 0.015;
+
+        var tiers = [
+            { name: 'Common',    value: 0 },
+            { name: 'Uncommon',  value: 1 },
+            { name: 'Rare',      value: 2 },
+            { name: 'Epic',      value: 3 },
+            { name: 'Legendary', value: 4 },
+            { name: 'Mythic',    value: 5 },
+            { name: 'Artifact',  value: 6 },
+            { name: 'Ancient',   value: 7 },
+            { name: 'Immortal',  value: 8 },
+            { name: 'Divine',    value: 9 }
+        ];
+
+        var capeTiers = [
+            { name: 'Common',    value: 'common',    multiplier: 1 },
+            { name: 'Uncommon',  value: 'uncommon',  multiplier: 2 },
+            { name: 'Rare',      value: 'rare',      multiplier: 3 },
+            { name: 'Epic',      value: 'epic',      multiplier: 4 },
+            { name: 'Legendary', value: 'legendary', multiplier: 6 },
+            { name: 'Mythic',    value: 'mythic',    multiplier: 10 }
+        ];
+
+        var runeOptions = [];
+        for (var r = 0; r <= 11; r++) {
+            runeOptions.push({ name: 'Lv ' + r + ' (+' + (r * r) + '%)', value: r });
+        }
+
+        var gear = [
+            { id: 'weapon', name: 'Weapon', stat: 'damage', weapon: true },
+            { id: 'helmet', name: 'Helmet', stat: 'health', base: 45 },
+            { id: 'gloves', name: 'Gloves', stat: 'damage', base: 6 },
+            { id: 'backpack', name: 'Backpack', stat: 'health', base: 30 },
+            { id: 'necklace', name: 'Necklace', stat: 'health', base: 20 },
+            { id: 'ring', name: 'Ring', stat: 'damage', base: 6 }
+        ];
+
+        var weaponTypes = [
+            { name: 'Melee',  value: 9 },
+            { name: 'Ranged', value: 7 }
+        ];
+
+        var wings = {
+            health: 30,
+            damage: 9,
+            tierOffset: 1,
+            maxLevel: 100
+        };
+
+        var pets = [
+            { rarity:'Common',    animal:'Monkey',           name:'Ember Fist',      icon:'fa-hand-fist',    rClass:'rarity-common',    level:1, damagePerLevel:0.5, healthPerLevel:1.5 },
+            { rarity:'Common',    animal:'Sheep',            name:'Magic Wool',      icon:'fa-cloud',        rClass:'rarity-common',    level:1, damagePerLevel:0.25, healthPerLevel:2.5 },
+            { rarity:'Common',    animal:'Mouse',            name:'Spark Mouse',     icon:'fa-bolt',         rClass:'rarity-common',    level:1, damagePerLevel:0.75, healthPerLevel:1 },
+            { rarity:'Uncommon',  animal:'Red bird',         name:'Flame Wing',      icon:'fa-feather',      rClass:'rarity-uncommon',  level:1, damagePerLevel:2.25, healthPerLevel:3 },
+            { rarity:'Uncommon',  animal:'Deer',             name:'Life Horn',       icon:'fa-seedling',     rClass:'rarity-uncommon',  level:1, damagePerLevel:0.75, healthPerLevel:7.5 },
+            { rarity:'Uncommon',  animal:'Snow Fox',         name:'Snow Fang',       icon:'fa-snowflake',    rClass:'rarity-uncommon',  level:1, damagePerLevel:1.5, healthPerLevel:4.5 },
+            { rarity:'Rare',      animal:'Fire Fox',         name:'Blaze Tail',      icon:'fa-fire-flame-curved', rClass:'rarity-rare', level:1, damagePerLevel:22.5, healthPerLevel:30 },
+            { rarity:'Rare',      animal:'Polar Bear',       name:'Frost Claw',      icon:'fa-shield-dog',   rClass:'rarity-rare',      level:1, damagePerLevel:7.5, healthPerLevel:75 },
+            { rarity:'Rare',      animal:'Yellow cat horns', name:'Storm Eye',       icon:'fa-eye',          rClass:'rarity-rare',      level:1, damagePerLevel:15, healthPerLevel:45 },
+            { rarity:'Epic',      animal:'Purple 3-eyed',    name:'Arcane Paw',      icon:'fa-paw',          rClass:'rarity-epic',      level:1, damagePerLevel:225, healthPerLevel:300 },
+            { rarity:'Epic',      animal:'Yeti',             name:'Glacier Fist',    icon:'fa-icicles',      rClass:'rarity-epic',      level:1, damagePerLevel:150, healthPerLevel:450 },
+            { rarity:'Epic',      animal:'Green insect',     name:'Vital Root',      icon:'fa-plant-wilt',   rClass:'rarity-epic',      level:1, damagePerLevel:75, healthPerLevel:750 },
+            { rarity:'Legendary', animal:'Bat',              name:'Echo Wing',       icon:'fa-shield-cat',   rClass:'rarity-legendary', level:1, damagePerLevel:2250, healthPerLevel:3000 },
+            { rarity:'Legendary', animal:'Green elemental',  name:'Phantom Gaze',    icon:'fa-ghost',        rClass:'rarity-legendary', level:1, damagePerLevel:1500, healthPerLevel:4500 },
+            { rarity:'Legendary', animal:'Phoenix',          name:'Star Feather',    icon:'fa-sun',          rClass:'rarity-legendary', level:1, damagePerLevel:750, healthPerLevel:7500 },
+            { rarity:'Mythic',    animal:'Alien',            name:'Celestial Mind',  icon:'fa-brain',        rClass:'rarity-mythic',    level:1, damagePerLevel:6750, healthPerLevel:9000 },
+            { rarity:'Mythic',    animal:'Rabbit',           name:'Halo Hare',       icon:'fa-wand-magic-sparkles', rClass:'rarity-mythic', level:1, damagePerLevel:4500, healthPerLevel:13500 },
+            { rarity:'Mythic',    animal:'Dragon',           name:'Radiant Talon',   icon:'fa-dragon',       rClass:'rarity-mythic',    level:1, damagePerLevel:2250, healthPerLevel:22500 }
+        ];
+
+        function itemStat(baseStat, tier, level, tierOffset) {
+            tierOffset = tierOffset || 0;
+            return baseStat * Math.pow(TIER_SCALER, tier + tierOffset) * (1 + LEVEL_SCALER * level);
+        }
+
+        function relicBonusPercent(level) {
+            return level * level;
+        }
+
+        function relicMultiplier(level) {
+            return 1 + relicBonusPercent(level) / 100;
+        }
+
+        function capeBonus(rarity, level) {
+            var multiplier = 1;
+            capeTiers.forEach(function (tier) {
+                if (tier.value === rarity) { multiplier = tier.multiplier; }
+            });
+            return ((49 + level) / 10) * multiplier;
+        }
+
+        function gearStat(baseStat, tier, level, relicLevel) {
+            return itemStat(baseStat, tier, level) * relicMultiplier(relicLevel || 0);
+        }
+
+        function wingsStats(tier, level, relicLevel) {
+            level = Math.min(level, wings.maxLevel);
+            var multiplier = relicMultiplier(relicLevel || 0);
+            return {
+                health: itemStat(wings.health, tier, level, wings.tierOffset) * multiplier,
+                damage: itemStat(wings.damage, tier, level, wings.tierOffset) * multiplier
+            };
+        }
+
+        function capeStats(rarity, level, relicLevel) {
+            var baseBonus = capeBonus(rarity, level);
+            var effectiveBonus = baseBonus * relicMultiplier(relicLevel || 0);
+            return {
+                baseBonus: baseBonus,
+                effectiveBonus: effectiveBonus,
+                multiplier: 1 + effectiveBonus / 100
+            };
+        }
+
+        function enchantmentBonus(baseValue, level) {
+            return baseValue * relicBonusPercent(level || 0) / 100;
+        }
+
+        function petStats(pet, level) {
+            var value = Number(level === undefined ? pet.level : level);
+            var effectiveLevel = isFinite(value) ? Math.max(0, Math.floor(value)) : 0;
+            return {
+                level: effectiveLevel,
+                damage: effectiveLevel > 0 ? pet.damagePerLevel * (effectiveLevel + 20) : 0,
+                health: effectiveLevel > 0 ? pet.healthPerLevel * (effectiveLevel + 20) : 0
+            };
+        }
+
+        function characterStats(loadout) {
+            var result = { gear: {}, pets: [], gearDamage: 0, gearHealth: 0, petDamage: 0, petHealth: 0 };
+            var selectedWeapon = loadout.weaponType === 'melee' ? weaponTypes[0] : weaponTypes[1];
+            var bonuses = loadout.bonuses || {};
+
+            function equipment(slot) {
+                return (loadout.gear || {})[slot] || { tier: 0, level: 1, relicLevel: 0 };
+            }
+
+            gear.forEach(function (item) {
+                var settings = equipment(item.id);
+                var baseValue = item.weapon ? selectedWeapon.value : item.base;
+                var base = itemStat(baseValue, settings.tier, settings.level);
+                var total = gearStat(baseValue, settings.tier, settings.level, settings.relicLevel);
+
+                result.gear[item.id] = { base: base, bonus: enchantmentBonus(base, settings.relicLevel), total: total };
+                if (item.stat === 'health') { result.gearHealth += total; } 
+                else { result.gearDamage += total; }
+            });
+
+            var wingSettings = equipment('wings');
+            var baseWings = wingsStats(wingSettings.tier, wingSettings.level);
+            var totalWings = wingsStats(wingSettings.tier, wingSettings.level, wingSettings.relicLevel);
+            result.wings = {
+                base: baseWings,
+                bonus: { health: enchantmentBonus(baseWings.health, wingSettings.relicLevel), damage: enchantmentBonus(baseWings.damage, wingSettings.relicLevel) },
+                total: totalWings
+            };
+            result.gearHealth += totalWings.health;
+            result.gearDamage += totalWings.damage;
+
+            var capeSettings = loadout.cape || { rarity: 'common', level: 1, relicLevel: 0 };
+            result.cape = capeStats(capeSettings.rarity, capeSettings.level, capeSettings.relicLevel);
+            result.cape.bonus = enchantmentBonus(result.cape.baseBonus, capeSettings.relicLevel);
+
+            pets.forEach(function (pet, index) {
+                var stats = petStats(pet, (loadout.petLevels || [])[index]);
+                result.pets.push(stats);
+                if (!loadout.petsActive || loadout.petsActive[index]) {
+                    result.petDamage += stats.damage;
+                    result.petHealth += stats.health;
+                }
+            });
+
+            var weaponBonus = loadout.weaponType === 'melee' ? bonuses.melee : bonuses.ranged;
+            result.damageMultiplier = 1 + ((bonuses.damage || 0) + (weaponBonus || 0) + result.cape.effectiveBonus) / 100;
+            result.healthMultiplier = 1 + ((bonuses.health || 0) + result.cape.effectiveBonus) / 100;
+            result.damage = (result.gearDamage + result.petDamage) * result.damageMultiplier;
+            result.health = (result.gearHealth + result.petHealth) * result.healthMultiplier;
+            result.criticalDamage = result.damage * (105 + (bonuses.crit || 0)) / 100;
+            return result;
+        }
+
+        function calculatorUI(root) {
+            function element(name) { return root.querySelector('#dr-' + name); }
+            function number(name, minimum, integer) {
+                var el = element(name);
+                if (!el) return minimum === undefined ? 0 : minimum;
+                var value = parseFloat(el.value);
+                if (!isFinite(value)) { value = minimum === undefined ? 0 : minimum; }
+                if (integer) { value = Math.floor(value); }
+                return minimum === undefined ? value : Math.max(minimum, value);
+            }
+            function output(name, value) { 
+                var el = element(name);
+                if (el) el.textContent = value; 
+            }
+            function field(name, label, value, minimum, step) {
+                return '<div class="space-y-1"><label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider" for="dr-' + name + '">' + label + '</label>' +
+                    '<input class="pet-input w-full px-3 py-2 text-xs font-bold" type="number" id="dr-' + name + '"' +
+                    ' value="' + value + '" step="' + (step || '0.01') + '"' +
+                    (minimum === undefined ? '' : ' min="' + minimum + '"') + '></div>';
+            }
+            function weaponField(name) {
+                return '<div class="space-y-1"><label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider" for="dr-' + name + '" data-i18n="calc_weapon_type">Тип оружия</label>' +
+                    '<select id="dr-' + name + '" class="pet-input w-full px-3 py-2 text-xs font-bold">' +
+                    weaponTypes.map(function (type) {
+                        var key = type.name.toLowerCase();
+                        return '<option value="' + key + '"' + (key === 'ranged' ? ' selected' : '') + '>' + type.name + '</option>';
+                    }).join('') + '</select></div>';
+            }
+            function detail(label, name, i18nKey) { return '<div class="text-[11px] text-gray-400 font-body"><span data-i18n="' + (i18nKey || '') + '">' + label + '</span>: <span id="dr-' + name + '" class="text-slate-200 font-bold">0</span></div>'; }
+            
+            return { element: element, number: number, output: output, field: field, weaponField: weaponField, detail: detail };
+        }
+
+        function makeOptions(options) {
+            return options.map(function (option) { return '<option value="' + option.value + '">' + option.name + '</option>'; }).join('');
+        }
+
+        function formatNumber(value, decimals) {
+            if (!isFinite(value)) { return '\u2013'; }
+            if (decimals === undefined) { decimals = 2; }
+            return value.toLocaleString('ru-RU', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+        }
+
+        function formatCompact(value) {
+            var magnitude = Math.abs(value);
+            var divisor = magnitude >= 1e9 ? 1e9 : magnitude >= 1e6 ? 1e6 : magnitude >= 1e3 ? 1e3 : 0;
+            var suffix = divisor === 1e9 ? 'B' : divisor === 1e6 ? 'M' : 'K';
+            return divisor ? (value / divisor).toLocaleString('ru-RU', { maximumFractionDigits: 2 }) + suffix : '';
+        }
+
+        function initStatCalculator() {
+            var root = document.getElementById('stat-calculator');
+            if (!root || root.getAttribute('data-initialized') === 'true') { return; }
+            root.classList.add('dr-calculator');
+
+            var ui = calculatorUI(root);
+            var element = ui.element, number = ui.number, output = ui.output;
+            var field = ui.field, weaponField = ui.weaponField, detail = ui.detail;
+
+            function equipmentRow(id, label, options, minimum, maximum, isCape) {
+                var prefix = 'dr-stat-' + id;
+                return '<tr class="border-b border-white/5">' +
+                    '<th scope="row" class="py-2.5 px-2 text-left text-xs text-slate-200 font-semibold whitespace-nowrap" data-i18n="calc_item_' + id + '">' + label + '</th>' +
+                    '<td class="p-1"><select id="' + prefix + '-tier" class="gear-tier-select pet-input w-full p-2 text-xs font-bold" aria-label="' + id + ' tier">' + makeOptions(options) + '</select></td>' +
+                    '<td class="p-1"><input class="gear-level-input pet-input w-full p-2 text-xs font-bold min-w-[60px]" type="number" id="' + prefix + '-level" aria-label="' + id + ' level" min="' + minimum + '" step="1" value="1"' + (maximum ? ' max="' + maximum + '"' : '') + '></td>' +
+                    '<td class="p-1"><select id="' + prefix + '-enchantment" class="gear-rune-select pet-input w-full p-2 text-xs font-bold" aria-label="' + id + ' rune">' + makeOptions(runeOptions) + '</select></td>' +
+                    '<td class="gear-calc-stat py-2.5 px-2 text-xs font-mono text-indigo-400 text-right font-bold whitespace-nowrap" id="' + prefix + '-result"></td>' +
+                    '</tr>';
+            }
+
+            var equipmentRows = gear.map(function (item) { return equipmentRow(item.id, item.name, tiers, 1); }).join('');
+            equipmentRows += equipmentRow('wings', 'Wings (cap: ' + wings.maxLevel + ')', tiers, 1, wings.maxLevel);
+            equipmentRows += equipmentRow('cape', 'Cape (cloak)', capeTiers, 1, null, true);
+
+            var bonusFields = [
+                ['damage', 'Damage (%)', 'calc_bonus_damage'], 
+                ['health', 'Health (%)', 'calc_bonus_health'], 
+                ['ranged', 'Ranged (%)', 'calc_bonus_ranged'],
+                ['melee', 'Melee (%)', 'calc_bonus_melee'], 
+                ['crit', 'Critical damage (%)', 'calc_bonus_crit']
+            ];
+
+            var lastPetLevels = pets.map(function (pet) { return pet.level; });
+            var petTiles = pets.map(function (pet, index) {
+                return '<div class="gear-calc-pet" id="dr-pet-tile-' + index + '" role="group" aria-labelledby="dr-pet-name-' + index + '">' +
+                    '<div class="flex justify-between w-full items-center">' +
+                        '<input class="gear-calc-pet-active accent-indigo-500 w-4 h-4 cursor-pointer" type="checkbox" id="dr-pet-' + index + '" checked data-pet-toggle="' + index + '" aria-label="Include ' + pet.name + '">' +
+                        '<span class="badge-rarity ' + pet.rClass + '">' + pet.rarity + '</span>' +
+                    '</div>' +
+                    '<div class="w-10 h-10 rounded-xl bg-[#0B0C12] border border-white/10 flex items-center justify-center text-indigo-400 text-base shadow-inner my-0.5">' +
+                        '<i class="fa-solid ' + pet.icon + '"></i>' +
+                    '</div>' +
+                    '<label class="gear-calc-note text-[11px] font-bold text-slate-100 truncate w-full" id="dr-pet-name-' + index + '" for="dr-pet-level-' + index + '">' + pet.name + '</label>' +
+                    '<div class="w-full space-y-0.5"><label class="block text-[9px] text-gray-500 font-bold uppercase" data-i18n="calc_level_lbl">Level</label><input type="number" id="dr-pet-level-' + index + '" min="0" step="1" value="' + pet.level + '" data-pet-level="' + index + '" class="pet-level-item pet-input w-full p-1 text-xs text-center font-bold" aria-label="' + pet.name + ' level"></div>' +
+                    '<span id="dr-pet-details-' + index + '" hidden>' + pet.rarity + '. Damage: <span id="dr-pet-damage-' + index + '"></span>. Health: <span id="dr-pet-health-' + index + '"></span>.</span></div>';
+            }).join('');
+
+            root.innerHTML = '<div class="space-y-6">' +
+                
+                '<!-- TOP SECTION: ANSWERS (TOTALS) -->' +
+                '<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">' +
+                    '<div class="pet-card p-4 relative overflow-hidden border-l-4 border-l-amber-500">' +
+                        '<div class="text-[11px] font-bold text-gray-400 uppercase tracking-wider" data-i18n="calc_total_damage">Total Damage</div>' +
+                        '<div id="dr-total-damage" class="text-2xl sm:text-3xl font-extrabold text-amber-400 stat-glow-gold mt-1">0</div>' +
+                        '<div id="dr-total-damage-compact" class="text-xs font-bold text-amber-300/80 mt-0.5"></div>' +
+                        '<div class="text-[11px] text-gray-400 mt-2 border-t border-white/5 pt-1 space-y-0.5">' +
+                            detail('Gear', 'gear-damage', 'calc_gear') + detail('Pets', 'pet-damage', 'calc_pets') + detail('Multiplier', 'damage-multiplier', 'calc_multiplier') +
+                        '</div>' +
+                        '<i class="fa-solid fa-burst absolute -right-2 -bottom-2 text-amber-500/10 text-5xl"></i>' +
+                    '</div>' +
+
+                    '<div class="pet-card p-4 relative overflow-hidden border-l-4 border-l-emerald-500">' +
+                        '<div class="text-[11px] font-bold text-gray-400 uppercase tracking-wider" data-i18n="calc_total_health">Total Health</div>' +
+                        '<div id="dr-total-health" class="text-2xl sm:text-3xl font-extrabold text-emerald-400 mt-1">0</div>' +
+                        '<div id="dr-total-health-compact" class="text-xs font-bold text-emerald-300/80 mt-0.5"></div>' +
+                        '<div class="text-[11px] text-gray-400 mt-2 border-t border-white/5 pt-1 space-y-0.5">' +
+                            detail('Gear', 'gear-health', 'calc_gear') + detail('Pets', 'pet-health', 'calc_pets') + detail('Multiplier', 'health-multiplier', 'calc_multiplier') +
+                        '</div>' +
+                        '<i class="fa-solid fa-heart absolute -right-2 -bottom-2 text-emerald-500/10 text-5xl"></i>' +
+                    '</div>' +
+
+                    '<div class="pet-card p-4 relative overflow-hidden border-l-4 border-l-red-500">' +
+                        '<div class="text-[11px] font-bold text-gray-400 uppercase tracking-wider" data-i18n="calc_total_critical">Critical Damage</div>' +
+                        '<div id="dr-total-critical" class="text-2xl sm:text-3xl font-extrabold text-red-300 mt-1">0</div>' +
+                        '<div id="dr-total-critical-compact" class="text-xs font-bold text-red-400/80 mt-0.5"></div>' +
+                        '<div class="text-[11px] text-gray-400 mt-2 border-t border-white/5 pt-1 font-body" data-i18n="calc_crit_desc">' +
+                            'Base 105% + Critical Damage bonus' +
+                        '</div>' +
+                        '<i class="fa-solid fa-bolt absolute -right-2 -bottom-2 text-red-500/10 text-5xl"></i>' +
+                    '</div>' +
+                '</div>' +
+
+                '<!-- BLOCK 1: BONUSES -->' +
+                '<div class="pet-card p-5 space-y-4">' +
+                    '<div class="flex items-center justify-between border-b border-white/5 pb-3">' +
+                        '<h2 class="text-sm font-bold text-white flex items-center gap-2">' +
+                            '<i class="fa-solid fa-sliders text-indigo-400"></i>' +
+                            '<span data-i18n="calc_block1_title">1. БОНУСЫ (BONUSES)</span>' +
+                        '</h2>' +
+                        '<span class="text-[11px] text-gray-400" data-i18n="calc_block1_subtitle">Доп. процентные усиления</span>' +
+                    '</div>' +
+                    '<div class="space-y-4">' +
+                        weaponField('stat-weapon') +
+                        '<div class="grid grid-cols-2 sm:grid-cols-5 gap-3">' +
+                            bonusFields.map(function (definition) { return field('bonus-' + definition[0], definition[1], 0); }).join('') +
+                        '</div>' +
+                    '</div>' +
+                '</div>' +
+
+                '<!-- BLOCK 2: EQUIPMENT, WINGS & CAPE -->' +
+                '<div class="pet-card p-5 space-y-4">' +
+                    '<div class="flex flex-wrap items-center justify-between border-b border-white/5 pb-3 gap-2">' +
+                        '<h3 class="text-sm font-bold text-gray-200 flex items-center gap-2">' +
+                            '<i class="fa-solid fa-shield-halved text-indigo-400"></i>' +
+                            '<span data-i18n="calc_block2_title">2. СНАРЯЖЕНИЕ, КРЫЛЬЯ И ПЛАЩ</span>' +
+                        '</h3>' +
+                        '<span class="text-[11px] text-gray-400" data-i18n="calc_block2_subtitle">Параметры экипировки</span>' +
+                    '</div>' +
+
+                    '<!-- BULK SELECT FOR GEAR -->' +
+                    '<div class="bg-[#11131C] p-3 rounded-xl border border-white/5 space-y-2">' +
+                        '<div class="text-[11px] font-bold text-indigo-300 uppercase tracking-wider flex items-center gap-1.5">' +
+                            '<i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i> <span data-i18n="calc_bulk_gear_title">Массовая установка (Bulk Select)</span>' +
+                        '</div>' +
+                        '<div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">' +
+                            '<div class="flex items-center gap-2">' +
+                                '<span class="text-gray-400 whitespace-nowrap" data-i18n="calc_bulk_tier">Тир:</span>' +
+                                '<select id="dr-bulk-tier" class="pet-input w-full p-1.5 font-bold">' + makeOptions(tiers) + '</select>' +
+                                '<button type="button" id="dr-apply-bulk-tier" class="px-2 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-bold transition" data-i18n="calc_btn_all">All</button>' +
+                            '</div>' +
+                            '<div class="flex items-center gap-2">' +
+                                '<span class="text-gray-400 whitespace-nowrap" data-i18n="calc_bulk_level">Ур:</span>' +
+                                '<input type="number" id="dr-bulk-level" value="1" min="1" class="pet-input w-full p-1.5 font-bold">' +
+                                '<button type="button" id="dr-apply-bulk-level" class="px-2 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-bold transition" data-i18n="calc_btn_all">All</button>' +
+                            '</div>' +
+                            '<div class="flex items-center gap-2">' +
+                                '<span class="text-gray-400 whitespace-nowrap" data-i18n="calc_bulk_rune">Руна:</span>' +
+                                '<select id="dr-bulk-rune" class="pet-input w-full p-1.5 font-bold">' + makeOptions(runeOptions) + '</select>' +
+                                '<button type="button" id="dr-apply-bulk-rune" class="px-2 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-bold transition" data-i18n="calc_btn_all">All</button>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
+
+                    '<div class="overflow-x-auto">' +
+                        '<table class="w-full text-left border-collapse min-w-[500px]">' +
+                            '<thead>' +
+                                '<tr class="border-b border-white/10 text-[11px] text-gray-400">' +
+                                    '<th scope="col" class="pb-2 px-2" data-i18n="calc_table_item">Предмет</th>' +
+                                    '<th scope="col" class="pb-2 px-1" data-i18n="calc_table_tier">Тир</th>' +
+                                    '<th scope="col" class="pb-2 px-1" data-i18n="calc_table_level">Уровень</th>' +
+                                    '<th scope="col" class="pb-2 px-1" data-i18n="calc_table_rune">Руна (Энчант)</th>' +
+                                    '<th scope="col" class="pb-2 px-2 text-right" data-i18n="calc_table_result">Расчётный стат</th>' +
+                                '</tr>' +
+                            '</thead>' +
+                            '<tbody>' + equipmentRows + '</tbody>' +
+                        '</table>' +
+                    '</div>' +
+                '</div>' +
+
+                '<!-- BLOCK 3: PETS -->' +
+                '<div class="pet-card p-5 space-y-4" id="dr-pet-section">' +
+                    '<div class="flex flex-wrap justify-between items-center border-b border-white/5 pb-3 gap-2">' +
+                        '<h3 class="text-sm font-bold text-gray-200 flex items-center gap-2">' +
+                            '<i class="fa-solid fa-cat text-amber-400"></i>' +
+                            '<span data-i18n="calc_block3_title">3. ПИТОМЦЫ (18 PETS)</span>' +
+                        '</h3>' +
+                        '<div class="space-x-1.5">' +
+                            '<button type="button" id="dr-pets-all" class="text-[11px] bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/30 px-2.5 py-1 rounded-lg text-indigo-300 font-bold transition" data-i18n="calc_pets_select_all">Выбрать всех</button>' +
+                            '<button type="button" id="dr-pets-none" class="text-[11px] bg-slate-900 hover:bg-slate-800 border border-white/10 px-2.5 py-1 rounded-lg text-slate-300 font-bold transition" data-i18n="calc_pets_deselect_all">Сбросить</button>' +
+                        '</div>' +
+                    '</div>' +
+
+                    '<!-- BULK SELECT FOR PETS -->' +
+                    '<div class="bg-[#11131C] p-3 rounded-xl border border-white/5 flex items-center justify-between gap-3 text-xs">' +
+                        '<div class="text-[11px] font-bold text-amber-300 uppercase tracking-wider flex items-center gap-1.5">' +
+                            '<i class="fa-solid fa-paw text-amber-400"></i> <span data-i18n="calc_bulk_pets_level">Массовый уровень питомцев:</span>' +
+                        '</div>' +
+                        '<div class="flex items-center gap-2 max-w-[200px]">' +
+                            '<input type="number" id="dr-bulk-pet-level" value="1" min="0" class="pet-input w-full p-1.5 font-bold text-center">' +
+                            '<button type="button" id="dr-apply-bulk-pet-level" class="px-3 py-1.5 bg-amber-600 hover:bg-amber-500 text-white rounded-lg font-bold transition whitespace-nowrap" data-i18n="calc_btn_set_all">Set All</button>' +
+                        '</div>' +
+                    '</div>' +
+
+                    '<div class="gear-calc-pets max-h-[460px] overflow-y-auto pr-1">' + petTiles + '</div>' +
+                    
+                    '<div class="flex flex-wrap justify-between items-center pt-3 border-t border-white/5 text-xs text-gray-300 font-body" aria-label="Selected pet totals">' +
+                        '<span data-i18n="calc_pets_total_lbl">Суммарно от активных питомцев:</span>' +
+                        '<div class="space-x-3">' +
+                            '<span><span data-i18n="calc_pets_dmg_lbl">Урон</span> <strong id="dr-pets-damage" class="text-amber-400">0</strong></span>' +
+                            '<span><span data-i18n="calc_pets_hp_lbl">Здоровье</span> <strong id="dr-pets-health" class="text-emerald-400">0</strong></span>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>' +
+
+            '</div>';
+
+        function readEquipment(id) {
+            return {
+                tier: number('stat-' + id + '-tier', 0, true),
+                level: number('stat-' + id + '-level', 1, true),
+                relicLevel: number('stat-' + id + '-enchantment', 0, true)
+            };
+        }
+
+        function breakdown(label, base, bonus, total, percent, extra) {
+            var suffix = percent ? '%' : '';
+            return '<div class="text-gray-400 text-[11px] font-body">Base ' + label.toLowerCase() + ': ' + formatNumber(base) + suffix + ' + ' + formatNumber(bonus) + suffix + '</div>' +
+                '<div class="text-indigo-300 font-bold">Total: ' + formatNumber(total) + suffix + '</div>' +
+                (extra ? '<div class="text-gray-500 text-[10px]">(' + extra + ')</div>' : '');
+        }
+
+        function calculateStats() {
+            var loadout = { weaponType: element('stat-weapon').value, gear: {}, bonuses: {}, petsActive: [], petLevels: [] };
+            gear.forEach(function (item) { loadout.gear[item.id] = readEquipment(item.id); });
+            loadout.gear.wings = readEquipment('wings');
+            loadout.cape = {
+                rarity: element('stat-cape-tier').value,
+                level: number('stat-cape-level', 1, true),
+                relicLevel: number('stat-cape-enchantment', 0, true)
+            };
+            bonusFields.forEach(function (definition) { loadout.bonuses[definition[0]] = number('bonus-' + definition[0]); });
+            pets.forEach(function (pet, index) {
+                var level = number('pet-level-' + index, 0, true);
+                var checkbox = element('pet-' + index);
+                if (level === 0) { checkbox.checked = false; }
+                loadout.petsActive[index] = checkbox.checked;
+                loadout.petLevels[index] = level;
+                element('pet-tile-' + index).classList.toggle('is-inactive', !checkbox.checked);
+            });
+
+            var lastTotals = characterStats(loadout);
+            gear.forEach(function (item) {
+                var stats = lastTotals.gear[item.id];
+                element('stat-' + item.id + '-result').innerHTML = breakdown(item.stat === 'health' ? 'Health' : 'Damage', stats.base, stats.bonus, stats.total);
+            });
+            var wingStats = lastTotals.wings;
+            element('stat-wings-result').innerHTML =
+                breakdown('Health', wingStats.base.health, wingStats.bonus.health, wingStats.total.health) +
+                breakdown('Damage', wingStats.base.damage, wingStats.bonus.damage, wingStats.total.damage);
+            
+            var capeRate = lastTotals.cape.effectiveBonus / 100;
+            element('stat-cape-result').innerHTML = breakdown('Bonus', lastTotals.cape.baseBonus, lastTotals.cape.bonus, lastTotals.cape.effectiveBonus, true,
+                '+' + formatNumber(lastTotals.gearHealth * capeRate) + ' hp, +' + formatNumber(lastTotals.gearDamage * capeRate) + ' dmg');
+
+            lastTotals.pets.forEach(function (stats, index) {
+                output('pet-damage-' + index, formatNumber(stats.damage, stats.damage % 1 ? 2 : 0));
+                output('pet-health-' + index, formatNumber(stats.health, stats.health % 1 ? 2 : 0));
+                element('pet-tile-' + index).title = pets[index].name + ' (' + pets[index].rarity + ')\n' + element('pet-details-' + index).textContent;
+            });
+            output('pets-damage', formatNumber(lastTotals.petDamage, lastTotals.petDamage % 1 ? 2 : 0));
+            output('pets-health', formatNumber(lastTotals.petHealth, lastTotals.petHealth % 1 ? 2 : 0));
+            
+            ['damage', 'health'].forEach(function (stat) {
+                var title = stat === 'damage' ? 'Damage' : 'Health';
+                output('total-' + stat, formatNumber(lastTotals[stat], 0));
+                output('total-' + stat + '-compact', formatCompact(lastTotals[stat]));
+                output('gear-' + stat, formatNumber(lastTotals['gear' + title], 0));
+                output('pet-' + stat, formatNumber(lastTotals['pet' + title], 0));
+                output(stat + '-multiplier', '\u00d7' + formatNumber(lastTotals[stat + 'Multiplier']));
+            });
+            element('total-damage').setAttribute('data-damage', lastTotals.damage);
+            output('total-critical', formatNumber(lastTotals.criticalDamage, 0));
+            output('total-critical-compact', formatCompact(lastTotals.criticalDamage));
+        }
+
+        function setPetActive(index, active) {
+            if (active && number('pet-level-' + index, 0, true) === 0) {
+                element('pet-level-' + index).value = lastPetLevels[index] || 1;
+            }
+            element('pet-' + index).checked = active;
+        }
+
+        function handleStatsInput(event) {
+            var target = event.target;
+            if (target.hasAttribute('data-pet-level')) {
+                var index = Number(target.getAttribute('data-pet-level'));
+                var level = number('pet-level-' + index, 0, true);
+                element('pet-' + index).checked = level > 0;
+                if (level > 0) { lastPetLevels[index] = level; }
+            } else if (target.hasAttribute('data-pet-toggle')) {
+                setPetActive(Number(target.getAttribute('data-pet-toggle')), target.checked);
+            }
+            calculateStats();
+        }
+
+        ['input', 'change'].forEach(function (event) { root.addEventListener(event, handleStatsInput); });
+
+        function selectPets(active) {
+            pets.forEach(function (pet, index) { setPetActive(index, active); });
+            calculateStats();
+        }
+
+        // Bulk apply handlers
+        element('apply-bulk-tier').addEventListener('click', function () {
+            var val = element('bulk-tier').value;
+            root.querySelectorAll('.gear-tier-select').forEach(function (select) {
+                if (select.id !== 'dr-stat-cape-tier') select.value = val;
+            });
+            calculateStats();
+        });
+
+        element('apply-bulk-level').addEventListener('click', function () {
+            var val = element('bulk-level').value;
+            root.querySelectorAll('.gear-level-input').forEach(function (input) {
+                input.value = val;
+            });
+            calculateStats();
+        });
+
+        element('apply-bulk-rune').addEventListener('click', function () {
+            var val = element('bulk-rune').value;
+            root.querySelectorAll('.gear-rune-select').forEach(function (select) {
+                select.value = schemeVal || val;
+            });
+            calculateStats();
+        });
+
+        element('apply-bulk-pet-level').addEventListener('click', function () {
+            var val = element('bulk-pet-level').value;
+            root.querySelectorAll('.pet-level-item').forEach(function (input, idx) {
+                input.value = val;
+                setPetActive(idx, parseInt(val) > 0);
+            });
+            calculateStats();
+        });
+
+        element('pets-all').addEventListener('click', function () { selectPets(true); });
+        element('pets-none').addEventListener('click', function () { selectPets(false); });
+
+        calculateStats();
+        root.setAttribute('data-initialized', 'true');
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initStatCalculator);
+    } else {
+        initStatCalculator();
+    }
+
+    }());
+    </script>
+    <script src="../assets/scripts/translations.js"></script>
+    <script src="../assets/scripts/language.js"></script>
+</body>
+</html>
