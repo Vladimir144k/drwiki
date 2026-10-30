@@ -248,6 +248,185 @@
 
             </div>
 
+<!-- DROPDOWN ПАНЕЛЬ: ПОСЛЕДНЕЕ ОБНОВЛЕНИЕ v60 -->
+            <details class="group bg-[#161924] border border-indigo-500/30 hover:border-indigo-500/60 rounded-2xl transition-all duration-300 overflow-hidden shadow-lg shadow-indigo-500/5">
+                <summary class="list-none p-4 sm:p-5 cursor-pointer flex items-center justify-between gap-3 select-none bg-gradient-to-r from-indigo-950/40 via-[#161924] to-purple-950/30 hover:from-indigo-900/40">
+                    <div class="flex items-center gap-3">
+                        <span class="flex h-3 w-3 relative shrink-0">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span>
+                        </span>
+                        <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                            <span class="text-xs sm:text-sm font-extrabold text-amber-400 tracking-wide uppercase" data-i18n="v60_new">
+                                НОВОЕ ОБНОВЛЕНИЕ v60.
+                            </span>
+                            <span class="text-xs sm:text-sm font-semibold text-gray-200" data-i18n="v60_new_desc">
+                                НАЖМИТЕ ЧТОБЫ УЗНАТЬ ПОДРОБНЕЕ ОБ ИЗМЕНЕНИЯХ
+                            </span>
+                        </div>
+                    </div>
+                    <div class="w-8 h-8 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 group-open:rotate-180 transition-transform duration-300 shrink-0">
+                        <i class="fa-solid fa-chevron-down text-sm"></i>
+                    </div>
+                </summary>
+
+                <div class="p-5 border-t border-white/5 bg-[#12141D]/80 space-y-6 text-sm">
+                    
+                    <!-- 1. Изменение интерфейса (Stage) -->
+                    <div class="space-y-3">
+                        <h4 class="font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-layer-group text-indigo-400"></i>
+                            <span data-i18n="v60_new_stage">Изменение интерфейса</span>
+                        </h4>
+                        <p class="text-xs text-gray-300 leading-relaxed font-body">
+                            <span data-i18n="v60_new_stage_desc">Теперь этапы в подземельях называются</span> <strong class="text-amber-400">Stage</strong>.<br>
+                            <span class="text-gray-400" data-i18n="v60_new_before">Раньше:</span> <span class="line-through text-red-400/80">Normal 1-1</span> &nbsp;➔&nbsp; <span class="text-gray-400" data-i18n="v60_new_after">Теперь:</span> <span class="text-emerald-400 font-semibold">Normal Stage 1</span>.<br>
+                            <span class="text-gray-300" data-i18n="v60_new_stage_affect">Изменения действуют на: основное подземелье, Dragon's Hoard, Zombie Outbreak, Cultist Ritual, Celestial Ascent и ивент Time Warp.</span>
+                        </p>
+                        <!-- Картинки До / После -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                            <div class="space-y-1">
+                                <span class="text-[11px] text-red-400 font-semibold uppercase tracking-wider block" data-i18n="v60_new_before">Было</span>
+                                <div class="max-w-md w-full bg-[#161924] border border-white/10 rounded-xl overflow-hidden flex items-center justify-center text-gray-500 text-xs">
+                                    <img src="assets/images/update12.png" alt="Интерфейс до обновления" class="w-full h-full object-cover hidden" onload="this.classList.remove('hidden')">
+                                    <!--  <span class="p-2 text-center">[Картинка До: Normal 1-1]</span> -->
+                                </div>
+                            </div>
+                            <div class="space-y-1">
+                                <span class="text-[11px] text-emerald-400 font-semibold uppercase tracking-wider block" data-i18n="v60_new_after">Стало</span>
+                                <div class="max-w-md w-full bg-[#161924] border border-emerald-500/20 rounded-xl overflow-hidden flex items-center justify-center text-gray-500 text-xs">
+                                    <img src="assets/images/Update1.png" alt="Интерфейс после обновления" class="w-full h-full object-cover hidden" onload="this.classList.remove('hidden')">
+                                    <!-- <span class="p-2 text-center">[Картинка После: Normal Stage 1]</span> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="h-[1px] bg-white/5"></div>
+
+                    <!-- 2. Battle Pass -->
+                    <div class="space-y-3">
+                        <h4 class="font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-[#161924] fa-scroll text-amber-400"></i>
+                            <span data-i18n="v60_new_pass">Изменён вид Battle Pass</span>
+                        </h4>
+                        <p class="text-xs text-gray-300 leading-relaxed font-body" data-i18n="v60_new_pass_desc">
+                            Раньше чтобы прокрутить награды нужно было свайпать снизу вверх. Теперь навигация осуществляется слева направо.
+                        </p>
+                        <!-- Картинки До / После -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                            <div class="space-y-1">
+                                <span class="text-[11px] text-red-400 font-semibold uppercase tracking-wider block" data-i18n="v60_new_before">Было (Вертикально)</span>
+                                <div class="max-w-md w-full bg-[#161924] border border-white/10 rounded-xl overflow-hidden flex items-center justify-center text-gray-500 text-xs">
+                                    <img src="assets/images/update22.png" alt="Battle Pass до" class="w-full h-full object-cover hidden" onload="this.classList.remove('hidden')">
+                                    <!--  <span class="p-2 text-center">[Картинка До: Свайп снизу вверх]</span> -->
+                                </div>
+                            </div>
+                            <div class="space-y-1">
+                                <span class="text-[11px] text-emerald-400 font-semibold uppercase tracking-wider block" data-i18n="v60_new_after">Стало (Горизонтально)</span>
+                                <div class="max-w-md w-full bg-[#161924] border border-emerald-500/20 rounded-xl overflow-hidden flex items-center justify-center text-gray-500 text-xs">
+                                    <img src="assets/images/update2.png" alt="Battle Pass после" class="w-full h-full object-cover hidden" onload="this.classList.remove('hidden')">
+                                    <!-- <span class="p-2 text-center">[Картинка После: Свайп слева направо]</span> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="h-[1px] bg-white/5"></div>
+
+                    <!-- 3. Выбор предметов -->
+                    <div class="space-y-3">
+                        <h4 class="font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-boxes-packing text-red-400"></i>
+                            <span data-i18n="v60_new_equip">Изменён выбор предметов</span>
+                        </h4>
+                        <p class="text-xs text-gray-300 leading-relaxed font-body" data-i18n="v60_new_equip_desc">
+                            Раньше имелась возможность выбирать между предметами и самому решать какой продавать. В новом обновлении ручного выбора нет — предмет продается автоматически.
+                        </p>
+                        <!-- Картинки До / После -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                            <div class="space-y-1">
+                                <span class="text-[11px] text-red-400 font-semibold uppercase tracking-wider block" data-i18n="v60_new_before">Было (Ручной выбор)</span>
+                                <div class="max-w-md w-full bg-[#161924] border border-white/10 rounded-xl overflow-hidden flex items-center justify-center text-gray-500 text-xs">
+                                    <img src="assets/images/update32.png" alt="Выбор предметов до" class="w-full h-full object-cover hidden" onload="this.classList.remove('hidden')">
+                                    <!-- <span class="p-2 text-center">[Картинка До: Ручной выбор]</span> -->
+                                </div>
+                            </div>
+                            <div class="space-y-1">
+                                <span class="text-[11px] text-emerald-400 font-semibold uppercase tracking-wider block" data-i18n="v60_new_after">Стало (Авто-продажа)</span>
+                                <div class="max-w-md w-full bg-[#161924] border border-emerald-500/20 rounded-xl overflow-hidden flex items-center justify-center text-gray-500 text-xs">
+                                    <img src="assets/images/update3.png" alt="Выбор предметов после" class="w-full h-full object-cover hidden" onload="this.classList.remove('hidden')">
+                                    <!-- <span class="p-2 text-center">[Картинка После: Авто-продажа]</span> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="h-[1px] bg-white/5"></div>
+
+                    <!-- 5. Стрелки в Rarity Table -->
+                    <div class="space-y-3">
+                        <h4 class="font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-[#161924] fa-table text-purple-400"></i>
+                            <span data-i18n="v60_new_arrows">Стрелки в Rarity Table</span>
+                        </h4>
+                        <p class="text-xs text-gray-300 leading-relaxed font-body" data-i18n="v60_new_arrows_desc">
+                            В таблицу редкости добавлена удобная навигация стрелками — теперь можно легко просмотреть шансы дропов для уровней от 1 до 200 (Опыт и гемы показывается только текущего уровня).
+                        </p>
+                        <div class="max-w-md w-full bg-[#161924] border border-purple-500/20 rounded-xl overflow-hidden flex items-center justify-center text-gray-500 text-xs">
+                            <img src="assets/images/update5.png" alt="Таблица Rarity Table" class="w-full h-full object-cover hidden" onload="this.classList.remove('hidden')">
+                            <!-- <span class="p-2 text-center">[Картинка: Стрелки переключения уровней 1-200 в Rarity Table]</span> -->
+                        </div>
+                    </div>
+
+                    <div class="h-[1px] bg-white/5"></div>
+
+                    <!-- 6. Эффект получения общей силы -->
+                    <div class="space-y-3">
+                        <h4 class="font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-bolt text-yellow-400"></i>
+                            <span data-i18n="v60_new_power">Эффект получения общей силы</span>
+                        </h4>
+                        <p class="text-xs text-gray-300 leading-relaxed font-body" data-i18n="v60_new_power_desc">
+                            При повышении вашего показателя общей силы под никнеймом появляется специальный анимационный эффект.
+                        </p>
+                        <div class="max-w-md w-full bg-[#161924] border border-yellow-500/20 rounded-xl overflow-hidden flex items-center justify-center text-gray-500 text-xs">
+                            <img src="assets/images/update9.gif" alt="Эффект прироста общей силы" class="w-full h-full object-cover hidden" onload="this.classList.remove('hidden')">
+                            <!-- <span class="p-2 text-center">[GIF: Эффект повышения силы под никнеймом]</span> -->
+                        </div>
+                    </div>
+
+                    <div class="h-[1px] bg-white/5"></div>
+
+                    <!-- 2. Battle Pass -->
+                    <div class="space-y-3">
+                        <h4 class="font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-[#161924] fa fa-filter text-amber-400"></i>
+                            <span data-i18n="v60_new_auto">Изменён вид Auto-Loot</span>
+                        </h4>
+                        <p class="text-xs text-gray-300 leading-relaxed font-body" data-i18n="v60_new_auto_desc">
+                            Раньше окошка автолута выглядела компактно. Теперь выбор редкости выглядят как панельки, а выбор коробок за раз выглядит как ползунок.
+                        </p>
+                        <!-- Картинки До / После -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                            <div class="space-y-1">
+                                <span class="text-[11px] text-red-400 font-semibold uppercase tracking-wider block" data-i18n="v60_new_before">Было (Компактно)</span>
+                                <div class="max-w-md w-full bg-[#161924] border border-white/10 rounded-xl overflow-hidden flex items-center justify-center text-gray-500 text-xs">
+                                    <img src="assets/images/update6.png" alt="Battle Pass до" class="w-full h-full object-cover hidden" onload="this.classList.remove('hidden')">
+                                </div>
+                            </div>
+                            <div class="space-y-1">
+                                <span class="text-[11px] text-emerald-400 font-semibold uppercase tracking-wider block" data-i18n="v60_new_after">Стало (Панельки)</span>
+                                <div class="max-w-md w-full bg-[#161924] border border-emerald-500/20 rounded-xl overflow-hidden flex items-center justify-center text-gray-500 text-xs">
+                                    <img src="assets/images/update51.png" alt="Battle Pass после" class="w-full h-full object-cover hidden" onload="this.classList.remove('hidden')">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </details>
+
             <!-- SEARCH BAR -->
             <div class="relative max-w-2xl mx-auto my-3">
                 <div class="relative flex items-center">
@@ -271,6 +450,24 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    <!-- Stats -->
+                    <a href="calcs/statcalc.html" data-keywords="stats statistics calculator калькулятор статов характеристики персонажа шмот эквип бонусы" class="pet-card searchable-card p-5 space-y-4 cursor-pointer group block">
+                        <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-calculator"></i>
+                        </div>
+                        <div class="space-y-1">
+                            <h4 class="text-base font-bold text-white group-hover:text-purple-400 transition-colors" data-i18n="index_calc_stat_title">
+                                Калькулятор Статов
+                            </h4>
+                            <p class="text-xs text-gray-400 font-body" data-i18n="index_calc_stat_desc">
+                                Расчёт характеристик персонажа, бонусов снаряжения, питомцев и итоговых показателей.
+                            </p>
+                        </div>
+                        <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-purple-400 font-semibold">
+                            <span data-i18n="index_open_calc">Открыть калькулятор</span>
+                            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </a>
                     <!-- Capes -->
                     <a href="calcs/crowncalc.html" data-keywords="crowns crown cape cloak capes cloaks clan clans point points war summon drop calc calcs calculator корона короны плащ плащи клан клановые очки калькулятор призыв" class="pet-card searchable-card p-5 space-y-4 cursor-pointer group block">
                         <div class="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 text-xl group-hover:scale-110 transition-transform">
@@ -507,43 +704,6 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                    <!-- Stats Calculator -->
-                    <div class="pet-card searchable-card p-5 space-y-4 opacity-85 group block" data-keywords="статы характеристики шмот эквип бонусы атрибуты">
-                        <div class="w-12 h-12 rounded-xl bg-slate-500/10 border border-slate-500/20 flex items-center justify-center text-slate-400 text-xl">
-                            <i class="fa-solid fa-chart-simple"></i>
-                        </div>
-                        <div class="space-y-1">
-                            <h4 class="text-base font-bold text-white">
-                                Калькулятор статов
-                            </h4>
-                            <p class="text-xs text-gray-400 font-body">
-                                Расчёт характеристик персонажа, бонусов снаряжения и итоговых показателей.
-                            </p>
-                        </div>
-                        <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-slate-400 font-semibold">
-                            <span>В разработке</span>
-                            <i class="fa-solid fa-clock"></i>
-                        </div>
-                    </div>
-
-                    <!-- Damage Calculator -->
-                    <div class="pet-card searchable-card p-5 space-y-4 opacity-85 group block" data-keywords="урон дамаг крит атака дпс dps навыки">
-                        <div class="w-12 h-12 rounded-xl bg-slate-500/10 border border-slate-500/20 flex items-center justify-center text-slate-400 text-xl">
-                            <i class="fa-solid fa-hand-fist"></i>
-                        </div>
-                        <div class="space-y-1">
-                            <h4 class="text-base font-bold text-white">
-                                Калькулятор урона
-                            </h4>
-                            <p class="text-xs text-gray-400 font-body">
-                                Расчёт наносимого урона, критических ударов и эффективности навыков.
-                            </p>
-                        </div>
-                        <div class="pt-2 flex items-center justify-between border-t border-white/5 text-xs text-slate-400 font-semibold">
-                            <span>В разработке</span>
-                            <i class="fa-solid fa-clock"></i>
-                        </div>
-                    </div>
 
                     <!-- Capes & Crowns -->
                     <div class="pet-card searchable-card p-5 space-y-4 opacity-85 group block" data-keywords="плащи плащ корона короны плащи свойства">
