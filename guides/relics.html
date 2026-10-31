@@ -89,11 +89,11 @@
                     Гайд по Реликвиям и Зачарованию Слотов
                 </h1>
                 <p class="mt-3 text-slate-300 max-w-3xl text-sm sm:text-base leading-relaxed" data-i18n="rn_hero_desc">
-                    Механики призыва реликвий, Кровавые Колбы, слияние уровней от +1 до +11, таблица усилений и приоритеты экипировки.
+                    Механики призыва реликвий, Кровавые Колбы, слияние и разбор уровней от +1 до +11, таблица усилений и приоритеты экипировки.
                 </p>
                 <div class="inline-flex items-center gap-2 mt-3 px-3.5 py-1.5 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-300 font-semibold text-xs sm:text-sm">
                     <i class="fa-solid fa-lock-open text-purple-400"></i>
-                    <span data-i18n="rn_hero_unlock">Реликвии открываются на 20 уровне вместе подземельем "Cultist Ritual"</span>
+                    <span data-i18n="rn_hero_unlock">Реликвии открываются на 20 уровне вместе с подземельем "Cultist Ritual"</span>
                 </div>
             </div>
             <div class="absolute -right-16 -bottom-16 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -127,8 +127,8 @@
                     <i class="fa-solid fa-flask text-2xl"></i>
                 </div>
                 <div>
-                    <h2 class="text-2xl font-bold text-white" data-i18n="rn_sec1_title">Получение и Зачарование</h2>
-                    <p class="text-xs text-slate-400" data-i18n="rn_sec1_sub">Кровавые колбы, ячейки предметов и система призыва</p>
+                    <h2 class="text-2xl font-bold text-white" data-i18n="rn_sec1_title">Получение, Зачарование и Разбор</h2>
+                    <p class="text-xs text-slate-400" data-i18n="rn_sec1_sub">Кровавые колбы, ячейки предметов, слияние и разбор реликвий</p>
                 </div>
             </div>
 
@@ -165,7 +165,7 @@
                         <ul class="space-y-3 text-xs sm:text-sm text-slate-300 mt-3">
                             <li class="flex items-start gap-2.5 bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
                                 <i class="fa-solid fa-coins text-yellow-400 mt-1 shrink-0"></i>
-                                <span data-i18n="rn_card2_p1">Для призыва 5 реликвий вам требуется <strong>100 колб</strong>.</span>
+                                <span data-i18n="rn_card2_p1">Для призыва 5 реликвий (1 пачка) вам требуется <strong>200 колб</strong>.</span>
                             </li>
                             <li class="flex items-start gap-2.5 bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
                                 <i class="fa-solid fa-shield-halved text-rose-400 mt-1 shrink-0"></i>
@@ -193,7 +193,7 @@
                             Максимальный уровень Реликвии — <strong>«+11»</strong>, а максимальный уровень призыва — <strong>50</strong>. За призыв вы можете получать реликвии от <strong>«+1» до «+6»</strong>.
                         </p>
                         <div class="pt-2">
-                            <a href="tables.html" class="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 font-semibold transition border-b border-slate-800 pb-3">
+                            <a href="tables.html" class="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 font-semibold transition border-b border-slate-800 pb-1">
                                 <i class="fa-solid fa-table-list"></i>
                                 <span data-i18n="rn_tables_link">Таблица уровней и шансов дропа реликвий</span>
                             </a>
@@ -206,7 +206,43 @@
                             <span data-i18n="rn_card3_merge">Правила Объединения (Слияния)</span>
                         </div>
                         <p class="leading-relaxed text-slate-300" data-i18n="rn_card3_merge_desc">
-                            Чтобы получить реликвии выше уровня, вам надо объединить <strong>3 реликвии ниже уровня</strong>. К примеру, чтобы получить реликвию «+6», нужно объединить 3 реликвии «+5», чтобы получить «+11», нужно объединить 3 реликвии «+10» и т. д.
+                            Чтобы получить реликвию уровнем выше, вам надо объединить <strong>3 реликвии одинакового предшествующего уровня</strong> (Крафт 1 в 3). К примеру, чтобы получить реликвию «+6», нужно объединить 3 реликвии «+5», для «+11» — 3 реликвии «+10» и т. д.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dismantle Mechanics Section -->
+            <div class="glass-panel p-6 rounded-3xl border border-slate-800 space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-800 pb-3 gap-2">
+                    <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-recycle text-emerald-400"></i>
+                        <span data-i18n="rn_card_dismantle_title">Разбор Реликвий (Dismantle)</span>
+                    </h3>
+                    <a href="../calcs/reliccalc.html" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-purple-500/10 hover:bg-purple-500/20 text-purple-300 border border-purple-500/30 text-xs font-semibold transition">
+                        <i class="fa-solid fa-calculator"></i>
+                        <span data-i18n="rn_to_calc_btn">Открыть калькулятор реликвий</span>
+                    </a>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm text-slate-300">
+                    <div class="bg-slate-950/70 p-4 rounded-2xl border border-slate-800/80 space-y-2">
+                        <div class="font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-hammer text-amber-400"></i>
+                            <span data-i18n="rn_dismantle_concept">Возврат Ресурсов</span>
+                        </div>
+                        <p class="leading-relaxed" data-i18n="rn_dismantle_p1">
+                            Вы можете свободно разбирать dismantle реликвии высокого уровня обратно на реликвии уровня -1. При этом распад происходит в обратном коэффициенте слияния 1 к 3.
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-950/70 p-4 rounded-2xl border border-slate-800/80 space-y-2">
+                        <div class="font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-diagram-project text-cyan-400"></i>
+                            <span data-i18n="rn_dismantle_ex">Пример распада</span>
+                        </div>
+                        <p class="leading-relaxed" data-i18n="rn_dismantle_p2">
+                            При разбирании 1 реликвии Lv. 11 вы мгновенно получаете 3 реликвии Lv. 10. В свою очередь каждая из них разбирается на 3 реликвии Lv. 9 и так вплоть до уровня Lv. 1 (эквивалент 59 049 шт. Lv. 1).
                         </p>
                     </div>
                 </div>
@@ -263,7 +299,7 @@
                 </div>
                 <div>
                     <h2 class="text-2xl font-bold text-white" data-i18n="rn_sec3_title">Советы по «одеванию» реликвий по слотам</h2>
-                    <p class="text-xs text-slate-400" data-i18n="rn_sec3_sub">Оптимальные стратегии распределения рун для максимальной эффективности</p>
+                    <p class="text-xs text-slate-400" data-i18n="rn_sec3_sub">Оптимальные стратегии распределения реликвий для максимальной эффективности</p>
                 </div>
             </div>
 
@@ -286,7 +322,7 @@
                     </div>
                     <h3 class="font-bold text-white text-base" data-i18n="rn_tip2_title">Приоритет Слотов Экипировки</h3>
                     <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-2" data-i18n="rn_tip2_desc">
-                        Всегда ставьте самую сильную руну по строгому приоритету:
+                        Всегда ставьте самую сильную реликвию по строгому приоритету:
                     </p>
                     <ol class="list-decimal list-inside text-xs sm:text-sm text-purple-300 font-semibold space-y-1">
                         <li data-i18n="rn_prio_1">Крылья (Wings)</li>
