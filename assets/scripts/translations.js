@@ -997,6 +997,9 @@ const translations = {
     calc_pets_total_lbl: "Суммарно от активных питомцев:",
     calc_pets_dmg_lbl: "Урон:",
     calc_pets_hp_lbl: "Здоровье:",
+    calc_bonus_megacrit: "Шанс мега крита (%)",
+    calc_total_megacritical: "Урон мега крита",
+    calc_total_megacritchance: "Шанс:",
 
     // reliccalc.html
     title_sub: "Калькулятор Реликвий",
@@ -2017,6 +2020,9 @@ const translations = {
     calc_pets_total_lbl: "Total from active pets:",
     calc_pets_dmg_lbl: "Damage:",
     calc_pets_hp_lbl: "Health:",
+    calc_bonus_megacrit: "Mega Crit Chance (%)",
+    calc_total_megacritical: "Mega Crit Damage",
+    calc_total_megacritchance: "Chance:",
 
     // reliccalc.html
     title_sub: "Relic Calculator",
