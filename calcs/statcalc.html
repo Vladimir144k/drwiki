@@ -105,7 +105,6 @@
 
         .stat-glow-gold { text-shadow: 0 0 12px rgba(255, 199, 0, 0.4); }
 
-        /* Pet Card Stylings */
         .gear-calc-pet {
             background: #11131C;
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -144,7 +143,7 @@
     <header class="border-b border-white/5 bg-[#12141D]/80 sticky top-0 z-50 backdrop-blur-xl">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
             
-            <a href="../index.html" class="flex items-center space-x-3">
+            <a href="index.html" class="flex items-center space-x-3">
                 <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-amber-400 p-0.5 shadow-glow-indigo">
                     <div class="w-full h-full bg-[#12141D] rounded-[14px] flex items-center justify-center">
                         <i class="fa-solid fa-calculator text-amber-400 text-xl"></i>
@@ -364,7 +363,13 @@
             result.healthMultiplier = 1 + ((bonuses.health || 0) + result.cape.effectiveBonus) / 100;
             result.damage = (result.gearDamage + result.petDamage) * result.damageMultiplier;
             result.health = (result.gearHealth + result.petHealth) * result.healthMultiplier;
-            result.criticalDamage = result.damage * (105 + (bonuses.crit || 0)) / 100;
+            
+            var critBonus = bonuses.crit || 0;
+            result.criticalDamage = result.damage * (105 + critBonus) / 100;
+            // Mega Crit: 2x от критического урона (или 2 * CD_eff)
+            result.megaCriticalDamage = result.criticalDamage * 2;
+            result.megaCritChance = Math.min(60, bonuses.megacrit || 0);
+
             return result;
         }
 
@@ -447,7 +452,8 @@
                 ['health', 'Health (%)', 'calc_bonus_health'], 
                 ['ranged', 'Ranged (%)', 'calc_bonus_ranged'],
                 ['melee', 'Melee (%)', 'calc_bonus_melee'], 
-                ['crit', 'Critical damage (%)', 'calc_bonus_crit']
+                ['crit', 'Critical damage (%)', 'calc_bonus_crit'],
+                ['megacrit', 'Mega Crit Chance (%)', 'calc_bonus_megacrit']
             ];
 
             var lastPetLevels = pets.map(function (pet) { return pet.level; });
@@ -468,7 +474,7 @@
             root.innerHTML = '<div class="space-y-6">' +
                 
                 '<!-- TOP SECTION: ANSWERS (TOTALS) -->' +
-                '<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">' +
+                '<div class="grid grid-cols-1 sm:grid-cols-4 gap-4">' +
                     '<div class="pet-card p-4 relative overflow-hidden border-l-4 border-l-amber-500">' +
                         '<div class="text-[11px] font-bold text-gray-400 uppercase tracking-wider" data-i18n="calc_total_damage">Total Damage</div>' +
                         '<div id="dr-total-damage" class="text-2xl sm:text-3xl font-extrabold text-amber-400 stat-glow-gold mt-1">0</div>' +
@@ -498,6 +504,16 @@
                         '</div>' +
                         '<i class="fa-solid fa-bolt absolute -right-2 -bottom-2 text-red-500/10 text-5xl"></i>' +
                     '</div>' +
+
+                    '<div class="pet-card p-4 relative overflow-hidden border-l-4 border-l-purple-500">' +
+                        '<div class="text-[11px] font-bold text-gray-400 uppercase tracking-wider" data-i18n="calc_total_megacritical">Mega Crit Damage</div>' +
+                        '<div id="dr-total-megacritical" class="text-2xl sm:text-3xl font-extrabold text-purple-300 mt-1">0</div>' +
+                        '<div id="dr-total-megacritical-compact" class="text-xs font-bold text-purple-400/80 mt-0.5"></div>' +
+                        '<div class="text-[11px] text-gray-400 mt-2 border-t border-white/5 pt-1 font-body">' +
+                            '<span data-i18n="calc_total_megacritchance">Chance:</span> <span id="dr-megacrit-chance" class="text-purple-300 font-bold">0%</span> (max 60%)' +
+                        '</div>' +
+                        '<i class="fa-solid fa-fire absolute -right-2 -bottom-2 text-purple-500/10 text-5xl"></i>' +
+                    '</div>' +
                 '</div>' +
 
                 '<!-- BLOCK 1: BONUSES -->' +
@@ -511,7 +527,7 @@
                     '</div>' +
                     '<div class="space-y-4">' +
                         weaponField('stat-weapon') +
-                        '<div class="grid grid-cols-2 sm:grid-cols-5 gap-3">' +
+                        '<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">' +
                             bonusFields.map(function (definition) { return field('bonus-' + definition[0], definition[1], 0); }).join('') +
                         '</div>' +
                     '</div>' +
@@ -669,8 +685,13 @@
                 output(stat + '-multiplier', '\u00d7' + formatNumber(lastTotals[stat + 'Multiplier']));
             });
             element('total-damage').setAttribute('data-damage', lastTotals.damage);
+            
             output('total-critical', formatNumber(lastTotals.criticalDamage, 0));
             output('total-critical-compact', formatCompact(lastTotals.criticalDamage));
+            
+            output('total-megacritical', formatNumber(lastTotals.megaCriticalDamage, 0));
+            output('total-megacritical-compact', formatCompact(lastTotals.megaCriticalDamage));
+            output('megacrit-chance', formatNumber(lastTotals.megaCritChance, 0) + '%');
         }
 
         function setPetActive(index, active) {
@@ -700,7 +721,6 @@
             calculateStats();
         }
 
-        // Bulk apply handlers
         element('apply-bulk-tier').addEventListener('click', function () {
             var val = element('bulk-tier').value;
             root.querySelectorAll('.gear-tier-select').forEach(function (select) {
@@ -720,7 +740,7 @@
         element('apply-bulk-rune').addEventListener('click', function () {
             var val = element('bulk-rune').value;
             root.querySelectorAll('.gear-rune-select').forEach(function (select) {
-                select.value = schemeVal || val;
+                select.value = val;
             });
             calculateStats();
         });
