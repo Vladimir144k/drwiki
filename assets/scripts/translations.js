@@ -1,7 +1,7 @@
 // data-i18n=""
 
 const APP_CONFIG = {
-  lastUpdateDate: "30.10.2026"
+  lastUpdateDate: "31.10.2026"
 };
 
 const translations = {
@@ -847,6 +847,12 @@ const translations = {
     rn_prio_1: "Крылья (Wings)",
     rn_prio_2: "Плащ (Cape)",
     rn_prio_3: "Оружие (Weapon)",
+    rn_card_dismantle_title: "Разбор Реликвий (Dismantle)",
+    rn_to_calc_btn: "Открыть калькулятор реликвий",
+    rn_dismantle_concept: "Возврат Ресурсов",
+    rn_dismantle_p1: "Вы можете свободно разбирать dismantle реликвии высокого уровня обратно на реликвии уровня -1. При этом распад происходит в обратном коэффициенте слияния 1 к 3.",
+    rn_dismantle_ex: "Пример распада",
+    rn_dismantle_p2: "При разбирании 1 реликвии Lv. 11 вы мгновенно получаете 3 реликвии Lv. 10. В свою очередь каждая из них разбирается на 3 реликвии Lv. 9 и так вплоть до уровня Lv. 1 (эквивалент 59 049 шт. Lv. 1).",
 
     // Shop.html
     shop_header_title: "Dungeon Rush - Магазин",
@@ -946,7 +952,6 @@ const translations = {
     gear_offer_sub: "В зависимости от уровня вам выпадает предложение на оружие или сет",
 
     // statcalc.html
-
     index_calc_stat_title: "Калькулятор Характеристик Персонажа",
     calc_total_damage: "Общий Урон",
     calc_total_health: "Общее Здоровье",
@@ -991,7 +996,39 @@ const translations = {
     calc_level_lbl: "Уровень",
     calc_pets_total_lbl: "Суммарно от активных питомцев:",
     calc_pets_dmg_lbl: "Урон:",
-    calc_pets_hp_lbl: "Здоровье:"
+    calc_pets_hp_lbl: "Здоровье:",
+
+    // reliccalc.html
+    title_sub: "Калькулятор Реликвий",
+    sec_params: "ПАРАМЕТРЫ ПРИЗЫВА",
+    sec_lvl_settings: "Уровни 1 - 50",
+    lbl_cur_lvl: "Текущий Уровень Призыва (1–50)",
+    lbl_progress_on: "Прогресс на Ур.",
+    lbl_rem_smn: "Осталось призывов:",
+    sub_done_smn: "Сделано призывов",
+    sub_req_smn: "Всего для уровня",
+    lbl_spent_flasks: "Затрачиваемые Колбы",
+    lbl_smn_unit: "призывов",
+    sub_flask_rate: "Минимум: 200 колб = 5 призывов",
+    sec_req_calc: "Калькулятор Потребности Реликвий",
+    lbl_target_lvl: "Целевой Уровень",
+    lbl_target_count: "Количество (шт)",
+    stat_total_relics: "Всего Реликвий",
+    stat_reached_lvl: "Достигнутый Ур. Призыва",
+    stat_lvl_add: "уровней получено",
+    stat_total_smn: "Всего Призывов",
+    stat_flasks_spent: "Колб затрачено",
+    prog_cur_lvl: "Текущий прогресс",
+    lbl_lvl_short: "Ур.",
+    prog_start: "Старт: Ур.",
+    prog_finish: "Финиш: Ур.",
+    drop_title: "Прогноз выпадения реликвий за призывы",
+    drop_tier_sub: "Шансы с учётом роста уровня",
+    table_bonus_title: "Таблица Реликвий",
+    table_rule: "Крафт 1 в 3",
+    relic_pcs: "шт Lvl 1",
+    index_calc_relic_title: "Калькулятор Реликвий",
+    index_calc_relic_desc: "Расчёт затрат кровавых колб, уровня призыва, прогноза дропа и калькулятор потребности реликвий."
 
   },
   en: {
@@ -1831,6 +1868,12 @@ const translations = {
     rn_prio_1: "Wings",
     rn_prio_2: "Cloak",
     rn_prio_3: "Weapon",
+    rn_card_dismantle_title: "Relics Dismantle",
+    rn_to_calc_btn: "Open the Relic Calculator",
+    rn_dismantle_concept: "Resource Recovery",
+    rn_dismantle_p1: "You can freely dismantle high-level relics back into relics of the previous level (level -1). This process follows an inverse fusion ratio of 1 to 3.",
+    rn_dismantle_ex: "Example of decay",
+    rn_dismantle_p2: "When you dismantle one Lv. 11 relic, you instantly receive three Lv. 10 relics. Each of these, in turn, can be dismantled into three Lv. 9 relics, and so on, all the way down to Lv. 1 (equivalent to 59,049 Lv. 1 relics).",
 
     // Shop.html
     shop_header_title: "Dungeon Rush - Shop",
@@ -1973,7 +2016,38 @@ const translations = {
     calc_level_lbl: "Level",
     calc_pets_total_lbl: "Total from active pets:",
     calc_pets_dmg_lbl: "Damage:",
-    calc_pets_hp_lbl: "Health:"
+    calc_pets_hp_lbl: "Health:",
 
+    // reliccalc.html
+    title_sub: "Relic Calculator",
+    sec_params: "SUMMON PARAMETERS",
+    sec_lvl_settings: "Levels 1 - 50",
+    lbl_cur_lvl: "Current Summon Level (1–50)",
+    lbl_progress_on: "Progress at Lvl",
+    lbl_rem_smn: "Remaining summons:",
+    sub_done_smn: "Summons completed",
+    sub_req_smn: "Required for lvl",
+    lbl_spent_flasks: "Flasks Spent",
+    lbl_smn_unit: "summons",
+    sub_flask_rate: "Minimum: 200 flasks = 5 summons",
+    sec_req_calc: "Relic Requirement Calculator",
+    lbl_target_lvl: "Target Level",
+    lbl_target_count: "Quantity (pcs)",
+    stat_total_relics: "Total Relics",
+    stat_reached_lvl: "Achieved Summon Lvl",
+    stat_lvl_add: "levels gained",
+    stat_total_smn: "Total Summons",
+    stat_flasks_spent: "Flasks spent",
+    prog_cur_lvl: "Current progress",
+    lbl_lvl_short: "Lvl",
+    prog_start: "Start: Lvl",
+    prog_finish: "Finish: Lvl",
+    drop_title: "Relic Summon Forecast",
+    drop_tier_sub: "Rates scale with level progression",
+    table_bonus_title: "Relics Table",
+    table_rule: "3 to 1 Crafting",
+    relic_pcs: "pcs Lvl 1",
+    index_calc_relic_title: "Relic Calculator",
+    index_calc_relic_desc: "Calculate blood flask costs, summon levels, drop forecasts, and relic requirement needs."
   }
 };
