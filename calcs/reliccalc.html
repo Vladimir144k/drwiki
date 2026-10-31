@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relic Calculator | Калькулятор Реликвий</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        site: {
+                            bg: '#0E1017',
+                            card: '#161924',
+                            cardBorder: 'rgba(255, 255, 255, 0.08)',
+                            cardHover: '#1D2130',
+                            accent: '#8B5CF6',
+                            accentHover: '#7C3AED',
+                            gold: '#FFC700'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'Inter', 'sans-serif'],
+                        body: ['Inter', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'glow-rose': '0 0 20px rgba(139, 92, 246, 0.35)',
+                        'glow-gold': '0 0 20px rgba(255, 199, 0, 0.35)',
+                        'glow-cyan': '0 0 20px rgba(6, 182, 212, 0.35)',
+                        'card-depth': '0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0E1017;
+            color: #F3F4F6;
+            font-family: 'Poppins', sans-serif;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(245, 158, 11, 0.08) 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .pet-card {
+            background-color: #161924;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .pet-card:hover {
+            border-color: rgba(139, 92, 246, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.6);
+        }
+
+        .pet-input {
+            background-color: #0B0C12;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.75rem;
+            color: #FFFFFF;
+            transition: all 0.2s;
+        }
+
+        .pet-input:focus {
+            outline: none;
+            border-color: #8B5CF6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+        }
+
+        .stat-glow-gold { text-shadow: 0 0 12px rgba(255, 199, 0, 0.4); }
+        .stat-glow-rose { text-shadow: 0 0 12px rgba(139, 92, 246, 0.4); }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0E1017; }
+        ::-webkit-scrollbar-thumb { background: #1F2433; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #2D344B; }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <header class="border-b border-white/5 bg-[#12141D]/80 sticky top-0 z-50 backdrop-blur-xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+            
+            <a href="../index.html">
+                <div class="flex items-center space-x-3">
+                    <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-rose-600 via-indigo-500 to-red-400 p-0.5 shadow-glow-rose">
+                        <div class="w-full h-full bg-[#12141D] rounded-[14px] flex items-center justify-center">
+                            <i class="fa-solid fa-vial text-red-400 text-xl"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h1 class="text-lg font-bold tracking-tight text-white">RELIC<span class="text-rose-400">CALC</span></h1>
+                        </div>
+                        <p class="text-xs text-gray-400 font-body" data-i18n="title_sub">Калькулятор Реликвий</p>
+                    </div>
+                </div>
+            </a>
+
+            <button id="lang-toggle" 
+                    onclick="toggleLanguage()" 
+                    class="group relative inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-rose-500/30 hover:border-rose-500/60 text-slate-200 hover:text-white transition-all duration-200 shadow-md hover:shadow-rose-500/10 active:scale-95"
+                    title="Switch language / Сменить язык">
+                <i class="fa-solid fa-globe text-rose-400 group-hover:rotate-12 transition-transform duration-200"></i>
+                <div class="flex items-center font-semibold text-xs tracking-wide">
+                    <span id="lang-text" class="text-rose-300 group-hover:text-amber-400 transition-colors">RU</span>
+                </div>
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 grid grid-cols-1 lg:grid-cols-12 gap-6 pb-12">
+
+        <!-- Левая колонка -->
+        <div class="lg:col-span-5 space-y-5">
+
+            <div class="pet-card p-5 space-y-4">
+                <div class="flex items-center justify-between border-b border-white/5 pb-3">
+                    <h2 class="text-sm font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-sliders text-rose-400"></i>
+                        <span data-i18n="sec_params">ПАРАМЕТРЫ ПРИЗЫВА</span>
+                    </h2>
+                    <span class="text-[11px] text-gray-400" data-i18n="sec_lvl_settings">Уровни 1 - 50</span>
+                </div>
+
+                <div class="space-y-3">
+                    <div>
+                        <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5" data-i18n="lbl_cur_lvl">
+                            Текущий Уровень Призыва (1–50)
+                        </label>
+                        <div class="relative">
+                            <input type="number" id="inputCurrentLevel" value="30" min="1" max="50" oninput="handleLevelInput()" class="pet-input w-full px-3 py-2.5 text-sm font-bold pl-9">
+                            <i class="fa-solid fa-layer-group absolute left-3 top-3 text-gray-500 text-xs"></i>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-1.5">
+                            <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider">
+                                <span data-i18n="lbl_progress_on">Прогресс на Ур.</span> <span id="lblProgressLvlNum" class="text-rose-400">30</span>
+                            </label>
+                            <span class="text-[10px] text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20 font-bold flex items-center gap-1">
+                                <span data-i18n="lbl_rem_smn">Осталось призывов:</span> 
+                                <span id="badgeRemainingCalcVal">160</span>
+                            </span>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <div class="relative">
+                                    <input type="number" id="inputDoneProgress" value="0" min="0" oninput="recalculate()" class="pet-input w-full px-3 py-2 text-xs font-bold pl-8" placeholder="Сделано">
+                                    <i class="fa-solid fa-check-double absolute left-2.5 top-2.5 text-emerald-400 text-xs"></i>
+                                </div>
+                                <span class="text-[11px] text-gray-500 mt-1 block" data-i18n="sub_done_smn">Сделано призывов</span>
+                            </div>
+                            <div>
+                                <div class="relative">
+                                    <input type="number" id="inputTotalLevelReq" value="160" min="1" readonly class="pet-input w-full px-3 py-2 text-xs font-bold pl-8 opacity-75 cursor-not-allowed bg-[#07080C]" placeholder="Всего надо">
+                                    <i class="fa-solid fa-flag-checkered absolute left-2.5 top-2.5 text-rose-400 text-xs"></i>
+                                </div>
+                                <span class="text-[11px] text-gray-500 mt-1 block" data-i18n="sub_req_smn">Всего для уровня</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-2 pt-2 border-t border-white/5">
+                    <div class="flex justify-between items-center">
+                        <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider" data-i18n="lbl_spent_flasks">
+                            Затрачиваемые Колбы
+                        </label>
+                        <span class="text-[11px] font-semibold text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded-md border border-rose-500/20 flex items-center gap-1">
+                            <span id="badgeSummonsCountVal">25</span>
+                            <span data-i18n="lbl_smn_unit">призывов</span>
+                        </span>
+                    </div>
+                    <div class="relative">
+                        <input type="number" id="inputSpentFlasks" value="1000" step="200" min="0" onchange="snapFlasksInput()" oninput="recalculate()" class="pet-input w-full px-4 py-3 text-lg font-bold text-amber-300 pl-11">
+                        <i class="fa-solid fa-vial absolute left-4 top-4 text-rose-400 text-sm"></i>
+                    </div>
+                    <span class="text-[10px] text-gray-400 block" data-i18n="sub_flask_rate">Минимум: 200 колб = 5 призывов (1 пачка x5)</span>
+                </div>
+            </div>
+
+            <!-- Раздел Калькулятора Потребности Реликвий -->
+            <div class="pet-card p-5 space-y-4">
+                <div class="flex items-center justify-between border-b border-white/5 pb-3">
+                    <h3 class="text-xs font-bold text-gray-200 uppercase tracking-wider flex items-center gap-2">
+                        <i class="fa-solid fa-sitemap text-rose-400"></i>
+                        <span data-i18n="sec_req_calc">Калькулятор Потребности Реликвий</span>
+                    </h3>
+                    <span class="text-[10px] text-rose-400 font-bold bg-rose-500/10 px-2 py-0.5 rounded border border-rose-500/20">Craft 1 to 3</span>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1" data-i18n="lbl_target_lvl">
+                            Целевой Уровень
+                        </label>
+                        <select id="selectTargetCraftLevel" onchange="renderCraftRequirements()" class="pet-input w-full px-3 py-2 text-xs font-bold text-amber-300">
+                            <option value="11" selected>Lv. 11 (+121%)</option>
+                            <option value="10">Lv. 10 (+100%)</option>
+                            <option value="9">Lv. 9 (+81%)</option>
+                            <option value="8">Lv. 8 (+64%)</option>
+                            <option value="7">Lv. 7 (+49%)</option>
+                            <option value="6">Lv. 6 (+36%)</option>
+                            <option value="5">Lv. 5 (+25%)</option>
+                            <option value="4">Lv. 4 (+16%)</option>
+                            <option value="3">Lv. 3 (+9%)</option>
+                            <option value="2">Lv. 2 (+4%)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1" data-i18n="lbl_target_count">
+                            Количество (шт)
+                        </label>
+                        <input type="number" id="inputTargetCraftCount" value="1" min="1" oninput="renderCraftRequirements()" class="pet-input w-full px-3 py-2 text-xs font-bold text-center">
+                    </div>
+                </div>
+
+                <!-- Таблица требуемых компонентов -->
+                <div class="space-y-1.5 max-h-[320px] overflow-y-auto pr-1" id="craftRequirementsContainer">
+                    <!-- Заполняется динамически через JS -->
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Правая колонка -->
+        <div class="lg:col-span-7 space-y-5">
+
+            <!-- Карточки статистики -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+
+                <div class="pet-card p-4 relative overflow-hidden border-l-4 border-l-rose-500">
+                    <div class="text-[11px] font-bold text-gray-400 uppercase tracking-wider" data-i18n="stat_reached_lvl">Достигнутый Ур. Призыва</div>
+                    <div id="statFinalLevel" class="text-2xl sm:text-3xl font-extrabold text-rose-300 stat-glow-rose mt-1">30</div>
+                    <div class="text-[11px] text-rose-400 mt-1 flex items-center gap-1 font-body">
+                        <span>+</span><span id="statLevelGainsVal">0</span> <span data-i18n="stat_lvl_add">уровней получено</span>
+                    </div>
+                    <i class="fa-solid fa-layer-group absolute -right-2 -bottom-2 text-rose-500/10 text-5xl"></i>
+                </div>
+
+                <div class="pet-card p-4 relative overflow-hidden border-l-4 border-l-indigo-500">
+                    <div class="text-[11px] font-bold text-gray-400 uppercase tracking-wider" data-i18n="stat_total_smn">Всего Призывов</div>
+                    <div id="statTotalSummons" class="text-2xl sm:text-3xl font-extrabold text-indigo-300 mt-1">25</div>
+                    <div class="text-[11px] text-indigo-400 mt-1 flex items-center gap-1 font-body">
+                        <span id="statFlasksCostVal">1,000</span> <span data-i18n="stat_flasks_spent">Колб затрачено</span>
+                    </div>
+                    <i class="fa-solid fa-vials absolute -right-2 -bottom-2 text-indigo-500/10 text-5xl"></i>
+                </div>
+
+            </div>
+
+            <!-- Прогресс бар уровня -->
+            <div class="pet-card p-5 space-y-3">
+                <div class="flex justify-between items-center text-xs">
+                    <span class="font-bold text-gray-200 flex items-center gap-1.5">
+                        <i class="fa-solid fa-bars-progress text-rose-400"></i>
+                        <span data-i18n="prog_cur_lvl">Текущий прогресс</span>
+                        (<span data-i18n="lbl_lvl_short">Ур.</span> <span id="barTargetLevel" class="text-rose-400">30</span>)
+                    </span>
+                    <span id="barProgressText" class="text-gray-400 font-bold">0 / 160 Призывов (0%)</span>
+                </div>
+                <div class="w-full h-3.5 bg-[#0D0F16] rounded-full overflow-hidden p-0.5 border border-white/5">
+                    <div id="levelProgressBarFill" class="h-full bg-gradient-to-r from-rose-500 via-indigo-500 to-amber-400 rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+                <div class="flex justify-between text-[11px] text-gray-500 font-body">
+                    <span><span data-i18n="prog_start">Старт: Ур.</span> <span id="lblCurrentStartLvl">30</span></span>
+                    <span><span data-i18n="prog_finish">Финиш: Ур.</span> <span id="lblCurrentEndLvl">30</span></span>
+                </div>
+            </div>
+
+            <!-- Прогноз Дропа -->
+            <div class="pet-card p-5 space-y-4">
+                <div class="flex justify-between items-center border-b border-white/5 pb-3">
+                    <h3 class="text-sm font-bold text-gray-200 flex items-center gap-2">
+                        <i class="fa-solid fa-dice text-rose-400"></i>
+                        <span data-i18n="drop_title">Прогноз выпадения реликвий за призывы</span>
+                    </h3>
+                    <span class="text-[11px] text-gray-400" data-i18n="drop_tier_sub">Шансы с учётом роста уровня</span>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5" id="dropForecastGrid">
+                    <!-- Динамически заполняется Drop Lvl 1 - Lvl 6 -->
+                </div>
+            </div>
+
+            <!-- Таблица бонусов и эквивалента уровня -->
+            <div class="pet-card p-5 space-y-3">
+                <div class="flex items-center justify-between border-b border-white/5 pb-2">
+                    <h3 class="text-xs font-bold text-gray-300 uppercase tracking-wider flex items-center gap-2">
+                        <i class="fa-solid fa-table-list text-rose-400"></i>
+                        <span data-i18n="table_bonus_title">Таблица Реликвий (до Lv. 11)</span>
+                    </h3>
+                    <span class="text-[10px] text-gray-500" data-i18n="table_rule">Крафт 1 в 3</span>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs font-medium" id="relicBonusTable">
+                    <!-- Заполняется JS -->
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="glass-panel border-t border-slate-800/80 py-8 mt-16">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 space-y-2">
+            <p class="text-[12px] text-slate-500" data-i18n="system_footer">Неофициальный справочник по игре. Данный сайт не связан с разработчиками или издателем игры. Все права на игру, её название, изображения и другие материалы принадлежат LAVA LABS OYUN YAZILIM VE PAZARLAMA ANONİM ŞİRKETİ. Данный сайт создан исключительно в информационных целях.</p>
+        </div>
+    </footer>
+
+    <script>
+        const DROP_RATES = {
+            1: [100, 0, 0, 0, 0, 0],
+            2: [99.5, 0.5, 0, 0, 0, 0],
+            3: [99.64, 0.36, 0, 0, 0, 0],
+            4: [98.05, 0.95, 0, 0, 0, 0],
+            5: [96.69, 1.3, 0, 0, 0, 0],
+            6: [98.19, 1.81, 0, 0, 0, 0],
+            7: [97.5, 2.5, 0, 0, 0, 0],
+            8: [96.55, 3.45, 0, 0, 0, 0],
+            9: [95, 5, 0, 0, 0, 0],
+            10: [92.9, 7, 0.1, 0, 0, 0],
+            11: [90.02, 9.8, 0.18, 0, 0, 0],
+            12: [85.96, 13.72, 0.32, 0, 0, 0],
+            13: [80.21, 19.21, 0.58, 0, 0, 0],
+            14: [72.06, 26.89, 1.05, 0, 0, 0],
+            15: [60.46, 37.65, 1.89, 0, 0, 0],
+            16: [43.89, 52.71, 3.4, 0, 0, 0],
+            17: [35.11, 59.89, 5, 0, 0, 0],
+            18: [29.09, 64.81, 7, 0.1, 0, 0],
+            19: [22.47, 67.55, 9.8, 0.18, 0, 0],
+            20: [17.98, 67.89, 13.72, 0.32, 0, 0],
+            21: [16.5, 63.71, 19.21, 0.58, 0, 0],
+            22: [16.5, 55.56, 26.89, 1.05, 0, 0],
+            23: [16.5, 43.96, 37.65, 1.89, 0, 0],
+            24: [16.5, 27.39, 52.71, 3.4, 0, 0],
+            25: [16.5, 16.5, 62, 5, 0, 0],
+            26: [16.5, 16.5, 59.9, 7, 0.1, 0],
+            27: [16.5, 16.5, 57.02, 9.8, 0.18, 0],
+            28: [16.5, 16.5, 52.96, 13.72, 0.32, 0],
+            29: [16.5, 16.5, 47.21, 19.21, 0.58, 0],
+            30: [16.5, 16.5, 39.06, 26.89, 1.05, 0],
+            31: [16.5, 16.5, 27.46, 37.65, 1.89, 0],
+            32: [16.5, 16.5, 16.5, 47.1, 3.4, 0],
+            33: [16.5, 16.5, 16.5, 45.5, 5, 0],
+            34: [16.5, 16.5, 16.5, 43.4, 7, 0.1],
+            35: [16.5, 16.5, 16.5, 40.52, 9.8, 0.18],
+            36: [16.5, 16.5, 16.5, 36.56, 13.72, 0.32],
+            37: [16.5, 16.5, 16.5, 30.71, 19.21, 0.58],
+            38: [16.5, 16.5, 16.5, 22.56, 26.89, 1.05],
+            39: [16.5, 16.5, 16.5, 16.5, 32.11, 1.89],
+            40: [16.5, 16.5, 16.5, 16.5, 30.6, 3.4],
+            41: [16.5, 16.5, 16.5, 16.5, 29, 5],
+            42: [16.5, 16.5, 16.5, 16.5, 28.3, 5.7],
+            43: [16.5, 16.5, 16.5, 16.5, 27.5, 6.5],
+            44: [16.5, 16.5, 16.5, 16.5, 26.59, 7.41],
+            45: [16.5, 16.5, 16.5, 16.5, 25.56, 8.44],
+            46: [16.5, 16.5, 16.5, 16.5, 24.37, 9.63],
+            47: [16.5, 16.5, 16.5, 16.5, 23.03, 10.97],
+            48: [16.5, 16.5, 16.5, 16.5, 21.49, 12.51],
+            49: [16.5, 16.5, 16.5, 16.5, 19.74, 16.5],
+            50: [16.5, 16.5, 16.5, 16.5, 16.5, 16.5]
+        };
+
+        function relicBonusPercent(lvl) {
+            return lvl * lvl;
+        }
+
+        function relicValue(lvl) {
+            if (lvl <= 0) return 0;
+            return Math.pow(3, lvl - 1);
+        }
+
+        function getSummonsForLevel(lvl) {
+            let lvlNum = Math.max(1, lvl);
+            return 15 + (lvlNum - 1) * 5;
+        }
+
+        function snapFlasksInput() {
+            const input = document.getElementById("inputSpentFlasks");
+            let val = parseInt(input.value) || 0;
+            val = Math.round(val / 200) * 200;
+            input.value = Math.max(0, val);
+            recalculate();
+        }
+
+        function handleLevelInput() {
+            const input = document.getElementById("inputCurrentLevel");
+            if (input.value === "") return;
+            let curLvl = parseInt(input.value) || 1;
+            curLvl = Math.max(1, Math.min(50, curLvl));
+            document.getElementById('inputTotalLevelReq').value = getSummonsForLevel(curLvl);
+            recalculate();
+        }
+
+        function renderRelicBonusTable() {
+            const container = document.getElementById('relicBonusTable');
+            let html = '';
+            for (let lvl = 1; lvl <= 11; lvl++) {
+                const bonus = relicBonusPercent(lvl);
+                const val = relicValue(lvl).toLocaleString('ru-RU');
+                // Используем глобальные переводы или фолбек текст
+                const relicUnitText = (typeof I18N !== 'undefined' && I18N[currentLang] && I18N[currentLang].relic_pcs) ? I18N[currentLang].relic_pcs : 'шт Lvl 1';
+                html += `
+                    <div class="flex flex-col justify-between p-2.5 rounded-xl bg-[#11131C] border border-white/5">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-amber-300">Lv. ${lvl}</span>
+                            <span class="text-[11px] font-extrabold text-rose-400">+${bonus}%</span>
+                        </div>
+                        <div class="text-[10px] text-gray-500 mt-1">
+                            ${val} ${relicUnitText}
+                        </div>
+                    </div>
+                `;
+            }
+            container.innerHTML = html;
+        }
+
+        function renderCraftRequirements() {
+            const targetLvl = parseInt(document.getElementById('selectTargetCraftLevel').value) || 11;
+            const targetCount = Math.max(1, parseInt(document.getElementById('inputTargetCraftCount').value) || 1);
+            const container = document.getElementById('craftRequirementsContainer');
+
+            let html = '';
+
+            for (let lvl = targetLvl - 1; lvl >= 1; lvl--) {
+                const diff = targetLvl - lvl;
+                const reqCount = Math.pow(3, diff) * targetCount;
+                const bonus = relicBonusPercent(lvl);
+
+                html += `
+                    <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#11131C] border border-white/5 text-xs">
+                        <div class="flex items-center gap-2">
+                            <span class="font-bold text-amber-300 min-w-[50px]">Lv. ${lvl}</span>
+                            <span class="text-[10px] text-rose-400 font-semibold">+${bonus}%</span>
+                        </div>
+                        <div class="flex items-center gap-1.5 font-bold">
+                            <span class="text-white text-sm">${reqCount.toLocaleString('ru-RU')}</span>
+                            <span class="text-[10px] text-gray-500 font-normal">шт</span>
+                        </div>
+                    </div>
+                `;
+            }
+
+            container.innerHTML = html;
+        }
+
+        function recalculate() {
+            let curLvl = parseInt(document.getElementById('inputCurrentLevel').value) || 1;
+            curLvl = Math.max(1, Math.min(50, curLvl));
+
+            let totalReqSummons = getSummonsForLevel(curLvl);
+            document.getElementById('inputTotalLevelReq').value = totalReqSummons;
+
+            let doneSummons = parseInt(document.getElementById('inputDoneProgress').value) || 0;
+            doneSummons = Math.max(0, Math.min(doneSummons, totalReqSummons));
+
+            const remSummons = totalReqSummons - doneSummons;
+
+            document.getElementById('inputCurrentLevel').value = curLvl;
+            document.getElementById('inputDoneProgress').value = doneSummons;
+            document.getElementById('lblProgressLvlNum').innerText = curLvl;
+            document.getElementById('lblCurrentStartLvl').innerText = curLvl;
+            document.getElementById('badgeRemainingCalcVal').innerText = remSummons;
+
+            const rawFlasks = Math.max(0, parseInt(document.getElementById('inputSpentFlasks').value) || 0);
+            
+            // 200 колб = 5 реликвий / призывов
+            const batches = Math.floor(rawFlasks / 200);
+            const actualSpentFlasks = batches * 200;
+            const totalSummons = batches * 5;
+
+            document.getElementById('badgeSummonsCountVal').innerText = `${totalSummons.toLocaleString('ru-RU')}`;
+            document.getElementById('statTotalSummons').innerText = totalSummons.toLocaleString('ru-RU');
+            document.getElementById('statFlasksCostVal').innerText = actualSpentFlasks.toLocaleString('ru-RU');
+
+            let simLvl = curLvl;
+            let currentLevelProgress = doneSummons;
+
+            const droppedRelics = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
+
+            for (let i = 0; i < totalSummons; i++) {
+                const rates = DROP_RATES[Math.min(50, simLvl)] || DROP_RATES[50];
+                for (let rIndex = 0; rIndex < 6; rIndex++) {
+                    droppedRelics[rIndex + 1] += rates[rIndex] / 100;
+                }
+
+                currentLevelProgress += 1;
+
+                while (simLvl < 50) {
+                    const reqForNext = getSummonsForLevel(simLvl);
+                    if (currentLevelProgress >= reqForNext) {
+                        currentLevelProgress -= reqForNext;
+                        simLvl++;
+                    } else break;
+                }
+            }
+
+            document.getElementById('statFinalLevel').innerText = simLvl;
+            document.getElementById('lblCurrentEndLvl').innerText = simLvl;
+            document.getElementById('statLevelGainsVal').innerText = (simLvl - curLvl);
+
+            const displayLvl = Math.min(50, simLvl);
+            const req = getSummonsForLevel(displayLvl);
+            const pct = displayLvl >= 50 ? 100 : Math.min(100, Math.max(0, currentLevelProgress / req * 100));
+
+            document.getElementById('barTargetLevel').innerText = displayLvl;
+            document.getElementById('barProgressText').innerText =
+                displayLvl >= 50 ? 'MAX' : `${Math.floor(currentLevelProgress)} / ${req} (${Math.round(pct)}%)`;
+            document.getElementById('levelProgressBarFill').style.width = `${pct}%`;
+
+            renderDropForecast(displayLvl, droppedRelics);
+
+            let totalPhysicalRelics = 0;
+            let totalEquivalentLvl1 = 0;
+
+            for (let lvl = 1; lvl <= 6; lvl++) {
+                const simCount = droppedRelics[lvl] || 0;
+                totalPhysicalRelics += simCount;
+                totalEquivalentLvl1 += simCount * relicValue(lvl);
+            }
+
+            document.getElementById('statTotalRelicsCount').innerText = Math.round(totalPhysicalRelics).toLocaleString('ru-RU');
+            const langKey = (typeof currentLang !== 'undefined') ? currentLang : 'ru';
+            const subText = langKey === 'ru' 
+                ? `Эквивалент: ${Math.round(totalEquivalentLvl1).toLocaleString('ru-RU')} шт Lvl 1` 
+                : `Equivalent: ${Math.round(totalEquivalentLvl1).toLocaleString('ru-RU')} pcs Lvl 1`;
+            document.getElementById('statTotalRelicsLvl1Sub').innerText = subText;
+        }
+
+        function renderDropForecast(targetLvl, droppedCounts) {
+            const container = document.getElementById('dropForecastGrid');
+            const rates = DROP_RATES[Math.min(50, targetLvl)] || DROP_RATES[50];
+            let html = '';
+
+            for (let i = 0; i < 6; i++) {
+                const relicLvl = i + 1;
+                const rate = rates[i];
+                const count = Math.round((droppedCounts[relicLvl] || 0) * 10) / 10;
+                const bonus = relicBonusPercent(relicLvl);
+
+                html += `
+                    <div class="bg-[#11131C] p-3 rounded-xl border border-white/5 space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-xs text-amber-300">Relic Lv. ${relicLvl}</span>
+                            <span class="text-[10px] font-bold text-rose-400">${rate.toFixed(2)}%</span>
+                        </div>
+                        <div class="flex justify-between items-baseline">
+                            <span class="text-xl font-bold text-white">${count.toLocaleString('ru-RU')}</span>
+                            <span class="text-xs text-amber-400 font-semibold">+${bonus}%</span>
+                        </div>
+                    </div>
+                `;
+            }
+            container.innerHTML = html;
+        }
+
+        window.onload = function() {
+            renderCraftRequirements();
+            renderRelicBonusTable();
+            recalculate();
+        };
+    </script>
+    
+    <!-- Подключение глобальных скриптов перевода (путь скорректирован под папку calcs/) -->
+    <script src="../assets/scripts/translations.js"></script>
+    <script src="../assets/scripts/language.js"></script>
+</body>
+</html>
