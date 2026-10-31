@@ -1031,7 +1031,13 @@ const translations = {
     table_rule: "Крафт 1 в 3",
     relic_pcs: "шт Lvl 1",
     index_calc_relic_title: "Калькулятор Реликвий",
-    index_calc_relic_desc: "Расчёт затрат кровавых колб, уровня призыва, прогноза дропа и калькулятор потребности реликвий."
+    index_calc_relic_desc: "Расчёт затрат кровавых колб, уровня призыва, прогноза дропа и калькулятор потребности реликвий.",
+    flask_to_relic: "Расчёт Колб на Руны",
+    flask_to_relic_level: "Уровень Руны",
+    flask_to_relic_needed: "Нужно штук",
+    flask_to_relic_need_lvl: "Нужно всего Lvl 1:",
+    flask_to_relic_min: "Минимум колб",
+    flask_to_relic_upto5: "по 5 рун",
 
   },
   en: {
@@ -2054,6 +2060,12 @@ const translations = {
     table_rule: "3 to 1 Crafting",
     relic_pcs: "pcs Lvl 1",
     index_calc_relic_title: "Relic Calculator",
-    index_calc_relic_desc: "Calculate blood flask costs, summon levels, drop forecasts, and relic requirement needs."
+    index_calc_relic_desc: "Calculate blood flask costs, summon levels, drop forecasts, and relic requirement needs.",
+    flask_to_relic: "Calculating Flasks for Runes",
+    flask_to_relic_level: "Relic Level",
+    flask_to_relic_needed: "Needed",
+    flask_to_relic_need_lvl: "Total required for Lvl 1:",
+    flask_to_relic_min: "Minimum number of flasks",
+    flask_to_relic_upto5: "5 rps",
   }
 };
