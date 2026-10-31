@@ -184,15 +184,71 @@
                             Затрачиваемые Колбы
                         </label>
                         <span class="text-[11px] font-semibold text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded-md border border-rose-500/20 flex items-center gap-1">
-                            <span id="badgeSummonsCountVal">25</span>
+                            <span id="badgeSummonsCountVal">50</span>
                             <span data-i18n="lbl_smn_unit">призывов</span>
                         </span>
                     </div>
                     <div class="relative">
-                        <input type="number" id="inputSpentFlasks" value="1000" step="200" min="0" onchange="snapFlasksInput()" oninput="recalculate()" class="pet-input w-full px-4 py-3 text-lg font-bold text-amber-300 pl-11">
+                        <input type="number" id="inputSpentFlasks" value="1000" step="100" min="0" onchange="snapFlasksInput()" oninput="recalculate()" class="pet-input w-full px-4 py-3 text-lg font-bold text-amber-300 pl-11">
                         <i class="fa-solid fa-vial absolute left-4 top-4 text-rose-400 text-sm"></i>
                     </div>
-                    <span class="text-[10px] text-gray-400 block" data-i18n="sub_flask_rate">Минимум: 200 колб = 5 призывов (1 пачка x5)</span>
+                    <span class="text-[10px] text-gray-400 block" data-i18n="sub_flask_rate">Минимум: 100 колб = 5 призывов (1 пачка x5)</span>
+                </div>
+            </div>
+
+            <!-- Мини-калькулятор Расчёта Колб на Руны -->
+            <div class="pet-card p-5 space-y-4">
+                <div class="flex items-center justify-between border-b border-white/5 pb-3">
+                    <h3 class="text-xs font-bold text-amber-300 uppercase tracking-wider flex items-center gap-2">
+                        <i class="fa-solid fa-calculator text-amber-400"></i>
+                        <span data-i18n="flask_to_relic">Расчёт Колб на Руны</span>
+                    </h3>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1" data-i18n="flask_to_relic_level">
+                            Уровень Руны
+                        </label>
+                        <select id="selectCalcTargetLvl" onchange="calculateFlasksForRunes()" class="pet-input w-full px-3 py-2 text-xs font-bold text-amber-300">
+                            <option value="11" selected>Lv. 11 (+121%)</option>
+                            <option value="10">Lv. 10 (+100%)</option>
+                            <option value="9">Lv. 9 (+81%)</option>
+                            <option value="8">Lv. 8 (+64%)</option>
+                            <option value="7">Lv. 7 (+49%)</option>
+                            <option value="6">Lv. 6 (+36%)</option>
+                            <option value="5">Lv. 5 (+25%)</option>
+                            <option value="4">Lv. 4 (+16%)</option>
+                            <option value="3">Lv. 3 (+9%)</option>
+                            <option value="2">Lv. 2 (+4%)</option>
+                            <option value="1">Lv. 1 (+1%)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1" data-i18n="flask_to_relic_needed">
+                            Нужно штук
+                        </label>
+                        <input type="number" id="inputCalcTargetCount" value="1" min="1" oninput="calculateFlasksForRunes()" class="pet-input w-full px-3 py-2 text-xs font-bold text-center">
+                    </div>
+                </div>
+
+                <!-- Результат расчёта колб -->
+                <div class="p-3 bg-[#0B0C12] rounded-xl border border-amber-500/20 space-y-2">
+                    <div class="flex justify-between items-center text-xs">
+                        <span class="text-gray-400 font-medium" data-i18n="flask_to_relic_need_lvl">Нужно всего Lvl 1:</span>
+                        <span id="resTotalLvl1Req" class="font-bold text-white">0 шт</span>
+                    </div>
+                    <div class="border-t border-white/5 pt-2 flex justify-between items-center">
+                        <div>
+                            <span class="block text-[10px] text-gray-400 font-bold uppercase" data-i18n="flask_to_relic_min">Минимум колб</span>
+                            <span id="resFlasksNeeded" class="text-xl font-extrabold text-amber-300 stat-glow-gold">0</span>
+                        </div>
+                        <div class="text-right">
+                            <span class="block text-[10px] text-gray-400 font-bold uppercase" data-i18n="flask_to_relic_upto5">по 5 рун</span>
+                            <span id="resSummonsNeeded" class="text-sm font-bold text-rose-400">0</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -258,7 +314,7 @@
 
                 <div class="pet-card p-4 relative overflow-hidden border-l-4 border-l-indigo-500">
                     <div class="text-[11px] font-bold text-gray-400 uppercase tracking-wider" data-i18n="stat_total_smn">Всего Призывов</div>
-                    <div id="statTotalSummons" class="text-2xl sm:text-3xl font-extrabold text-indigo-300 mt-1">25</div>
+                    <div id="statTotalSummons" class="text-2xl sm:text-3xl font-extrabold text-indigo-300 mt-1">50</div>
                     <div class="text-[11px] text-indigo-400 mt-1 flex items-center gap-1 font-body">
                         <span id="statFlasksCostVal">1,000</span> <span data-i18n="stat_flasks_spent">Колб затрачено</span>
                     </div>
@@ -396,7 +452,7 @@
         function snapFlasksInput() {
             const input = document.getElementById("inputSpentFlasks");
             let val = parseInt(input.value) || 0;
-            val = Math.round(val / 200) * 200;
+            val = Math.round(val / 100) * 100;
             input.value = Math.max(0, val);
             recalculate();
         }
@@ -416,7 +472,6 @@
             for (let lvl = 1; lvl <= 11; lvl++) {
                 const bonus = relicBonusPercent(lvl);
                 const val = relicValue(lvl).toLocaleString('ru-RU');
-                // Используем глобальные переводы или фолбек текст
                 const relicUnitText = (typeof I18N !== 'undefined' && I18N[currentLang] && I18N[currentLang].relic_pcs) ? I18N[currentLang].relic_pcs : 'шт Lvl 1';
                 html += `
                     <div class="flex flex-col justify-between p-2.5 rounded-xl bg-[#11131C] border border-white/5">
@@ -462,6 +517,63 @@
             container.innerHTML = html;
         }
 
+        function calculateFlasksForRunes() {
+            const targetLvl = parseInt(document.getElementById('selectCalcTargetLvl').value) || 11;
+            const targetCount = Math.max(1, parseInt(document.getElementById('inputCalcTargetCount').value) || 1);
+            
+            // Физическая стоимость в эквиваленте 1-го уровня рун
+            const totalLvl1Needed = relicValue(targetLvl) * targetCount;
+            document.getElementById('resTotalLvl1Req').innerText = totalLvl1Needed.toLocaleString('ru-RU') + ' шт';
+
+            let startLvl = parseInt(document.getElementById('inputCurrentLevel').value) || 1;
+            startLvl = Math.max(1, Math.min(50, startLvl));
+            let doneSummons = parseInt(document.getElementById('inputDoneProgress').value) || 0;
+
+            let simLvl = startLvl;
+            let currentLevelProgress = doneSummons;
+            let accumulatedLvl1Value = 0;
+            let totalBatchesNeeded = 0; // Каждая пачка = 5 рун = 100 колб
+
+            // Симулируем пачками по 5 рун (1 пачка = 1 вызов выпадения из 5 рун)
+            while (accumulatedLvl1Value < totalLvl1Needed) {
+                totalBatchesNeeded++;
+                const rates = DROP_RATES[Math.min(50, simLvl)] || DROP_RATES[50];
+                
+                // Средняя ценность 1 руны из пачки в пересчете на Lvl 1
+                let singleRunLvl1Val = 0;
+                for (let rIndex = 0; rIndex < 6; rIndex++) {
+                    const dropProb = rates[rIndex] / 100;
+                    singleRunLvl1Val += dropProb * relicValue(rIndex + 1);
+                }
+                
+                // В пачке ровно 5 рун
+                accumulatedLvl1Value += singleRunLvl1Val * 5;
+
+                currentLevelProgress++; // 1 пачка = 1 шаг прогресса уровня призыва
+                while (simLvl < 50) {
+                    const reqForNext = getSummonsForLevel(simLvl);
+                    if (currentLevelProgress >= reqForNext) {
+                        currentLevelProgress -= reqForNext;
+                        simLvl++;
+                    } else break;
+                }
+
+                if (totalBatchesNeeded > 5000000) break;
+            }
+
+            // 1 пачка (5 рун) = 100 колб
+            const totalFlasksNeeded = totalBatchesNeeded * 100;
+
+            const initialRates = DROP_RATES[startLvl] || DROP_RATES[1];
+            let initialAvgVal = 0;
+            for (let rIndex = 0; rIndex < 6; rIndex++) {
+                initialAvgVal += (initialRates[rIndex] / 100) * relicValue(rIndex + 1);
+            }
+
+            document.getElementById('resFlasksNeeded').innerText = totalFlasksNeeded.toLocaleString('ru-RU');
+            document.getElementById('resSummonsNeeded').innerText = `${totalBatchesNeeded}`;
+        }
+
         function recalculate() {
             let curLvl = parseInt(document.getElementById('inputCurrentLevel').value) || 1;
             curLvl = Math.max(1, Math.min(50, curLvl));
@@ -482,9 +594,9 @@
 
             const rawFlasks = Math.max(0, parseInt(document.getElementById('inputSpentFlasks').value) || 0);
             
-            // 200 колб = 5 реликвий / призывов
-            const batches = Math.floor(rawFlasks / 200);
-            const actualSpentFlasks = batches * 200;
+            // 100 колб = 5 рун (1 пачка = 20 колб на 1 руну, но считаем пачками по 100 колб)
+            const batches = Math.floor(rawFlasks / 100);
+            const actualSpentFlasks = batches * 100;
             const totalSummons = batches * 5;
 
             document.getElementById('badgeSummonsCountVal').innerText = `${totalSummons.toLocaleString('ru-RU')}`;
@@ -527,22 +639,7 @@
             document.getElementById('levelProgressBarFill').style.width = `${pct}%`;
 
             renderDropForecast(displayLvl, droppedRelics);
-
-            let totalPhysicalRelics = 0;
-            let totalEquivalentLvl1 = 0;
-
-            for (let lvl = 1; lvl <= 6; lvl++) {
-                const simCount = droppedRelics[lvl] || 0;
-                totalPhysicalRelics += simCount;
-                totalEquivalentLvl1 += simCount * relicValue(lvl);
-            }
-
-            document.getElementById('statTotalRelicsCount').innerText = Math.round(totalPhysicalRelics).toLocaleString('ru-RU');
-            const langKey = (typeof currentLang !== 'undefined') ? currentLang : 'ru';
-            const subText = langKey === 'ru' 
-                ? `Эквивалент: ${Math.round(totalEquivalentLvl1).toLocaleString('ru-RU')} шт Lvl 1` 
-                : `Equivalent: ${Math.round(totalEquivalentLvl1).toLocaleString('ru-RU')} pcs Lvl 1`;
-            document.getElementById('statTotalRelicsLvl1Sub').innerText = subText;
+            calculateFlasksForRunes();
         }
 
         function renderDropForecast(targetLvl, droppedCounts) {
