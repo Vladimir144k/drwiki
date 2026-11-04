@@ -1,4 +1,4 @@
-// data-i18n=""
+// data-i18n=""1
 
 const APP_CONFIG = {
   lastUpdateDate: "04.11.2026"
