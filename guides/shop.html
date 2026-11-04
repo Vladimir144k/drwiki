@@ -782,40 +782,46 @@
         // Easy to edit later! Format: KEY: { RUB: 'x ₽', USD: '$x', EUR: 'x €', TRY: 'x ₺' }
         const PRICES = {
             // Subscriptions
-            vip_monthly:    { RUB: '10 ₽', USD: '$0.15', EUR: '0.15 €', TRY: '5 ₺' },
-            vip_lifetime:   { RUB: '20 ₽', USD: '$0.29', EUR: '0.29 €', TRY: '10 ₺' },
-            elite_monthly:  { RUB: '20 ₽', USD: '$0.29', EUR: '0.29 €', TRY: '10 ₺' },
-            elite_lifetime: { RUB: '30 ₽', USD: '$0.45', EUR: '0.45 €', TRY: '15 ₺' },
-            exp_forever:    { RUB: '10 ₽', USD: '$0.15', EUR: '0.15 €', TRY: '5 ₺' },
+            vip_monthly:    { RUB: 'TBA ₽', USD: '$8.99', EUR: 'TBA €', TRY: '519.99 ₺' },
+            vip_lifetime:   { RUB: 'TBA ₽', USD: '$24.99', EUR: 'TBA €', TRY: '1429.99 ₺' },
+            elite_monthly:  { RUB: 'TBA ₽', USD: '$16.99', EUR: 'TBA €', TRY: '979,99 ₺' },
+            elite_lifetime: { RUB: 'TBA ₽', USD: '$49.99', EUR: 'TBA €', TRY: '2859.99 ₺' },
+            exp_forever:    { RUB: 'TBA ₽', USD: '$9.99', EUR: 'TBA €', TRY: '539.99 ₺' },
 
             // Gems Packs
-            gems_100:  { RUB: '10 ₽', USD: '$0.15', EUR: '0.15 €', TRY: '5 ₺' },
-            gems_255:  { RUB: '20 ₽', USD: '$0.29', EUR: '0.29 €', TRY: '10 ₺' },
-            gems_520:  { RUB: '30 ₽', USD: '$0.45', EUR: '0.45 €', TRY: '15 ₺' },
-            gems_1100: { RUB: '40 ₽', USD: '$0.59', EUR: '0.59 €', TRY: '20 ₺' },
-            gems_2700: { RUB: '50 ₽', USD: '$0.75', EUR: '0.75 €', TRY: '25 ₺' },
-            gems_5500: { RUB: '100 ₽', USD: '$1.49', EUR: '1.49 €', TRY: '50 ₺' },
+            gems_100:  { RUB: 'TBA ₽', USD: '$1.99', EUR: 'TBA €', TRY: '109.99 ₺' },
+            gems_255:  { RUB: 'TBA ₽', USD: '$4.99', EUR: 'TBA €', TRY: '269.99 ₺' },
+            gems_520:  { RUB: 'TBA ₽', USD: '$9.99', EUR: 'TBA €', TRY: '539.99 ₺' },
+            gems_1100: { RUB: 'TBA ₽', USD: '$18.99', EUR: 'TBA €', TRY: '1089.99 ₺' },
+            gems_2700: { RUB: 'TBA ₽', USD: '$49.99', EUR: 'TBA €', TRY: '2719.99 ₺' },
+            gems_5500: { RUB: 'TBA ₽', USD: '$99.99', EUR: 'TBA €', TRY: '5439.99 ₺' },
 
             // Skip'its
-            skips_10:  { RUB: '10 ₽', USD: '$0.15', EUR: '0.15 €', TRY: '5 ₺' },
-            skips_30:  { RUB: '20 ₽', USD: '$0.29', EUR: '0.29 €', TRY: '10 ₺' },
-            skips_100: { RUB: '40 ₽', USD: '$0.59', EUR: '0.59 €', TRY: '20 ₺' },
-            skips_250: { RUB: '50 ₽', USD: '$0.75', EUR: '0.75 €', TRY: '25 ₺' },
-            skips_450: { RUB: '70 ₽', USD: '$0.99', EUR: '0.99 €', TRY: '35 ₺' },
-            skips_800: { RUB: '100 ₽', USD: '$1.49', EUR: '1.49 €', TRY: '50 ₺' },
+            skips_10:  { RUB: 'TBA ₽', USD: '$2.99', EUR: 'TBA €', TRY: '169.99 ₺' },
+            skips_30:  { RUB: 'TBA ₽', USD: '$6.99', EUR: 'TBA €', TRY: '399.99 ₺' },
+            skips_100: { RUB: 'TBA ₽', USD: '$17.99', EUR: 'TBA €', TRY: '1029.99 ₺' },
+            skips_250: { RUB: 'TBA ₽', USD: '$29.99', EUR: 'TBA €', TRY: '1719.99 ₺' },
+            skips_450: { RUB: 'TBA ₽', USD: '$49.99', EUR: 'TBA €', TRY: '2859.99 ₺' },
+            skips_800: { RUB: 'TBA ₽', USD: '$74.99', EUR: 'TBA €', TRY: '4289.99 ₺' },
 
             // Daily Deals
-            deal_companion: { RUB: '10 ₽', USD: '$0.15', EUR: '0.15 €', TRY: '5 ₺' },
-            deal_mining:    { RUB: '20 ₽', USD: '$0.29', EUR: '0.29 €', TRY: '10 ₺' },
-            deal_gem:       { RUB: '30 ₽', USD: '$0.45', EUR: '0.45 €', TRY: '15 ₺' },
+            deal_companion: { RUB: 'TBA ₽', USD: '$0.15', EUR: 'TBA €', TRY: '5 ₺' },
+            deal_companion2: { RUB: 'TBA ₽', USD: '$0.15', EUR: 'TBA €', TRY: '5 ₺' },
+            deal_companion3: { RUB: 'TBA ₽', USD: '$0.15', EUR: 'TBA €', TRY: '5 ₺' },
+            deal_mining:    { RUB: 'TBA ₽', USD: '$0.29', EUR: 'TBA €', TRY: '10 ₺' },
+            deal_mining2:    { RUB: 'TBA ₽', USD: '$0.29', EUR: 'TBA €', TRY: '10 ₺' },
+            deal_mining3:    { RUB: 'TBA ₽', USD: '$0.29', EUR: 'TBA €', TRY: '10 ₺' },
+            deal_gem:       { RUB: 'TBA ₽', USD: '$0.45', EUR: 'TBA €', TRY: '15 ₺' },
+            deal_gem2:       { RUB: 'TBA ₽', USD: '$0.45', EUR: 'TBA €', TRY: '15 ₺' },
+            deal_gem3:       { RUB: 'TBA ₽', USD: '$0.45', EUR: 'TBA €', TRY: '15 ₺' },
 
             // Offers
-            offer_pass:          { RUB: '10 ₽', USD: '$0.15', EUR: '0.15 €', TRY: '5 ₺' },
-            offer_enchantment:   { RUB: '10 ₽', USD: '$0.15', EUR: '0.15 €', TRY: '5 ₺' },
-            offer_mining:        { RUB: '10 ₽', USD: '$0.15', EUR: '0.15 €', TRY: '5 ₺' },
-            offer_leg_bundle:    { RUB: '50 ₽', USD: '$0.75', EUR: '0.75 €', TRY: '25 ₺' },
-            offer_myth_bundle:   { RUB: '50 ₽', USD: '$0.75', EUR: '0.75 €', TRY: '25 ₺' },
-            offer_gear_crossbow: { RUB: '10 ₽', USD: '$0.15', EUR: '0.15 €', TRY: '5 ₺' }
+            offer_pass:          { RUB: 'TBA ₽', USD: '$TBA', EUR: 'TBA €', TRY: '539.99 ₺' },
+            offer_enchantment:   { RUB: 'TBA ₽', USD: '$9.99', EUR: 'TBA €', TRY: '569.99 ₺' },
+            offer_mining:        { RUB: 'TBA ₽', USD: '$9.99', EUR: 'TBA €', TRY: '559.99 ₺' },
+            offer_leg_bundle:    { RUB: 'TBA ₽', USD: '$19.99', EUR: 'TBA €', TRY: '1119.99 ₺' },
+            offer_myth_bundle:   { RUB: 'TBA ₽', USD: '$29.99', EUR: 'TBA €', TRY: '1679.99 ₺' },
+            offer_gear_crossbow: { RUB: 'TBA ₽', USD: '$TBA', EUR: 'TBA €', TRY: 'TBA ₺' }
         };
 
         const CURRENCY_SYMBOLS = {
