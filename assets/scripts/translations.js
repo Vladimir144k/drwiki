@@ -1,7 +1,7 @@
 // data-i18n=""
 
 const APP_CONFIG = {
-  lastUpdateDate: "31.10.2026"
+  lastUpdateDate: "04.11.2026"
 };
 
 const translations = {
@@ -255,7 +255,7 @@ const translations = {
     cl_day6_pvp_tag: "PVP Финал",
     cl_pvp_reward_label: "Награда:",
     cl_pvp_reward_val: "50 Очков / Бой",
-    cl_pvp_rule: "Сброс билета каждый час. Сброс ПВП каждые 45 побед",
+    cl_pvp_rule: "Сброс билета каждый час. Формула сброса PvP: (общее число участников клана — 5). Если во вражеском клане 50 участников, PvP сбрасывается при достижении 45 побед.",
     cl_pvp_tip_title: "Совет по PVP дню:",
     cl_pvp_tip_desc: "Старайтесь заходить каждый час, чтобы не терять восстанавливающиеся билеты. Накапливайте максимальное количество побед!",
     cl_sec4_title: "Награды Клановых Войн",
@@ -303,10 +303,10 @@ const translations = {
     ev_reward_boxes: "Коробки (Boxes)",
     ev_zombie_unlock: "Открывается на 5 уровне",
     ev_reward_begin: "Начинается с:",
-    ev_begin_boxes: "50 коробок (1-1) | +1 коробка за уровень",
-    ev_begin_bones: "100 костей (1-1) | +2 костей за уровень",
-    ev_begin_blood: "100 колб (1-1) | +2 колбы за уровень",
-    ev_begin_celestial: "TBA % (1-1) | TBA %",
+    ev_begin_boxes: "50 коробок (Stage 1) | +1 коробка за уровень",
+    ev_begin_bones: "100 костей (Stage 1) | +2 костей за уровень",
+    ev_begin_blood: "100 колб (Stage 1) | +2 колбы за уровень",
+    ev_begin_celestial: "TBA % (Stage 1) | TBA %",
     ev_green_keys: "Зелёные ключи",
     ev_zombie_desc: "Нашествие зомби. Сражайтесь с ордами ходячих мертвецов.",
     ev_reward_bones: "Кости (Bones)",
@@ -376,7 +376,7 @@ const translations = {
     ev_coop_dia_l: "20 корон, 30 коробок, 45 костей, 10 гемов",
     ev_coop_mas_w: "55 корон, 85 коробок, 130 костей, 25 гемов",
     ev_coop_mas_l: "25 корон, 40 коробок, 60 костей, 15 гемов",
-    ev_coop_gm_w: "70 корон, 108 коробок, 160 костей, 35 гемов",
+    ev_coop_gm_w: "70 корон, 105 коробок, 160 костей, 35 гемов",
     ev_coop_gm_l: "35 корон, 55 коробок, 85 костей, 15 гемов",
     ev_coop_leg_w: "85 корон, 130 коробок, 195 костей, 40 гемов",
     ev_coop_leg_l: "40 корон, 60 коробок, 90 костей, 20 гемов",
@@ -1285,7 +1285,7 @@ const translations = {
     cl_day6_pvp_tag: "PVP Final",
     cl_pvp_reward_label: "Reward:",
     cl_pvp_reward_val: "50 Points / Fight",
-    cl_pvp_rule: "Ticket resets every hour. PVP reset every 45 wins",
+    cl_pvp_rule: "Ticket resets every hour. PvP reset formula: (total number of clan members — 5). If an enemy clan has 50 members, the PvP count resets upon reaching 45 victories.",
     cl_pvp_tip_title: "PVP Day Tip:",
     cl_pvp_tip_desc: "Try to log in every hour so you don't waste regenerated tickets. Stack the maximum number of wins!",
     cl_sec4_title: "Clan War Rewards",
@@ -1336,10 +1336,10 @@ const translations = {
     ev_zombie_desc: "Zombie outbreak. Fight off hordes of walking dead.",
     ev_reward_bones: "Bones",
     ev_reward_begin: "Begins with:",
-    ev_begin_boxes: "50 boxes (1-1) | +1 box per level",
-    ev_begin_bones: "100 bones (1-1) | +2 bones per level",
-    ev_begin_blood: "100 vials (1-1) | +2 vials per level",
-    ev_begin_celestial: "TBA % (1-1) | TBA %",
+    ev_begin_boxes: "50 boxes (Stage 1) | +1 box per level",
+    ev_begin_bones: "100 bones (Stage 1) | +2 bones per level",
+    ev_begin_blood: "100 vials (Stage 1) | +2 vials per level",
+    ev_begin_celestial: "TBA % (Stage 1) | TBA %",
     ev_cultist_unlock: "Unlocks at Level 20",
     ev_grey_keys: "Grey Keys",
     ev_cultist_desc: "Dark cultist ritual. Defeat the disciples of shadow.",
@@ -1406,7 +1406,7 @@ const translations = {
     ev_coop_dia_l: "20 crowns, 30 boxes, 45 bones, 10 gems",
     ev_coop_mas_w: "55 crowns, 85 boxes, 130 bones, 25 gems",
     ev_coop_mas_l: "25 crowns, 40 boxes, 60 bones, 15 gems",
-    ev_coop_gm_w: "70 crowns, 108 boxes, 160 bones, 35 gems",
+    ev_coop_gm_w: "70 crowns, 105 boxes, 160 bones, 35 gems",
     ev_coop_gm_l: "35 crowns, 55 boxes, 85 bones, 15 gems",
     ev_coop_leg_w: "85 crowns, 130 boxes, 195 bones, 40 gems",
     ev_coop_leg_l: "40 crowns, 60 boxes, 90 bones, 20 gems",
@@ -1737,7 +1737,7 @@ const translations = {
     tbl_c_pvp: "PVP Finale",
     tbl_c_rew_title: "Reward:",
     tbl_c_rew_val: "50 Points / Match",
-    tbl_c_reset_info: "Ticket refreshes hourly. PVP resets every 45 wins.",
+    tbl_c_reset_info: "Ticket refreshes hourly. PVP reset forumula (Total clan members-5). If enemy clan has 50 members, PVP resets at 45 wins.",
     tbl_c_tip_title: "PVP Day Tip:",
     tbl_c_tip_desc: "Log in hourly to avoid losing regenerating tickets. Stack max victories!",
     tbl_banner_title: "Clan War Rewards by Tier",
