@@ -293,15 +293,15 @@
                         </div>
 
                         <!-- Stat 3: Summons & Bones -->
-                        <div class="pet-card p-4 relative overflow-hidden border-l-4 border-l-indigo-500">
-                            <div class="text-[11px] font-bold text-gray-400 uppercase tracking-wider" data-i18n="bc_summons_made">Сделано Призывов</div>
-                            <div id="resSummonsCount" class="text-2xl sm:text-3xl font-extrabold text-indigo-300 mt-1">0</div>
-                            <div class="text-[11px] text-indigo-400 mt-1 flex items-center gap-1 font-body">
-                                <span id="resBonesSpentVal">0</span>
-                                <span data-i18n="bc_bones_spent_text">костей потрачено</span>
+                            <div class="pet-card p-4 relative overflow-hidden border-l-4 border-l-indigo-500">
+                                <div class="text-[11px] font-bold text-gray-400 uppercase tracking-wider" data-i18n="bc_summons_made">Сделано Призывов</div>
+                                <div id="resSummonsCount" class="text-2xl sm:text-3xl font-extrabold text-indigo-300 mt-1">0</div>
+                                <div class="text-[11px] text-indigo-400 mt-1 flex items-center gap-1 font-body">
+                                    <span id="resPetsSummonedVal">0</span>
+                                    <span data-i18n="bc_bones_spent_text">питомцев получено</span>
+                                </div>
+                                <i class="fa-solid fa-paw absolute -right-2 -bottom-2 text-indigo-500/10 text-5xl"></i>
                             </div>
-                            <i class="fa-solid fa-bone absolute -right-2 -bottom-2 text-indigo-500/10 text-5xl"></i>
-                        </div>
 
                     </div>
 
@@ -532,7 +532,7 @@
 
             document.getElementById('resTotalPoints').textContent = Math.round(totalPoints).toLocaleString('ru-RU');
             document.getElementById('resSummonsCount').textContent = totalSummons.toLocaleString('ru-RU');
-            document.getElementById('resBonesSpentVal').textContent = spentBones.toLocaleString('ru-RU');
+            document.getElementById('resPetsSummonedVal').textContent = totalPetsReceived.toLocaleString('ru-RU');
             document.getElementById('resTotalPets').textContent = totalPetsReceived.toLocaleString('ru-RU');
             document.getElementById('resBoneRemainderVal').textContent = boneRemainder.toLocaleString('ru-RU');
             
