@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NukeSquad Clan | Dungeon Rush</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Gaming Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Orbitron & Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        nukeGreen: '#00FF66',
+                        nukeGreenGlow: '#39FF14',
+                        nukeYellow: '#FFCC00',
+                        nukeDark: '#0B0F0C',
+                        nukeCard: '#121814',
+                        nukeBorder: '#1E2D22',
+                    },
+                    fontFamily: {
+                        orbitron: ['Orbitron', 'sans-serif'],
+                        montserrat: ['Montserrat', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'neon-green': '0 0 20px rgba(0, 255, 102, 0.35), inset 0 0 10px rgba(0, 255, 102, 0.1)',
+                        'neon-yellow': '0 0 20px rgba(255, 204, 0, 0.35)',
+                        'glow-lg': '0 0 35px rgba(0, 255, 102, 0.5)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #070907;
+            color: #E2E8F0;
+            overflow-x: hidden;
+        }
+
+        /* Post-Apocalyptic Texture Background overlay */
+        .grunge-overlay {
+            background-image: 
+                radial-gradient(circle at 50% 20%, rgba(0, 255, 102, 0.12) 0%, transparent 60%),
+                radial-gradient(circle at 80% 80%, rgba(255, 204, 0, 0.05) 0%, transparent 50%),
+                linear-gradient(to bottom, rgba(11, 15, 12, 0.85), rgba(7, 9, 7, 0.98));
+        }
+
+        /* Scanline / CRT effect subtle */
+        .scanlines {
+            background: linear-gradient(
+                rgba(18, 16, 16, 0) 50%, 
+                rgba(0, 0, 0, 0.25) 50%
+            );
+            background-size: 100% 4px;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B0F0C;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1E2D22;
+            border-radius: 4px;
+            border: 1px solid #00FF66;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00FF66;
+        }
+    </style>
+</head>
+<body class="relative min-h-screen antialiased selection:bg-nukeGreen selection:text-black">
+
+    <!-- CRT Scanlines layer -->
+    <div class="fixed inset-0 pointer-events-none z-50 scanlines opacity-30"></div>
+
+    <!-- MAIN NAVBAR -->
+    <nav class="sticky top-0 z-40 backdrop-blur-md bg-nukeDark/90 border-b border-nukeBorder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo -->
+                <a href="#" class="flex items-center space-x-3 group">
+                    <div class="relative w-11 h-11 flex items-center justify-center bg-black/60 border-2 border-nukeGreen rounded-lg shadow-neon-green group-hover:scale-105 transition-transform">
+                        <i class="fa-solid font-bold text-nukeGreen text-2xl fa-radiation animate-spin-slow"></i>
+                    </div>
+                    <div>
+                        <span class="font-orbitron text-2xl font-black tracking-wider text-white group-hover:text-nukeGreen transition-colors">
+                            NUKE<span class="text-nukeYellow">SQUAD</span>
+                        </span>
+                        <span class="block text-[10px] tracking-widest text-nukeGreen uppercase font-semibold">Dungeon Rush Clan</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav items -->
+                <div class="hidden md:flex items-center space-x-8 font-orbitron font-semibold text-sm tracking-wider">
+                    <a href="#about" class="text-gray-300 hover:text-nukeGreen transition-colors py-2 border-b-2 border-transparent hover:border-nukeGreen">О КЛАНЕ</a>
+                    <a href="#stats" class="text-gray-300 hover:text-nukeYellow transition-colors py-2 border-b-2 border-transparent hover:border-nukeYellow">СТАТИСТИКА</a>
+                    <a href="#players" class="text-gray-300 hover:text-nukeGreen transition-colors py-2 border-b-2 border-transparent hover:border-nukeGreen">ИГРОКИ</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobileMenuBtn" class="text-nukeGreen hover:text-white focus:outline-none p-2">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Navigation -->
+        <div id="mobileMenu" class="hidden md:hidden bg-nukeDark/95 border-b border-nukeBorder px-4 pt-2 pb-6 space-y-3 font-orbitron">
+            <a href="#about" class="mobile-nav-link block text-gray-200 hover:text-nukeGreen py-2">О КЛАНЕ</a>
+            <a href="#stats" class="mobile-nav-link block text-gray-200 hover:text-nukeYellow py-2">СТАТИСТИКА</a>
+            <a href="#players" class="mobile-nav-link block text-gray-200 hover:text-nukeGreen py-2">ИГРОКИ</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="relative z-10 pt-12 pb-24 lg:pt-20 lg:pb-32 overflow-hidden grunge-overlay border-b border-nukeBorder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Hero Text Left -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-nukeGreen/10 border border-nukeGreen/30 text-nukeGreen font-orbitron text-xs font-bold tracking-widest uppercase">
+                        <span class="w-2 h-2 rounded-full bg-nukeGreen animate-ping"></span>
+                        <span>TOP-1 SERVER • DUNGEON RUSH</span>
+                    </div>
+
+                    <h1 class="font-orbitron font-black text-4xl sm:text-6xl lg:text-7xl tracking-tight leading-none text-white uppercase">
+                        ВСТУПАЙ <br> В РЯДЫ <br>
+                        <span class="text-nukeYellow drop-shadow-[0_5px_15px_rgba(255,204,0,0.4)]">NUKESQUAD</span>
+                    </h1>
+
+                    <p class="font-orbitron font-extrabold text-xl sm:text-2xl text-nukeGreen tracking-widest uppercase">
+                        ВМЕСТЕ МЫ СИЛЬНЕЕ!
+                    </p>
+
+                    <p class="text-gray-300 text-base sm:text-lg max-w-2xl leading-relaxed">
+                        Клан закаленных бойцов подземелий. Мы доминируем на арене Dungeon Rush, уничтожаем боссов и оставляем за собой лишь радиоактивный пепел.
+                    </p>
+
+                    <!-- Quick Navigation -->
+                    <div class="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                        <a href="#stats" class="w-full sm:w-auto px-8 py-4 font-orbitron font-black text-lg text-black uppercase tracking-wider bg-nukeYellow hover:bg-yellow-400 rounded-lg shadow-neon-yellow hover:scale-105 transition-all text-center">
+                            <i class="fa-solid fa-chart-line mr-2"></i>Статистика Войн
+                        </a>
+                        <a href="#players" class="w-full sm:w-auto px-8 py-4 font-orbitron font-bold text-lg text-nukeGreen uppercase tracking-wider bg-nukeCard border-2 border-nukeGreen hover:bg-nukeGreen/10 rounded-lg transition-all text-center">
+                            <i class="fa-solid fa-users mr-2"></i>Состав Клана
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hero Graphic Right (IMG Tag placeholder for custom main banner) -->
+                <div class="lg:col-span-5 relative flex justify-center">
+                    <div class="relative w-full max-w-md aspect-square rounded-2xl border-2 border-nukeGreen/40 bg-nukeCard p-3 shadow-neon-green overflow-hidden group">
+                        <!-- Image placeholder for user's main banner -->
+                        <img 
+                            src="assets/images/nukesquad.jpg" 
+                            alt="NukeSquad Main Banner" 
+                            class="w-full h-full object-cover rounded-xl border border-nukeBorder"
+                            onerror="this.onerror=null; this.src='assets/images/empty.jpg'"
+                        />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- SECTION 1: ABOUT CLAN (О Клане) -->
+    <section id="about" class="py-20 relative z-10 border-b border-nukeBorder bg-nukeDark/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Section Title Header -->
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div class="inline-flex items-center space-x-2 text-nukeGreen font-orbitron text-sm font-bold tracking-widest uppercase mb-2">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>О Нашем Сообществе</span>
+                </div>
+                <h2 class="font-orbitron font-black text-3xl sm:text-5xl text-white uppercase tracking-tight">
+                    О КЛАНЕ <span class="text-nukeYellow">NUKESQUAD</span>
+                </h2>
+                <div class="w-24 h-1 bg-nukeGreen mx-auto mt-4 rounded-full shadow-neon-green"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Card 1: Story -->
+                <div class="bg-nukeCard border border-nukeBorder p-8 rounded-xl shadow-lg hover:border-nukeGreen/60 transition-all group">
+                    <div class="w-14 h-14 rounded-lg bg-nukeGreen/10 border border-nukeGreen flex items-center justify-center text-nukeGreen text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-fire-flame-curved"></i>
+                    </div>
+                    <h3 class="font-orbitron font-bold text-xl text-white mb-3 uppercase">Наша Легенда</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        NukeSquad родился в самых темных глубинах подземелий Dungeon Rush. Мы объединили сильнейших игроков, готовых проходить любые рейды и крушить врагов в Войнах Кланов без пощады.
+                    </p>
+                </div>
+
+                <!-- Card 2: Requirements -->
+                <div class="bg-nukeCard border border-nukeBorder p-8 rounded-xl shadow-lg hover:border-nukeYellow/60 transition-all group">
+                    <div class="w-14 h-14 rounded-lg bg-nukeYellow/10 border border-nukeYellow flex items-center justify-center text-nukeYellow text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-list-check"></i>
+                    </div>
+                    <h3 class="font-orbitron font-bold text-xl text-white mb-3 uppercase">Правила Войны</h3>
+                    <ul class="text-gray-400 text-sm space-y-2">
+                        <li class="flex items-center"><i class="fa-solid fa-check text-nukeGreen mr-2 text-xs"></i> Быть Ахуенным</li>
+                    </ul>
+                </div>
+
+                <!-- Card 3: Philosophy -->
+                <div class="bg-nukeCard border border-nukeBorder p-8 rounded-xl shadow-lg hover:border-nukeGreen/60 transition-all group">
+                    <div class="w-14 h-14 rounded-lg bg-nukeGreen/10 border border-nukeGreen flex items-center justify-center text-nukeGreen text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <h3 class="font-orbitron font-bold text-xl text-white mb-3 uppercase">Цель Клана</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Удержание лидирующей позиции #1 на сервере, слаженная командная игра и абсолютное доминирование в клановой войне.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 2: STATISTICS & CLAN WAR LOGS (Статистика) -->
+    <section id="stats" class="py-20 relative z-10 border-b border-nukeBorder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Section Header -->
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div class="inline-flex items-center space-x-2 text-nukeYellow font-orbitron text-sm font-bold tracking-widest uppercase mb-2">
+                    <i class="fa-solid fa-swords"></i>
+                    <span>Результаты и Боевой Журнал</span>
+                </div>
+                <h2 class="font-orbitron font-black text-3xl sm:text-5xl text-white uppercase tracking-tight">
+                    СТАТИСТИКА <span class="text-nukeGreen">КЛАНА</span>
+                </h2>
+                <p class="text-gray-400 mt-2 text-sm">Общие показатели за всё время и подробный отчёт клановой войны</p>
+                <div class="w-24 h-1 bg-nukeYellow mx-auto mt-4 rounded-full shadow-neon-yellow"></div>
+            </div>
+
+            <!-- BLOCK A: ALL-TIME CLAN STATS (Статистика за всё время) -->
+            <div class="mb-16">
+                <h3 class="font-orbitron font-bold text-xl text-white uppercase mb-6 flex items-center">
+                    <i class="fa-solid fa-globe text-nukeYellow mr-3"></i> Статистика За Всё Время
+                </h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-nukeCard border border-nukeBorder p-5 rounded-xl text-center">
+                        <span class="block text-gray-400 font-orbitron text-xs uppercase">Всего Войн</span>
+                        <span class="font-orbitron font-black text-2xl sm:text-3xl text-white mt-1 block">6</span>
+                    </div>
+                    <div class="bg-nukeCard border border-nukeBorder p-5 rounded-xl text-center">
+                        <span class="block text-gray-400 font-orbitron text-xs uppercase">Победы (Всё время)</span>
+                        <span class="font-orbitron font-black text-2xl sm:text-3xl text-nukeGreen mt-1 block">6</span>
+                    </div>
+                    <div class="bg-nukeCard border border-nukeBorder p-5 rounded-xl text-center">
+                        <span class="block text-gray-400 font-orbitron text-xs uppercase">Поражения</span>
+                        <span class="font-orbitron font-black text-2xl sm:text-3xl text-red-500 mt-1 block">0</span>
+                    </div>
+                    <div class="bg-nukeCard border border-nukeBorder p-5 rounded-xl text-center">
+                        <span class="block text-gray-400 font-orbitron text-xs uppercase">Винрейт (Win Rate)</span>
+                        <span class="font-orbitron font-black text-2xl sm:text-3xl text-nukeYellow mt-1 block">100%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOCK B: CURRENT WEEK 6-DAY CLAN WAR STATS -->
+            <div>
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 pb-4 border-b border-nukeBorder">
+                    <div>
+                        <h3 class="font-orbitron font-bold text-xl text-white uppercase flex items-center">
+                            <i class="fa-solid fa-calendar-days text-nukeGreen mr-3"></i> Текущая Неделя Войны (6 Дней)
+                        </h3>
+                        <p class="text-xl mt-1">Враг: ITAWarrioR</p>
+                    </div>
+
+                    <!-- Weekly Result Summary Badge -->
+                    <div class="mt-4 md:mt-0 flex items-center space-x-4 bg-nukeDark p-3 rounded-lg border border-nukeGreen/40">
+                        <div>
+                            <span class="text-[10px] text-gray-400 font-orbitron block uppercase">Итог Недели:</span>
+                            <span class="font-orbitron font-black text-nukeGreen text-lg">6 / 6 ПОБЕД</span>
+                        </div>
+                        <div class="h-8 w-px bg-nukeBorder"></div>
+                        <div>
+                            <span class="text-[10px] text-gray-400 font-orbitron block uppercase">Очки Недели:</span>
+                            <span class="font-orbitron font-black text-nukeYellow text-lg">NaN</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6 Days Grid with MVP for each day -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Day 1 -->
+                    <div class="bg-nukeCard border border-nukeBorder hover:border-nukeGreen rounded-xl p-6 relative overflow-hidden transition-all shadow-lg">
+                        <div class="flex items-center justify-between border-b border-nukeBorder pb-3 mb-4">
+                            <span class="font-orbitron font-black text-nukeYellow text-lg">ДЕНЬ 1</span>
+                            <span class="px-2.5 py-1 rounded text-xs font-bold bg-nukeGreen/20 text-nukeGreen border border-nukeGreen/40">ПОБЕДА</span>
+                        </div>
+                        <div class="space-y-2.5 text-sm">
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs text-gray-400 uppercase font-orbitron">Очки NukeSquad:</span>
+                                <span class="font-orbitron font-bold text-nukeGreen">NaN</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs text-gray-400 uppercase font-orbitron">Очки Врага:</span>
+                                <span class="font-orbitron text-gray-400">NaN</span>
+                            </div>
+                        </div>
+
+                        <!-- MVP of Day 1 -->
+                        <div class="mt-4 pt-3 border-t border-nukeBorder bg-black/60 p-3 rounded-lg flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <img src="images/player1.jpg" alt="MVP Day 1" class="w-10 h-10 rounded-full border border-nukeYellow object-cover" onerror="this.onerror=null; this.src='https://placehold.co/100x100/121814/FFCC00?text=MVP';">
+                                <div>
+                                    <span class="text-[10px] text-nukeYellow font-orbitron font-bold uppercase block"><i class="fa-solid fa-crown mr-1"></i>MVP 1 ДНЯ</span>
+                                    <span class="font-orbitron font-bold text-white text-sm">Muller</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Day 2 -->
+                    <div class="bg-nukeCard border border-nukeBorder hover:border-nukeGreen rounded-xl p-6 relative overflow-hidden transition-all shadow-lg">
+                        <div class="flex items-center justify-between border-b border-nukeBorder pb-3 mb-4">
+                            <span class="font-orbitron font-black text-nukeYellow text-lg">ДЕНЬ 2</span>
+                            <span class="px-2.5 py-1 rounded text-xs font-bold bg-nukeGreen/20 text-nukeGreen border border-nukeGreen/40">ПОБЕДА</span>
+                        </div>
+                        <div class="space-y-2.5 text-sm">
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs text-gray-400 uppercase font-orbitron">Очки NukeSquad:</span>
+                                <span class="font-orbitron font-bold text-nukeGreen">NaN</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs text-gray-400 uppercase font-orbitron">Очки Врага:</span>
+                                <span class="font-orbitron text-gray-400">NaN</span>
+                            </div>
+                        </div>
+
+                        <!-- MVP of Day 2 -->
+                        <div class="mt-4 pt-3 border-t border-nukeBorder bg-black/60 p-3 rounded-lg flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <img src="images/player2.jpg" alt="MVP Day 2" class="w-10 h-10 rounded-full border border-nukeYellow object-cover" onerror="this.onerror=null; this.src='https://placehold.co/100x100/121814/FFCC00?text=MVP';">
+                                <div>
+                                    <span class="text-[10px] text-nukeYellow font-orbitron font-bold uppercase block"><i class="fa-solid fa-crown mr-1"></i>MVP ДНЯ 2</span>
+                                    <span class="font-orbitron font-bold text-white text-sm">Muller</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Day 3 -->
+                    <div class="bg-nukeCard border border-nukeBorder hover:border-nukeGreen rounded-xl p-6 relative overflow-hidden transition-all shadow-lg">
+                        <div class="flex items-center justify-between border-b border-nukeBorder pb-3 mb-4">
+                            <span class="font-orbitron font-black text-nukeYellow text-lg">ДЕНЬ 3</span>
+                            <span class="px-2.5 py-1 rounded text-xs font-bold bg-nukeGreen/20 text-nukeGreen border border-nukeGreen/40">ПОБЕДА</span>
+                        </div>
+                        <div class="space-y-2.5 text-sm">
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs text-gray-400 uppercase font-orbitron">Очки NukeSquad:</span>
+                                <span class="font-orbitron font-bold text-nukeGreen">NaN</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs text-gray-400 uppercase font-orbitron">Очки Врага:</span>
+                                <span class="font-orbitron text-gray-400">NaN</span>
+                            </div>
+                        </div>
+
+                        <!-- MVP of Day 3 -->
+                        <div class="mt-4 pt-3 border-t border-nukeBorder bg-black/60 p-3 rounded-lg flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <img src="images/player3.jpg" alt="MVP Day 3" class="w-10 h-10 rounded-full border border-nukeYellow object-cover" onerror="this.onerror=null; this.src='https://placehold.co/100x100/121814/FFCC00?text=MVP';">
+                                <div>
+                                    <span class="text-[10px] text-nukeYellow font-orbitron font-bold uppercase block"><i class="fa-solid fa-crown mr-1"></i>MVP ДНЯ 3</span>
+                                    <span class="font-orbitron font-bold text-white text-sm">Muller</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Day 4 -->
+                    <div class="bg-nukeCard border border-nukeBorder hover:border-nukeGreen rounded-xl p-6 relative overflow-hidden transition-all shadow-lg">
+                        <div class="flex items-center justify-between border-b border-nukeBorder pb-3 mb-4">
+                            <span class="font-orbitron font-black text-nukeYellow text-lg">ДЕНЬ 4</span>
+                            <span class="px-2.5 py-1 rounded text-xs font-bold bg-nukeGreen/20 text-nukeGreen border border-nukeGreen/40">ПОБЕДА</span>
+                        </div>
+                        <div class="space-y-2.5 text-sm">
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs text-gray-400 uppercase font-orbitron">Очки NukeSquad:</span>
+                                <span class="font-orbitron font-bold text-nukeGreen">NaN</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs text-gray-400 uppercase font-orbitron">Очки Врага:</span>
+                                <span class="font-orbitron text-gray-400">NaN</span>
+                            </div>
+                        </div>
+
+                        <!-- MVP of Day 4 -->
+                        <div class="mt-4 pt-3 border-t border-nukeBorder bg-black/60 p-3 rounded-lg flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <img src="images/player1.jpg" alt="MVP Day 4" class="w-10 h-10 rounded-full border border-nukeYellow object-cover" onerror="this.onerror=null; this.src='https://placehold.co/100x100/121814/FFCC00?text=MVP';">
+                                <div>
+                                    <span class="text-[10px] text-nukeYellow font-orbitron font-bold uppercase block"><i class="fa-solid fa-crown mr-1"></i>MVP ДНЯ 4</span>
+                                    <span class="font-orbitron font-bold text-white text-sm">Mumentik</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Day 5 -->
+                    <div class="bg-nukeCard border border-nukeBorder hover:border-nukeGreen rounded-xl p-6 relative overflow-hidden transition-all shadow-lg">
+                        <div class="flex items-center justify-between border-b border-nukeBorder pb-3 mb-4">
+                            <span class="font-orbitron font-black text-nukeYellow text-lg">ДЕНЬ 5</span>
+                            <span class="px-2.5 py-1 rounded text-xs font-bold bg-nukeGreen/20 text-nukeGreen border border-nukeGreen/40">ПОБЕДА</span>
+                        </div>
+                        <div class="space-y-2.5 text-sm">
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs text-gray-400 uppercase font-orbitron">Очки NukeSquad:</span>
+                                <span class="font-orbitron font-bold text-nukeGreen">NaN</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs text-gray-400 uppercase font-orbitron">Очки Врага:</span>
+                                <span class="font-orbitron text-gray-400">NaN</span>
+                            </div>
+                        </div>
+
+                        <!-- MVP of Day 5 -->
+                        <div class="mt-4 pt-3 border-t border-nukeBorder bg-black/60 p-3 rounded-lg flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <img src="images/player4.jpg" alt="MVP Day 5" class="w-10 h-10 rounded-full border border-nukeYellow object-cover" onerror="this.onerror=null; this.src='https://placehold.co/100x100/121814/FFCC00?text=MVP';">
+                                <div>
+                                    <span class="text-[10px] text-nukeYellow font-orbitron font-bold uppercase block"><i class="fa-solid fa-crown mr-1"></i>MVP ДНЯ 5</span>
+                                    <span class="font-orbitron font-bold text-white text-sm">ToxicWaste</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Day 6 (Final) -->
+                    <div class="bg-nukeCard border-2 border-nukeGreen rounded-xl p-6 relative overflow-hidden transition-all shadow-neon-green">
+                        <div class="flex items-center justify-between border-b border-nukeBorder pb-3 mb-4">
+                            <span class="font-orbitron font-black text-nukeYellow text-lg">ДЕНЬ 6 (ФИНАЛ)</span>
+                            <span class="px-2.5 py-1 rounded text-xs font-bold bg-nukeGreen/20 text-nukeGreen border border-nukeGreen/40">ПОБЕДА</span>
+                        </div>
+                        <div class="space-y-2.5 text-sm">
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs text-gray-400 uppercase font-orbitron">Очки NukeSquad:</span>
+                                <span class="font-orbitron font-bold text-nukeGreen">4,000</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs text-gray-400 uppercase font-orbitron">Очки Врага:</span>
+                                <span class="font-orbitron text-gray-400">350</span>
+                            </div>
+                        </div>
+
+                        <!-- MVP of Day 6 -->
+                        <div class="mt-4 pt-3 border-t border-nukeBorder bg-black/60 p-3 rounded-lg flex items-center justify-between border border-nukeYellow/30">
+                            <div class="flex items-center space-x-3">
+                                <img src="images/player1.jpg" alt="MVP Day 6" class="w-10 h-10 rounded-full border-2 border-nukeYellow object-cover" onerror="this.onerror=null; this.src='https://placehold.co/100x100/121814/FFCC00?text=MVP';">
+                                <div>
+                                    <span class="text-[10px] text-nukeYellow font-orbitron font-bold uppercase block"><i class="fa-solid fa-trophy mr-1"></i>MVP ФИНАЛА (ДЕНЬ 6)</span>
+                                    <span class="font-orbitron font-bold text-white text-sm">Muller</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 3: PLAYERS / ROSTER (Игроки с пустой картинкой-заглушкой <img>) -->
+    <section id="players" class="py-20 relative z-10 bg-nukeDark/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Section Title Header -->
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <div class="inline-flex items-center space-x-2 text-nukeGreen font-orbitron text-sm font-bold tracking-widest uppercase mb-2">
+                    <i class="fa-solid fa-users-rays"></i>
+                    <span>Состав Клана</span>
+                </div>
+                <h2 class="font-orbitron font-black text-3xl sm:text-5xl text-white uppercase tracking-tight">
+                    БОЙЦЫ <span class="text-nukeYellow">NUKESQUAD</span>
+                </h2>
+                <div class="w-24 h-1 bg-nukeGreen mx-auto mt-4 rounded-full shadow-neon-green"></div>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12 font-orbitron text-xs sm:text-sm font-bold">
+                <button onclick="filterPlayers('all')" id="btn-all" class="player-filter-btn px-5 py-2.5 rounded-lg bg-nukeGreen text-black shadow-neon-green transition-all">
+                    ВСЕ ИГРОКИ (13)
+                </button>
+                <button onclick="filterPlayers('leader')" id="btn-leader" class="player-filter-btn px-5 py-2.5 rounded-lg bg-nukeCard text-gray-300 border border-nukeBorder hover:border-nukeGreen transition-all">
+                    ЛИДЕРЫ И КАПИТАНЫ
+                </button>
+                <button onclick="filterPlayers('player')" id="btn-player" class="player-filter-btn px-5 py-2.5 rounded-lg bg-nukeCard text-gray-300 border border-nukeBorder hover:border-nukeGreen transition-all">
+                    ОСНОВНОЙ СОСТАВ
+                </button>
+                <button onclick="filterPlayers('mvp')" id="btn-mvp" class="player-filter-btn px-5 py-2.5 rounded-lg bg-nukeCard text-gray-300 border border-nukeBorder hover:border-nukeGreen transition-all">
+                    ★ MVP ДНЕЙ
+                </button>
+            </div>
+
+            <!-- Players Grid (with IMG placeholders for custom artwork without text) -->
+            <div id="playersGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Player 1: Leader -->
+                <div class="player-card role-leader is-mvp bg-nukeCard border-2 border-nukeYellow rounded-xl overflow-hidden shadow-neon-yellow transition-all hover:scale-[1.02]">
+                    <div class="relative h-70 bg-black overflow-hidden border-b border-nukeBorder">
+                        <img 
+                            src="assets/images/toxic.png" 
+                            alt="ToxicWaste Avatar" 
+                            class="w-full h-full object-cover"
+                            onerror="this.onerror=null; this.src='assets/images/empty.jpg'"
+                        />
+                        <span class="absolute top-3 left-3 bg-nukeYellow text-black font-orbitron font-extrabold text-[10px] px-2 py-0.5 rounded uppercase">ЛИДЕР КЛАНА</span>
+                        <span class="absolute top-3 right-3 bg-nukeGreen/20 text-nukeGreen border border-nukeGreen font-orbitron font-bold text-[10px] px-2 py-0.5 rounded">MVP 3x</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-orbitron font-black text-xl text-white tracking-wide">ToxicWaste</h3>
+                        <p class="text-xs text-nukeYellow font-semibold mt-0.5">Ранг: Лидер Клана</p>
+                        <div class="mt-4 pt-3 border-t border-nukeBorder flex justify-between items-center text-xs">
+                            <span class="text-gray-400">Стрик MVP:</span>
+                            <span class="font-bold text-nukeGreen"><i class="fa-solid fa-star text-nukeYellow mr-1"></i>6</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Player 2: Captain -->
+                <div class="player-card role-leader is-mvp bg-nukeCard border border-nukeGreen rounded-xl overflow-hidden shadow-neon-green transition-all hover:scale-[1.02]">
+                    <div class="relative h-70 bg-black overflow-hidden border-b border-nukeBorder">
+                        <img 
+                            src="assets/images/caxap.jpg" 
+                            alt="Caxapok Avatar" 
+                            class="w-full h-full object-cover"
+                            onerror="this.onerror=null; this.src='assets/images/empty.jpg'"
+                        />
+                        <span class="absolute top-3 left-3 bg-nukeGreen text-black font-orbitron font-extrabold text-[10px] px-2 py-0.5 rounded uppercase">КАПИТАН</span>
+                        <span class="absolute top-3 right-3 bg-nukeGreen/20 text-nukeGreen border border-nukeGreen font-orbitron font-bold text-[10px] px-2 py-0.5 rounded">MVP 1x</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-orbitron font-black text-xl text-white tracking-wide">Caxapok</h3>
+                        <p class="text-xs text-nukeGreen font-semibold mt-0.5">Ранг: Капитан</p>
+                        <div class="mt-4 pt-3 border-t border-nukeBorder flex justify-between items-center text-xs">
+                            <span class="text-gray-400">Стрик MVP:</span>
+                            <span class="font-bold text-nukeGreen"><i class="fa-solid fa-star text-nukeYellow mr-1"></i>NaN</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Player 3: Captain -->
+                <div class="player-card role-leader is-mvp bg-nukeCard border border-nukeGreen rounded-xl overflow-hidden shadow-neon-green transition-all hover:scale-[1.02]">
+                    <div class="relative h-70 bg-black overflow-hidden border-b border-nukeBorder">
+                        <img 
+                            src="assets/images/empty.jpg" 
+                            alt="DM4XL Avatar" 
+                            class="w-full h-full object-cover"
+                            onerror="this.onerror=null; this.src='assets/images/empty.jpg'"
+                        />
+                        <span class="absolute top-3 left-3 bg-nukeGreen text-black font-orbitron font-extrabold text-[10px] px-2 py-0.5 rounded uppercase">КАПИТАН</span>
+                        <span class="absolute top-3 right-3 bg-nukeGreen/20 text-nukeGreen border border-nukeGreen font-orbitron font-bold text-[10px] px-2 py-0.5 rounded">MVP 1x</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-orbitron font-black text-xl text-white tracking-wide">DM4XL</h3>
+                        <p class="text-xs text-nukeGreen font-semibold mt-0.5">Ранг: Капитан</p>
+                        <div class="mt-4 pt-3 border-t border-nukeBorder flex justify-between items-center text-xs">
+                            <span class="text-gray-400">Стрик MVP:</span>
+                            <span class="font-bold text-nukeGreen"><i class="fa-solid fa-star text-nukeYellow mr-1"></i>NaN</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Player 4: Player -->
+                <div class="player-card role-player is-mvp bg-nukeCard border border-nukeBorder hover:border-nukeGreen rounded-xl overflow-hidden transition-all hover:scale-[1.02]">
+                    <div class="relative h-70 bg-black overflow-hidden border-b border-nukeBorder">
+                        <img 
+                            src="../muller.jpg" 
+                            alt="Muller Avatar" 
+                            class="w-full h-full object-cover"
+                            onerror="this.onerror=null; this.src='../empty.jpg'"
+                        />
+                        <span class="absolute top-3 left-3 bg-gray-800 text-gray-200 border border-gray-600 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase">ИГРОК</span>
+                        <span class="absolute top-3 right-3 bg-nukeGreen/20 text-nukeGreen border border-nukeGreen font-orbitron font-bold text-[10px] px-2 py-0.5 rounded">MVP 1x</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-orbitron font-black text-xl text-white tracking-wide">Muller</h3>
+                        <p class="text-xs text-gray-400 font-semibold mt-0.5">Ранг: Игрок</p>
+                        <div class="mt-4 pt-3 border-t border-nukeBorder flex justify-between items-center text-xs">
+                            <span class="text-gray-400">Стрик MVP:</span>
+                            <span class="font-bold text-nukeGreen"><i class="fa-solid fa-star text-nukeYellow mr-1"></i>1</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Player 5: Player -->
+                <div class="player-card role-player bg-nukeCard border border-nukeBorder hover:border-nukeGreen rounded-xl overflow-hidden transition-all hover:scale-[1.02]">
+                    <div class="relative h-70 bg-black overflow-hidden border-b border-nukeBorder">
+                        <img 
+                            src="assets/images/empty.jpg" 
+                            alt="Makarowka Avatar" 
+                            class="w-full h-full object-cover"
+                            onerror="this.onerror=null; this.src='assets/images/empty.jpg'"
+                        />
+                        <span class="absolute top-3 left-3 bg-gray-800 text-gray-200 border border-gray-600 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase">ИГРОК</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-orbitron font-black text-xl text-white tracking-wide">Makarowka</h3>
+                        <p class="text-xs text-gray-400 font-semibold mt-0.5">Ранг: Игрок</p>
+                        <div class="mt-4 pt-3 border-t border-nukeBorder flex justify-between items-center text-xs">
+                            <span class="text-gray-400">Статус MVP:</span>
+                            <span class="text-gray-500">Участник боев</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Player 6: Player -->
+                <div class="player-card role-player bg-nukeCard border border-nukeBorder hover:border-nukeGreen rounded-xl overflow-hidden transition-all hover:scale-[1.02]">
+                    <div class="relative h-70 bg-black overflow-hidden border-b border-nukeBorder">
+                        <img 
+                            src="assets/images/empty.jpg" 
+                            alt="Lev Avatar" 
+                            class="w-full h-full object-cover"
+                            onerror="this.onerror=null; this.src='assets/images/empty.jpg'"
+                        />
+                        <span class="absolute top-3 left-3 bg-gray-800 text-gray-200 border border-gray-600 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase">ИГРОК</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-orbitron font-black text-xl text-white tracking-wide">Lev</h3>
+                        <p class="text-xs text-gray-400 font-semibold mt-0.5">Ранг: Игрок</p>
+                        <div class="mt-4 pt-3 border-t border-nukeBorder flex justify-between items-center text-xs">
+                            <span class="text-gray-400">Статус MVP:</span>
+                            <span class="text-gray-500">Участник боев</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Player 7: Player -->
+                <div class="player-card role-player bg-nukeCard border border-nukeBorder hover:border-nukeGreen rounded-xl overflow-hidden transition-all hover:scale-[1.02]">
+                    <div class="relative h-56 bg-black overflow-hidden border-b border-nukeBorder">
+                        <img 
+                            src="assets/images/empty.jpg" 
+                            alt="zuba Avatar" 
+                            class="w-full h-full object-cover"
+                            onerror="this.onerror=null; this.src='assets/images/empty.jpg'"
+                        />
+                        <span class="absolute top-3 left-3 bg-gray-800 text-gray-200 border border-gray-600 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase">ИГРОК</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-orbitron font-black text-xl text-white tracking-wide">zuba</h3>
+                        <p class="text-xs text-gray-400 font-semibold mt-0.5">Ранг: Игрок</p>
+                        <div class="mt-4 pt-3 border-t border-nukeBorder flex justify-between items-center text-xs">
+                            <span class="text-gray-400">Статус MVP:</span>
+                            <span class="text-gray-500">Участник боев</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Player 8: Player -->
+                <div class="player-card role-player bg-nukeCard border border-nukeBorder hover:border-nukeGreen rounded-xl overflow-hidden transition-all hover:scale-[1.02]">
+                    <div class="relative h-56 bg-black overflow-hidden border-b border-nukeBorder">
+                        <img 
+                            src="assets/images/empty.jpg" 
+                            alt="svyat Avatar" 
+                            class="w-full h-full object-cover"
+                            onerror="this.onerror=null; this.src='assets/images/empty.jpg'"
+                        />
+                        <span class="absolute top-3 left-3 bg-gray-800 text-gray-200 border border-gray-600 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase">ИГРОК</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-orbitron font-black text-xl text-white tracking-wide">Svyat</h3>
+                        <p class="text-xs text-gray-400 font-semibold mt-0.5">Ранг: Игрок</p>
+                        <div class="mt-4 pt-3 border-t border-nukeBorder flex justify-between items-center text-xs">
+                            <span class="text-gray-400">Статус MVP:</span>
+                            <span class="text-gray-500">Участник боев</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Player 8: Player -->
+                <div class="player-card role-player bg-nukeCard border border-nukeBorder hover:border-nukeGreen rounded-xl overflow-hidden transition-all hover:scale-[1.02]">
+                    <div class="relative h-56 bg-black overflow-hidden border-b border-nukeBorder">
+                        <img 
+                            src="assets/images/empty.jpg" 
+                            alt="mumentik Avatar" 
+                            class="w-full h-full object-cover"
+                            onerror="this.onerror=null; this.src='assets/images/empty.jpg'"
+                        />
+                        <span class="absolute top-3 left-3 bg-gray-800 text-gray-200 border border-gray-600 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase">ИГРОК</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-orbitron font-black text-xl text-white tracking-wide">Mumentik</h3>
+                        <p class="text-xs text-gray-400 font-semibold mt-0.5">Ранг: Игрок</p>
+                        <div class="mt-4 pt-3 border-t border-nukeBorder flex justify-between items-center text-xs">
+                            <span class="text-gray-400">Статус MVP:</span>
+                            <span class="text-gray-500">Участник боев</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Player 8: Player -->
+                <div class="player-card role-player bg-nukeCard border border-nukeBorder hover:border-nukeGreen rounded-xl overflow-hidden transition-all hover:scale-[1.02]">
+                    <div class="relative h-56 bg-black overflow-hidden border-b border-nukeBorder">
+                        <img 
+                            src="assets/images/empty.jpg" 
+                            alt="HibiwaretaK Avatar" 
+                            class="w-full h-full object-cover"
+                            onerror="this.onerror=null; this.src='assets/images/empty.jpg'"
+                        />
+                        <span class="absolute top-3 left-3 bg-gray-800 text-gray-200 border border-gray-600 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase">ИГРОК</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-orbitron font-black text-xl text-white tracking-wide">HibiwaretaK</h3>
+                        <p class="text-xs text-gray-400 font-semibold mt-0.5">Ранг: Игрок</p>
+                        <div class="mt-4 pt-3 border-t border-nukeBorder flex justify-between items-center text-xs">
+                            <span class="text-gray-400">Статус MVP:</span>
+                            <span class="text-gray-500">Участник боев</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Player 8: Player -->
+                <div class="player-card role-player bg-nukeCard border border-nukeBorder hover:border-nukeGreen rounded-xl overflow-hidden transition-all hover:scale-[1.02]">
+                    <div class="relative h-56 bg-black overflow-hidden border-b border-nukeBorder">
+                        <img 
+                            src="assets/images/empty.jpg" 
+                            alt="Asteroit Avatar" 
+                            class="w-full h-full object-cover"
+                            onerror="this.onerror=null; this.src='assets/images/empty.jpg'"
+                        />
+                        <span class="absolute top-3 left-3 bg-gray-800 text-gray-200 border border-gray-600 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase">ИГРОК</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-orbitron font-black text-xl text-white tracking-wide">Asteroit</h3>
+                        <p class="text-xs text-gray-400 font-semibold mt-0.5">Ранг: Игрок</p>
+                        <div class="mt-4 pt-3 border-t border-nukeBorder flex justify-between items-center text-xs">
+                            <span class="text-gray-400">Статус MVP:</span>
+                            <span class="text-gray-500">Участник боев</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Player 8: Player -->
+                <div class="player-card role-player bg-nukeCard border border-nukeBorder hover:border-nukeGreen rounded-xl overflow-hidden transition-all hover:scale-[1.02]">
+                    <div class="relative h-56 bg-black overflow-hidden border-b border-nukeBorder">
+                        <img 
+                            src="assets/images/empty.jpg" 
+                            alt="Bogatyr Avatar" 
+                            class="w-full h-full object-cover"
+                            onerror="this.onerror=null; this.src='assets/images/empty.jpg'"
+                        />
+                        <span class="absolute top-3 left-3 bg-gray-800 text-gray-200 border border-gray-600 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase">ИГРОК</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-orbitron font-black text-xl text-white tracking-wide">Bogatyr</h3>
+                        <p class="text-xs text-gray-400 font-semibold mt-0.5">Ранг: Игрок</p>
+                        <div class="mt-4 pt-3 border-t border-nukeBorder flex justify-between items-center text-xs">
+                            <span class="text-gray-400">Статус MVP:</span>
+                            <span class="text-gray-500">Участник боев</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Player 8: Player -->
+                <div class="player-card role-player bg-nukeCard border border-nukeBorder hover:border-nukeGreen rounded-xl overflow-hidden transition-all hover:scale-[1.02]">
+                    <div class="relative h-56 bg-black overflow-hidden border-b border-nukeBorder">
+                        <img 
+                            src="assets/images/empty.jpg" 
+                            alt="flex Avatar" 
+                            class="w-full h-full object-cover"
+                            onerror="this.onerror=null; this.src='assets/images/empty.jpg'"
+                        />
+                        <span class="absolute top-3 left-3 bg-gray-800 text-gray-200 border border-gray-600 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase">ИГРОК</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-orbitron font-black text-xl text-white tracking-wide">flex</h3>
+                        <p class="text-xs text-gray-400 font-semibold mt-0.5">Ранг: Игрок</p>
+                        <div class="mt-4 pt-3 border-t border-nukeBorder flex justify-between items-center text-xs">
+                            <span class="text-gray-400">Статус MVP:</span>
+                            <span class="text-gray-500">Участник боев</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black border-t border-nukeBorder py-12 relative z-10 text-gray-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            
+            <div class="flex items-center space-x-3">
+                <i class="fa-solid fa-radiation text-nukeGreen text-2xl"></i>
+                <span class="font-orbitron font-bold text-white text-lg">NUKESQUAD</span>
+            </div>
+
+            <p class="text-xs text-center text-gray-500">
+                &copy; NukeSquad Clan. Все права заражены.
+            </p>
+
+            <div class="flex items-center space-x-4">
+                <a href="" class="w-9 h-9 rounded-full bg-nukeCard border border-nukeBorder flex items-center justify-center text-nukeGreen hover:border-nukeGreen transition-colors">
+                    <i class="fa-brands fa-discord"></i>
+                </a>
+                <a href="" class="w-9 h-9 rounded-full bg-nukeCard border border-nukeBorder flex items-center justify-center text-nukeGreen hover:border-nukeGreen transition-colors">
+                    <i class="fa-brands fa-telegram"></i>
+                </a>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT FOR INTERACTIVITY -->
+    <script>
+        // Player Filtering Logic
+        function filterPlayers(category) {
+            const cards = document.querySelectorAll('.player-card');
+            const buttons = document.querySelectorAll('.player-filter-btn');
+
+            // Reset button styles
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-nukeGreen', 'text-black', 'shadow-neon-green');
+                btn.classList.add('bg-nukeCard', 'text-gray-300');
+            });
+
+            // Highlight active button
+            const activeBtn = document.getElementById(`btn-${category}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-nukeCard', 'text-gray-300');
+                activeBtn.classList.add('bg-nukeGreen', 'text-black', 'shadow-neon-green');
+            }
+
+            // Show/Hide cards
+            cards.forEach(card => {
+                if (category === 'all') {
+                    card.style.display = 'block';
+                } else if (category === 'leader') {
+                    card.style.display = card.classList.contains('role-leader') ? 'block' : 'none';
+                } else if (category === 'player') {
+                    card.style.display = card.classList.contains('role-player') ? 'block' : 'none';
+                } else if (category === 'mvp') {
+                    card.style.display = card.classList.contains('is-mvp') ? 'block' : 'none';
+                }
+            });
+        }
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
